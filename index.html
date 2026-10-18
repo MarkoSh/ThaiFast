@@ -59,6 +59,7 @@ tailwind.config = {
       <a href="#phrases" class="hover:text-white transition" data-i18n="navPhrases"></a>
       <a href="#words" class="hover:text-white transition" data-i18n="navWords"></a>
       <a href="#train" class="hover:text-white transition" data-i18n="navTrain"></a>
+      <a href="#topverbs" class="hover:text-white transition" data-i18n="navTop"></a>
     </div>
     <div class="flex items-center gap-2">
       <div class="flex rounded-lg border border-white/10 p-0.5 text-xs font-semibold" role="group" aria-label="Gender">
@@ -343,6 +344,35 @@ tailwind.config = {
     </div>
   </section>
 
+  <!-- 07 TOP VERBS -->
+  <section id="topverbs" class="py-20 md:py-28 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="max-w-2xl">
+          <p class="font-mono text-sm text-accent">07</p>
+          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight"><span id="tvCount"></span> <span data-i18n="tvTitle"></span></h2>
+          <p class="mt-3 text-zinc-400" data-i18n="tvSub"></p>
+        </div>
+        <label class="relative self-start md:self-auto w-full md:w-72">
+          <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500"></i>
+          <input id="tvSearch" type="search" class="w-full h-11 rounded-xl border border-white/10 bg-ink-900 pl-10 pr-3 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent">
+        </label>
+      </div>
+      <div class="reveal mt-8 rounded-2xl border border-white/10 bg-ink-900 overflow-x-auto">
+        <table class="w-full min-w-[760px] text-sm">
+          <thead class="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-white/10">
+            <tr><th class="px-4 py-3 w-12">#</th><th class="px-4 py-3" data-i18n="tvVerb"></th><th class="px-4 py-3" data-i18n="tvMeaning"></th><th class="px-4 py-3" data-i18n="tvExample"></th><th class="px-4 py-3 w-32" data-i18n="tvFreq"></th></tr>
+          </thead>
+          <tbody id="tvBody" class="divide-y divide-white/5"></tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <button id="tvMore" class="self-start rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold hover:bg-white/5 transition flex items-center gap-2"><i data-lucide="chevrons-down" class="w-4 h-4"></i><span></span></button>
+        <p class="text-xs text-zinc-500 max-w-xl" data-i18n-html="tvSource"></p>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="py-20 md:py-28 border-t border-white/5">
     <div class="reveal max-w-3xl mx-auto px-4 text-center">
@@ -368,7 +398,7 @@ tailwind.config = {
 /* ================= UI TEXT ================= */
 const T = {
   ru: {
-    navSounds: 'Звуки', navTones: 'Тоны', navAlpha: 'Алфавит', navPhrases: 'Фразы', navWords: 'Слова', navTrain: 'Тренажёры',
+    navSounds: 'Звуки', navTones: 'Тоны', navAlpha: 'Алфавит', navPhrases: 'Фразы', navWords: 'Слова', navTrain: 'Тренажёры', navTop: 'Топ-глаголы',
     male: 'Он', female: 'Она',
     badge: '15 минут до первого разговора',
     heroTitle: 'Тайский с нуля. Без лишнего.',
@@ -406,6 +436,9 @@ const T = {
     hurts: 'Болит',
     sentBuilder: 'Соберите предложение', verbNote: 'Глаголы не спрягаются: กิน — «ем», «ел» и «буду есть». Время показывают маленькие слова вроде จะ (буду). «Я» у мужчин — ผม, у женщин — ฉัน.',
     m_none: 'Я делаю', m_want: 'Я хочу', m_not: 'Я не', m_will: 'Я буду',
+    tvTitle: 'самых частых глаголов', tvSub: 'Отобраны по частоте в постах тайцев из соцсетей — это живая речь, а не учебник. Примеры — так, как говорят в жизни. Нажмите на слово или пример, чтобы услышать.',
+    tvVerb: 'Глагол', tvMeaning: 'Значение', tvExample: 'Как говорят', tvFreq: 'Частота', tvSearch: 'Поиск: ไป, есть, buy…', tvMore: 'Показать все', tvLess: 'Свернуть',
+    tvSource: 'Частота — число постов с этим глаголом в корпусе <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/wisesight-sentiment" target="_blank" rel="noopener">Wisesight</a> (26 737 постов из тайских соцсетей), сверено с <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/pythainlp" target="_blank" rel="noopener">Thai National Corpus</a>. Разметка частей речи — PyThaiNLP.',
     trainTitle: 'Тренажёры', trainSub: 'Выберите набор и тренируйтесь пару минут.',
     tabCards: 'Карточки', tabQuiz: 'Викторина', tabTones: 'Тоны',
     pool_phrases: 'Фразы', pool_alpha: 'Алфавит', pool_num: 'Цифры', pool_body: 'Тело', pool_verb: 'Глаголы',
@@ -414,11 +447,11 @@ const T = {
     score: 'Верно', streak: 'Серия', quizQ: 'Что это значит?',
     hint: 'Подсказка', toneQ: 'Послушайте слог и выберите тон',
     outro: 'По-тайски «удачи» — так же прощаются с друзьями. Вернитесь завтра и пройдите тренажёры ещё раз — повторение решает всё.',
-    footer: 'Озвучка через голос браузера',
+    footer: 'Озвучка — нейроголоса Niwat и Premwadee',
     noVoice: 'В браузере не найден тайский голос. Попробуйте Chrome или Edge либо установите тайский голос в системе.'
   },
   en: {
-    navSounds: 'Sounds', navTones: 'Tones', navAlpha: 'Alphabet', navPhrases: 'Phrases', navWords: 'Words', navTrain: 'Practice',
+    navSounds: 'Sounds', navTones: 'Tones', navAlpha: 'Alphabet', navPhrases: 'Phrases', navWords: 'Words', navTrain: 'Practice', navTop: 'Top verbs',
     male: 'He', female: 'She',
     badge: '15 minutes to your first conversation',
     heroTitle: 'Thai from zero. Nothing extra.',
@@ -456,6 +489,9 @@ const T = {
     hurts: 'Hurts',
     sentBuilder: 'Build a sentence', verbNote: 'Verbs never conjugate: กิน means eat, ate and will eat. Little words like จะ (will) mark the time. “I” is ผม for men, ฉัน for women.',
     m_none: 'I do', m_want: 'I want', m_not: 'I don’t', m_will: 'I will',
+    tvTitle: 'most common verbs', tvSub: 'Ranked by how often Thais use them in social media posts — real speech, not a textbook. Examples are how people actually say it. Tap a word or example to hear it.',
+    tvVerb: 'Verb', tvMeaning: 'Meaning', tvExample: 'How it’s said', tvFreq: 'Frequency', tvSearch: 'Search: ไป, eat, buy…', tvMore: 'Show all', tvLess: 'Collapse',
+    tvSource: 'Frequency = number of posts containing the verb in the <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/wisesight-sentiment" target="_blank" rel="noopener">Wisesight</a> corpus (26,737 Thai social media posts), cross-checked with the <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/pythainlp" target="_blank" rel="noopener">Thai National Corpus</a>. POS tagging by PyThaiNLP.',
     trainTitle: 'Practice', trainSub: 'Pick a set and drill for a couple of minutes.',
     tabCards: 'Cards', tabQuiz: 'Quiz', tabTones: 'Tones',
     pool_phrases: 'Phrases', pool_alpha: 'Alphabet', pool_num: 'Numbers', pool_body: 'Body', pool_verb: 'Verbs',
@@ -464,7 +500,7 @@ const T = {
     score: 'Correct', streak: 'Streak', quizQ: 'What does it mean?',
     hint: 'Hint', toneQ: 'Listen to the syllable and pick the tone',
     outro: 'Thai for “good luck” — also how friends say goodbye. Come back tomorrow and run the drills again. Repetition is everything.',
-    footer: 'Audio via your browser’s voice',
+    footer: 'Voices — Niwat & Premwadee neural TTS',
     noVoice: 'No Thai voice found in this browser. Try Chrome or Edge, or install a Thai voice in your OS.'
   }
 };
@@ -687,6 +723,70 @@ const VERB = [
   ['นั่ง', 'nâng', 'нанг', 'сидеть', 'сижу', 'sit'], ['เดิน', 'doen', 'дён', 'ходить пешком', 'хожу пешком', 'walk']
 ].map(([th, lat, cyr, ru, r1, en]) => ({ th, lat, cyr, ru, r1, en, np: 1 }));
 
+// Top verbs by frequency in Thai social media (Wisesight corpus, 26,737 posts) cross-checked with Thai National Corpus.
+// th | lat | cyr | ru | en | example th | example lat | example ru | example en | posts containing the verb
+const TOPV = `ไป|bpai|пай|идти, ехать|go|ไปไหน|bpai nǎi|Куда идёшь?|Where you off to?|4653
+ได้|dâai|дай|мочь, получать|can, get|ได้ไหม|dâai mǎi|Можно?|Can I?|4135
+มี|mii|ми|иметь, есть|have, there is|มีไหม|mii mǎi|Есть такое?|Do you have it?|4099
+มา|maa|ма|приходить|come|มาแล้ว|maa láew|Иду! / Уже здесь|Coming! / I’m here|3852
+จะ|jà|джа|буду (будущее)|will|จะไปไหน|jà bpai nǎi|Куда собрался?|Where are you going?|3364
+กิน|gin|кин|есть|eat|กินอะไรดี|gin à-rai dii|Что поедим?|What shall we eat?|2686
+เป็น|bpen|пен|быть|be|เป็นอะไร|bpen à-rai|Что с тобой?|What’s wrong?|2325
+ใช้|chái|чхай|пользоваться|use|ใช้ได้ไหม|chái dâai mǎi|Можно воспользоваться?|Can I use it?|1583
+ต้อง|dtông|тонг|надо, должен|must, have to|ต้องไปแล้ว|dtông bpai láew|Мне пора|Gotta go|1564
+อยาก|yàak|як|хотеть|want|อยากกินส้มตำ|yàak gin sôm-dtam|Хочу сом там|I want som tam|1390
+คือ|khue|кхы|это, являться|is, means|คืออะไร|khue à-rai|Это что?|What is it?|1376
+อยู่|yùu|ю|находиться, жить|be at, live|อยู่ไหน|yùu nǎi|Ты где?|Where are you?|1166
+เอา|ao|ао|брать, хотеть (вещь)|take, want|เอาอันนี้|ao an-níi|Беру вот это|I’ll take this|1107
+ซื้อ|súue|сы|покупать|buy|ซื้ออะไรมา|súue à-rai maa|Что купил?|What did you buy?|995
+ทำ|tham|тхам|делать|do, make|ทำอะไรอยู่|tham à-rai yùu|Чем занят?|What are you up to?|955
+ดู|duu|ду|смотреть|look, watch|ดูหน่อย|duu nòi|Дай глянуть|Let me see|908
+ขอ|khǒr|кхо|просить|ask for|ขอดูหน่อย|khǒr duu nòi|Можно посмотреть?|Can I have a look?|802
+เคย|khoei|кхёй|доводилось|ever, used to|เคยไปไหม|khoei bpai mǎi|Был там когда-нибудь?|Ever been there?|688
+เห็น|hěn|хен|видеть|see|เห็นไหม|hěn mǎi|Видишь?|See?|676
+บอก|bòk|бок|сказать|tell|บอกแล้ว|bòk láew|Я же говорил|I told you|647
+ขาย|khǎai|кхай|продавать|sell|ขายยังไง|khǎai yang-ngai|Почём продаёте?|How much are these?|615
+รอ|ror|ро|ждать|wait|รอแป๊บ|ror bpáep|Подожди секунду|Wait a sec|591
+รับ|ráp|рап|принимать, брать|receive, take|รับอะไรดี|ráp à-rai dii|Что будете? (официант)|What can I get you?|545
+ชอบ|chôop|чхоп|нравиться|like|ชอบไหม|chôop mǎi|Нравится?|Like it?|541
+รู้|rúu|ру|знать|know|รู้แล้ว|rúu láew|Да знаю я|I know already|516
+ลอง|long|лонг|пробовать|try|ลองดู|long duu|Попробуй|Give it a try|496
+ช่วย|chûay|чхуай|помогать|help|ช่วยหน่อย|chûay nòi|Помоги, пожалуйста|Help me out|495
+ออก|òk|ок|выходить|go out, exit|ออกไปก่อน|òk bpai gòn|Я выйду|I’ll step out|491
+คิด|khít|кхит|думать|think|คิดถึงนะ|khít-thǔeng ná|Скучаю по тебе|I miss you|437
+เปิด|bpòet|пёт|открывать, включать|open, turn on|เปิดกี่โมง|bpòet gìi mohng|Во сколько открываетесь?|What time do you open?|432
+ใส่|sài|сай|класть, надевать|put in, wear|ไม่ใส่น้ำตาล|mâi sài náam-dtaan|Без сахара|No sugar|414
+เข้า|khâo|кхао|входить|enter|เข้ามาเลย|khâo maa loei|Заходи!|Come on in!|406
+หา|hǎa|ха|искать|look for|หาอะไร|hǎa à-rai|Что ищешь?|What are you looking for?|357
+สั่ง|sàng|санг|заказывать|order|สั่งแล้วยัง|sàng láew yang|Уже заказал?|Ordered yet?|344
+ส่ง|sòng|сонг|отправлять|send|ส่งไลน์มานะ|sòng lai maa ná|Кинь в лайн|Send it on LINE|324
+เลี้ยง|líang|лианг|угощать, кормить|treat, feed|เลี้ยงเอง|líang eeng|Я угощаю|My treat|315
+เจอ|jer|джё|встречать, находить|meet, find|เจอกันนะ|jer gan ná|Увидимся|See you|310
+หมด|mòt|мот|закончиться|run out|หมดแล้ว|mòt láew|Уже закончилось|Sold out|304
+ถาม|thǎam|тхам|спрашивать|ask|ขอถามหน่อย|khǒr thǎam nòi|Можно спросить?|Can I ask something?|261
+พา|phaa|пха|вести, брать с собой|take someone|พาไปหน่อย|phaa bpai nòi|Отведи меня|Take me there|254
+กลับ|glàp|клап|возвращаться|go back|กลับบ้านแล้ว|glàp bâan láew|Я домой|Heading home|240
+เล่น|lên|лен|играть|play|เล่นด้วยกันไหม|lên dûay gan mǎi|Поиграем вместе?|Wanna play?|231
+อ่าน|àan|ан|читать|read|อ่านไม่ออก|àan mâi òk|Не могу прочитать|I can’t read it|221
+แนะนำ|náe-nam|нэ-нам|советовать|recommend|แนะนำอะไรดี|náe-nam à-rai dii|Что посоветуете?|What do you recommend?|213
+จ่าย|jàai|джай|платить|pay|จ่ายแล้ว|jàai láew|Я уже заплатил|I’ve paid|208
+เสีย|sǐa|сиа|ломаться, тратить|break, waste|เสียเวลา|sǐa wee-laa|Только время тратить|Waste of time|206
+หาย|hǎai|хай|пропасть, пройти|disappear, recover|หายยัง|hǎai yang|Уже выздоровел?|Feeling better?|197
+เรียก|rîak|риак|звать|call|เรียกแท็กซี่ให้หน่อย|rîak tháek-sîi hâi nòi|Вызовите такси|Call me a taxi|190
+จอง|jong|джонг|бронировать|book|จองไว้แล้ว|jong wái láew|Я забронировал|I’ve booked|184
+นั่ง|nâng|нанг|сидеть|sit|นั่งก่อน|nâng gòn|Присаживайся|Have a seat|171
+พูด|phûut|пхут|говорить|speak|พูดอีกทีได้ไหม|phûut ìik thii dâai mǎi|Повторите, пожалуйста|Say that again?|159
+เดิน|doen|дён|идти пешком|walk|เดินไปได้ไหม|doen bpai dâai mǎi|Дойти пешком можно?|Walkable?|157
+เข้าใจ|khâo-jai|кхао-джай|понимать|understand|เข้าใจไหม|khâo-jai mǎi|Понятно?|Got it?|151
+เก็บ|gèp|кеп|собирать, хранить|keep, collect|เก็บตังค์ด้วย|gèp dtang dûay|Рассчитайте нас|Check, please|150
+รู้สึก|rúu-sùek|ру-сык|чувствовать|feel|รู้สึกดีขึ้น|rúu-sùek dii khûen|Мне лучше|I feel better|148
+หยุด|yùt|ют|остановиться|stop|หยุดก่อน|yùt gòn|Стой!|Stop!|135
+ฝาก|fàak|фак|оставить, поручить|leave with, entrust|ฝากด้วยนะ|fàak dûay ná|Присмотри, пожалуйста|Please look after it|126
+ดื่ม|dùuem|дым|пить|drink|ดื่มอะไรดี|dùuem à-rai dii|Что будем пить?|What shall we drink?|122`.split('\n').map((r, i) => {
+  const [th, lat, cyr, ru, en, xth, xlat, xru, xen, n] = r.split('|');
+  return { rank: i + 1, th, lat, cyr, ru, en, xth, xlat, xru, xen, n: +n, np: 1 };
+});
+
 const MODALS = [
   { k: 'none', th: '', lat: '', cyr: '' },
   { k: 'want', th: 'อยาก', lat: 'yàak', cyr: 'як' },
@@ -699,7 +799,7 @@ const U_TH = ['', 'หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห
 const U_LAT = ['', 'nùeng', 'sǒng', 'sǎam', 'sìi', 'hâa', 'hòk', 'jèt', 'bpàet', 'gâo'];
 const U_CYR = ['', 'нынг', 'сонг', 'сам', 'си', 'ха', 'хок', 'джет', 'пэт', 'као'];
 function thaiNum(n) {
-  if (n === 0) return { th: 'ศูนย์', lat: 'sǔun', cyr: 'сун' };
+  if (n === 0) return { th: 'ศูนย์', lat: 'sǔun', cyr: 'сун', parts: ['ศูนย์'] };
   const out = { th: [], lat: [], cyr: [] };
   const add = (a, b, c) => { out.th.push(a); out.lat.push(b); out.cyr.push(c) };
   const big = [[10000, 'หมื่น', 'mùuen', 'мын'], [1000, 'พัน', 'phan', 'пхан'], [100, 'ร้อย', 'rói', 'рой']];
@@ -713,7 +813,7 @@ function thaiNum(n) {
   else if (t) add(U_TH[t] + 'สิบ', `${U_LAT[t]}-sìp`, `${U_CYR[t]}-сип`);
   if (u === 1 && n > 10) add('เอ็ด', 'èt', 'эт');
   else if (u) add(U_TH[u], U_LAT[u], U_CYR[u]);
-  return { th: out.th.join(''), lat: out.lat.join(' '), cyr: out.cyr.join(' ') };
+  return { th: out.th.join(''), lat: out.lat.join(' '), cyr: out.cyr.join(' '), parts: out.th };
 }
 const thaiDigits = n => String(n).replace(/\d/g, d => '๐๑๒๓๔๕๖๗๘๙'[d]);
 // self-check
@@ -743,21 +843,41 @@ const curve = d => `<svg viewBox="0 0 60 34" class="w-full h-10" fill="none"><pa
 const chip = (on, extra = '') => `px-3.5 py-1.5 rounded-full text-sm font-medium border transition flex items-center gap-1.5 ${on ? 'bg-accent text-ink-950 border-accent' : 'border-white/10 text-zinc-400 hover:text-white'} ${extra}`;
 
 /* ================= SPEECH ================= */
-let thVoice = null, warned = false;
+// Pre-generated neural voice files: audio/<m|f>/<fnv1a(text)>.mp3 (see tools/gen_audio.py).
+// Falls back to the browser's speechSynthesis when a file is missing.
+const fnv = str => { let h = 0x811c9dc5; for (const b of new TextEncoder().encode(str)) { h ^= b; h = Math.imul(h, 0x01000193) >>> 0 } return h.toString(16).padStart(8, '0') };
+const player = new Audio();
+let thVoice = null, warned = false, playId = 0;
 const hasTTS = 'speechSynthesis' in window;
 function loadVoices() { thVoice = speechSynthesis.getVoices().find(v => /^th/i.test(v.lang)) || null }
 if (hasTTS) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices }
-function speak(text, btn) {
-  if (!hasTTS) return toast(t('noVoice'));
-  if (!thVoice && !warned) { warned = true; toast(t('noVoice')) }
+function ttsFallback(text, done) {
+  if (!hasTTS || (!thVoice && !warned)) { warned = true; toast(t('noVoice')) }
+  if (!hasTTS) return done();
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'th-TH'; u.rate = .75;
   if (thVoice) u.voice = thVoice;
+  u.onend = u.onerror = done;
+  speechSynthesis.speak(u);
+}
+// text may be "part|part|part" — played back to back (used by the number builder)
+function speak(text, btn) {
+  const id = ++playId, parts = text.split('|');
+  player.pause(); if (hasTTS) speechSynthesis.cancel();
   $$('.speaking').forEach(b => b.classList.remove('speaking'));
   btn?.classList.add('speaking');
-  u.onend = u.onerror = () => btn?.classList.remove('speaking');
-  speechSynthesis.speak(u);
+  const done = () => { if (id === playId) btn?.classList.remove('speaking') };
+  let i = 0;
+  const next = () => {
+    if (id !== playId) return;
+    if (i >= parts.length) return done();
+    player.src = `audio/${gender}/${fnv(parts[i++])}.mp3`;
+    player.play().catch(() => {});
+  };
+  player.onended = next;
+  player.onerror = () => { if (id === playId) ttsFallback(parts.join(''), done) };
+  next();
 }
 let toastTimer;
 function toast(msg) {
@@ -775,9 +895,11 @@ document.addEventListener('click', e => {
 function renderText() {
   document.documentElement.lang = lang;
   $$('[data-i18n]').forEach(el => el.textContent = t(el.dataset.i18n));
+  $$('[data-i18n-html]').forEach(el => el.innerHTML = t(el.dataset.i18nHtml));
+  $('#tvSearch').placeholder = t('tvSearch');
   $$('[data-particle]').forEach(el => el.textContent = pt().th);
   $('#statPhrases').textContent = PH.length;
-  $('#statWords').textContent = NUM.length + BODY.length + VERB.length;
+  $('#statWords').textContent = NUM.length + BODY.length + TOPV.length;
   const on = 'bg-white text-ink-950', off = 'text-zinc-400 hover:text-white';
   $$('[data-lang]').forEach(b => b.className = `px-2.5 py-1.5 rounded-md transition ${b.dataset.lang === lang ? on : off}`);
   $$('[data-gender]').forEach(b => b.className = `px-2.5 py-1.5 rounded-md transition flex items-center gap-1 ${b.dataset.gender === gender ? on : off}`);
@@ -886,7 +1008,7 @@ function renderNum() {
   const n = Math.max(0, Math.min(99999, parseInt(inp.value, 10) || 0));
   const r = thaiNum(n);
   $('#numOut').innerHTML = `<div class="fade-up">
-    <div class="flex items-center gap-4"><span class="font-mono text-4xl font-bold text-white">${n.toLocaleString(lang)}</span><span class="font-thai text-3xl text-zinc-500">${thaiDigits(n)}</span><span class="ml-auto">${playBtn(r.th, 'w-12 h-12')}</span></div>
+    <div class="flex items-center gap-4"><span class="font-mono text-4xl font-bold text-white">${n.toLocaleString(lang)}</span><span class="font-thai text-3xl text-zinc-500">${thaiDigits(n)}</span><span class="ml-auto">${playBtn(r.parts.join('|'), 'w-12 h-12')}</span></div>
     <p class="mt-4 font-thai text-3xl md:text-4xl text-white break-words">${r.th}</p>
     <p class="mt-2 font-mono text-accent">${r.lat}</p>
     ${lang === 'ru' ? `<p class="text-zinc-500">${r.cyr}</p>` : ''}</div>`;
@@ -899,7 +1021,7 @@ const setNum = v => { $('#numIn').value = Math.max(0, Math.min(99999, v)); rende
 $('#numIn').addEventListener('input', () => { renderNum(); icons() });
 $('#numMinus').onclick = () => setNum((+$('#numIn').value || 0) - 1);
 $('#numPlus').onclick = () => setNum((+$('#numIn').value || 0) + 1);
-$('#numRand').onclick = () => { setNum([20, 40, 50, 60, 80, 120, 150, 250, 350, 499, 1200, 3500][Math.random() * 12 | 0]); speak(thaiNum(+$('#numIn').value).th, $('#numOut [data-say]')) };
+$('#numRand').onclick = () => { setNum([20, 40, 50, 60, 80, 120, 150, 250, 350, 499, 1200, 3500][Math.random() * 12 | 0]); speak(thaiNum(+$('#numIn').value).parts.join('|'), $('#numOut [data-say]')) };
 
 function renderBody() {
   $('#bodyGrid').innerHTML = BODY.map(x => wordTile(x, x.noPain ? '' :
@@ -936,6 +1058,29 @@ function renderVtabs() {
 }
 $$('.vtab').forEach(b => b.onclick = () => { vtab = b.dataset.vtab; renderVtabs() });
 
+/* --- top verbs table --- */
+let tvAll = false;
+function renderTopVerbs() {
+  const qv = $('#tvSearch').value.trim().toLowerCase();
+  const max = TOPV[0].n;
+  const rows = TOPV.filter(v => !qv || [v.th, v.lat, v.ru, v.en, v.xth].some(f => f.toLowerCase().includes(qv)));
+  const shown = qv || tvAll ? rows : rows.slice(0, 20);
+  $('#tvCount').textContent = TOPV.length;
+  $('#tvBody').innerHTML = shown.map(v => `<tr class="hover:bg-white/[.02] transition">
+    <td class="px-4 py-3 font-mono text-zinc-500">${v.rank}</td>
+    <td class="px-4 py-3"><button data-say="${v.th}" class="text-left group/v"><span class="font-thai text-xl text-white group-hover/v:text-accent transition">${v.th}</span><span class="block font-mono text-xs text-accent">${v.lat}</span>${lang === 'ru' ? `<span class="block text-xs text-zinc-500">${v.cyr}</span>` : ''}</button></td>
+    <td class="px-4 py-3 text-zinc-200">${v[lang]}</td>
+    <td class="px-4 py-3"><button data-say="${v.xth}" class="text-left flex items-start gap-3 group/x"><i data-lucide="volume-2" class="w-4 h-4 mt-1.5 shrink-0 text-zinc-500 group-hover/x:text-accent transition"></i><span><span class="font-thai text-base text-white">${v.xth}</span><span class="block font-mono text-xs text-accent/80">${v.xlat}</span><span class="block text-xs text-zinc-400">${L(v.xru, v.xen)}</span></span></button></td>
+    <td class="px-4 py-3"><div class="h-1.5 rounded-full bg-white/5 overflow-hidden"><div class="h-full bg-accent/70" style="width:${Math.max(4, v.n / max * 100)}%"></div></div><span class="mt-1 block font-mono text-[11px] text-zinc-500">${v.n.toLocaleString(lang)}</span></td>
+  </tr>`).join('');
+  const more = $('#tvMore');
+  more.classList.toggle('hidden', !!qv);
+  more.querySelector('span').textContent = tvAll ? t('tvLess') : `${t('tvMore')} ${TOPV.length}`;
+  more.querySelector('i')?.setAttribute('data-lucide', tvAll ? 'chevrons-up' : 'chevrons-down');
+}
+$('#tvSearch').addEventListener('input', () => { renderTopVerbs(); icons() });
+$('#tvMore').onclick = () => { tvAll = !tvAll; renderTopVerbs(); icons(); if (!tvAll) $('#topverbs').scrollIntoView({ behavior: 'smooth' }) };
+
 /* --- hero --- */
 const HERO = PH.filter(x => ['greet', 'polite', 'bye'].includes(x.c));
 let heroI = 0, heroTimer;
@@ -960,7 +1105,7 @@ $('#heroPlay').onclick = e => speak(say(HERO[heroI]), e.currentTarget);
 const POOLS = {
   phrases: PH,
   alpha: CONS.filter(c => !c.old).map(c => ({ th: c.ch, lat: c.name, ru: `${c.word} — ${c.ru}`, en: `${c.word} — ${c.en}`, say: c.ch + ' ' + c.word, np: 1 })),
-  num: NUM, body: BODY, verb: VERB
+  num: NUM, body: BODY, verb: TOPV
 };
 const items = () => POOLS[pool];
 
@@ -1083,7 +1228,7 @@ $$('.tab').forEach(b => b.onclick = () => {
 /* ================= TOGGLES & INIT ================= */
 function renderAll() {
   renderText(); renderSounds(); renderTones(); renderAlphabet(); renderPhrases();
-  renderNum(); renderBody(); renderVerbs(); renderHero(); renderPools();
+  renderNum(); renderBody(); renderVerbs(); renderTopVerbs(); renderHero(); renderPools();
   fcShow(); qRender(); tRender(); icons();
 }
 $$('[data-lang]').forEach(b => b.onclick = () => { lang = b.dataset.lang; store.set('tf-lang', lang); renderAll() });
