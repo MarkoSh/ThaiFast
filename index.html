@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="ru" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ThaiFast — тайский с нуля</title>
+<meta name="description" content="Тайский язык с нуля: звуки, тоны, алфавит, цифры, нужные фразы и быстрые тренажёры.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    fontFamily: { sans: ['Inter', 'Noto Sans Thai', 'system-ui', 'sans-serif'], thai: ['Noto Sans Thai', 'sans-serif'] },
+    colors: { ink: { 950: '#09090b', 900: '#101114', 800: '#17191d', 700: '#23262c', 600: '#33373f' }, accent: '#e8b04b' }
+  } }
+}
+</script>
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<style>
+  body { background: #09090b; }
+  .flip { perspective: 1200px; }
+  .flip-inner { transition: transform .6s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; }
+  .flip.flipped .flip-inner { transform: rotateY(180deg); }
+  .face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .face.back { transform: rotateY(180deg); }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .tone-path { stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in .tone-path, .tone-btn .tone-path { stroke-dashoffset: 0; }
+  @keyframes shake { 20%,60% { transform: translateX(-6px) } 40%,80% { transform: translateX(6px) } }
+  .shake { animation: shake .4s; }
+  @keyframes pop { 50% { transform: scale(1.04) } }
+  .pop { animation: pop .35s; }
+  @keyframes pulseRing { 0% { box-shadow: 0 0 0 0 rgba(232,176,75,.55) } 100% { box-shadow: 0 0 0 14px rgba(232,176,75,0) } }
+  .speaking { animation: pulseRing 1s infinite; color: #e8b04b; border-color: #e8b04b; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+  .fade-up { animation: fadeUp .45s cubic-bezier(.2,.8,.2,1); }
+  .grid-bg { background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 48px 48px; }
+  input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+  input[type=number] { -moz-appearance: textfield; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }
+</style>
+</head>
+<body class="text-zinc-200 font-sans antialiased selection:bg-accent selection:text-ink-950">
+
+<!-- NAV -->
+<header class="fixed top-0 inset-x-0 z-40 border-b border-white/5 bg-ink-950/75 backdrop-blur-xl">
+  <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+    <a href="#top" class="flex items-center gap-2 font-bold tracking-tight text-white">
+      <span class="grid place-items-center w-8 h-8 rounded-lg bg-accent text-ink-950"><i data-lucide="zap" class="w-4 h-4"></i></span>
+      ThaiFast
+    </a>
+    <div class="hidden lg:flex items-center gap-6 text-sm text-zinc-400">
+      <a href="#sounds" class="hover:text-white transition" data-i18n="navSounds"></a>
+      <a href="#tones" class="hover:text-white transition" data-i18n="navTones"></a>
+      <a href="#alphabet" class="hover:text-white transition" data-i18n="navAlpha"></a>
+      <a href="#phrases" class="hover:text-white transition" data-i18n="navPhrases"></a>
+      <a href="#words" class="hover:text-white transition" data-i18n="navWords"></a>
+      <a href="#train" class="hover:text-white transition" data-i18n="navTrain"></a>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="flex rounded-lg border border-white/10 p-0.5 text-xs font-semibold" role="group" aria-label="Gender">
+        <button data-gender="m" class="px-2.5 py-1.5 rounded-md transition flex items-center gap-1"><i data-lucide="user" class="w-3.5 h-3.5"></i><span data-i18n="male"></span></button>
+        <button data-gender="f" class="px-2.5 py-1.5 rounded-md transition flex items-center gap-1"><i data-lucide="user-round" class="w-3.5 h-3.5"></i><span data-i18n="female"></span></button>
+      </div>
+      <div class="flex rounded-lg border border-white/10 p-0.5 text-xs font-semibold" role="group" aria-label="Language">
+        <button data-lang="ru" class="px-2.5 py-1.5 rounded-md transition">RU</button>
+        <button data-lang="en" class="px-2.5 py-1.5 rounded-md transition">EN</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28 grid-bg">
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full bg-accent/10 blur-3xl pointer-events-none"></div>
+    <div class="relative max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+      <div class="reveal">
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-400">
+          <i data-lucide="timer" class="w-3.5 h-3.5 text-accent"></i><span data-i18n="badge"></span>
+        </div>
+        <h1 class="mt-6 text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.05]" data-i18n="heroTitle"></h1>
+        <p class="mt-5 text-lg text-zinc-400 max-w-md" data-i18n="heroSub"></p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#sounds" class="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 font-semibold text-ink-950 hover:brightness-110 transition">
+            <span data-i18n="ctaStart"></span><i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <a href="#train" class="inline-flex items-center gap-2 rounded-xl border border-white/10 px-5 py-3 font-semibold text-white hover:bg-white/5 transition">
+            <i data-lucide="dumbbell" class="w-4 h-4"></i><span data-i18n="ctaTrain"></span>
+          </a>
+        </div>
+        <dl class="mt-10 grid grid-cols-3 gap-4 max-w-sm text-sm">
+          <div><dt class="text-2xl font-bold text-white">44</dt><dd class="text-zinc-500" data-i18n="statLetters"></dd></div>
+          <div><dt class="text-2xl font-bold text-white" id="statPhrases"></dt><dd class="text-zinc-500" data-i18n="statPhrases"></dd></div>
+          <div><dt class="text-2xl font-bold text-white" id="statWords"></dt><dd class="text-zinc-500" data-i18n="statWords"></dd></div>
+        </dl>
+      </div>
+
+      <div class="reveal">
+        <div class="relative rounded-3xl border border-white/10 bg-ink-900/80 p-8 shadow-2xl shadow-black/50">
+          <div class="flex items-center justify-between text-xs text-zinc-500">
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span data-i18n="heroCard"></span></span>
+            <span id="heroIdx" class="font-mono"></span>
+          </div>
+          <div id="heroWord" class="mt-8 min-h-[190px]"></div>
+          <div class="mt-6 flex items-center gap-3">
+            <button id="heroPlay" class="grid place-items-center w-12 h-12 rounded-full border border-white/15 hover:border-accent hover:text-accent transition" aria-label="Play"><i data-lucide="volume-2" class="w-5 h-5"></i></button>
+            <button id="heroNext" class="grid place-items-center w-12 h-12 rounded-full border border-white/15 hover:bg-white/5 transition" aria-label="Next"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+            <div class="flex-1 h-1 rounded-full bg-white/5 overflow-hidden"><div id="heroBar" class="h-full bg-accent w-0"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 SOUNDS -->
+  <section id="sounds" class="py-20 md:py-28 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">01</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="soundsTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="soundsSub"></p>
+      </div>
+      <div id="soundsGrid" class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      <div class="reveal mt-6 flex items-start gap-3 rounded-2xl border border-accent/20 bg-accent/5 p-5 text-sm">
+        <i data-lucide="ruler" class="w-5 h-5 text-accent shrink-0 mt-0.5"></i>
+        <p class="text-zinc-300" data-i18n="lengthNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 TONES -->
+  <section id="tones" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">02</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="tonesTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="tonesSub"></p>
+      </div>
+      <div id="tonesGrid" class="reveal mt-10 grid grid-cols-2 md:grid-cols-5 gap-3"></div>
+      <div class="reveal mt-6 rounded-2xl border border-white/10 bg-ink-950 p-6 flex flex-col md:flex-row md:items-center gap-4 justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-zinc-500" data-i18n="twister"></p>
+          <p class="mt-2 font-thai text-3xl text-white">ไม้ใหม่ไม่ไหม้ไหม</p>
+          <p class="mt-1 font-mono text-accent">mái mài mâi mâi mǎi</p>
+          <p class="mt-1 text-sm text-zinc-400" data-i18n="twisterTr"></p>
+        </div>
+        <button data-say="ไม้ใหม่ไม่ไหม้ไหม" class="self-start md:self-auto inline-flex items-center gap-2 rounded-xl border border-white/15 px-4 py-2.5 text-sm font-semibold hover:border-accent hover:text-accent transition">
+          <i data-lucide="volume-2" class="w-4 h-4"></i><span data-i18n="listen"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 ALPHABET -->
+  <section id="alphabet" class="py-20 md:py-28 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="max-w-2xl">
+          <p class="font-mono text-sm text-accent">03</p>
+          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="alphaTitle"></h2>
+          <p class="mt-3 text-zinc-400" data-i18n="alphaSub"></p>
+        </div>
+        <div id="classTabs" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div class="reveal mt-10 grid lg:grid-cols-[1fr_340px] gap-6 items-start">
+        <div id="consGrid" class="grid grid-cols-5 sm:grid-cols-8 lg:grid-cols-9 gap-2"></div>
+        <aside id="consDetail" class="lg:sticky lg:top-24 rounded-2xl border border-white/10 bg-ink-900 p-6"></aside>
+      </div>
+
+      <div class="reveal mt-14">
+        <h3 class="text-xl font-bold text-white" data-i18n="vowelsTitle"></h3>
+        <p class="mt-2 text-sm text-zinc-400 max-w-2xl" data-i18n="vowelsSub"></p>
+        <div id="vowelGrid" class="mt-6 grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-8 gap-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 PHRASES -->
+  <section id="phrases" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">04</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="phrasesTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="phrasesSub"></p>
+      </div>
+      <div id="catTabs" class="reveal mt-8 flex flex-wrap gap-2"></div>
+      <div id="phraseGrid" class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+      <!-- Bill -->
+      <div class="reveal mt-14 rounded-3xl border border-accent/25 bg-ink-950 p-6 md:p-8">
+        <div class="flex items-center gap-3">
+          <span class="grid place-items-center w-10 h-10 rounded-xl bg-accent/15 text-accent"><i data-lucide="receipt" class="w-5 h-5"></i></span>
+          <div>
+            <h3 class="text-xl font-bold text-white" data-i18n="billTitle"></h3>
+            <p class="text-sm text-zinc-400" data-i18n="billSub"></p>
+          </div>
+        </div>
+        <div class="mt-6 grid md:grid-cols-[260px_1fr] gap-6">
+          <div id="billOpts" class="grid grid-cols-2 md:grid-cols-1 gap-2"></div>
+          <div id="billOut" class="rounded-2xl border border-white/10 bg-ink-900 p-6 min-h-[220px] flex flex-col justify-center"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 WORDS -->
+  <section id="words" class="py-20 md:py-28 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="max-w-2xl">
+          <p class="font-mono text-sm text-accent">05</p>
+          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="wordsTitle"></h2>
+          <p class="mt-3 text-zinc-400" data-i18n="wordsSub"></p>
+        </div>
+        <div class="inline-flex self-start md:self-auto rounded-2xl border border-white/10 bg-ink-900 p-1 text-sm font-semibold">
+          <button data-vtab="num" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="hash" class="w-4 h-4"></i><span data-i18n="vNum"></span></button>
+          <button data-vtab="body" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="person-standing" class="w-4 h-4"></i><span data-i18n="vBody"></span></button>
+          <button data-vtab="verb" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="move-right" class="w-4 h-4"></i><span data-i18n="vVerb"></span></button>
+        </div>
+      </div>
+
+      <!-- Numbers -->
+      <div data-vpanel="num" class="mt-10">
+        <div class="rounded-3xl border border-white/10 bg-ink-900 p-6 md:p-8 grid md:grid-cols-[280px_1fr] gap-8 items-center">
+          <div>
+            <p class="text-sm font-semibold text-white flex items-center gap-2"><i data-lucide="calculator" class="w-4 h-4 text-accent"></i><span data-i18n="numBuilder"></span></p>
+            <div class="mt-4 flex items-center gap-2">
+              <button id="numMinus" class="grid place-items-center w-11 h-11 rounded-xl border border-white/10 hover:bg-white/5 transition" aria-label="-"><i data-lucide="minus" class="w-4 h-4"></i></button>
+              <input id="numIn" type="number" min="0" max="99999" value="250" class="w-full h-11 rounded-xl border border-white/10 bg-ink-950 px-3 text-center font-mono text-lg text-white focus:outline-none focus:border-accent">
+              <button id="numPlus" class="grid place-items-center w-11 h-11 rounded-xl border border-white/10 hover:bg-white/5 transition" aria-label="+"><i data-lucide="plus" class="w-4 h-4"></i></button>
+            </div>
+            <button id="numRand" class="mt-3 w-full rounded-xl border border-white/10 py-2.5 text-sm font-semibold hover:border-accent hover:text-accent transition flex items-center justify-center gap-2"><i data-lucide="shuffle" class="w-4 h-4"></i><span data-i18n="numRandom"></span></button>
+          </div>
+          <div id="numOut"></div>
+        </div>
+        <div id="numGrid" class="mt-6 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3"></div>
+        <p class="mt-6 flex items-start gap-3 text-sm text-zinc-400"><i data-lucide="info" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i><span data-i18n="numNote"></span></p>
+      </div>
+
+      <!-- Body -->
+      <div data-vpanel="body" class="hidden mt-10">
+        <div class="flex items-start gap-3 rounded-2xl border border-accent/20 bg-accent/5 p-5 text-sm">
+          <i data-lucide="stethoscope" class="w-5 h-5 text-accent shrink-0 mt-0.5"></i>
+          <p class="text-zinc-300" data-i18n="bodyNote"></p>
+        </div>
+        <div id="bodyGrid" class="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"></div>
+      </div>
+
+      <!-- Verbs -->
+      <div data-vpanel="verb" class="hidden mt-10">
+        <div class="rounded-3xl border border-white/10 bg-ink-900 p-6 md:p-8">
+          <p class="text-sm font-semibold text-white flex items-center gap-2"><i data-lucide="blocks" class="w-4 h-4 text-accent"></i><span data-i18n="sentBuilder"></span></p>
+          <div id="modalOpts" class="mt-4 flex flex-wrap gap-2"></div>
+          <div id="sentOut" class="mt-6 rounded-2xl border border-white/10 bg-ink-950 p-6"></div>
+          <p class="mt-4 flex items-start gap-3 text-sm text-zinc-400"><i data-lucide="sparkles" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i><span data-i18n="verbNote"></span></p>
+        </div>
+        <div id="verbGrid" class="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 TRAINERS -->
+  <section id="train" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="reveal text-center max-w-2xl mx-auto">
+        <p class="font-mono text-sm text-accent">06</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="trainTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="trainSub"></p>
+      </div>
+
+      <div class="reveal mt-10 flex justify-center">
+        <div class="inline-flex rounded-2xl border border-white/10 bg-ink-950 p-1 text-sm font-semibold">
+          <button data-tab="cards" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="layers" class="w-4 h-4"></i><span data-i18n="tabCards"></span></button>
+          <button data-tab="quiz" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="list-checks" class="w-4 h-4"></i><span data-i18n="tabQuiz"></span></button>
+          <button data-tab="tones" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="audio-lines" class="w-4 h-4"></i><span data-i18n="tabTones"></span></button>
+        </div>
+      </div>
+      <div id="poolTabs" class="reveal mt-4 flex flex-wrap justify-center gap-2"></div>
+
+      <div class="reveal mt-6 rounded-3xl border border-white/10 bg-ink-950 p-6 md:p-10 min-h-[440px]">
+        <!-- Flashcards -->
+        <div data-panel="cards">
+          <div class="flex items-center justify-between text-sm text-zinc-500">
+            <span><span data-i18n="known"></span>: <b id="fcKnown" class="text-white">0</b> / <span id="fcTotal"></span></span>
+            <button id="fcReset" class="flex items-center gap-1.5 hover:text-white transition"><i data-lucide="rotate-ccw" class="w-4 h-4"></i><span data-i18n="restart"></span></button>
+          </div>
+          <div class="mt-3 h-1 rounded-full bg-white/5 overflow-hidden"><div id="fcBar" class="h-full bg-accent transition-all duration-500" style="width:0"></div></div>
+          <div id="fcCard" class="flip mt-8 h-64 cursor-pointer select-none" tabindex="0" role="button">
+            <div class="flip-inner relative w-full h-full">
+              <div class="face absolute inset-0 rounded-2xl border border-white/10 bg-ink-800 grid place-items-center text-center p-6">
+                <div>
+                  <p id="fcFront" class="font-thai text-4xl md:text-5xl text-white leading-snug"></p>
+                  <p class="mt-4 text-xs uppercase tracking-widest text-zinc-500 flex items-center justify-center gap-1.5"><i data-lucide="mouse-pointer-click" class="w-3.5 h-3.5"></i><span data-i18n="tapFlip"></span></p>
+                </div>
+              </div>
+              <div class="face back absolute inset-0 rounded-2xl border border-accent/30 bg-ink-800 grid place-items-center text-center p-6">
+                <div>
+                  <p id="fcMeaning" class="text-2xl md:text-3xl font-bold text-white"></p>
+                  <p id="fcLat" class="mt-3 font-mono text-accent text-lg"></p>
+                  <p id="fcCyr" class="mt-1 text-zinc-400"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="fcDone" class="hidden mt-8 h-64 rounded-2xl border border-emerald-400/30 bg-emerald-400/5 grid place-items-center text-center">
+            <div><i data-lucide="party-popper" class="w-10 h-10 mx-auto text-emerald-400"></i><p class="mt-4 text-xl font-bold text-white" data-i18n="fcDone"></p></div>
+          </div>
+          <div id="fcBtns" class="mt-6 grid grid-cols-3 gap-3">
+            <button id="fcAgain" class="rounded-xl border border-white/10 py-3 font-semibold hover:bg-white/5 transition flex items-center justify-center gap-2"><i data-lucide="repeat" class="w-4 h-4"></i><span data-i18n="again"></span></button>
+            <button id="fcSay" class="rounded-xl border border-white/10 py-3 font-semibold hover:border-accent hover:text-accent transition flex items-center justify-center gap-2"><i data-lucide="volume-2" class="w-4 h-4"></i><span data-i18n="listen"></span></button>
+            <button id="fcKnow" class="rounded-xl bg-accent text-ink-950 py-3 font-semibold hover:brightness-110 transition flex items-center justify-center gap-2"><i data-lucide="check" class="w-4 h-4"></i><span data-i18n="iKnow"></span></button>
+          </div>
+        </div>
+
+        <!-- Quiz -->
+        <div data-panel="quiz" class="hidden">
+          <div class="flex items-center justify-between text-sm text-zinc-500">
+            <span><span data-i18n="score"></span>: <b id="qScore" class="text-white">0</b> / <span id="qTotal">0</span></span>
+            <span class="flex items-center gap-1.5"><i data-lucide="flame" class="w-4 h-4 text-accent"></i><span data-i18n="streak"></span>: <b id="qStreak" class="text-white">0</b></span>
+          </div>
+          <div id="qPrompt" class="mt-8 text-center"></div>
+          <div id="qOpts" class="mt-8 grid sm:grid-cols-2 gap-3"></div>
+        </div>
+
+        <!-- Tone trainer -->
+        <div data-panel="tones" class="hidden">
+          <div class="flex items-center justify-between text-sm text-zinc-500">
+            <span><span data-i18n="score"></span>: <b id="tScore" class="text-white">0</b> / <span id="tTotal">0</span></span>
+            <button id="tHint" class="flex items-center gap-1.5 hover:text-white transition"><i data-lucide="eye" class="w-4 h-4"></i><span data-i18n="hint"></span></button>
+          </div>
+          <div class="mt-8 text-center">
+            <p class="text-zinc-400" data-i18n="toneQ"></p>
+            <button id="tPlay" class="mt-6 mx-auto grid place-items-center w-24 h-24 rounded-full border-2 border-white/15 hover:border-accent hover:text-accent transition" aria-label="Play"><i data-lucide="volume-2" class="w-9 h-9"></i></button>
+            <p id="tReveal" class="mt-5 h-8 font-mono text-xl text-accent"></p>
+          </div>
+          <div id="tOpts" class="mt-6 grid grid-cols-2 sm:grid-cols-5 gap-3"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 md:py-28 border-t border-white/5">
+    <div class="reveal max-w-3xl mx-auto px-4 text-center">
+      <p class="font-thai text-5xl md:text-7xl font-bold text-white">โชคดี<span class="text-accent" data-particle></span></p>
+      <p class="mt-4 font-mono text-accent">chôhk-dii</p>
+      <p class="mt-6 text-zinc-400 text-lg" data-i18n="outro"></p>
+      <a href="#train" class="mt-8 inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 font-semibold text-ink-950 hover:brightness-110 transition">
+        <i data-lucide="play" class="w-4 h-4"></i><span data-i18n="ctaTrain"></span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-white/5 py-8 text-center text-sm text-zinc-600">
+  <p>ThaiFast · <span data-i18n="footer"></span></p>
+</footer>
+
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100%-32px)] rounded-xl border border-white/10 bg-ink-800 px-4 py-3 text-sm text-zinc-200 shadow-xl opacity-0 pointer-events-none transition duration-300 flex items-center gap-2">
+  <i data-lucide="info" class="w-4 h-4 text-accent shrink-0"></i><span id="toastText"></span>
+</div>
+
+<script>
+/* ================= UI TEXT ================= */
+const T = {
+  ru: {
+    navSounds: 'Звуки', navTones: 'Тоны', navAlpha: 'Алфавит', navPhrases: 'Фразы', navWords: 'Слова', navTrain: 'Тренажёры',
+    male: 'Он', female: 'Она',
+    badge: '15 минут до первого разговора',
+    heroTitle: 'Тайский с нуля. Без лишнего.',
+    heroSub: 'Звуки, тоны, алфавит и фразы для ресторана, такси, отеля и знакомств. Слушайте, повторяйте, закрепляйте в тренажёрах.',
+    ctaStart: 'Начать со звуков', ctaTrain: 'К тренажёрам',
+    statLetters: 'букв', statPhrases: 'фраз', statWords: 'слов',
+    heroCard: 'Фраза дня',
+    soundsTitle: 'Звуки, которых нет в русском',
+    soundsSub: 'Латиница в транскрипции — это подсказка, а не английское чтение. Шесть звуков, на которых спотыкаются все. Нажмите, чтобы услышать.',
+    lengthNote: 'Двойная гласная (aa, ii, uu) тянется вдвое дольше. В тайском длина гласной меняет смысл слова — не проглатывайте её.',
+    tonesTitle: 'Пять тонов — пять разных слов',
+    tonesSub: 'Высота голоса — часть слова. Один и тот же слог «май» пятью тонами — пять разных значений. Знак над гласной в транскрипции показывает тон.',
+    twister: 'Скороговорка', twisterTr: '«Новое дерево ведь не горит?»',
+    listen: 'Слушать',
+    alphaTitle: '44 согласные',
+    alphaSub: 'У каждой буквы есть имя-слово: ก — «гор гай», «к как в курице». Так учат тайские дети. Нажмите на букву — услышите её и узнаете, как она звучит в начале и в конце слога.',
+    clsAll: 'Все', clsM: 'Средний класс', clsH: 'Высокий класс', clsL: 'Низкий класс',
+    clsMd: 'Средний класс — 9 букв. В живом слоге без знаков тон ровный.',
+    clsHd: 'Высокий класс — 11 букв. В живом слоге без знаков тон восходящий.',
+    clsLd: 'Низкий класс — 24 буквы. В живом слоге без знаков тон ровный.',
+    initial: 'В начале слога', final: 'В конце слога', obsolete: 'Устаревшая, в текстах не встречается',
+    vowelsTitle: 'Гласные пишутся вокруг согласной',
+    vowelsSub: 'Гласная может стоять перед буквой, после, над или под ней. Буква อ здесь — немой «держатель», показывающий место гласной. Нажмите, чтобы услышать.',
+    phrasesTitle: 'Нужные фразы по ситуациям',
+    phrasesSub: 'Мужчины заканчивают фразу на «кхрап», женщины — на «кха». Переключатель «Он / Она» вверху меняет окончание везде.',
+    cat_greet: 'Приветствие', cat_polite: 'Вежливость', cat_bye: 'Прощание', cat_food: 'Ресторан', cat_travel: 'Поездки',
+    cat_hotel: 'Отель', cat_meet: 'Знакомство', cat_time: 'Время', cat_help: 'Полиция и SOS', cat_survive: 'Выживание',
+    billTitle: 'Счёт, пожалуйста', billSub: 'Позвать официанта, разделить счёт или оплатить всё вместе.',
+    wordsTitle: 'Цифры, тело, глаголы',
+    wordsSub: 'Базовый словарь, из которого собираются фразы. Тайская грамматика проста: слова не меняются по родам, числам и временам.',
+    vNum: 'Цифры', vBody: 'Тело', vVerb: 'Глаголы',
+    numBuilder: 'Скажите любое число', numRandom: 'Случайная цена',
+    numNote: 'Тайские цифры ๐–๙ встречаются на ценниках «для местных» и в храмах. 11, 21, 31… заканчиваются на «эт», а не на «нынг», а 20 — «йи-сип», а не «сонг-сип».',
+    bodyNote: 'ปวด (bpùat) + часть тела = «болит». ปวดหัว — болит голова, ปวดท้อง — болит живот. Покажите аптекарю — поймёт сразу. Нажмите «Болит», чтобы услышать.',
+    hurts: 'Болит',
+    sentBuilder: 'Соберите предложение', verbNote: 'Глаголы не спрягаются: กิน — «ем», «ел» и «буду есть». Время показывают маленькие слова вроде จะ (буду). «Я» у мужчин — ผม, у женщин — ฉัน.',
+    m_none: 'Я делаю', m_want: 'Я хочу', m_not: 'Я не', m_will: 'Я буду',
+    trainTitle: 'Тренажёры', trainSub: 'Выберите набор и тренируйтесь пару минут.',
+    tabCards: 'Карточки', tabQuiz: 'Викторина', tabTones: 'Тоны',
+    pool_phrases: 'Фразы', pool_alpha: 'Алфавит', pool_num: 'Цифры', pool_body: 'Тело', pool_verb: 'Глаголы',
+    known: 'Выучено', restart: 'Заново', tapFlip: 'Нажмите, чтобы перевернуть',
+    again: 'Ещё раз', iKnow: 'Знаю', fcDone: 'Все карточки выучены!',
+    score: 'Верно', streak: 'Серия', quizQ: 'Что это значит?',
+    hint: 'Подсказка', toneQ: 'Послушайте слог и выберите тон',
+    outro: 'По-тайски «удачи» — так же прощаются с друзьями. Вернитесь завтра и пройдите тренажёры ещё раз — повторение решает всё.',
+    footer: 'Озвучка через голос браузера',
+    noVoice: 'В браузере не найден тайский голос. Попробуйте Chrome или Edge либо установите тайский голос в системе.'
+  },
+  en: {
+    navSounds: 'Sounds', navTones: 'Tones', navAlpha: 'Alphabet', navPhrases: 'Phrases', navWords: 'Words', navTrain: 'Practice',
+    male: 'He', female: 'She',
+    badge: '15 minutes to your first conversation',
+    heroTitle: 'Thai from zero. Nothing extra.',
+    heroSub: 'Sounds, tones, the alphabet and phrases for restaurants, taxis, hotels and dating. Listen, repeat, lock it in with quick drills.',
+    ctaStart: 'Start with sounds', ctaTrain: 'Go to practice',
+    statLetters: 'letters', statPhrases: 'phrases', statWords: 'words',
+    heroCard: 'Phrase of the moment',
+    soundsTitle: 'Sounds English doesn’t have',
+    soundsSub: 'The Latin spelling is a guide, not English reading. Six sounds that trip everyone up. Tap to listen.',
+    lengthNote: 'A doubled vowel (aa, ii, uu) is held twice as long. In Thai, vowel length changes the meaning — don’t clip it.',
+    tonesTitle: 'Five tones, five different words',
+    tonesSub: 'Pitch is part of the word. The syllable “mai” in five tones gives five meanings. The mark above the vowel shows the tone.',
+    twister: 'Tongue twister', twisterTr: '“New wood doesn’t burn, does it?”',
+    listen: 'Listen',
+    alphaTitle: '44 consonants',
+    alphaSub: 'Every letter has a name-word: ก is “gor gài” — g as in chicken. That’s how Thai kids learn. Tap a letter to hear it and see how it sounds at the start and end of a syllable.',
+    clsAll: 'All', clsM: 'Mid class', clsH: 'High class', clsL: 'Low class',
+    clsMd: 'Mid class — 9 letters. A live syllable with no marks has a mid tone.',
+    clsHd: 'High class — 11 letters. A live syllable with no marks has a rising tone.',
+    clsLd: 'Low class — 24 letters. A live syllable with no marks has a mid tone.',
+    initial: 'Start of syllable', final: 'End of syllable', obsolete: 'Obsolete, no longer used',
+    vowelsTitle: 'Vowels wrap around the consonant',
+    vowelsSub: 'A vowel can sit before, after, above or below the letter. Here อ is a silent placeholder showing where the vowel goes. Tap to listen.',
+    phrasesTitle: 'Phrases for every situation',
+    phrasesSub: 'Men end sentences with “khráp”, women with “khâ”. The He / She switch at the top updates every phrase.',
+    cat_greet: 'Greetings', cat_polite: 'Politeness', cat_bye: 'Farewells', cat_food: 'Restaurant', cat_travel: 'Getting around',
+    cat_hotel: 'Hotel', cat_meet: 'Meeting people', cat_time: 'Time', cat_help: 'Police & SOS', cat_survive: 'Survival',
+    billTitle: 'Check, please', billSub: 'Call for the bill, split it, or pay for everyone.',
+    wordsTitle: 'Numbers, body, verbs',
+    wordsSub: 'The core words phrases are built from. Thai grammar is simple: words never change for gender, number or tense.',
+    vNum: 'Numbers', vBody: 'Body', vVerb: 'Verbs',
+    numBuilder: 'Say any number', numRandom: 'Random price',
+    numNote: 'Thai digits ๐–๙ appear on “locals” price tags and in temples. 11, 21, 31… end in “èt”, not “nùeng”, and 20 is “yîi-sìp”, not “sǒng-sìp”.',
+    bodyNote: 'ปวด (bpùat) + body part = “it hurts”. ปวดหัว — headache, ปวดท้อง — stomach ache. Show it to a pharmacist. Tap “Hurts” to hear it.',
+    hurts: 'Hurts',
+    sentBuilder: 'Build a sentence', verbNote: 'Verbs never conjugate: กิน means eat, ate and will eat. Little words like จะ (will) mark the time. “I” is ผม for men, ฉัน for women.',
+    m_none: 'I do', m_want: 'I want', m_not: 'I don’t', m_will: 'I will',
+    trainTitle: 'Practice', trainSub: 'Pick a set and drill for a couple of minutes.',
+    tabCards: 'Cards', tabQuiz: 'Quiz', tabTones: 'Tones',
+    pool_phrases: 'Phrases', pool_alpha: 'Alphabet', pool_num: 'Numbers', pool_body: 'Body', pool_verb: 'Verbs',
+    known: 'Learned', restart: 'Restart', tapFlip: 'Tap to flip',
+    again: 'Again', iKnow: 'Got it', fcDone: 'All cards learned!',
+    score: 'Correct', streak: 'Streak', quizQ: 'What does it mean?',
+    hint: 'Hint', toneQ: 'Listen to the syllable and pick the tone',
+    outro: 'Thai for “good luck” — also how friends say goodbye. Come back tomorrow and run the drills again. Repetition is everything.',
+    footer: 'Audio via your browser’s voice',
+    noVoice: 'No Thai voice found in this browser. Try Chrome or Edge, or install a Thai voice in your OS.'
+  }
+};
+
+/* ================= PHRASES ================= */
+// th, lat (tone marks), cyr (Russian reading), ru, en, tip [ru, en], np = no polite particle, bill = shown in bill block
+const CATS = [
+  ['greet', 'hand'], ['polite', 'heart-handshake'], ['bye', 'door-open'], ['food', 'utensils'], ['travel', 'car-taxi-front'],
+  ['hotel', 'bed-double'], ['meet', 'users'], ['time', 'clock'], ['help', 'siren'], ['survive', 'life-buoy']
+];
+const PH = [
+  // greet
+  { c: 'greet', th: 'สวัสดี', lat: 'sà-wàt-dii', cyr: 'са-ват-ди', ru: 'Привет / Здравствуйте', en: 'Hello', tip: ['Подходит и для «привет», и для «пока». «ват» — коротко и низко, «ди» — ровно и протяжно.', 'Works for hello and goodbye. “wàt” short and low, “dii” flat and long.'] },
+  { c: 'greet', th: 'เป็นไงบ้าง', lat: 'bpen ngai bâang', cyr: 'пен нгай банг?', ru: 'Как дела?', en: 'How’s it going?', tip: ['Так спрашивают в жизни. สบายดีไหม — тоже правильно, но звучит чуть официальнее.', 'What people actually say. สบายดีไหม is correct too, just more formal.'] },
+  { c: 'greet', th: 'สบายดี', lat: 'sà-baai dii', cyr: 'са-бай ди', ru: 'Всё хорошо', en: 'I’m good', tip: ['«баай» тяните — гласная долгая.', 'Stretch “baai” — the vowel is long.'] },
+  { c: 'greet', th: 'กินข้าวยัง', lat: 'gin khâao yang', cyr: 'кин кхао йанг?', ru: 'Поел уже?', en: 'Eaten yet?', tip: ['Тайское «как ты?» — забота, а не приглашение. Ответ: กินแล้ว (gin láew) — «уже поел».', 'Thai for “how are you?” — care, not an invite. Reply: กินแล้ว (gin láew), “already ate”.'] },
+  { c: 'greet', th: 'ไปไหนมา', lat: 'bpai nǎi maa', cyr: 'пай най ма?', ru: 'Где был?', en: 'Where’ve you been?', tip: ['Приветствие, а не допрос. Можно ответить ไปเที่ยวมา (bpai thîao maa) — «гулял».', 'A greeting, not a question to answer in detail. Say ไปเที่ยวมา (bpai thîao maa), “out and about”.'] },
+  { c: 'greet', th: 'ยินดีที่ได้รู้จัก', lat: 'yin-dii thîi dâai rúu-jàk', cyr: 'йин-ди тхи дай ру-джак', ru: 'Приятно познакомиться', en: 'Nice to meet you', tip: ['Вежливо и чуть официально — для первой встречи, деловой или с семьёй.', 'Polite and a bit formal — for first meetings, work or family.'] },
+  // polite
+  { c: 'polite', th: 'ขอบคุณ', lat: 'khòp-khun', cyr: 'кхоп-кхун', ru: 'Спасибо', en: 'Thank you', tip: ['«кх» — это «к» с выдохом. «п» в конце не взрывается — губы просто смыкаются.', '“kh” is k with a puff of air. The final “p” is unreleased.'] },
+  { c: 'polite', th: 'ขอบคุณมาก', lat: 'khòp-khun mâak', cyr: 'кхоп-кхун мак', ru: 'Большое спасибо', en: 'Thanks a lot' },
+  { c: 'polite', np: 1, th: 'ขอบใจนะ', lat: 'khòp-jai ná', cyr: 'кхоп-джай на', ru: 'Спасибки', en: 'Thanks (casual)', tip: ['Друзьям и тем, кто младше. Старшим — только ขอบคุณ.', 'For friends and younger people. To elders, always ขอบคุณ.'] },
+  { c: 'polite', np: 1, th: 'ตามสบาย', lat: 'dtaam sà-baai', cyr: 'там са-бай', ru: 'Располагайтесь / Как вам удобно', en: 'Make yourself at home', tip: ['Очень тайское: «не напрягайтесь, как удобно». Услышите в гостях и в кафе.', 'Very Thai: “relax, whatever suits you”. You’ll hear it as a guest.'] },
+  { c: 'polite', th: 'รบกวนหน่อย', lat: 'róp-guan nòi', cyr: 'роп-куан ной', ru: 'Будьте добры / Можно вас?', en: 'Excuse me, could you…', tip: ['Так начинают любую просьбу к незнакомому. กรุณา — книжное слово, его пишут на табличках.', 'How you open any request to a stranger. กรุณา is the written word you see on signs.'] },
+  { c: 'polite', th: 'ขอโทษ', lat: 'khǒr-thôht', cyr: 'кхо-тхот', ru: 'Извините', en: 'Sorry / Excuse me', tip: ['«r» не произносится — это знак долгого «о». Подходит и чтобы пройти в толпе.', 'The “r” is silent — it marks a long “o”. Also works to get past people.'] },
+  { c: 'polite', th: 'ไม่เป็นไร', lat: 'mâi bpen rai', cyr: 'май пен рай', ru: 'Ничего страшного', en: 'No worries', tip: ['Главная тайская фраза: и «не за что», и «ничего страшного», и «да ладно». «bp» — между «б» и «п».', 'The most Thai phrase: “you’re welcome”, “never mind”, “it’s fine”. “bp” sits between b and p.'] },
+  // bye
+  { c: 'bye', th: 'ไปก่อนนะ', lat: 'bpai gòn ná', cyr: 'пай кон на', ru: 'Ну, я пошёл / Пока', en: 'I’m off / Bye', tip: ['Самое обычное прощание. นะ в конце смягчает фразу.', 'The everyday goodbye. นะ softens it.'] },
+  { c: 'bye', th: 'ไว้เจอกันใหม่นะ', lat: 'wái jer gan mài ná', cyr: 'вай джё кан май на', ru: 'Ещё увидимся', en: 'We’ll meet again', tip: ['Тёплое прощание, когда не знаете, когда встретитесь.', 'A warm goodbye when you don’t know when you’ll meet.'] },
+  { c: 'bye', th: 'โชคดีนะ', lat: 'chôhk-dii ná', cyr: 'чхок ди на', ru: 'Всего хорошего / Удачи', en: 'Good luck / Take care', tip: ['Тёплое прощание с друзьями и попутчиками.', 'A warm goodbye to friends and fellow travellers.'] },
+  { c: 'bye', th: 'เจอกันพรุ่งนี้นะ', lat: 'jer gan phrûng-níi ná', cyr: 'джё кан пхрунг-ни на', ru: 'До завтра', en: 'See you tomorrow', tip: ['«нг» в «пхрунг» — один носовой звук, без «г» в конце.', '“ng” in “phrûng” is one nasal sound, no hard g.'] },
+  { c: 'bye', th: 'แล้วเจอกัน', lat: 'láew jer gan', cyr: 'лэо джё кан', ru: 'Увидимся', en: 'See you', tip: ['«лэо» — широкое «э», как в англ. cat.', '“láew” uses the open “ae” of “cat”.'] },
+  { c: 'bye', th: 'ไว้คราวหน้านะ', lat: 'wái khraao nâa ná', cyr: 'вай кхрао на на', ru: 'В следующий раз', en: 'Next time', tip: ['Мягко отказаться или отложить: продавцу, другу, таксисту.', 'Softly decline or postpone — to a seller, friend or driver.'] },
+  { c: 'bye', th: 'ขอให้เป็นวันที่ดี', lat: 'khǒr hâi bpen wan thîi dii', cyr: 'кхо хай пен ван тхи ди', ru: 'Хорошего дня', en: 'Have a nice day', tip: ['Звучит вежливо, но книжно — так пишут в сообщениях. Вживую чаще говорят โชคดีนะ.', 'Polite but bookish — more for messages. In person, say โชคดีนะ.'] },
+  // food
+  { c: 'food', th: 'ขอเมนูหน่อย', lat: 'khǒr mee-nuu nòi', cyr: 'кхо мэ-ну ной', ru: 'Можно меню?', en: 'Menu, please', tip: ['ขอ … หน่อย = «дайте … пожалуйста». Самая полезная конструкция.', 'ขอ … หน่อย = “can I have …”. The most useful pattern.'] },
+  { c: 'food', th: 'เอาอันนี้', lat: 'ao an-níi', cyr: 'ао ан-ни', ru: 'Мне вот это', en: 'This one, please', tip: ['Ткнуть пальцем в меню + เอาอันนี้ = заказ на любом языке.', 'Point at the menu + เอาอันนี้ = ordering in any language.'] },
+  { c: 'food', th: 'ขอน้ำเปล่าหน่อย', lat: 'khǒr náam bplàao nòi', cyr: 'кхо нам плао ной', ru: 'Воды, пожалуйста', en: 'Water, please', tip: ['น้ำเปล่า — простая вода. Со льдом — ใส่น้ำแข็ง (sài náam-khǎeng).', 'น้ำเปล่า is plain water. With ice — ใส่น้ำแข็ง (sài náam-khǎeng).'] },
+  { c: 'food', th: 'ไม่เอาเผ็ด', lat: 'mâi ao phèt', cyr: 'май ао пхет', ru: 'Не острое', en: 'Not spicy', tip: ['«ph» — «п» с выдохом, не «ф».', '“ph” is p + breath, not f.'] },
+  { c: 'food', th: 'เผ็ดนิดหน่อย', lat: 'phèt nít-nòi', cyr: 'пхет нит-ной', ru: 'Чуть-чуть остро', en: 'A little spicy', tip: ['Тайское «чуть-чуть» — всё равно остро. Сомневаетесь — ไม่เอาเผ็ด.', 'Thai “a little” is still hot. When in doubt, ไม่เอาเผ็ด.'] },
+  { c: 'food', th: 'ไม่ใส่ผักชี', lat: 'mâi sài phàk-chii', cyr: 'май сай пхак-чхи', ru: 'Без кинзы', en: 'No cilantro', tip: ['ไม่ใส่ … = «без …». ไม่ใส่น้ำตาล — без сахара.', 'ไม่ใส่ … = “without …”. ไม่ใส่น้ำตาล — no sugar.'] },
+  { c: 'food', th: 'แพ้ถั่ว', lat: 'pháe thùa', cyr: 'пхэ тхуа', ru: 'У меня аллергия на орехи', en: 'I’m allergic to nuts', tip: ['แพ้ + продукт = аллергия. แพ้กุ้ง — на креветки.', 'แพ้ + food = allergy. แพ้กุ้ง — to shrimp.'] },
+  { c: 'food', th: 'อร่อยมาก', lat: 'à-ròi mâak', cyr: 'а-рой мак', ru: 'Очень вкусно', en: 'So good', tip: ['Скажите повару — улыбка гарантирована.', 'Tell the cook — guaranteed smile.'] },
+  { c: 'food', th: 'กลับบ้าน', lat: 'glàp bâan', cyr: 'клап бан', ru: 'С собой', en: 'To go', tip: ['Дословно «домой». Ответ на вопрос «ทานที่นี่ไหม» — «здесь будете?».', 'Literally “go home”. The answer to “eating here?”'] },
+  { c: 'food', bill: 'receipt', th: 'ขอเก็บตังค์หน่อย', lat: 'khǒr gèp dtang nòi', cyr: 'кхо кеп танг ной', ru: 'Счёт, пожалуйста', en: 'Check, please', tip: ['Так говорят сами тайцы: дословно «соберите деньги, пожалуйста». Туристический вариант — เช็คบิล (chék bin, «чек бин»). Или жест: «распишитесь» пальцем в воздухе.', 'What Thais actually say: literally “please collect the money”. The tourist version is เช็คบิล (chék bin). Or mime signing in the air.'] },
+  { c: 'food', bill: 'split', th: 'แยกจ่ายได้ไหม', lat: 'yâek jàai dâai mǎi', cyr: 'йэк джай дай май?', ru: 'Можно раздельно?', en: 'Can we pay separately?', tip: ['แยก — «отдельно». Пополам: หารกัน (hǎan gan) — «поделим».', 'แยก means separate. Split evenly: หารกัน (hǎan gan).'] },
+  { c: 'food', bill: 'merge', th: 'รวมกันเลย', lat: 'ruam gan loei', cyr: 'руам кан лёй', ru: 'Всё вместе', en: 'All together', tip: ['Одним счётом на всех. รวม — «объединить».', 'One bill for the table. รวม means combine.'] },
+  { c: 'food', bill: 'credit-card', th: 'รูดบัตรได้ไหม', lat: 'rûut bàt dâai mǎi', cyr: 'рут бат дай май?', ru: 'Можно картой?', en: 'Can I pay by card?', tip: ['รูด — «провести» картой. По QR платят почти везде: โอนได้ไหม (ohn dâai mǎi) — «можно переводом?». Наличные — เงินสด.', 'รูด means swipe. QR payments are everywhere: โอนได้ไหม (ohn dâai mǎi). Cash is เงินสด.'] },
+  { c: 'food', bill: 'gift', th: 'เดี๋ยวเลี้ยงเอง', lat: 'dǐao líang eeng', cyr: 'дьяо лианг энг', ru: 'Я угощаю', en: 'It’s on me', tip: ['Дословно «сейчас сам угощу». Тайцы оценят.', 'Literally “I’ll treat”. Thais appreciate it.'] },
+  { c: 'food', bill: 'coins', th: 'ไม่ต้องทอน', lat: 'mâi dtông thon', cyr: 'май тонг тхон', ru: 'Сдачи не надо', en: 'Keep the change', tip: ['ทอน — давать сдачу.', 'ทอน means give change.'] },
+  // travel
+  { c: 'travel', th: 'ห้องน้ำอยู่ไหน', lat: 'hông-náam yùu nǎi', cyr: 'хонг-нам ю най?', ru: 'Где туалет?', en: 'Where’s the toilet?', tip: ['… อยู่ไหน — «где …». Подставьте любое место.', '… อยู่ไหน = “where’s …”. Plug in any place.'] },
+  { c: 'travel', th: 'ไปสนามบินไหม', lat: 'bpai sà-nǎam-bin mǎi', cyr: 'пай са-нам-бин май?', ru: 'До аэропорта довезёте?', en: 'Going to the airport?', tip: ['Так тайцы ловят такси: сначала спрашивают, поедет ли водитель. Подставьте любое место.', 'How Thais hail a taxi: first ask if the driver will go there. Swap in any place.'] },
+  { c: 'travel', th: 'ไปมิเตอร์ไหม', lat: 'bpai mí-dtôer mǎi', cyr: 'пай ми-тё май?', ru: 'По счётчику поедете?', en: 'Meter OK?', tip: ['Спросите до посадки. Без счётчика цена бывает в разы выше.', 'Ask before getting in. Without the meter the fare can be much higher.'] },
+  { c: 'travel', np: 1, th: 'ตรงนี้แหละ', lat: 'dtrong-níi làe', cyr: 'тронг-ни лэ', ru: 'Вот здесь!', en: 'Right here!', tip: ['แหละ — «именно, вот». Так говорят, когда приехали.', 'แหละ means “exactly”. What you say when you’ve arrived.'] },
+  { c: 'travel', th: 'เท่าไหร่', lat: 'thâo-rài', cyr: 'тхао-рай?', ru: 'Сколько?', en: 'How much?', tip: ['Главное слово на рынке и в тук-туке.', 'Your best friend at markets and tuk-tuks.'] },
+  { c: 'travel', th: 'ลดได้ไหม', lat: 'lót dâai mǎi', cyr: 'лот дай май?', ru: 'Скинете?', en: 'Can you go lower?', tip: ['Торгуйтесь с улыбкой — это игра, а не спор. แพงไป (phaeng bpai) — «дороговато».', 'Bargain with a smile — it’s a game. แพงไป (phaeng bpai) — “too pricey”.'] },
+  { c: 'travel', np: 1, th: 'ตรงไป', lat: 'dtrong bpai', cyr: 'тронг пай', ru: 'Прямо', en: 'Straight ahead' },
+  { c: 'travel', np: 1, th: 'เลี้ยวซ้าย', lat: 'líao sáai', cyr: 'лиао сай', ru: 'Налево', en: 'Turn left' },
+  { c: 'travel', np: 1, th: 'เลี้ยวขวา', lat: 'líao khwǎa', cyr: 'лиао кхва', ru: 'Направо', en: 'Turn right' },
+  { c: 'travel', th: 'จอดตรงนี้', lat: 'jòt dtrong-níi', cyr: 'джот тронг-ни', ru: 'Остановите здесь', en: 'Stop here' },
+  { c: 'travel', th: 'ไกลไหม', lat: 'glai mǎi', cyr: 'клай май?', ru: 'Далеко?', en: 'Is it far?' },
+  // hotel
+  { c: 'hotel', th: 'มีห้องว่างไหม', lat: 'mii hông wâang mǎi', cyr: 'ми хонг ванг май?', ru: 'Есть свободные номера?', en: 'Any rooms free?' },
+  { c: 'hotel', th: 'จองไว้แล้ว', lat: 'jong wái láew', cyr: 'джонг вай лэо', ru: 'У меня бронь', en: 'I have a booking' },
+  { c: 'hotel', th: 'เช็คเอาท์กี่โมง', lat: 'chék-áo gìi mohng', cyr: 'чек-ао ки монг?', ru: 'Во сколько выезд?', en: 'What time is check-out?' },
+  { c: 'hotel', th: 'ไวไฟรหัสอะไร', lat: 'wai-fai rá-hàt à-rai', cyr: 'вай-фай ра-хат а-рай?', ru: 'Какой пароль от вайфая?', en: 'What’s the Wi-Fi password?' },
+  { c: 'hotel', th: 'แอร์ไม่เย็น', lat: 'ae mâi yen', cyr: 'э май йен', ru: 'Кондиционер не холодит', en: 'The AC isn’t cold', tip: ['Самая частая жалоба. Сломалось совсем — เสีย (sǐa): แอร์เสีย, ทีวีเสีย.', 'The classic complaint. Totally broken — เสีย (sǐa): แอร์เสีย.'] },
+  { c: 'hotel', th: 'ขอผ้าเช็ดตัวเพิ่ม', lat: 'khǒr phâa-chét-dtua phôem', cyr: 'кхо пха-чет-туа пхём', ru: 'Ещё полотенце, пожалуйста', en: 'More towels, please' },
+  { c: 'hotel', th: 'ฝากกระเป๋าได้ไหม', lat: 'fàak grà-bpǎo dâai mǎi', cyr: 'фак кра-пао дай май?', ru: 'Можно оставить вещи?', en: 'Can I leave my bags?' },
+  // meet
+  { c: 'meet', th: 'ชื่ออะไร', lat: 'chûue à-rai', cyr: 'чхы а-рай?', ru: 'Как тебя зовут?', en: 'What’s your name?', tip: ['«ы» в ชื่อ — как русское «ы», только долго. «Меня зовут…» — ชื่อ… и имя.', 'The vowel in ชื่อ is a smiling “oo”. “I’m …” — ชื่อ + name.'] },
+  { c: 'meet', th: 'มาจากไหน', lat: 'maa jàak nǎi', cyr: 'ма джак най?', ru: 'Откуда ты?', en: 'Where are you from?' },
+  { c: 'meet', th: 'มาจากรัสเซีย', lat: 'maa jàak rát-sia', cyr: 'ма джак рат-сиа', ru: 'Я из России', en: 'I’m from Russia', tip: ['Другие страны: อเมริกา (à-mee-rí-gaa), อังกฤษ (ang-grìt).', 'Other countries: อเมริกา (à-mee-rí-gaa), อังกฤษ (ang-grìt).'] },
+  { c: 'meet', th: 'พูดอังกฤษได้ไหม', lat: 'phûut ang-grìt dâai mǎi', cyr: 'пхут анг-крит дай май?', ru: 'Говоришь по-английски?', en: 'Speak English?' },
+  { c: 'meet', th: 'พูดช้าๆ หน่อย', lat: 'phûut cháa-cháa nòi', cyr: 'пхут чха-чха ной', ru: 'Помедленнее, пожалуйста', en: 'Slower, please', tip: ['ๆ — знак повтора: ช้าๆ читается «чха-чха».', 'ๆ means “repeat”: ช้าๆ reads “cháa-cháa”.'] },
+  { c: 'meet', th: 'ขอไลน์ได้ไหม', lat: 'khǒr lai dâai mǎi', cyr: 'кхо лай дай май?', ru: 'Дашь свой LINE?', en: 'Can I get your LINE?', tip: ['LINE — главный мессенджер Таиланда, вместо Telegram и WhatsApp.', 'LINE is Thailand’s main messenger.'] },
+  { c: 'meet', th: 'ไปกินข้าวกันไหม', lat: 'bpai gin khâao gan mǎi', cyr: 'пай кин кхао кан май?', ru: 'Пойдём поедим?', en: 'Wanna grab food?', tip: ['Дословно «пойдём есть рис». Рис = еда вообще.', 'Literally “go eat rice”. Rice means food.'] },
+  { c: 'meet', np: 1, th: 'น่ารักจัง', lat: 'nâa-rák jang', cyr: 'на-рак джанг', ru: 'Какая милая! / Какой милый!', en: 'So cute!', tip: ['จัง — «так, очень», эмоционально. Говорят и про людей, и про котиков.', 'จัง adds “so!” emotion. Used for people and kittens alike.'] },
+  // time
+  { c: 'time', th: 'กี่โมงแล้ว', lat: 'gìi mohng láew', cyr: 'ки монг лэо?', ru: 'Который час?', en: 'What time is it?', tip: ['Тайцы делят сутки на четыре части, поэтому «час» звучит по-разному утром и вечером. Проще 24 часа: สิบสี่นาฬิกา — 14:00.', 'Thais split the day into four parts, so hours are named differently. Easier: 24-hour time, สิบสี่นาฬิกา — 14:00.'] },
+  { c: 'time', np: 1, th: 'ตอนนี้', lat: 'dton-níi', cyr: 'тон-ни', ru: 'Сейчас', en: 'Now' },
+  { c: 'time', np: 1, th: 'วันนี้', lat: 'wan-níi', cyr: 'ван-ни', ru: 'Сегодня', en: 'Today' },
+  { c: 'time', np: 1, th: 'พรุ่งนี้', lat: 'phrûng-níi', cyr: 'пхрунг-ни', ru: 'Завтра', en: 'Tomorrow' },
+  { c: 'time', np: 1, th: 'เมื่อวาน', lat: 'mûea-waan', cyr: 'муа-ван', ru: 'Вчера', en: 'Yesterday' },
+  { c: 'time', np: 1, th: 'เช้า บ่าย เย็น', lat: 'cháao · bàai · yen', cyr: 'чхао · бай · йен', ru: 'Утро · день · вечер', en: 'Morning · afternoon · evening' },
+  { c: 'time', th: 'แป๊บนึง', lat: 'bpáep nueng', cyr: 'пэп нынг', ru: 'Секундочку', en: 'Just a sec', tip: ['Так говорят все. รอสักครู่ — то же самое, но для ресепшена и телефона.', 'What everyone says. รอสักครู่ is the reception-desk version.'] },
+  { c: 'time', th: 'อีกกี่นาทีถึง', lat: 'ìik gìi naa-thii thǔeng', cyr: 'ик ки на-тхи тхынг?', ru: 'Сколько ещё ехать?', en: 'How many more minutes?' },
+  // help
+  { c: 'help', np: 1, th: 'ช่วยด้วย', lat: 'chûay dûay', cyr: 'чхуай дуай!', ru: 'Помогите!', en: 'Help!' },
+  { c: 'help', th: 'ช่วยเรียกตำรวจหน่อย', lat: 'chûay rîak dtam-rùat nòi', cyr: 'чхуай риак там-руат ной', ru: 'Вызовите полицию', en: 'Call the police, please', tip: ['Туристическая полиция: 1155 — говорят по-английски. Полиция: 191.', 'Tourist police: 1155, English spoken. Police: 191.'] },
+  { c: 'help', th: 'ช่วยเรียกรถพยาบาลหน่อย', lat: 'chûay rîak rót phá-yaa-baan nòi', cyr: 'чхуай риак рот пха-я-бан ной', ru: 'Вызовите скорую', en: 'Call an ambulance, please', tip: ['Скорая помощь: 1669.', 'Ambulance: 1669.'] },
+  { c: 'help', th: 'โรงพยาบาลอยู่ไหน', lat: 'rohng-phá-yaa-baan yùu nǎi', cyr: 'ронг-пха-я-бан ю най?', ru: 'Где больница?', en: 'Where’s the hospital?' },
+  { c: 'help', th: 'กระเป๋าตังค์หาย', lat: 'grà-bpǎo-dtang hǎai', cyr: 'кра-пао-танг хай', ru: 'Потерял кошелёк', en: 'I lost my wallet', tip: ['หาย — «пропало». Телефон: มือถือหาย (mue-thǔue hǎai).', 'หาย means lost. Phone: มือถือหาย (mue-thǔue hǎai).'] },
+  { c: 'help', th: 'พาสปอร์ตหาย', lat: 'pháat-sà-bpòrt hǎai', cyr: 'пхат-са-пот хай', ru: 'Потерял паспорт', en: 'I lost my passport', tip: ['В жизни говорят «паспорт» по-английски. Официально — หนังสือเดินทาง.', 'People say “passport”. The official word is หนังสือเดินทาง.'] },
+  { c: 'help', th: 'ขอติดต่อสถานทูต', lat: 'khǒr dtìt-dtòr sà-thǎan-thûut', cyr: 'кхо тит-то са-тхан-тхут', ru: 'Мне нужно связаться с посольством', en: 'I need to contact my embassy' },
+  // survive
+  { c: 'survive', th: 'ไม่เข้าใจ', lat: 'mâi khâo-jai', cyr: 'май кхао-джай', ru: 'Не понимаю', en: 'I don’t understand', tip: ['ไม่ (mâi) — отрицание, ставится перед глаголом.', '“mâi” negates — put it before the verb.'] },
+  { c: 'survive', th: 'ภาษาไทยเรียกว่าอะไร', lat: 'phaa-sǎa thai rîak wâa à-rai', cyr: 'пха-са тхай риак ва а-рай?', ru: 'Как это по-тайски?', en: 'What’s this in Thai?', tip: ['Покажите на предмет — и словарь пополняется сам.', 'Point at anything and grow your vocabulary.'] },
+  { c: 'survive', np: 1, th: 'ใช่', lat: 'châi', cyr: 'чхай', ru: 'Да, верно', en: 'Yes, right', tip: ['Простое «да» — это само ครับ / ค่ะ. ใช่ — «да, так и есть».', 'A plain “yes” is just ครับ / ค่ะ. ใช่ means “that’s right”.'] },
+  { c: 'survive', np: 1, th: 'ไม่ใช่', lat: 'mâi châi', cyr: 'май чхай', ru: 'Нет, не так', en: 'No, that’s not it', tip: ['«Нет, не хочу» — это ไม่เอา.', '“No, I don’t want it” is ไม่เอา.'] },
+  { c: 'survive', th: 'ไม่เอา', lat: 'mâi ao', cyr: 'май ао', ru: 'Не надо, спасибо', en: 'No thanks', tip: ['Отказаться от продавца или таксиста — с улыбкой.', 'Turn down a seller or driver — with a smile.'] },
+  { c: 'survive', th: 'ได้', lat: 'dâai', cyr: 'дай', ru: 'Можно / Ок / Договорились', en: 'Sure / OK / Can do', tip: ['Самое ходовое «да» в ответ на просьбу. ได้ไหม — «можно?».', 'The go-to “yes” to a request. ได้ไหม — “can I?”.'] },
+  { c: 'survive', th: 'ไม่ได้', lat: 'mâi dâai', cyr: 'май дай', ru: 'Нельзя / Не получится', en: 'Can’t / Not possible' },
+  { c: 'survive', th: 'เดี๋ยวก่อน', lat: 'dǐao gòn', cyr: 'дьяо кон', ru: 'Погоди-ка', en: 'Hold on', tip: ['Остановить продавца, водителя или друга.', 'Stop a seller, driver or friend.'] },
+  { c: 'survive', np: 1, th: 'จริงเหรอ', lat: 'jing rǒe', cyr: 'джинг рё?', ru: 'Правда?', en: 'Really?', tip: ['Живая реакция в разговоре. Короче — เหรอ.', 'A natural reaction in conversation. Shorter: เหรอ.'] },
+  { c: 'survive', np: 1, th: 'สู้ๆ', lat: 'sûu sûu', cyr: 'су су!', ru: 'Держись! Давай!', en: 'You got this!', tip: ['Подбодрить кого угодно — тайцы это обожают.', 'Cheer anyone on — Thais love it.'] }
+];
+
+const PARTICLE = { m: { th: 'ครับ', lat: 'khráp', cyr: 'кхрап' }, f: { th: 'ค่ะ', lat: 'khâ', cyr: 'кха' } };
+const PRONOUN = { m: { th: 'ผม', lat: 'phǒm', cyr: 'пхом' }, f: { th: 'ฉัน', lat: 'chǎn', cyr: 'чхан' } };
+
+/* ================= SOUNDS & TONES ================= */
+const SOUNDS = [
+  { sym: 'ng', th: 'งู', lat: 'nguu', ru: { t: 'Носовое «нг»', d: 'Один звук, как в англ. «sing», но в начале слова. Кончик языка внизу, звук идёт в нос.', w: 'змея' }, en: { t: 'Nasal “ng”', d: 'The “ng” of “sing” — but Thai starts words with it. Tongue tip down, sound through the nose.', w: 'snake' } },
+  { sym: 'bp', th: 'ปลา', lat: 'bplaa', ru: { t: 'Между «б» и «п»', d: '«п» совсем без выдоха. Поднесите ладонь к губам — воздуха быть не должно.', w: 'рыба' }, en: { t: 'Between b and p', d: 'A “p” with zero air, like in “spin”. Hold a palm to your lips — feel nothing.', w: 'fish' } },
+  { sym: 'dt', th: 'ตา', lat: 'dtaa', ru: { t: 'Между «д» и «т»', d: 'Как русское «т», но мягче и без выдоха.', w: 'глаз' }, en: { t: 'Between d and t', d: 'An airless “t”, like in “stop”.', w: 'eye' } },
+  { sym: 'kh · ph · th', th: 'ไทย', lat: 'thai', ru: { t: 'С придыханием', d: '«h» — это выдох, а не отдельный звук. «th» = «т» + выдох, а не английское «think».', w: 'тайский' }, en: { t: 'Aspirated', d: 'The “h” is just a puff of air. “th” is t + breath — never the “th” of “think”.', w: 'Thai' } },
+  { sym: 'ue', th: 'มือ', lat: 'mue', ru: { t: 'Русское «ы»', d: 'Хорошая новость: звук вам знаком. มือ звучит почти как «мы-ы».', w: 'рука' }, en: { t: 'Unrounded “u”', d: 'Say “oo”, but spread your lips into a smile instead of rounding them.', w: 'hand' } },
+  { sym: 'ae', th: 'แม่', lat: 'mâe', ru: { t: 'Широкое «э»', d: 'Рот открыт шире, чем для русского «э», — как в англ. «cat».', w: 'мама' }, en: { t: 'Open “ae”', d: 'The vowel of “cat”, held a bit longer.', w: 'mother' } }
+];
+const TONES = [
+  { lat: 'mai', mark: '—', th: 'ไมล์', path: 'M6 18 L54 18', ru: { n: 'Ровный', d: 'Обычный голос, ровно.', w: 'миля' }, en: { n: 'Mid', d: 'Normal voice, flat.', w: 'mile' } },
+  { lat: 'mài', mark: 'à', th: 'ใหม่', path: 'M6 24 L54 27', ru: { n: 'Низкий', d: 'Чуть ниже обычного, ровно.', w: 'новый' }, en: { n: 'Low', d: 'A bit below normal, flat.', w: 'new' } },
+  { lat: 'mâi', mark: 'â', th: 'ไม่', path: 'M6 10 Q30 4 54 30', ru: { n: 'Нисходящий', d: 'Сверху вниз, как уверенное «Да!»', w: 'не' }, en: { n: 'Falling', d: 'High, then drop — a firm “No!”', w: 'not' } },
+  { lat: 'mái', mark: 'á', th: 'ไม้', path: 'M6 10 Q34 10 54 4', ru: { n: 'Высокий', d: 'Высоко и напряжённо.', w: 'дерево' }, en: { n: 'High', d: 'High and tense.', w: 'wood' } },
+  { lat: 'mǎi', mark: 'ǎ', th: 'ไหม', path: 'M6 22 Q24 32 54 4', ru: { n: 'Восходящий', d: 'Снизу вверх, как «Да?»', w: 'вопрос' }, en: { n: 'Rising', d: 'Dip, then up — “Huh?”', w: 'question' } }
+];
+
+/* ================= ALPHABET ================= */
+// letter | name-word | name translit | initial | final | class m/h/l | ru | en | obsolete
+const CONS = `ก|ไก่|gor gài|g|k|m|курица|chicken
+ข|ไข่|khǒr khài|kh|k|h|яйцо|egg
+ฃ|ขวด|khǒr khùat|kh|k|h|бутылка|bottle|1
+ค|ควาย|khor khwaai|kh|k|l|буйвол|buffalo
+ฅ|คน|khor khon|kh|k|l|человек|person|1
+ฆ|ระฆัง|khor rá-khang|kh|k|l|колокол|bell
+ง|งู|ngor nguu|ng|ng|l|змея|snake
+จ|จาน|jor jaan|j|t|m|тарелка|plate
+ฉ|ฉิ่ง|chǒr chìng|ch|-|h|тарелочки|cymbals
+ช|ช้าง|chor cháang|ch|t|l|слон|elephant
+ซ|โซ่|sor sôh|s|t|l|цепь|chain
+ฌ|เฌอ|chor cher|ch|-|l|дерево|tree
+ญ|หญิง|yor yǐng|y|n|l|женщина|woman
+ฎ|ชฎา|dor chá-daa|d|t|m|корона танцовщицы|headdress
+ฏ|ปฏัก|dtor bpà-dtàk|dt|t|m|стрекало|goad
+ฐ|ฐาน|thǒr thǎan|th|t|h|постамент|pedestal
+ฑ|มณโฑ|thor mon-thoh|th|t|l|Монтхо (героиня)|Montho (heroine)
+ฒ|ผู้เฒ่า|thor phûu-thâo|th|t|l|старец|elder
+ณ|เณร|nor neen|n|n|l|послушник|novice monk
+ด|เด็ก|dor dèk|d|t|m|ребёнок|child
+ต|เต่า|dtor dtào|dt|t|m|черепаха|turtle
+ถ|ถุง|thǒr thǔng|th|t|h|мешок|bag
+ท|ทหาร|thor thá-hǎan|th|t|l|солдат|soldier
+ธ|ธง|thor thong|th|t|l|флаг|flag
+น|หนู|nor nǔu|n|n|l|мышь|mouse
+บ|ใบไม้|bor bai-máai|b|p|m|лист|leaf
+ป|ปลา|bpor bplaa|bp|p|m|рыба|fish
+ผ|ผึ้ง|phǒr phûeng|ph|-|h|пчела|bee
+ฝ|ฝา|fǒr fǎa|f|-|h|крышка|lid
+พ|พาน|phor phaan|ph|p|l|поднос|tray
+ฟ|ฟัน|for fan|f|p|l|зубы|teeth
+ภ|สำเภา|phor sǎm-phao|ph|p|l|джонка|junk ship
+ม|ม้า|mor máa|m|m|l|лошадь|horse
+ย|ยักษ์|yor yák|y|i|l|великан|giant
+ร|เรือ|ror ruea|r|n|l|лодка|boat
+ล|ลิง|lor ling|l|n|l|обезьяна|monkey
+ว|แหวน|wor wǎen|w|o|l|кольцо|ring
+ศ|ศาลา|sǒr sǎa-laa|s|t|h|павильон|pavilion
+ษ|ฤๅษี|sǒr rue-sǐi|s|t|h|отшельник|hermit
+ส|เสือ|sǒr sǔea|s|t|h|тигр|tiger
+ห|หีบ|hǒr hìip|h|-|h|сундук|chest
+ฬ|จุฬา|lor jù-laa|l|n|l|воздушный змей|kite
+อ|อ่าง|or àang|-|-|m|таз|basin
+ฮ|นกฮูก|hor nók-hûuk|h|-|l|сова|owl`.split('\n').map(r => {
+  const [ch, word, name, ini, fin, cls, ru, en, old] = r.split('|');
+  return { ch, word, name, ini, fin, cls, ru, en, old: !!old };
+});
+const INI = {
+  g: ['к без выдоха (между г и к)', 'k without breath, like “sk”'], kh: ['к с выдохом', 'k + puff of air'], ng: ['носовое «нг», как в sing', 'nasal “ng” as in sing'],
+  j: ['мягкое «дж», без выдоха', 'unaspirated ch, close to j'], ch: ['ч с выдохом', 'ch + breath'], s: ['с', 's'], y: ['й', 'y'], d: ['д', 'd'],
+  dt: ['между д и т, без выдоха', 'between d and t, no breath'], th: ['т с выдохом (не англ. th!)', 't + breath (not “think”)'], n: ['н', 'n'], b: ['б', 'b'],
+  bp: ['между б и п, без выдоха', 'between b and p, no breath'], ph: ['п с выдохом (не ф!)', 'p + breath (not f!)'], f: ['ф', 'f'], m: ['м', 'm'],
+  r: ['р (в речи часто как л)', 'r (often said as l)'], l: ['л', 'l'], w: ['как англ. w', 'w'], h: ['лёгкое х, просто выдох', 'h'], '-': ['немая — держит гласную', 'silent — carries a vowel']
+};
+const FIN = {
+  k: ['к, не взрывается', 'unreleased k'], t: ['т, не взрывается', 'unreleased t'], p: ['п, не взрывается', 'unreleased p'], ng: ['нг', 'ng'],
+  n: ['н', 'n'], m: ['м', 'm'], i: ['й', 'y'], o: ['у (как w)', 'w'], '-': ['не бывает в конце', 'never final']
+};
+const CLS_COLOR = { m: 'bg-accent', h: 'bg-sky-400', l: 'bg-zinc-500' };
+const VOWELS = [
+  ['อะ', 'a', 'коротко «а»', 'short a'], ['อา', 'aa', 'долгое «а»', 'long a'], ['อิ', 'i', 'коротко «и»', 'short i'], ['อี', 'ii', 'долгое «и»', 'long i'],
+  ['อึ', 'ue', 'коротко «ы»', 'short ue'], ['อือ', 'uue', 'долгое «ы»', 'long ue'], ['อุ', 'u', 'коротко «у»', 'short u'], ['อู', 'uu', 'долгое «у»', 'long u'],
+  ['เอ', 'ee', 'долгое узкое «э»', 'long e'], ['แอ', 'ae', 'широкое «э»', 'open ae'], ['โอ', 'oh', 'долгое «о»', 'long o'], ['ออ', 'or', 'открытое «о», как в «кот»', 'open aw'],
+  ['ไอ', 'ai', '«ай»', 'ai'], ['ใอ', 'ai', '«ай» (20 слов)', 'ai (20 words)'], ['อำ', 'am', '«ам»', 'am'], ['เอา', 'ao', '«ао»', 'ao']
+];
+
+/* ================= WORDS ================= */
+const NUM = [
+  ['ศูนย์', 'sǔun', 'сун', '0', '๐'], ['หนึ่ง', 'nùeng', 'нынг', '1', '๑'], ['สอง', 'sǒng', 'сонг', '2', '๒'], ['สาม', 'sǎam', 'сам', '3', '๓'],
+  ['สี่', 'sìi', 'си', '4', '๔'], ['ห้า', 'hâa', 'ха', '5', '๕'], ['หก', 'hòk', 'хок', '6', '๖'], ['เจ็ด', 'jèt', 'джет', '7', '๗'],
+  ['แปด', 'bpàet', 'пэт', '8', '๘'], ['เก้า', 'gâo', 'као', '9', '๙'], ['สิบ', 'sìp', 'сип', '10', '๑๐'], ['สิบเอ็ด', 'sìp-èt', 'сип-эт', '11', '๑๑'],
+  ['ยี่สิบ', 'yîi-sìp', 'йи-сип', '20', '๒๐'], ['ร้อย', 'rói', 'рой', '100', '๑๐๐'], ['พัน', 'phan', 'пхан', '1000', '๑๐๐๐'], ['หมื่น', 'mùuen', 'мын', '10 000', '๑๐๐๐๐']
+].map(([th, lat, cyr, n, d]) => ({ th, lat, cyr, ru: n, en: n, digit: d, np: 1 }));
+
+const BODY = [
+  ['หัว', 'hǔa', 'хуа', 'голова', 'head'], ['ผม', 'phǒm', 'пхом', 'волосы', 'hair', 1], ['ตา', 'dtaa', 'та', 'глаз', 'eye'], ['หู', 'hǔu', 'ху', 'ухо', 'ear'],
+  ['จมูก', 'jà-mùuk', 'джа-мук', 'нос', 'nose'], ['ปาก', 'bpàak', 'пак', 'рот', 'mouth'], ['ฟัน', 'fan', 'фан', 'зубы', 'teeth'], ['คอ', 'khor', 'кхо', 'шея, горло', 'neck, throat'],
+  ['มือ', 'mue', 'мы', 'кисть руки', 'hand'], ['แขน', 'khǎen', 'кхэн', 'рука', 'arm'], ['ขา', 'khǎa', 'кха', 'нога', 'leg'], ['เท้า', 'tháo', 'тхао', 'ступня', 'foot'],
+  ['ท้อง', 'thóng', 'тхонг', 'живот', 'stomach'], ['หลัง', 'lǎng', 'ланг', 'спина', 'back'], ['หัวใจ', 'hǔa-jai', 'хуа-джай', 'сердце', 'heart', 1]
+].map(([th, lat, cyr, ru, en, noPain]) => ({ th, lat, cyr, ru, en, np: 1, noPain }));
+
+// th, lat, cyr, ru infinitive, ru 1st person, en
+const VERB = [
+  ['ไป', 'bpai', 'пай', 'идти, ехать', 'иду', 'go'], ['มา', 'maa', 'ма', 'приходить', 'прихожу', 'come'], ['กิน', 'gin', 'кин', 'есть', 'ем', 'eat'],
+  ['ดื่ม', 'dùuem', 'дым', 'пить', 'пью', 'drink'], ['นอน', 'non', 'нон', 'спать', 'сплю', 'sleep'], ['พูด', 'phûut', 'пхут', 'говорить', 'говорю', 'speak'],
+  ['เข้าใจ', 'khâo-jai', 'кхао-джай', 'понимать', 'понимаю', 'understand'], ['รู้', 'rúu', 'ру', 'знать', 'знаю', 'know'], ['ชอบ', 'chôop', 'чхоп', 'любить', 'люблю', 'like'],
+  ['ซื้อ', 'súue', 'сы', 'покупать', 'покупаю', 'buy'], ['จ่าย', 'jàai', 'джай', 'платить', 'плачу', 'pay'], ['ช่วย', 'chûay', 'чхуай', 'помогать', 'помогаю', 'help'],
+  ['รอ', 'ror', 'ро', 'ждать', 'жду', 'wait'], ['ดู', 'duu', 'ду', 'смотреть', 'смотрю', 'watch'], ['ทำ', 'tham', 'тхам', 'делать', 'делаю', 'do'],
+  ['นั่ง', 'nâng', 'нанг', 'сидеть', 'сижу', 'sit'], ['เดิน', 'doen', 'дён', 'ходить пешком', 'хожу пешком', 'walk']
+].map(([th, lat, cyr, ru, r1, en]) => ({ th, lat, cyr, ru, r1, en, np: 1 }));
+
+const MODALS = [
+  { k: 'none', th: '', lat: '', cyr: '' },
+  { k: 'want', th: 'อยาก', lat: 'yàak', cyr: 'як' },
+  { k: 'not', th: 'ไม่', lat: 'mâi', cyr: 'май' },
+  { k: 'will', th: 'จะ', lat: 'jà', cyr: 'джа' }
+];
+
+/* ================= NUMBER → THAI ================= */
+const U_TH = ['', 'หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า', 'หก', 'เจ็ด', 'แปด', 'เก้า'];
+const U_LAT = ['', 'nùeng', 'sǒng', 'sǎam', 'sìi', 'hâa', 'hòk', 'jèt', 'bpàet', 'gâo'];
+const U_CYR = ['', 'нынг', 'сонг', 'сам', 'си', 'ха', 'хок', 'джет', 'пэт', 'као'];
+function thaiNum(n) {
+  if (n === 0) return { th: 'ศูนย์', lat: 'sǔun', cyr: 'сун' };
+  const out = { th: [], lat: [], cyr: [] };
+  const add = (a, b, c) => { out.th.push(a); out.lat.push(b); out.cyr.push(c) };
+  const big = [[10000, 'หมื่น', 'mùuen', 'мын'], [1000, 'พัน', 'phan', 'пхан'], [100, 'ร้อย', 'rói', 'рой']];
+  for (const [v, th, lat, cyr] of big) {
+    const d = Math.floor(n / v) % 10;
+    if (d) add(U_TH[d] + th, `${U_LAT[d]} ${lat}`, `${U_CYR[d]} ${cyr}`);
+  }
+  const t = Math.floor(n / 10) % 10, u = n % 10;
+  if (t === 1) add('สิบ', 'sìp', 'сип');
+  else if (t === 2) add('ยี่สิบ', 'yîi-sìp', 'йи-сип');
+  else if (t) add(U_TH[t] + 'สิบ', `${U_LAT[t]}-sìp`, `${U_CYR[t]}-сип`);
+  if (u === 1 && n > 10) add('เอ็ด', 'èt', 'эт');
+  else if (u) add(U_TH[u], U_LAT[u], U_CYR[u]);
+  return { th: out.th.join(''), lat: out.lat.join(' '), cyr: out.cyr.join(' ') };
+}
+const thaiDigits = n => String(n).replace(/\d/g, d => '๐๑๒๓๔๕๖๗๘๙'[d]);
+// self-check
+console.assert(thaiNum(21).th === 'ยี่สิบเอ็ด' && thaiNum(11).th === 'สิบเอ็ด' && thaiNum(1).th === 'หนึ่ง' && thaiNum(101).th === 'หนึ่งร้อยเอ็ด' && thaiNum(350).th === 'สามร้อยห้าสิบ' && thaiNum(12000).th === 'หนึ่งหมื่นสองพัน', 'thaiNum');
+
+/* ================= STATE ================= */
+const store = {
+  get(k, d) { try { return localStorage.getItem(k) || d } catch (e) { return d } },
+  set(k, v) { try { localStorage.setItem(k, v) } catch (e) {} }
+};
+let lang = store.get('tf-lang', 'ru');
+let gender = store.get('tf-gender', 'm');
+let cat = 'greet', cls = 'all', selCons = 0, vtab = 'num', modal = 'want', verbI = 2, billI = 0, pool = 'phrases', tab = 'cards';
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const t = k => T[lang][k];
+const L = (ru, en) => lang === 'ru' ? ru : en;
+const pt = () => PARTICLE[gender];
+const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]] } return a };
+const icons = () => lucide.createIcons();
+const say = x => x.say || x.th + (x.np ? '' : pt().th);
+const thHTML = x => x.th + (x.np ? '' : `<span class="text-accent/80">${pt().th}</span>`);
+const latTxt = x => x.lat + (x.np ? '' : ' ' + pt().lat);
+const cyrTxt = x => x.cyr ? x.cyr + (x.np ? '' : ' ' + pt().cyr) : '';
+const playBtn = (text, size = 'w-10 h-10') => `<button data-say="${text}" class="shrink-0 grid place-items-center ${size} rounded-full border border-white/10 hover:border-accent hover:text-accent transition" aria-label="Play"><i data-lucide="volume-2" class="w-4 h-4"></i></button>`;
+const curve = d => `<svg viewBox="0 0 60 34" class="w-full h-10" fill="none"><path d="M6 6 H54 M6 18 H54 M6 30 H54" stroke="currentColor" stroke-opacity=".08"/><path class="tone-path" pathLength="100" d="${d}" stroke="#e8b04b" stroke-width="3" stroke-linecap="round"/></svg>`;
+const chip = (on, extra = '') => `px-3.5 py-1.5 rounded-full text-sm font-medium border transition flex items-center gap-1.5 ${on ? 'bg-accent text-ink-950 border-accent' : 'border-white/10 text-zinc-400 hover:text-white'} ${extra}`;
+
+/* ================= SPEECH ================= */
+let thVoice = null, warned = false;
+const hasTTS = 'speechSynthesis' in window;
+function loadVoices() { thVoice = speechSynthesis.getVoices().find(v => /^th/i.test(v.lang)) || null }
+if (hasTTS) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices }
+function speak(text, btn) {
+  if (!hasTTS) return toast(t('noVoice'));
+  if (!thVoice && !warned) { warned = true; toast(t('noVoice')) }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'th-TH'; u.rate = .75;
+  if (thVoice) u.voice = thVoice;
+  $$('.speaking').forEach(b => b.classList.remove('speaking'));
+  btn?.classList.add('speaking');
+  u.onend = u.onerror = () => btn?.classList.remove('speaking');
+  speechSynthesis.speak(u);
+}
+let toastTimer;
+function toast(msg) {
+  $('#toastText').textContent = msg;
+  $('#toast').classList.remove('opacity-0');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $('#toast').classList.add('opacity-0'), 4500);
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-say]');
+  if (b) { e.stopPropagation(); speak(b.dataset.say, b) }
+});
+
+/* ================= RENDER ================= */
+function renderText() {
+  document.documentElement.lang = lang;
+  $$('[data-i18n]').forEach(el => el.textContent = t(el.dataset.i18n));
+  $$('[data-particle]').forEach(el => el.textContent = pt().th);
+  $('#statPhrases').textContent = PH.length;
+  $('#statWords').textContent = NUM.length + BODY.length + VERB.length;
+  const on = 'bg-white text-ink-950', off = 'text-zinc-400 hover:text-white';
+  $$('[data-lang]').forEach(b => b.className = `px-2.5 py-1.5 rounded-md transition ${b.dataset.lang === lang ? on : off}`);
+  $$('[data-gender]').forEach(b => b.className = `px-2.5 py-1.5 rounded-md transition flex items-center gap-1 ${b.dataset.gender === gender ? on : off}`);
+}
+
+function renderSounds() {
+  $('#soundsGrid').innerHTML = SOUNDS.map(s => `
+    <article class="group rounded-2xl border border-white/10 bg-ink-900 p-6 hover:border-accent/40 hover:-translate-y-1 transition duration-300">
+      <div class="flex items-start justify-between"><span class="font-mono text-2xl font-bold text-accent">${s.sym}</span>${playBtn(s.th)}</div>
+      <h3 class="mt-4 font-semibold text-white">${s[lang].t}</h3>
+      <p class="mt-2 text-sm text-zinc-400 leading-relaxed">${s[lang].d}</p>
+      <div class="mt-5 pt-4 border-t border-white/5 flex items-baseline gap-3">
+        <span class="font-thai text-2xl text-white">${s.th}</span><span class="font-mono text-sm text-zinc-400">${s.lat}</span><span class="ml-auto text-sm text-zinc-500">${s[lang].w}</span>
+      </div>
+    </article>`).join('');
+}
+
+function renderTones() {
+  $('#tonesGrid').innerHTML = TONES.map(x => `
+    <button data-say="${x.th}" class="text-left rounded-2xl border border-white/10 bg-ink-950 p-4 hover:border-accent/50 transition">
+      ${curve(x.path)}
+      <div class="mt-3 flex items-baseline justify-between"><span class="font-semibold text-white">${x[lang].n}</span><span class="font-mono text-accent">${x.mark}</span></div>
+      <p class="mt-1 text-xs text-zinc-500 leading-relaxed min-h-[32px]">${x[lang].d}</p>
+      <div class="mt-3 pt-3 border-t border-white/5 flex items-baseline gap-2"><span class="font-thai text-xl text-white">${x.th}</span><span class="font-mono text-sm text-zinc-400">${x.lat}</span></div>
+      <p class="text-xs text-zinc-500">${x[lang].w}</p>
+    </button>`).join('');
+}
+
+/* --- alphabet --- */
+function renderAlphabet() {
+  $('#classTabs').innerHTML = [['all', 'clsAll'], ['m', 'clsM'], ['h', 'clsH'], ['l', 'clsL']].map(([k, key]) =>
+    `<button data-cls="${k}" class="${chip(cls === k)}">${k !== 'all' ? `<span class="w-2 h-2 rounded-full ${CLS_COLOR[k]}"></span>` : ''}${t(key)}</button>`).join('');
+  $('#consGrid').innerHTML = CONS.map((c, i) => {
+    const dim = (cls !== 'all' && c.cls !== cls) ? 'opacity-20' : (c.old ? 'opacity-50' : '');
+    return `<button data-cons="${i}" class="relative aspect-square rounded-xl border ${i === selCons ? 'border-accent bg-accent/10' : 'border-white/10 bg-ink-900 hover:border-white/30'} transition grid place-items-center ${dim}">
+      <span class="absolute top-1.5 left-1.5 w-1.5 h-1.5 rounded-full ${CLS_COLOR[c.cls]}"></span>
+      <span class="font-thai text-2xl md:text-3xl text-white leading-none">${c.ch}</span>
+      <span class="absolute bottom-1 inset-x-0 text-center font-mono text-[10px] text-zinc-500">${c.ini === '-' ? '∅' : c.ini}</span>
+    </button>`;
+  }).join('');
+  const c = CONS[selCons], k = lang === 'ru' ? 0 : 1;
+  $('#consDetail').innerHTML = `<div class="fade-up">
+    <div class="flex items-start justify-between">
+      <span class="font-thai text-7xl text-white leading-none">${c.ch}</span>${playBtn(c.ch + ' ' + c.word, 'w-12 h-12')}
+    </div>
+    <p class="mt-5 font-thai text-xl text-white">${c.ch} ${c.word}</p>
+    <p class="font-mono text-accent">${c.name}</p>
+    <p class="text-sm text-zinc-400">${L(c.ru, c.en)}</p>
+    <dl class="mt-5 space-y-3 text-sm border-t border-white/5 pt-5">
+      <div class="flex justify-between gap-4"><dt class="text-zinc-500">${t('initial')}</dt><dd class="text-right text-white"><b class="font-mono text-accent">${c.ini === '-' ? '∅' : c.ini}</b> — ${INI[c.ini][k]}</dd></div>
+      <div class="flex justify-between gap-4"><dt class="text-zinc-500">${t('final')}</dt><dd class="text-right text-white">${c.fin === '-' ? '' : `<b class="font-mono text-accent">${c.fin}</b> — `}${FIN[c.fin][k]}</dd></div>
+    </dl>
+    <p class="mt-5 flex items-start gap-2 text-xs text-zinc-400"><span class="mt-1 w-2 h-2 shrink-0 rounded-full ${CLS_COLOR[c.cls]}"></span>${t('cls' + c.cls.toUpperCase() + 'd')}</p>
+    ${c.old ? `<p class="mt-2 text-xs text-rose-300/80">${t('obsolete')}</p>` : ''}
+  </div>`;
+  $('#vowelGrid').innerHTML = VOWELS.map(([th, lat, ru, en]) => `
+    <button data-say="${th}" class="rounded-xl border border-white/10 bg-ink-900 p-3 text-left hover:border-accent/50 transition">
+      <span class="font-thai text-2xl text-white">${th}</span>
+      <span class="block font-mono text-sm text-accent">${lat}</span>
+      <span class="block text-xs text-zinc-500">${L(ru, en)}</span>
+    </button>`).join('');
+}
+$('#classTabs').addEventListener('click', e => { const b = e.target.closest('[data-cls]'); if (b) { cls = b.dataset.cls; renderAlphabet(); icons() } });
+$('#consGrid').addEventListener('click', e => {
+  const b = e.target.closest('[data-cons]');
+  if (!b) return;
+  selCons = +b.dataset.cons; renderAlphabet(); icons();
+  const c = CONS[selCons]; speak(c.ch + ' ' + c.word);
+  if (window.innerWidth < 1024) $('#consDetail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+/* --- phrases --- */
+function phraseCard(x) {
+  return `<article class="fade-up group rounded-2xl border border-white/10 bg-ink-900 p-6 hover:border-accent/40 transition">
+    <div class="flex items-start justify-between gap-3"><p class="font-thai text-2xl text-white leading-snug">${thHTML(x)}</p>${playBtn(say(x))}</div>
+    <p class="mt-2 font-mono text-sm text-accent">${latTxt(x)}</p>
+    ${lang === 'ru' ? `<p class="text-sm text-zinc-500">${cyrTxt(x)}</p>` : ''}
+    <p class="mt-4 font-semibold text-white">${x[lang]}</p>
+    ${x.tip ? `<p class="mt-1 text-sm text-zinc-400 leading-relaxed">${L(...x.tip)}</p>` : ''}
+  </article>`;
+}
+function renderPhrases() {
+  $('#catTabs').innerHTML = CATS.map(([c, ic]) => `<button data-cat="${c}" class="${chip(c === cat)}"><i data-lucide="${ic}" class="w-3.5 h-3.5"></i>${t('cat_' + c)}</button>`).join('');
+  $('#phraseGrid').innerHTML = PH.filter(x => x.c === cat && !x.bill).map(phraseCard).join('');
+  const bills = PH.filter(x => x.bill);
+  $('#billOpts').innerHTML = bills.map((x, i) => `<button data-bill="${i}" class="rounded-xl border px-4 py-3 text-left text-sm font-medium flex items-center gap-3 transition ${i === billI ? 'border-accent bg-accent/10 text-white' : 'border-white/10 text-zinc-400 hover:text-white'}"><i data-lucide="${x.bill}" class="w-4 h-4 shrink-0 ${i === billI ? 'text-accent' : ''}"></i>${x[lang]}</button>`).join('');
+  const b = bills[billI];
+  $('#billOut').innerHTML = `<div class="fade-up">
+    <div class="flex items-start justify-between gap-4"><p class="font-thai text-4xl md:text-5xl text-white leading-snug">${thHTML(b)}</p>${playBtn(say(b), 'w-12 h-12')}</div>
+    <p class="mt-3 font-mono text-lg text-accent">${latTxt(b)}</p>
+    ${lang === 'ru' ? `<p class="text-zinc-500">${cyrTxt(b)}</p>` : ''}
+    <p class="mt-4 text-xl font-semibold text-white">${b[lang]}</p>
+    <p class="mt-1 text-sm text-zinc-400">${L(...b.tip)}</p></div>`;
+}
+$('#catTabs').addEventListener('click', e => { const b = e.target.closest('[data-cat]'); if (b) { cat = b.dataset.cat; renderPhrases(); icons() } });
+$('#billOpts').addEventListener('click', e => { const b = e.target.closest('[data-bill]'); if (b) { billI = +b.dataset.bill; renderPhrases(); icons() } });
+
+/* --- words --- */
+const wordTile = (x, extra = '') => `<div class="rounded-2xl border border-white/10 bg-ink-900 p-4 hover:border-accent/40 transition">
+  <div class="flex items-start justify-between gap-2"><span class="font-thai text-2xl text-white">${x.th}</span>${playBtn(x.th, 'w-9 h-9')}</div>
+  <p class="mt-1 font-mono text-sm text-accent">${x.lat}</p>
+  ${lang === 'ru' ? `<p class="text-xs text-zinc-500">${x.cyr}</p>` : ''}
+  <p class="mt-2 text-sm font-medium text-white">${x[lang]}</p>${extra}</div>`;
+function renderNum() {
+  const inp = $('#numIn');
+  const n = Math.max(0, Math.min(99999, parseInt(inp.value, 10) || 0));
+  const r = thaiNum(n);
+  $('#numOut').innerHTML = `<div class="fade-up">
+    <div class="flex items-center gap-4"><span class="font-mono text-4xl font-bold text-white">${n.toLocaleString(lang)}</span><span class="font-thai text-3xl text-zinc-500">${thaiDigits(n)}</span><span class="ml-auto">${playBtn(r.th, 'w-12 h-12')}</span></div>
+    <p class="mt-4 font-thai text-3xl md:text-4xl text-white break-words">${r.th}</p>
+    <p class="mt-2 font-mono text-accent">${r.lat}</p>
+    ${lang === 'ru' ? `<p class="text-zinc-500">${r.cyr}</p>` : ''}</div>`;
+  $('#numGrid').innerHTML = NUM.map(x => `<button data-say="${x.th}" class="rounded-2xl border border-white/10 bg-ink-900 p-4 text-left hover:border-accent/40 transition">
+    <div class="flex items-baseline justify-between"><span class="font-mono text-xl font-bold text-white">${x.ru}</span><span class="font-thai text-zinc-500">${x.digit}</span></div>
+    <p class="mt-2 font-thai text-xl text-white">${x.th}</p><p class="font-mono text-sm text-accent">${x.lat}</p>
+    ${lang === 'ru' ? `<p class="text-xs text-zinc-500">${x.cyr}</p>` : ''}</button>`).join('');
+}
+const setNum = v => { $('#numIn').value = Math.max(0, Math.min(99999, v)); renderNum(); icons() };
+$('#numIn').addEventListener('input', () => { renderNum(); icons() });
+$('#numMinus').onclick = () => setNum((+$('#numIn').value || 0) - 1);
+$('#numPlus').onclick = () => setNum((+$('#numIn').value || 0) + 1);
+$('#numRand').onclick = () => { setNum([20, 40, 50, 60, 80, 120, 150, 250, 350, 499, 1200, 3500][Math.random() * 12 | 0]); speak(thaiNum(+$('#numIn').value).th, $('#numOut [data-say]')) };
+
+function renderBody() {
+  $('#bodyGrid').innerHTML = BODY.map(x => wordTile(x, x.noPain ? '' :
+    `<button data-say="ปวด${x.th}" class="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 px-2.5 py-1 text-xs text-zinc-400 hover:border-accent hover:text-accent transition"><i data-lucide="activity" class="w-3 h-3"></i>${t('hurts')} · <span class="font-thai">ปวด${x.th}</span></button>`)).join('');
+}
+
+function renderVerbs() {
+  $('#modalOpts').innerHTML = MODALS.map(m => `<button data-modal="${m.k}" class="${chip(modal === m.k)}">${t('m_' + m.k)}${m.th ? ` · <span class="font-thai">${m.th}</span>` : ''}</button>`).join('');
+  const v = VERB[verbI], m = MODALS.find(x => x.k === modal), p = PRONOUN[gender];
+  const th = p.th + m.th + v.th;
+  const lat = [p.lat, m.lat, v.lat].filter(Boolean).join(' ');
+  const cyr = [p.cyr, m.cyr, v.cyr].filter(Boolean).join(' ');
+  const ru = { none: `Я ${v.r1}`, want: `Я хочу ${v.ru.split(',')[0]}`, not: `Я не ${v.r1}`, will: `Я буду ${v.ru.split(',')[0]}` }[modal];
+  const en = { none: `I ${v.en}`, want: `I want to ${v.en}`, not: `I don’t ${v.en}`, will: `I will ${v.en}` }[modal];
+  $('#sentOut').innerHTML = `<div class="fade-up flex items-start justify-between gap-4">
+    <div>
+      <p class="font-thai text-3xl md:text-4xl text-white"><span class="text-zinc-400">${p.th}</span><span class="text-accent">${m.th}</span>${v.th}</p>
+      <p class="mt-2 font-mono text-accent">${lat}</p>
+      ${lang === 'ru' ? `<p class="text-zinc-500">${cyr}</p>` : ''}
+      <p class="mt-3 text-lg font-semibold text-white">${L(ru, en)}</p>
+    </div>${playBtn(th, 'w-12 h-12')}</div>`;
+  $('#verbGrid').innerHTML = VERB.map((x, i) => `<button data-verb="${i}" class="text-left rounded-2xl border ${i === verbI ? 'border-accent bg-accent/10' : 'border-white/10 bg-ink-900 hover:border-white/30'} p-4 transition">
+    <span class="font-thai text-2xl text-white">${x.th}</span>
+    <p class="mt-1 font-mono text-sm text-accent">${x.lat}</p>
+    ${lang === 'ru' ? `<p class="text-xs text-zinc-500">${x.cyr}</p>` : ''}
+    <p class="mt-2 text-sm font-medium text-white">${x[lang]}</p></button>`).join('');
+}
+$('#modalOpts').addEventListener('click', e => { const b = e.target.closest('[data-modal]'); if (b) { modal = b.dataset.modal; renderVerbs(); icons() } });
+$('#verbGrid').addEventListener('click', e => { const b = e.target.closest('[data-verb]'); if (b) { verbI = +b.dataset.verb; renderVerbs(); icons(); speak(VERB[verbI].th) } });
+
+function renderVtabs() {
+  $$('.vtab').forEach(b => { const on = b.dataset.vtab === vtab; b.classList.toggle('bg-accent', on); b.classList.toggle('text-ink-950', on); b.classList.toggle('text-zinc-400', !on) });
+  $$('[data-vpanel]').forEach(p => p.classList.toggle('hidden', p.dataset.vpanel !== vtab));
+}
+$$('.vtab').forEach(b => b.onclick = () => { vtab = b.dataset.vtab; renderVtabs() });
+
+/* --- hero --- */
+const HERO = PH.filter(x => ['greet', 'polite', 'bye'].includes(x.c));
+let heroI = 0, heroTimer;
+function renderHero() {
+  const x = HERO[heroI];
+  $('#heroWord').innerHTML = `<div class="fade-up">
+    <p class="font-thai text-5xl md:text-6xl font-semibold text-white leading-tight">${thHTML(x).replace('/80', '')}</p>
+    <p class="mt-4 font-mono text-xl text-accent">${latTxt(x)}</p>
+    ${lang === 'ru' ? `<p class="mt-1 text-zinc-500">${cyrTxt(x)}</p>` : ''}
+    <p class="mt-4 text-xl text-zinc-200">${x[lang]}</p></div>`;
+  $('#heroIdx').textContent = `${String(heroI + 1).padStart(2, '0')} / ${HERO.length}`;
+  const bar = $('#heroBar');
+  bar.style.transition = 'none'; bar.style.width = '0';
+  requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.transition = 'width 6s linear'; bar.style.width = '100%' }));
+  clearTimeout(heroTimer);
+  heroTimer = setTimeout(() => { heroI = (heroI + 1) % HERO.length; renderHero() }, 6000);
+}
+$('#heroNext').onclick = () => { heroI = (heroI + 1) % HERO.length; renderHero() };
+$('#heroPlay').onclick = e => speak(say(HERO[heroI]), e.currentTarget);
+
+/* ================= TRAINERS ================= */
+const POOLS = {
+  phrases: PH,
+  alpha: CONS.filter(c => !c.old).map(c => ({ th: c.ch, lat: c.name, ru: `${c.word} — ${c.ru}`, en: `${c.word} — ${c.en}`, say: c.ch + ' ' + c.word, np: 1 })),
+  num: NUM, body: BODY, verb: VERB
+};
+const items = () => POOLS[pool];
+
+function renderPools() {
+  $('#poolTabs').innerHTML = Object.keys(POOLS).map(k => `<button data-pool="${k}" class="${chip(k === pool, tab === 'tones' ? 'invisible' : '')}">${t('pool_' + k)}</button>`).join('');
+}
+$('#poolTabs').addEventListener('click', e => {
+  const b = e.target.closest('[data-pool]');
+  if (!b) return;
+  pool = b.dataset.pool; renderPools(); fcReset(); qNext();
+});
+
+/* flashcards */
+let deck = [], known = 0;
+const fc = $('#fcCard');
+function fcReset() { deck = shuffle(items().map((_, i) => i)); known = 0; fcShow() }
+function fcShow() {
+  const done = !deck.length, total = items().length;
+  fc.classList.toggle('hidden', done);
+  $('#fcDone').classList.toggle('hidden', !done);
+  $('#fcBtns').classList.toggle('invisible', done);
+  $('#fcKnown').textContent = known;
+  $('#fcTotal').textContent = total;
+  $('#fcBar').style.width = known / total * 100 + '%';
+  if (done) return;
+  const wasFlipped = fc.classList.contains('flipped');
+  fc.classList.remove('flipped');
+  setTimeout(() => {
+    const x = items()[deck[0]];
+    $('#fcFront').innerHTML = thHTML(x);
+    $('#fcMeaning').textContent = x[lang];
+    $('#fcLat').textContent = latTxt(x);
+    $('#fcCyr').textContent = lang === 'ru' ? cyrTxt(x) : '';
+  }, wasFlipped ? 250 : 0);
+}
+fc.onclick = () => fc.classList.toggle('flipped');
+fc.onkeydown = e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); fc.classList.toggle('flipped') } };
+$('#fcKnow').onclick = () => { deck.shift(); known++; fcShow() };
+$('#fcAgain').onclick = () => { deck.push(deck.shift()); fc.classList.add('shake'); setTimeout(() => fc.classList.remove('shake'), 400); fcShow() };
+$('#fcSay').onclick = e => deck.length && speak(say(items()[deck[0]]), e.currentTarget);
+$('#fcReset').onclick = fcReset;
+
+/* quiz */
+const q = { score: 0, total: 0, streak: 0, cur: 0, opts: [], lock: false };
+function qNext() {
+  const n = items().length;
+  q.cur = Math.random() * n | 0;
+  q.opts = shuffle([q.cur, ...shuffle([...Array(n).keys()].filter(i => i !== q.cur)).slice(0, 3)]);
+  q.lock = false;
+  qRender();
+}
+function qRender() {
+  const x = items()[q.cur];
+  $('#qPrompt').innerHTML = `<div class="fade-up">
+    <p class="text-sm text-zinc-500">${t('quizQ')}</p>
+    <p class="mt-4 font-thai text-4xl md:text-5xl text-white">${thHTML(x)}</p>
+    <p class="mt-3 font-mono text-accent">${latTxt(x)}</p>
+    <button data-say="${say(x)}" class="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm hover:border-accent hover:text-accent transition"><i data-lucide="volume-2" class="w-4 h-4"></i>${t('listen')}</button></div>`;
+  $('#qOpts').innerHTML = q.opts.map(i => `<button data-q="${i}" class="fade-up rounded-xl border border-white/10 bg-ink-900 px-5 py-4 text-left font-medium hover:border-white/30 transition">${items()[i][lang]}</button>`).join('');
+  $('#qScore').textContent = q.score; $('#qTotal').textContent = q.total; $('#qStreak').textContent = q.streak;
+  icons();
+}
+$('#qOpts').addEventListener('click', e => {
+  const b = e.target.closest('[data-q]');
+  if (!b || q.lock) return;
+  q.lock = true; q.total++;
+  const ok = +b.dataset.q === q.cur;
+  ok ? (q.score++, q.streak++) : (q.streak = 0);
+  $$('[data-q]').forEach(el => {
+    if (+el.dataset.q === q.cur) el.className += ' !border-emerald-400 !bg-emerald-400/10 text-emerald-300 pop';
+    else if (el === b) el.className += ' !border-rose-400 !bg-rose-400/10 text-rose-300 shake';
+    else el.className += ' opacity-40';
+  });
+  $('#qScore').textContent = q.score; $('#qTotal').textContent = q.total; $('#qStreak').textContent = q.streak;
+  setTimeout(qNext, ok ? 900 : 1600);
+});
+
+/* tones */
+const tn = { score: 0, total: 0, cur: 0, lock: false };
+function tNext(play) {
+  tn.cur = Math.random() * TONES.length | 0;
+  tn.lock = false;
+  $('#tReveal').textContent = '';
+  tRender();
+  if (play) speak(TONES[tn.cur].th, $('#tPlay'));
+}
+function tRender() {
+  $('#tOpts').innerHTML = TONES.map((x, i) => `<button data-t="${i}" class="tone-btn rounded-xl border border-white/10 bg-ink-900 p-3 hover:border-white/30 transition">${curve(x.path)}<p class="mt-2 text-sm font-semibold text-white">${x[lang].n}</p></button>`).join('');
+  $('#tScore').textContent = tn.score; $('#tTotal').textContent = tn.total;
+}
+$('#tPlay').onclick = e => speak(TONES[tn.cur].th, e.currentTarget);
+$('#tHint').onclick = () => { $('#tReveal').textContent = TONES[tn.cur].lat };
+$('#tOpts').addEventListener('click', e => {
+  const b = e.target.closest('[data-t]');
+  if (!b || tn.lock) return;
+  tn.lock = true; tn.total++;
+  const ok = +b.dataset.t === tn.cur, x = TONES[tn.cur];
+  if (ok) tn.score++;
+  $$('[data-t]').forEach(el => {
+    if (+el.dataset.t === tn.cur) el.className += ' !border-emerald-400 !bg-emerald-400/10 pop';
+    else if (el === b) el.className += ' !border-rose-400 !bg-rose-400/10 shake';
+  });
+  $('#tReveal').innerHTML = `<span class="fade-up inline-block">${x.lat} · <span class="font-thai">${x.th}</span> · <span class="text-zinc-400 font-sans text-base">${x[lang].w}</span></span>`;
+  $('#tScore').textContent = tn.score; $('#tTotal').textContent = tn.total;
+  setTimeout(() => tNext(true), 1800);
+});
+
+/* trainer tabs */
+function renderTabs() {
+  $$('.tab').forEach(b => { const on = b.dataset.tab === tab; b.classList.toggle('bg-accent', on); b.classList.toggle('text-ink-950', on); b.classList.toggle('text-zinc-400', !on) });
+  $$('[data-panel]').forEach(p => p.classList.toggle('hidden', p.dataset.panel !== tab));
+  renderPools();
+}
+$$('.tab').forEach(b => b.onclick = () => {
+  const first = tab !== 'tones' && b.dataset.tab === 'tones';
+  tab = b.dataset.tab; renderTabs();
+  if (first) speak(TONES[tn.cur].th, $('#tPlay'));
+});
+
+/* ================= TOGGLES & INIT ================= */
+function renderAll() {
+  renderText(); renderSounds(); renderTones(); renderAlphabet(); renderPhrases();
+  renderNum(); renderBody(); renderVerbs(); renderHero(); renderPools();
+  fcShow(); qRender(); tRender(); icons();
+}
+$$('[data-lang]').forEach(b => b.onclick = () => { lang = b.dataset.lang; store.set('tf-lang', lang); renderAll() });
+$$('[data-gender]').forEach(b => b.onclick = () => { gender = b.dataset.gender; store.set('tf-gender', gender); renderAll() });
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target) } }), { threshold: .08 });
+$$('.reveal').forEach(el => io.observe(el));
+
+deck = shuffle(items().map((_, i) => i));
+qNext();
+tNext(false);
+renderTabs();
+renderVtabs();
+renderAll();
+</script>
+</body>
+</html>
