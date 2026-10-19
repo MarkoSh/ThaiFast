@@ -109,8 +109,10 @@ tailwind.config = {
           <div id="heroWord" class="mt-8 min-h-[190px]"></div>
           <div class="mt-6 flex items-center gap-3">
             <button id="heroPlay" class="grid place-items-center w-12 h-12 rounded-full border border-white/15 hover:border-accent hover:text-accent transition" aria-label="Play"><i data-lucide="volume-2" class="w-5 h-5"></i></button>
-            <button id="heroNext" class="grid place-items-center w-12 h-12 rounded-full border border-white/15 hover:bg-white/5 transition" aria-label="Next"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
-            <div class="flex-1 h-1 rounded-full bg-white/5 overflow-hidden"><div id="heroBar" class="h-full bg-accent w-0"></div></div>
+            <div class="ml-auto flex gap-3">
+              <button id="heroPrev" class="grid place-items-center w-12 h-12 rounded-full border border-white/15 hover:bg-white/5 transition" aria-label="Previous"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+              <button id="heroNext" class="grid place-items-center w-12 h-12 rounded-full border border-white/15 hover:bg-white/5 transition" aria-label="Next"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+            </div>
           </div>
         </div>
       </div>
@@ -1171,7 +1173,7 @@ $('#tvMore').onclick = () => { tvAll = !tvAll; renderTopVerbs(); icons(); if (!t
 
 /* --- hero --- */
 const HERO = PH.filter(x => ['greet', 'polite', 'bye'].includes(x.c));
-let heroI = 0, heroTimer;
+let heroI = 0;
 function renderHero() {
   const x = HERO[heroI];
   $('#heroWord').innerHTML = `<div class="fade-up">
@@ -1180,13 +1182,10 @@ function renderHero() {
     ${lang === 'ru' ? `<p class="mt-1 text-zinc-500">${cyrTxt(x)}</p>` : ''}
     <p class="mt-4 text-xl text-zinc-200">${x[lang]}</p></div>`;
   $('#heroIdx').textContent = `${String(heroI + 1).padStart(2, '0')} / ${HERO.length}`;
-  const bar = $('#heroBar');
-  bar.style.transition = 'none'; bar.style.width = '0';
-  requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.transition = 'width 6s linear'; bar.style.width = '100%' }));
-  clearTimeout(heroTimer);
-  heroTimer = setTimeout(() => { heroI = (heroI + 1) % HERO.length; renderHero() }, 6000);
 }
-$('#heroNext').onclick = () => { heroI = (heroI + 1) % HERO.length; renderHero() };
+const heroGo = d => { heroI = (heroI + d + HERO.length) % HERO.length; renderHero() };
+$('#heroPrev').onclick = () => heroGo(-1);
+$('#heroNext').onclick = () => heroGo(1);
 $('#heroPlay').onclick = e => speak(say(HERO[heroI]), e.currentTarget);
 
 /* ================= TRAINERS ================= */
