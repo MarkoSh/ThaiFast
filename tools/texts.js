@@ -16,6 +16,20 @@ const out = new Function(js + `
   NUM.forEach(x => both(x.th)); BODY.forEach(x => { both(x.th); if (!x.noPain) both('ปวด' + x.th) });
   VERB.forEach(x => both(x.th)); TOPV.forEach(x => { both(x.th); both(x.xth) });
   for (let n = 0; n < 100000; n++) thaiNum(n).parts.forEach(both);
+  // lines spoken by Thais — fixed speaker voice
+  ANS.forEach(x => res[x.v].add(x.th));
+  SCENES.forEach(sc => sc.steps.forEach(st => res[st.them.v].add(st.them.th)));
+  both('ไหว้'); res.m.add(POLITE_YES.m.th); res.f.add(POLITE_YES.f.th);
+  ADDR.forEach(x => both(x.th)); QWORDS.concat(QPARTS).forEach(x => both(x.th));
+  CLS.forEach(x => both(x.th)); FOOD.forEach(g => g.items.forEach(x => both(x.th))); SIGNS.forEach(x => both(x.th));
+  for (const g of ['m', 'f']) {
+    const P = PARTICLE[g].th;
+    SCENES.forEach(sc => sc.steps.forEach(st => st.you.forEach(o => res[g].add(o.th + P))));
+    ADDR.filter(x => x.th !== 'คุณ').forEach(x => res[g].add(x.th + P));
+    SMILE.forEach(x => res[g].add(x.th + P));
+    QWORDS.concat(QPARTS).forEach(x => res[g].add(x.xth + P));
+    ORDER.forEach(it => ORDER_N.forEach(([n]) => res[g].add(orderPhrase(it, n).th + P)));
+  }
   return { m: [...res.m], f: [...res.f] };
 `)();
 console.log(JSON.stringify(out));

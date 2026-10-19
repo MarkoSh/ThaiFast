@@ -52,14 +52,14 @@ tailwind.config = {
       <span class="grid place-items-center w-8 h-8 rounded-lg bg-accent text-ink-950"><i data-lucide="zap" class="w-4 h-4"></i></span>
       ThaiFast
     </a>
-    <div class="hidden lg:flex items-center gap-6 text-sm text-zinc-400">
+    <div class="hidden lg:flex items-center gap-5 text-sm text-zinc-400">
       <a href="#sounds" class="hover:text-white transition" data-i18n="navSounds"></a>
-      <a href="#tones" class="hover:text-white transition" data-i18n="navTones"></a>
       <a href="#alphabet" class="hover:text-white transition" data-i18n="navAlpha"></a>
       <a href="#phrases" class="hover:text-white transition" data-i18n="navPhrases"></a>
       <a href="#words" class="hover:text-white transition" data-i18n="navWords"></a>
+      <a href="#dialogs" class="hover:text-white transition" data-i18n="navDialogs"></a>
+      <a href="#etiquette" class="hover:text-white transition" data-i18n="navEtq"></a>
       <a href="#train" class="hover:text-white transition" data-i18n="navTrain"></a>
-      <a href="#topverbs" class="hover:text-white transition" data-i18n="navTop"></a>
     </div>
     <div class="flex items-center gap-2">
       <div class="flex rounded-lg border border-white/10 p-0.5 text-xs font-semibold" role="group" aria-label="Gender">
@@ -233,10 +233,13 @@ tailwind.config = {
           <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="wordsTitle"></h2>
           <p class="mt-3 text-zinc-400" data-i18n="wordsSub"></p>
         </div>
-        <div class="inline-flex self-start md:self-auto rounded-2xl border border-white/10 bg-ink-900 p-1 text-sm font-semibold">
+        <div class="flex flex-wrap self-start md:self-auto md:max-w-md md:justify-end rounded-2xl border border-white/10 bg-ink-900 p-1 text-sm font-semibold">
           <button data-vtab="num" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="hash" class="w-4 h-4"></i><span data-i18n="vNum"></span></button>
           <button data-vtab="body" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="person-standing" class="w-4 h-4"></i><span data-i18n="vBody"></span></button>
           <button data-vtab="verb" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="move-right" class="w-4 h-4"></i><span data-i18n="vVerb"></span></button>
+          <button data-vtab="ques" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="circle-help" class="w-4 h-4"></i><span data-i18n="vQues"></span></button>
+          <button data-vtab="cls" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="shopping-cart" class="w-4 h-4"></i><span data-i18n="vCls"></span></button>
+          <button data-vtab="food" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="soup" class="w-4 h-4"></i><span data-i18n="vFood"></span></button>
         </div>
       </div>
 
@@ -277,24 +280,137 @@ tailwind.config = {
         </div>
         <div id="verbGrid" class="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"></div>
       </div>
+
+      <!-- Questions -->
+      <div data-vpanel="ques" class="hidden mt-10">
+        <div class="flex items-start gap-3 rounded-2xl border border-accent/20 bg-accent/5 p-5 text-sm">
+          <i data-lucide="message-circle-question" class="w-5 h-5 text-accent shrink-0 mt-0.5"></i>
+          <p class="text-zinc-300" data-i18n="quesNote"></p>
+        </div>
+        <div id="qwGrid" class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+        <h3 class="mt-10 text-lg font-bold text-white" data-i18n="qpTitle"></h3>
+        <div id="qpGrid" class="mt-4 grid sm:grid-cols-2 lg:grid-cols-5 gap-3"></div>
+      </div>
+
+      <!-- Classifiers -->
+      <div data-vpanel="cls" class="hidden mt-10">
+        <div class="rounded-3xl border border-white/10 bg-ink-900 p-6 md:p-8">
+          <p class="text-sm font-semibold text-white flex items-center gap-2"><i data-lucide="shopping-cart" class="w-4 h-4 text-accent"></i><span data-i18n="orderBuilder"></span></p>
+          <div id="orderItems" class="mt-4 flex flex-wrap gap-2"></div>
+          <div id="orderNums" class="mt-3 flex flex-wrap gap-2"></div>
+          <div id="orderOut" class="mt-6 rounded-2xl border border-white/10 bg-ink-950 p-6"></div>
+          <p class="mt-4 flex items-start gap-3 text-sm text-zinc-400"><i data-lucide="sparkles" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i><span data-i18n="clsNote"></span></p>
+        </div>
+        <div id="clsGrid" class="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"></div>
+      </div>
+
+      <!-- Food -->
+      <div data-vpanel="food" class="hidden mt-10">
+        <div class="flex items-start gap-3 rounded-2xl border border-accent/20 bg-accent/5 p-5 text-sm">
+          <i data-lucide="chef-hat" class="w-5 h-5 text-accent shrink-0 mt-0.5"></i>
+          <p class="text-zinc-300" data-i18n="foodNote"></p>
+        </div>
+        <div id="foodGroups" class="mt-8 space-y-8"></div>
+      </div>
     </div>
   </section>
 
-  <!-- 06 TRAINERS -->
+  <!-- 06 ANSWERS -->
+  <section id="answers" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">06</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="ansTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="ansSub"></p>
+      </div>
+      <div class="reveal mt-6 flex items-start gap-3 rounded-2xl border border-accent/20 bg-accent/5 p-5 text-sm max-w-3xl">
+        <i data-lucide="ear" class="w-5 h-5 text-accent shrink-0 mt-0.5"></i>
+        <p class="text-zinc-300" data-i18n="ansNote"></p>
+      </div>
+      <div class="reveal mt-8 flex flex-wrap items-center justify-between gap-4">
+        <div id="ansTabs" class="flex flex-wrap gap-2"></div>
+        <button data-goto-tab="listen" class="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2 text-sm font-semibold hover:border-accent hover:text-accent transition"><i data-lucide="headphones" class="w-4 h-4"></i><span data-i18n="ansTrain"></span></button>
+      </div>
+      <div id="ansGrid" class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+  </section>
+
+  <!-- 07 DIALOGS -->
+  <section id="dialogs" class="py-20 md:py-28 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">07</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="dlgTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="dlgSub"></p>
+      </div>
+      <div id="sceneTabs" class="reveal mt-8 flex flex-wrap gap-2"></div>
+      <div class="reveal mt-6 max-w-3xl rounded-3xl border border-white/10 bg-ink-950 p-4 md:p-8">
+        <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-zinc-500">
+          <span id="dlgProg" class="font-mono"></span>
+          <div class="flex items-center gap-4">
+            <label class="flex items-center gap-2 cursor-pointer select-none"><input id="dlgTr" type="checkbox" class="w-4 h-4 accent-[#e8b04b]"><span data-i18n="dlgShowTr"></span></label>
+            <button id="dlgRestart" class="flex items-center gap-1.5 hover:text-white transition"><i data-lucide="rotate-ccw" class="w-4 h-4"></i><span data-i18n="dlgRestart"></span></button>
+          </div>
+        </div>
+        <div id="dlgLog" class="mt-6 space-y-4"></div>
+        <div id="dlgOpts" class="mt-6 grid gap-2"></div>
+        <p id="dlgWhy" class="mt-3 min-h-[20px] text-sm text-rose-300"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 ETIQUETTE -->
+  <section id="etiquette" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">08</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="etqTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="etqSub"></p>
+      </div>
+      <h3 class="reveal mt-10 text-lg font-bold text-white" data-i18n="addrTitle"></h3>
+      <div id="addrGrid" class="reveal mt-4 grid sm:grid-cols-2 lg:grid-cols-5 gap-3"></div>
+      <div class="reveal mt-6 grid md:grid-cols-2 gap-4">
+        <div id="politeYes" class="rounded-2xl border border-accent/25 bg-ink-950 p-6"></div>
+        <div id="waiList" class="rounded-2xl border border-white/10 bg-ink-950 p-6"></div>
+      </div>
+      <div id="dontList" class="reveal mt-4 rounded-2xl border border-rose-400/20 bg-ink-950 p-6"></div>
+      <h3 class="reveal mt-12 text-lg font-bold text-white" data-i18n="smileTitle"></h3>
+      <div id="smileGrid" class="mt-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+    </div>
+  </section>
+
+  <!-- 09 SIGNS -->
+  <section id="signs" class="py-20 md:py-28 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="max-w-2xl">
+          <p class="font-mono text-sm text-accent">09</p>
+          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="signsTitle"></h2>
+          <p class="mt-3 text-zinc-400" data-i18n="signsSub"></p>
+        </div>
+        <div id="signTabs" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div id="signGrid" class="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>
+    </div>
+  </section>
+
+  <!-- 10 TRAINERS -->
   <section id="train" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
     <div class="max-w-4xl mx-auto px-4">
       <div class="reveal text-center max-w-2xl mx-auto">
-        <p class="font-mono text-sm text-accent">06</p>
+        <p class="font-mono text-sm text-accent">10</p>
         <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="trainTitle"></h2>
         <p class="mt-3 text-zinc-400" data-i18n="trainSub"></p>
       </div>
 
       <div class="reveal mt-10 flex justify-center">
-        <div class="inline-flex rounded-2xl border border-white/10 bg-ink-950 p-1 text-sm font-semibold">
+        <div class="flex flex-wrap justify-center rounded-2xl border border-white/10 bg-ink-950 p-1 text-sm font-semibold">
           <button data-tab="cards" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="layers" class="w-4 h-4"></i><span data-i18n="tabCards"></span></button>
           <button data-tab="quiz" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="list-checks" class="w-4 h-4"></i><span data-i18n="tabQuiz"></span></button>
+          <button data-tab="listen" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="headphones" class="w-4 h-4"></i><span data-i18n="tabListen"></span></button>
           <button data-tab="tones" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="audio-lines" class="w-4 h-4"></i><span data-i18n="tabTones"></span></button>
           <button data-tab="trace" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="pen-line" class="w-4 h-4"></i><span data-i18n="tabTrace"></span></button>
+          <button data-tab="speak" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="mic" class="w-4 h-4"></i><span data-i18n="tabSpeak"></span></button>
         </div>
       </div>
       <div id="poolTabs" class="reveal mt-4 flex flex-wrap justify-center gap-2"></div>
@@ -358,6 +474,37 @@ tailwind.config = {
           <div id="tOpts" class="mt-6 grid grid-cols-2 sm:grid-cols-5 gap-3"></div>
         </div>
 
+        <!-- Listening -->
+        <div data-panel="listen" class="hidden">
+          <div class="flex items-center justify-between text-sm text-zinc-500">
+            <span><span data-i18n="score"></span>: <b id="lScore" class="text-white">0</b> / <span id="lTotal">0</span></span>
+            <span class="flex items-center gap-1.5"><i data-lucide="flame" class="w-4 h-4 text-accent"></i><span data-i18n="streak"></span>: <b id="lStreak" class="text-white">0</b></span>
+          </div>
+          <div class="mt-8 text-center">
+            <p class="text-zinc-400" data-i18n="listenQ"></p>
+            <button id="lPlay" class="mt-6 mx-auto grid place-items-center w-24 h-24 rounded-full border-2 border-white/15 hover:border-accent hover:text-accent transition" aria-label="Play"><i data-lucide="headphones" class="w-9 h-9"></i></button>
+            <div id="lReveal" class="mt-5 min-h-[64px]"></div>
+          </div>
+          <div id="lOpts" class="mt-4 grid sm:grid-cols-2 gap-3"></div>
+        </div>
+
+        <!-- Speak -->
+        <div data-panel="speak" class="hidden">
+          <div class="flex items-center justify-between gap-4 text-sm text-zinc-500">
+            <span data-i18n="spHint"></span>
+            <button id="spNext" class="shrink-0 flex items-center gap-1.5 hover:text-white transition"><i data-lucide="shuffle" class="w-4 h-4"></i></button>
+          </div>
+          <div id="spPhrase" class="mt-8 text-center"></div>
+          <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button id="spListen" class="rounded-xl border border-white/10 py-3 font-semibold hover:border-accent hover:text-accent transition flex items-center justify-center gap-2"><i data-lucide="volume-2" class="w-4 h-4"></i><span data-i18n="spListen"></span></button>
+            <button id="spRec" class="rounded-xl border border-white/10 py-3 font-semibold hover:bg-white/5 transition flex items-center justify-center gap-2"></button>
+            <button id="spMine" class="rounded-xl border border-white/10 py-3 font-semibold hover:bg-white/5 transition flex items-center justify-center gap-2 disabled:opacity-30 disabled:pointer-events-none"><i data-lucide="play" class="w-4 h-4"></i><span data-i18n="spMine"></span></button>
+            <button id="spCheck" class="rounded-xl bg-accent text-ink-950 py-3 font-semibold hover:brightness-110 transition flex items-center justify-center gap-2"></button>
+          </div>
+          <div id="spResult" class="mt-6 min-h-[100px]"></div>
+          <p id="spSupport" class="mt-2 text-xs text-zinc-500"></p>
+        </div>
+
         <!-- Trace -->
         <div data-panel="trace" class="hidden">
           <div class="flex flex-wrap items-center justify-between gap-3">
@@ -393,7 +540,7 @@ tailwind.config = {
     <div class="max-w-6xl mx-auto px-4">
       <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div class="max-w-2xl">
-          <p class="font-mono text-sm text-accent">07</p>
+          <p class="font-mono text-sm text-accent">11</p>
           <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight"><span id="tvCount"></span> <span data-i18n="tvTitle"></span></h2>
           <p class="mt-3 text-zinc-400" data-i18n="tvSub"></p>
         </div>
@@ -442,6 +589,34 @@ tailwind.config = {
 /* ================= UI TEXT ================= */
 const T = {
   ru: {
+    navDialogs: 'Диалоги', navEtq: 'Этикет',
+    vQues: 'Вопросы', vCls: 'Счёт', vFood: 'Еда',
+    quesNote: 'Вопросительное слово ставится в конец: ไปไหน — дословно «идёшь куда?». Порядок слов как в обычной фразе, просто в конце — вопрос.',
+    qpTitle: 'Частицы вопроса',
+    orderBuilder: 'Закажите что угодно', clsNote: 'Тайцы считают через «счётное слово»: не «два пива», а «пиво две бутылки» — เบียร์สองขวด. Одна штука — наоборот: ขวดนึง, «бутылку одну». Забыли нужное слово — скажите อัน, поймут.',
+    foodNote: 'Название блюда собирается как конструктор: способ + основа + мясо. ผัด + กะเพรา + หมู = ผัดกะเพราหมู. Знаете эти слова — прочитаете половину уличного меню.',
+    ansTitle: 'Что вам ответят', ansSub: 'Спросить — половина дела. Вот что вы услышите в ответ от официантов, кассиров и водителей. Озвучено голосом того, кто обычно это говорит.',
+    ansNote: 'Женщины задают вопросы с คะ (высокий тон), а отвечают с ค่ะ (нисходящий). У мужчин всегда ครับ. Именно по этим частицам тайцы слышат вежливость.',
+    ansTrain: 'Тренироваться на слух', ans_food: 'Кафе', ans_shop: 'Магазин', ans_taxi: 'Такси', ans_people: 'Знакомые',
+    voiceF: 'говорит женщина', voiceM: 'говорит мужчина',
+    dlgTitle: 'Диалоги по ролям', dlgSub: 'Тайский собеседник говорит — вы выбираете ответ. Пять реальных сцен: кафе, такси, рынок, 7-Eleven и массаж.',
+    dlgShowTr: 'Перевод', dlgRestart: 'Сначала', dlgDone: 'Сцена пройдена!', dlgNext: 'Следующая сцена', dlgStep: 'Шаг', dlgYou: 'Ваш ответ',
+    etqTitle: 'Этикет: как понравиться тайцам', etqSub: 'Правильное обращение и пара жестов значат больше, чем грамматика. Тайцы прощают ошибки в языке, но всегда замечают уважение.',
+    addrTitle: 'Как обращаться к людям', addrCall: 'Позвать',
+    politeTitle: 'Вежливое «да, слушаю»',
+    politeM: 'ครับผม — самое вежливое мужское «да». Звучит уважительно и чуть старомодно — тайцы это очень ценят. Отвечайте так официанту, водителю, старшим.',
+    politeF: 'ค่ะ — вежливое женское «да». В вопросах женщины говорят คะ (высокий тон), в ответах — ค่ะ (нисходящий).',
+    waiTitle: 'Вай — тайское приветствие', dontTitle: 'Чего не делать', smileTitle: 'Фразы, от которых тайцы улыбаются',
+    signsTitle: 'Вывески и ценники', signsSub: 'Чтение начинается с улицы: туалет, выход, «открыто», цена, скидка, товары в магазине. Нажмите на табличку — услышите, как её читают.',
+    sg_sign: 'Вывески', sg_tag: 'Магазин и ценники',
+    tabListen: 'На слух', tabSpeak: 'Скажи',
+    listenQ: 'Послушайте, что вам говорят, и выберите смысл',
+    spHint: 'Скажите фразу вслух: запишите себя и сравните с диктором.', spListen: 'Диктор', spRec: 'Записать', spStop: 'Стоп', spMine: 'Моя запись', spCheck: 'Проверить',
+    spListening: 'Говорите…', spHeard: 'Распознано', spR0: 'Пока не похоже — послушайте диктора и попробуйте ещё', spR1: 'Близко! Ещё разок', spR2: 'Отлично, вас поймут!',
+    spNote: '«Проверить» — браузер распознаёт вашу речь и сравнивает с фразой. При первом запуске он попросит доступ к микрофону.',
+    spNoSR: 'Этот браузер не умеет распознавать речь — запись и сравнение на слух работают. Проверка есть в Chrome, Edge и Safari.',
+    spMicErr: 'Нет доступа к микрофону — разрешите его в настройках сайта.', spSrErr: 'Распознавание не сработало: ', spNothing: 'Ничего не расслышал — говорите громче и ближе к микрофону.',
+    pool_answers: 'Ответы', pool_food: 'Еда', pool_signs: 'Вывески',
     navSounds: 'Звуки', navTones: 'Тоны', navAlpha: 'Алфавит', navPhrases: 'Фразы', navWords: 'Слова', navTrain: 'Тренажёры', navTop: 'Топ-глаголы',
     male: 'Он', female: 'Она',
     badge: '15 минут до первого разговора',
@@ -506,6 +681,34 @@ const T = {
     noVoice: 'В браузере не найден тайский голос. Попробуйте Chrome или Edge либо установите тайский голос в системе.'
   },
   en: {
+    navDialogs: 'Dialogs', navEtq: 'Etiquette',
+    vQues: 'Questions', vCls: 'Counting', vFood: 'Food',
+    quesNote: 'The question word goes at the end: ไปไหน — literally “go where?”. Same word order as a statement, the question just comes last.',
+    qpTitle: 'Question particles',
+    orderBuilder: 'Order anything', clsNote: 'Thais count with a classifier: not “two beers” but “beer two bottles” — เบียร์สองขวด. For one, flip it: ขวดนึง, “bottle one”. Forgot the classifier? Say อัน — they’ll understand.',
+    foodNote: 'Dish names are built like Lego: method + base + meat. ผัด + กะเพรา + หมู = ผัดกะเพราหมู. Know these words and you can read half a street menu.',
+    ansTitle: 'What they’ll say back', ansSub: 'Asking is half the job. Here’s what waiters, cashiers and drivers will say to you — voiced by the kind of person who usually says it.',
+    ansNote: 'Women ask questions with คะ (high tone) and answer with ค่ะ (falling). Men always use ครับ. These particles are exactly how Thais hear politeness.',
+    ansTrain: 'Practice listening', ans_food: 'Café', ans_shop: 'Shop', ans_taxi: 'Taxi', ans_people: 'People',
+    voiceF: 'a woman says', voiceM: 'a man says',
+    dlgTitle: 'Role-play dialogs', dlgSub: 'A Thai speaks — you pick the reply. Five real scenes: café, taxi, market, 7-Eleven and massage.',
+    dlgShowTr: 'Translation', dlgRestart: 'Restart', dlgDone: 'Scene complete!', dlgNext: 'Next scene', dlgStep: 'Step', dlgYou: 'Your reply',
+    etqTitle: 'Etiquette: how Thais will love you', etqSub: 'The right form of address and a couple of gestures matter more than grammar. Thais forgive language mistakes but always notice respect.',
+    addrTitle: 'How to address people', addrCall: 'Call',
+    politeTitle: 'The polite “yes, I’m listening”',
+    politeM: 'ครับผม is the most polite male “yes”. Respectful and a little old-school — Thais love it. Use it with waiters, drivers, elders.',
+    politeF: 'ค่ะ is the polite female “yes”. Women use คะ (high tone) in questions and ค่ะ (falling) in answers.',
+    waiTitle: 'The wai — Thai greeting', dontTitle: 'What not to do', smileTitle: 'Phrases that make Thais smile',
+    signsTitle: 'Signs & price tags', signsSub: 'Reading starts on the street: toilet, exit, open, price, sale, shop items. Tap a sign to hear how it’s read.',
+    sg_sign: 'Signs', sg_tag: 'Shop & price tags',
+    tabListen: 'Listening', tabSpeak: 'Speak',
+    listenQ: 'Listen to what’s said and pick the meaning',
+    spHint: 'Say the phrase out loud: record yourself and compare with the speaker.', spListen: 'Speaker', spRec: 'Record', spStop: 'Stop', spMine: 'My take', spCheck: 'Check',
+    spListening: 'Speak now…', spHeard: 'Heard', spR0: 'Not quite — listen to the speaker and try again', spR1: 'Close! One more time', spR2: 'Great, you’ll be understood!',
+    spNote: '“Check” — the browser recognises your speech and compares it with the phrase. It will ask for microphone access the first time.',
+    spNoSR: 'This browser can’t recognise speech — recording and comparing by ear still work. Checking works in Chrome, Edge and Safari.',
+    spMicErr: 'No microphone access — allow it in the site settings.', spSrErr: 'Recognition failed: ', spNothing: 'Didn’t catch that — speak louder and closer to the mic.',
+    pool_answers: 'Replies', pool_food: 'Food', pool_signs: 'Signs',
     navSounds: 'Sounds', navTones: 'Tones', navAlpha: 'Alphabet', navPhrases: 'Phrases', navWords: 'Words', navTrain: 'Practice', navTop: 'Top verbs',
     male: 'He', female: 'She',
     badge: '15 minutes to your first conversation',
@@ -892,6 +1095,236 @@ const thaiDigits = n => String(n).replace(/\d/g, d => '๐๑๒๓๔๕๖๗�
 // self-check
 console.assert(thaiNum(21).th === 'ยี่สิบเอ็ด' && thaiNum(11).th === 'สิบเอ็ด' && thaiNum(1).th === 'หนึ่ง' && thaiNum(101).th === 'หนึ่งร้อยเอ็ด' && thaiNum(350).th === 'สามร้อยห้าสิบ' && thaiNum(12000).th === 'หนึ่งหมื่นสองพัน', 'thaiNum');
 
+/* ================= WHAT THAIS SAY TO YOU ================= */
+// Lines you will hear. v = speaker voice; the speaker's own particle is part of the text (คะ in questions, ค่ะ in statements).
+const ANS_CATS = [['food', 'utensils'], ['shop', 'store'], ['taxi', 'car-taxi-front'], ['people', 'users']];
+const ANS = [
+  { c: 'food', v: 'f', th: 'ทานที่นี่หรือกลับบ้านคะ', lat: 'thaan thîi-nîi rǔe glàp bâan khá', cyr: 'тхан тхи-ни ры клап бан кха?', ru: 'Здесь или с собой?', en: 'Eat here or take away?', tip: ['Ответ: ทานที่นี่ (здесь) или กลับบ้าน (с собой).', 'Answer: ทานที่นี่ (here) or กลับบ้าน (to go).'] },
+  { c: 'food', v: 'f', th: 'กี่ท่านคะ', lat: 'gìi thâan khá', cyr: 'ки тхан кха?', ru: 'Сколько вас?', en: 'How many people?', tip: ['ท่าน — вежливое «человек». Ответ: สองคน (двое).', 'ท่าน is the polite word for people. Answer: สองคน (two).'] },
+  { c: 'food', v: 'f', th: 'รับอะไรดีคะ', lat: 'ráp à-rai dii khá', cyr: 'рап а-рай ди кха?', ru: 'Что будете заказывать?', en: 'What would you like?' },
+  { c: 'food', v: 'f', th: 'เผ็ดไหมคะ', lat: 'phèt mǎi khá', cyr: 'пхет май кха?', ru: 'Остро делать?', en: 'Spicy?', tip: ['Ответ: ไม่เอาเผ็ด (не надо) или เผ็ดนิดหน่อย (чуть-чуть).', 'Answer: ไม่เอาเผ็ด (no) or เผ็ดนิดหน่อย (a little).'] },
+  { c: 'food', v: 'm', th: 'ดื่มอะไรดีครับ', lat: 'dùuem à-rai dii khráp', cyr: 'дым а-рай ди кхрап?', ru: 'Что будете пить?', en: 'Anything to drink?' },
+  { c: 'food', v: 'f', th: 'หมดแล้วค่ะ', lat: 'mòt láew khâ', cyr: 'мот лэо кха', ru: 'Уже закончилось', en: 'It’s sold out', tip: ['Выберите другое: งั้นเอาอันนี้ (тогда вот это).', 'Pick another: งั้นเอาอันนี้ (then this one).'] },
+  { c: 'food', v: 'f', th: 'รอแป๊บนึงนะคะ', lat: 'ror bpáep nueng ná khá', cyr: 'ро пэп нынг на кха', ru: 'Подождите минутку', en: 'Just a moment, please' },
+  { c: 'food', v: 'f', th: 'ได้เลยค่ะ', lat: 'dâai loei khâ', cyr: 'дай лёй кха', ru: 'Конечно! Без проблем', en: 'Sure, no problem!' },
+  { c: 'food', v: 'f', th: 'ทั้งหมดสามร้อยบาทค่ะ', lat: 'tháng-mòt sǎam rói bàat khâ', cyr: 'тханг-мот сам рой бат кха', ru: 'Всего 300 бат', en: '300 baht in total', tip: ['ทั้งหมด — «всего». Дальше идёт сумма.', 'ทั้งหมด means “in total”. The amount follows.'] },
+  { c: 'food', v: 'f', th: 'เงินสดหรือโอนคะ', lat: 'ngoen-sòt rǔe ohn khá', cyr: 'нгён-сот ры он кха?', ru: 'Наличными или переводом?', en: 'Cash or transfer?' },
+  { c: 'shop', v: 'f', th: 'รับถุงไหมคะ', lat: 'ráp thǔng mǎi khá', cyr: 'рап тхунг май кха?', ru: 'Пакет нужен?', en: 'Need a bag?', tip: ['Ответ глаголом: รับ (да) или ไม่รับ (нет).', 'Answer with the verb: รับ (yes) or ไม่รับ (no).'] },
+  { c: 'shop', v: 'f', th: 'อุ่นไหมคะ', lat: 'ùn mǎi khá', cyr: 'ун май кха?', ru: 'Разогреть?', en: 'Heat it up?', tip: ['Спросят в 7-Eleven про сэндвичи и готовую еду. Ответ: อุ่น / ไม่อุ่น.', 'Asked at 7-Eleven about ready meals. Answer: อุ่น / ไม่อุ่น.'] },
+  { c: 'shop', v: 'f', th: 'มีบัตรสมาชิกไหมคะ', lat: 'mii bàt sà-maa-chík mǎi khá', cyr: 'ми бат са-ма-чхик май кха?', ru: 'Есть карта постоянного покупателя?', en: 'Do you have a member card?', tip: ['Ответ: ไม่มี — «нету».', 'Answer: ไม่มี — “don’t have one”.'] },
+  { c: 'shop', v: 'f', th: 'ไม่มีค่ะ', lat: 'mâi mii khâ', cyr: 'май ми кха', ru: 'Такого нет', en: 'We don’t have it' },
+  { c: 'shop', v: 'f', th: 'ลดได้นิดหน่อยค่ะ', lat: 'lót dâai nít-nòi khâ', cyr: 'лот дай нит-ной кха', ru: 'Могу немного скинуть', en: 'I can lower it a little' },
+  { c: 'shop', v: 'f', th: 'ราคานี้แล้วค่ะ', lat: 'raa-khaa níi láew khâ', cyr: 'ра-кха ни лэо кха', ru: 'Это уже последняя цена', en: 'That’s already the final price' },
+  { c: 'shop', v: 'f', th: 'เชิญค่ะ ดูก่อนได้', lat: 'choen khâ duu gòn dâai', cyr: 'чхён кха, ду кон дай', ru: 'Заходите, смотрите', en: 'Come in, have a look' },
+  { c: 'taxi', v: 'm', th: 'ไปไหนครับ', lat: 'bpai nǎi khráp', cyr: 'пай най кхрап?', ru: 'Куда едем?', en: 'Where to?' },
+  { c: 'taxi', v: 'm', th: 'ไม่ไปครับ', lat: 'mâi bpai khráp', cyr: 'май пай кхрап', ru: 'Не поеду', en: 'Not going there', tip: ['Таксисты часто отказываются — не обижайтесь, ловите следующего.', 'Drivers often refuse — no offence, just hail the next one.'] },
+  { c: 'taxi', v: 'm', th: 'อยู่ตรงไหนครับ', lat: 'yùu dtrong nǎi khráp', cyr: 'ю тронг най кхрап?', ru: 'Где вы стоите?', en: 'Where exactly are you?', tip: ['Так звонит водитель Grab. Ответ: อยู่หน้า… (стою перед…).', 'A Grab driver calling. Answer: อยู่หน้า… (I’m in front of…).'] },
+  { c: 'taxi', v: 'm', th: 'ขึ้นทางด่วนไหมครับ', lat: 'khûen thaang-dùan mǎi khráp', cyr: 'кхын тханг-дуан май кхрап?', ru: 'По платной дороге поедем?', en: 'Take the expressway?', tip: ['Платную дорогу оплачивает пассажир. Ответ: ขึ้น / ไม่ขึ้น.', 'The passenger pays the toll. Answer: ขึ้น / ไม่ขึ้น.'] },
+  { c: 'taxi', v: 'm', th: 'ถึงแล้วครับ', lat: 'thǔeng láew khráp', cyr: 'тхынг лэо кхрап', ru: 'Приехали', en: 'We’re here' },
+  { c: 'people', v: 'f', th: 'พูดไทยเก่งจังเลย', lat: 'phûut thai gèng jang loei', cyr: 'пхут тхай кенг джанг лёй', ru: 'Как хорошо вы говорите по-тайски!', en: 'Your Thai is so good!', tip: ['Скромно ответьте: นิดหน่อย (чуть-чуть) — тайцы это ценят.', 'Reply modestly: นิดหน่อย (just a little) — Thais love it.'] },
+  { c: 'people', v: 'f', th: 'มาเที่ยวเหรอคะ', lat: 'maa thîao rǒe khá', cyr: 'ма тхиао рё кха?', ru: 'Отдыхать приехали?', en: 'Here on holiday?' },
+  { c: 'people', v: 'm', th: 'อยู่ไทยนานไหมครับ', lat: 'yùu thai naan mǎi khráp', cyr: 'ю тхай нан май кхрап?', ru: 'Надолго в Таиланде?', en: 'Staying in Thailand long?' },
+  { c: 'people', v: 'f', th: 'กินเผ็ดได้ไหมคะ', lat: 'gin phèt dâai mǎi khá', cyr: 'кин пхет дай май кха?', ru: 'Острое едите?', en: 'Can you eat spicy food?', tip: ['Любимый вопрос тайцев иностранцам. Ответ: ได้นิดหน่อย — «немного могу».', 'Thais’ favourite question for foreigners. Answer: ได้นิดหน่อย — “a little”.'] },
+  { c: 'people', v: 'f', th: 'ไม่เป็นไรค่ะ', lat: 'mâi bpen rai khâ', cyr: 'май пен рай кха', ru: 'Не за что / Ничего страшного', en: 'You’re welcome / No worries' },
+  { c: 'people', v: 'm', th: 'ระวังนะครับ', lat: 'rá-wang ná khráp', cyr: 'ра-ванг на кхрап', ru: 'Осторожно!', en: 'Careful!' }
+].map(x => ({ ...x, np: 1 }));
+
+/* ================= DIALOGS ================= */
+// them = what the Thai says (fixed voice); options = your replies (particle added by gender). ok: right answer, why: explanation for wrong ones
+const SCENES = [
+  { k: 'cafe', icon: 'utensils', ru: 'Кафе', en: 'Café', steps: [
+    { them: { v: 'f', th: 'สวัสดีค่ะ กี่ท่านคะ', lat: 'sà-wàt-dii khâ, gìi thâan khá', ru: 'Здравствуйте! Сколько вас?', en: 'Hello! How many?' }, you: [
+      { th: 'สองคน', lat: 'sǒng khon', ru: 'Двое', en: 'Two', ok: 1 },
+      { th: 'ขอเก็บตังค์หน่อย', lat: 'khǒr gèp dtang nòi', ru: 'Рассчитайте нас', en: 'Check, please', why: ['Это просьба о счёте — вы ещё даже не сели.', 'That’s asking for the bill — you haven’t even sat down.'] },
+      { th: 'ไม่เอาเผ็ด', lat: 'mâi ao phèt', ru: 'Не острое', en: 'Not spicy', why: ['До заказа ещё не дошли: спрашивают, сколько вас.', 'Not ordering yet — they’re asking how many of you.'] }] },
+    { them: { v: 'f', th: 'รับอะไรดีคะ', lat: 'ráp à-rai dii khá', ru: 'Что будете?', en: 'What would you like?' }, you: [
+      { th: 'ขอผัดไทยจานนึง', lat: 'khǒr phàt thai jaan nueng', ru: 'Один пад тай, пожалуйста', en: 'One pad thai, please', ok: 1 },
+      { th: 'ไปสนามบิน', lat: 'bpai sà-nǎam-bin', ru: 'В аэропорт', en: 'To the airport', why: ['Это для такси', 'That’s for a taxi.'] }] },
+    { them: { v: 'f', th: 'เผ็ดไหมคะ', lat: 'phèt mǎi khá', ru: 'Остро делать?', en: 'Spicy?' }, you: [
+      { th: 'ไม่เอาเผ็ด', lat: 'mâi ao phèt', ru: 'Не надо остро', en: 'No spice', ok: 1 },
+      { th: 'เผ็ดนิดหน่อย', lat: 'phèt nít-nòi', ru: 'Чуть-чуть', en: 'A little', ok: 1 },
+      { th: 'หมดแล้ว', lat: 'mòt láew', ru: 'Закончилось', en: 'Sold out', why: ['Это скажет повар, а не вы: «закончилось».', 'That’s what the cook says: “sold out”.'] }] },
+    { them: { v: 'f', th: 'ดื่มอะไรดีคะ', lat: 'dùuem à-rai dii khá', ru: 'Что будете пить?', en: 'Anything to drink?' }, you: [
+      { th: 'ขอน้ำเปล่าขวดนึง', lat: 'khǒr náam bplàao khùat nueng', ru: 'Бутылку воды', en: 'A bottle of water', ok: 1 },
+      { th: 'ชื่ออะไร', lat: 'chûue à-rai', ru: 'Как вас зовут?', en: 'What’s your name?', why: ['Спросили про напиток, а не знакомятся.', 'They asked about drinks, not your name.'] }] },
+    { them: { v: 'f', th: 'อร่อยไหมคะ', lat: 'à-ròi mǎi khá', ru: 'Вкусно?', en: 'Is it good?' }, you: [
+      { th: 'อร่อยมาก', lat: 'à-ròi mâak', ru: 'Очень вкусно!', en: 'Delicious!', ok: 1 },
+      { th: 'ไม่เข้าใจ', lat: 'mâi khâo-jai', ru: 'Не понимаю', en: 'I don’t understand', why: ['อร่อย — «вкусно». Вы это уже знаете!', 'อร่อย means delicious — you know this one!'] }] },
+    { them: { v: 'f', th: 'ทั้งหมดสองร้อยห้าสิบบาทค่ะ', lat: 'tháng-mòt sǒng rói hâa-sìp bàat khâ', ru: 'Всего 250 бат', en: '250 baht in total' }, you: [
+      { th: 'โอนได้ไหม', lat: 'ohn dâai mǎi', ru: 'Можно переводом?', en: 'Can I transfer?', ok: 1 },
+      { th: 'รูดบัตรได้ไหม', lat: 'rûut bàt dâai mǎi', ru: 'Можно картой?', en: 'Card OK?', ok: 1 },
+      { th: 'กี่โมงแล้ว', lat: 'gìi mohng láew', ru: 'Который час?', en: 'What time is it?', why: ['Вам назвали сумму — пора платить.', 'They told you the total — time to pay.'] }] }
+  ] },
+  { k: 'taxi', icon: 'car-taxi-front', ru: 'Такси', en: 'Taxi', steps: [
+    { them: { v: 'm', th: 'ไปไหนครับ', lat: 'bpai nǎi khráp', ru: 'Куда едем?', en: 'Where to?' }, you: [
+      { th: 'ไปสนามบิน', lat: 'bpai sà-nǎam-bin', ru: 'В аэропорт', en: 'The airport', ok: 1 },
+      { th: 'ห้องน้ำอยู่ไหน', lat: 'hông-náam yùu nǎi', ru: 'Где туалет?', en: 'Where’s the toilet?', why: ['Водитель спрашивает, куда ехать.', 'The driver is asking where to go.'] }] },
+    { them: { v: 'm', th: 'สี่ร้อยบาทครับ', lat: 'sìi rói bàat khráp', ru: '400 бат', en: '400 baht' }, you: [
+      { th: 'ไปมิเตอร์ได้ไหม', lat: 'bpai mí-dtôer dâai mǎi', ru: 'А по счётчику можно?', en: 'Meter, please?', ok: 1 },
+      { th: 'แพงไป ลดได้ไหม', lat: 'phaeng bpai, lót dâai mǎi', ru: 'Дороговато, скинете?', en: 'Too much, can you go lower?', ok: 1 },
+      { th: 'ขอบคุณมาก', lat: 'khòp-khun mâak', ru: 'Большое спасибо', en: 'Thanks a lot', why: ['Так вы согласились на 400 — а по счётчику вышло бы дешевле.', 'You just agreed to 400 — the meter would be cheaper.'] }] },
+    { them: { v: 'm', th: 'ได้ครับ ขึ้นทางด่วนไหมครับ', lat: 'dâai khráp, khûen thaang-dùan mǎi khráp', ru: 'Хорошо. По платной дороге?', en: 'OK. Take the expressway?' }, you: [
+      { th: 'ขึ้น', lat: 'khûen', ru: 'Да, поехали по платной', en: 'Yes, take it', ok: 1 },
+      { th: 'ไม่ขึ้น', lat: 'mâi khûen', ru: 'Нет, без платной', en: 'No expressway', ok: 1 },
+      { th: 'ใช่', lat: 'châi', ru: 'Верно', en: 'Right', why: ['На вопрос с глаголом отвечают тем же глаголом: ขึ้น / ไม่ขึ้น. ใช่ — «так и есть».', 'Answer with the same verb: ขึ้น / ไม่ขึ้น. ใช่ means “that’s right”.'] }] },
+    { them: { v: 'm', th: 'ถึงแล้วครับ', lat: 'thǔeng láew khráp', ru: 'Приехали', en: 'We’re here' }, you: [
+      { th: 'ขอบคุณ ไม่ต้องทอน', lat: 'khòp-khun, mâi dtông thon', ru: 'Спасибо, сдачи не надо', en: 'Thanks, keep the change', ok: 1 },
+      { th: 'ขอบคุณ', lat: 'khòp-khun', ru: 'Спасибо', en: 'Thank you', ok: 1 },
+      { th: 'ไปไหน', lat: 'bpai nǎi', ru: 'Куда идёшь?', en: 'Where are you going?', why: ['Вы уже приехали', 'You’ve already arrived.'] }] }
+  ] },
+  { k: 'market', icon: 'shopping-basket', ru: 'Рынок', en: 'Market', steps: [
+    { them: { v: 'f', th: 'เชิญค่ะ ดูก่อนได้', lat: 'choen khâ, duu gòn dâai', ru: 'Заходите, смотрите', en: 'Come in, have a look' }, you: [
+      { th: 'อันนี้เท่าไหร่', lat: 'an-níi thâo-rài', ru: 'Сколько стоит вот это?', en: 'How much is this?', ok: 1 },
+      { th: 'ขึ้นทางด่วน', lat: 'khûen thaang-dùan', ru: 'По платной дороге', en: 'Take the expressway', why: ['Это для такси.', 'That’s for a taxi.'] }] },
+    { them: { v: 'f', th: 'ห้าร้อยค่ะ', lat: 'hâa rói khâ', ru: '500', en: '500' }, you: [
+      { th: 'ลดได้ไหม', lat: 'lót dâai mǎi', ru: 'Скинете?', en: 'Can you go lower?', ok: 1 },
+      { th: 'ไม่ใส่ผักชี', lat: 'mâi sài phàk-chii', ru: 'Без кинзы', en: 'No cilantro', why: ['Это про еду На рынке торгуются: ลดได้ไหม.', 'That’s about food. At a market you bargain: ลดได้ไหม.'] }] },
+    { them: { v: 'f', th: 'สี่ร้อยห้าสิบค่ะ ราคานี้แล้ว', lat: 'sìi rói hâa-sìp khâ, raa-khaa níi láew', ru: '450, это последняя цена', en: '450, final price' }, you: [
+      { th: 'สี่ร้อยได้ไหม', lat: 'sìi rói dâai mǎi', ru: 'А за 400 можно?', en: 'How about 400?', ok: 1 },
+      { th: 'ได้ เอาอันนี้', lat: 'dâai, ao an-níi', ru: 'Хорошо, беру', en: 'OK, I’ll take it', ok: 1 },
+      { th: 'เจอกันพรุ่งนี้', lat: 'jer gan phrûng-níi', ru: 'До завтра', en: 'See you tomorrow', why: ['Можно и уйти, но тогда уж «ไว้คราวหน้า» — «в другой раз».', 'You can walk away, but then say ไว้คราวหน้า — “next time”.'] }] },
+    { them: { v: 'f', th: 'ได้ค่ะ รับถุงไหมคะ', lat: 'dâai khâ, ráp thǔng mǎi khá', ru: 'Договорились. Пакет нужен?', en: 'Deal. Need a bag?' }, you: [
+      { th: 'ไม่รับ ขอบคุณ', lat: 'mâi ráp, khòp-khun', ru: 'Не нужно, спасибо', en: 'No thanks', ok: 1 },
+      { th: 'รับ', lat: 'ráp', ru: 'Да, нужен', en: 'Yes, please', ok: 1 }] }
+  ] },
+  { k: 'seven', icon: 'store', ru: '7-Eleven', en: '7-Eleven', steps: [
+    { them: { v: 'f', th: 'มีบัตรสมาชิกไหมคะ', lat: 'mii bàt sà-maa-chík mǎi khá', ru: 'Есть карта постоянного покупателя?', en: 'Member card?' }, you: [
+      { th: 'ไม่มี', lat: 'mâi mii', ru: 'Нет', en: 'No, I don’t', ok: 1 },
+      { th: 'ไม่เอา', lat: 'mâi ao', ru: 'Не хочу', en: 'Don’t want', why: ['Спросили «есть ли?» — отвечают ไม่มี. ไม่เอา — «не хочу».', 'They asked “do you have?” — answer ไม่มี. ไม่เอา means “don’t want”.'] }] },
+    { them: { v: 'f', th: 'อุ่นไหมคะ', lat: 'ùn mǎi khá', ru: 'Разогреть?', en: 'Heat it up?' }, you: [
+      { th: 'อุ่น', lat: 'ùn', ru: 'Да, разогрейте', en: 'Yes, please', ok: 1 },
+      { th: 'ไม่อุ่น', lat: 'mâi ùn', ru: 'Не надо', en: 'No need', ok: 1 },
+      { th: 'ใช่', lat: 'châi', ru: 'Верно', en: 'Right', why: ['Тайцы отвечают глаголом из вопроса: อุ่น / ไม่อุ่น.', 'Thais answer with the verb from the question: อุ่น / ไม่อุ่น.'] }] },
+    { them: { v: 'f', th: 'รับถุงไหมคะ', lat: 'ráp thǔng mǎi khá', ru: 'Пакет нужен?', en: 'Need a bag?' }, you: [
+      { th: 'ไม่รับ', lat: 'mâi ráp', ru: 'Не нужен', en: 'No bag', ok: 1 },
+      { th: 'ขอถุงด้วย', lat: 'khǒr thǔng dûay', ru: 'Да, с пакетом', en: 'A bag, please', ok: 1 }] },
+    { them: { v: 'f', th: 'หกสิบห้าบาทค่ะ', lat: 'hòk-sìp hâa bàat khâ', ru: '65 бат', en: '65 baht' }, you: [
+      { th: 'สแกนได้ไหม', lat: 'sà-gaen dâai mǎi', ru: 'Можно по QR?', en: 'Can I scan to pay?', ok: 1 },
+      { th: 'เงินสด', lat: 'ngoen-sòt', ru: 'Наличными', en: 'Cash', ok: 1 },
+      { th: 'อร่อยมาก', lat: 'à-ròi mâak', ru: 'Очень вкусно', en: 'Delicious', why: ['Вам назвали цену — пора платить.', 'They told you the price — time to pay.'] }] }
+  ] },
+  { k: 'massage', icon: 'hand-heart', ru: 'Массаж', en: 'Massage', steps: [
+    { them: { v: 'f', th: 'นวดอะไรดีคะ', lat: 'nûat à-rai dii khá', ru: 'Какой массаж хотите?', en: 'Which massage?' }, you: [
+      { th: 'นวดไทย', lat: 'nûat thai', ru: 'Тайский', en: 'Thai massage', ok: 1 },
+      { th: 'นวดเท้า', lat: 'nûat tháo', ru: 'Массаж ног', en: 'Foot massage', ok: 1 },
+      { th: 'ไม่ใส่น้ำแข็ง', lat: 'mâi sài náam-khǎeng', ru: 'Без льда', en: 'No ice', why: ['Это для напитков', 'That’s for drinks.'] }] },
+    { them: { v: 'f', th: 'กี่ชั่วโมงคะ', lat: 'gìi chûa-mohng khá', ru: 'Сколько часов?', en: 'How many hours?' }, you: [
+      { th: 'ชั่วโมงนึง', lat: 'chûa-mohng nueng', ru: 'Один час', en: 'One hour', ok: 1 },
+      { th: 'สองชั่วโมง', lat: 'sǒng chûa-mohng', ru: 'Два часа', en: 'Two hours', ok: 1 }] },
+    { them: { v: 'f', th: 'แรงไหมคะ', lat: 'raeng mǎi khá', ru: 'Не сильно?', en: 'Too strong?' }, you: [
+      { th: 'เบาหน่อย', lat: 'bao nòi', ru: 'Полегче, пожалуйста', en: 'Softer, please', ok: 1 },
+      { th: 'แรงอีกหน่อย', lat: 'raeng ìik nòi', ru: 'Посильнее', en: 'A bit stronger', ok: 1 },
+      { th: 'กำลังดี', lat: 'gam-lang dii', ru: 'В самый раз', en: 'Just right', ok: 1 }] },
+    { them: { v: 'f', th: 'เป็นไงบ้างคะ', lat: 'bpen ngai bâang khá', ru: 'Ну как вам?', en: 'How was it?' }, you: [
+      { th: 'สบายมาก ขอบคุณ', lat: 'sà-baai mâak, khòp-khun', ru: 'Очень хорошо, спасибо', en: 'So relaxing, thank you', ok: 1 },
+      { th: 'เท่าไหร่', lat: 'thâo-rài', ru: 'Сколько?', en: 'How much?', why: ['Сначала поблагодарите — цену обычно знаете заранее.', 'Thank them first — you usually know the price already.'] }] }
+  ] }
+];
+
+/* ================= ETIQUETTE ================= */
+const ADDR = [
+  { th: 'พี่', lat: 'phîi', cyr: 'пхи', ru: 'Старший брат / сестра — продавцу, водителю, любому, кто старше вас', en: 'Older sibling — to a vendor, driver, anyone older than you' },
+  { th: 'น้อง', lat: 'nóng', cyr: 'нонг', ru: 'Младший — официанту, кассиру, тем, кто моложе. «น้องครับ!» — так зовут официанта', en: 'Younger sibling — to a waiter, cashier, anyone younger. “น้องครับ!” is how you call a waiter' },
+  { th: 'ป้า', lat: 'bpâa', cyr: 'па', ru: 'Тётя — пожилой продавщице на рынке', en: 'Auntie — to an older market vendor' },
+  { th: 'ลุง', lat: 'lung', cyr: 'лунг', ru: 'Дядя — пожилому мужчине, водителю тук-тука', en: 'Uncle — to an older man, a tuk-tuk driver' },
+  { th: 'คุณ', lat: 'khun', cyr: 'кхун', ru: 'Нейтрально-вежливо + имя: คุณมาร์ค. Своё имя с คุณ не называют', en: 'Neutral and polite + name: คุณมาร์ค. Never use it with your own name' }
+];
+const POLITE_YES = { m: { th: 'ครับผม', lat: 'khráp-phǒm', cyr: 'кхрап-пхом' }, f: { th: 'ค่ะ', lat: 'khâ', cyr: 'кха' } };
+const WAI = [
+  ['hand', 'На вай отвечают ваем — ладони вместе у груди и лёгкий поклон.', 'Return a wai with a wai — palms together at the chest, a slight bow.'],
+  ['arrow-up', 'Чем выше ладони, тем больше уважения: старшим — у подбородка, монахам — у лба.', 'The higher the hands, the more respect: elders — chin level, monks — forehead.'],
+  ['smile', 'Официантам, кассирам и детям вай первыми не делают — достаточно улыбки и кивка.', 'Don’t wai waiters, cashiers or children first — a smile and nod is enough.'],
+  ['heart-handshake', 'Вай + ขอบคุณครับ при прощании с хозяевами — лучшее впечатление, какое можно оставить.', 'A wai + ขอบคุณครับ when leaving your hosts is the best impression you can make.']
+];
+const DONTS = [
+  ['ban', 'Не трогайте голову — даже детей. Голова священна.', 'Don’t touch anyone’s head — even a child’s. The head is sacred.'],
+  ['footprints', 'Не указывайте ногами и не кладите их на стол. Разувайтесь в домах и храмах.', 'Don’t point with your feet or put them on tables. Take shoes off in homes and temples.'],
+  ['volume-x', 'Не повышайте голос. Спокойствие — ใจเย็น («прохладное сердце») — главное тайское достоинство.', 'Don’t raise your voice. Calm — ใจเย็น, a “cool heart” — is the top Thai virtue.'],
+  ['crown', 'О королевской семье — только уважительно. Это закон, а не вежливость.', 'Speak of the royal family only with respect. It’s the law, not just manners.'],
+  ['user-x', 'Женщинам нельзя касаться монахов и передавать им вещи из рук в руки.', 'Women must not touch monks or hand them things directly.']
+];
+// Phrases that make Thais smile (your particle is added)
+const SMILE = [
+  { th: 'พูดไทยไม่เก่ง', lat: 'phûut thai mâi gèng', cyr: 'пхут тхай май кенг', ru: 'Я плохо говорю по-тайски', en: 'My Thai isn’t good', tip: ['Скажите это первой фразой — тайцы сразу станут терпеливее и теплее.', 'Say it first — Thais instantly get more patient and warm.'] },
+  { th: 'นิดหน่อย', lat: 'nít-nòi', cyr: 'нит-ной', ru: 'Чуть-чуть', en: 'Just a little', tip: ['Скромный ответ на «вы так хорошо говорите!».', 'The modest reply to “your Thai is so good!”'] },
+  { th: 'ใจดีมาก', lat: 'jai-dii mâak', cyr: 'джай-ди мак', ru: 'Вы очень добры', en: 'You’re very kind' },
+  { th: 'ขอบคุณที่ช่วย', lat: 'khòp-khun thîi chûay', cyr: 'кхоп-кхун тхи чхуай', ru: 'Спасибо за помощь', en: 'Thanks for helping' },
+  { th: 'ใจเย็นๆ', lat: 'jai yen yen', cyr: 'джай йен йен', ru: 'Спокойно, без спешки', en: 'Take it easy', tip: ['Дословно «прохладное сердце». Скажите себе и другим, если что-то пошло не так.', 'Literally “cool heart”. Say it when things go wrong.'] },
+  { th: 'ชอบอาหารไทยมาก', lat: 'chôop aa-hǎan thai mâak', cyr: 'чхоп а-хан тхай мак', ru: 'Очень люблю тайскую еду', en: 'I love Thai food' },
+  { th: 'เมืองไทยสวยมาก', lat: 'mueang thai sǔay mâak', cyr: 'мыанг тхай суай мак', ru: 'Таиланд очень красивый', en: 'Thailand is beautiful' },
+  { th: 'สนุกมาก', lat: 'sà-nùk mâak', cyr: 'са-нук мак', ru: 'Было очень весело', en: 'That was so fun' }
+];
+
+/* ================= QUESTIONS ================= */
+const QWORDS = [
+  ['อะไร', 'à-rai', 'а-рай', 'что', 'what', 'นี่อะไร', 'nîi à-rai', 'Что это?', 'What’s this?'],
+  ['ใคร', 'khrai', 'кхрай', 'кто', 'who', 'นั่นใคร', 'nân khrai', 'Кто это?', 'Who’s that?'],
+  ['ไหน', 'nǎi', 'най', 'где, куда, какой', 'where, which', 'ไปไหน', 'bpai nǎi', 'Куда идёшь?', 'Where are you going?'],
+  ['เมื่อไหร่', 'mûea-rài', 'муа-рай', 'когда', 'when', 'ถึงเมื่อไหร่', 'thǔeng mûea-rài', 'Когда приедем?', 'When do we arrive?'],
+  ['ทำไม', 'tham-mai', 'тхам-май', 'почему', 'why', 'ทำไมแพงจัง', 'tham-mai phaeng jang', 'Почему так дорого?', 'Why so expensive?'],
+  ['ยังไง', 'yang-ngai', 'йанг-нгай', 'как', 'how', 'ไปยังไง', 'bpai yang-ngai', 'Как туда добраться?', 'How do I get there?'],
+  ['เท่าไหร่', 'thâo-rài', 'тхао-рай', 'сколько (денег)', 'how much', 'อันนี้เท่าไหร่', 'an-níi thâo-rài', 'Сколько стоит?', 'How much is this?'],
+  ['กี่', 'gìi', 'ки', 'сколько (+ счётное слово)', 'how many (+ classifier)', 'กี่คน', 'gìi khon', 'Сколько человек?', 'How many people?'],
+  ['อันไหน', 'an nǎi', 'ан най', 'который из', 'which one', 'อันไหนอร่อย', 'an nǎi à-ròi', 'Что тут вкуснее?', 'Which one is good?']
+].map(([th, lat, cyr, ru, en, xth, xlat, xru, xen]) => ({ th, lat, cyr, ru, en, xth, xlat, xru, xen, np: 1 }));
+const QPARTS = [
+  ['ไหม', 'mǎi', 'май', 'да или нет?', 'yes/no?', 'เผ็ดไหม', 'phèt mǎi', 'Остро?', 'Is it spicy?'],
+  ['หรือเปล่า', 'rǔe-bplàao', 'ры-плао', 'или нет?', 'or not?', 'ว่างหรือเปล่า', 'wâang rǔe-bplàao', 'Свободно?', 'Is it free?'],
+  ['ยัง', 'yang', 'йанг', 'уже или ещё нет?', 'yet?', 'เสร็จยัง', 'sèt yang', 'Готово уже?', 'Ready yet?'],
+  ['ใช่ไหม', 'châi mǎi', 'чхай май', 'не так ли?', 'right?', 'ไปสยามใช่ไหม', 'bpai sà-yǎam châi mǎi', 'Это до Сиама, да?', 'This goes to Siam, right?'],
+  ['เหรอ', 'rǒe', 'рё', 'правда?', 'really?', 'จริงเหรอ', 'jing rǒe', 'Правда?', 'Really?']
+].map(([th, lat, cyr, ru, en, xth, xlat, xru, xen]) => ({ th, lat, cyr, ru, en, xth, xlat, xru, xen, np: 1 }));
+
+/* ================= CLASSIFIERS ================= */
+const CLS = [
+  ['คน', 'khon', 'кхон', 'люди', 'people'], ['อัน', 'an', 'ан', 'штуки — универсальное', 'things — the generic one'], ['ขวด', 'khùat', 'кхуат', 'бутылки', 'bottles'],
+  ['แก้ว', 'gâew', 'кэо', 'стаканы, чашки', 'glasses, cups'], ['จาน', 'jaan', 'джан', 'тарелки (блюда)', 'plates (dishes)'], ['ชาม', 'chaam', 'чхам', 'миски (супы, лапша)', 'bowls (soups, noodles)'],
+  ['ตัว', 'dtua', 'туа', 'одежда, животные', 'clothes, animals'], ['ใบ', 'bai', 'бай', 'билеты, сумки', 'tickets, bags'], ['ถุง', 'thǔng', 'тхунг', 'пакеты', 'bags (plastic)'], ['ห้อง', 'hông', 'хонг', 'комнаты, номера', 'rooms']
+].map(([th, lat, cyr, ru, en]) => ({ th, lat, cyr, ru, en, np: 1 }));
+// item | lat | cyr | ru | en | classifier
+const ORDER = [
+  ['เบียร์', 'bia', 'бия', 'пиво', 'beer', 'ขวด'], ['น้ำเปล่า', 'náam bplàao', 'нам плао', 'вода', 'water', 'ขวด'], ['กาแฟเย็น', 'gaa-fae yen', 'ка-фэ йен', 'холодный кофе', 'iced coffee', 'แก้ว'],
+  ['ชาเย็น', 'chaa yen', 'чха йен', 'тайский чай со льдом', 'Thai iced tea', 'แก้ว'], ['ผัดไทย', 'phàt thai', 'пхат тхай', 'пад тай', 'pad thai', 'จาน'], ['ข้าวผัด', 'khâao phàt', 'кхао пхат', 'жареный рис', 'fried rice', 'จาน'],
+  ['ต้มยำกุ้ง', 'dtôm-yam gûng', 'том-ям кунг', 'том ям', 'tom yum', 'ชาม'], ['ก๋วยเตี๋ยว', 'gǔay-dtǐao', 'куай-тьео', 'суп с лапшой', 'noodle soup', 'ชาม'],
+  ['เสื้อ', 'sûea', 'сыа', 'футболка', 'T-shirt', 'ตัว'], ['ตั๋ว', 'dtǔa', 'туа', 'билет', 'ticket', 'ใบ']
+].map(([th, lat, cyr, ru, en, cls]) => ({ th, lat, cyr, ru, en, cls }));
+const ORDER_N = [[1, 'นึง', 'nueng', 'нынг'], [2, 'สอง', 'sǒng', 'сонг'], [3, 'สาม', 'sǎam', 'сам'], [4, 'สี่', 'sìi', 'си'], [5, 'ห้า', 'hâa', 'ха']];
+// "ขอ beer 2 bottles": n=1 goes after the classifier (ขวดนึง), others before it (สองขวด)
+function orderPhrase(it, n) {
+  const c = CLS.find(x => x.th === it.cls), [, nth, nlat, ncyr] = ORDER_N[n - 1];
+  return n === 1
+    ? { th: `ขอ${it.th}${c.th}${nth}`, lat: `khǒr ${it.lat} ${c.lat} ${nlat}`, cyr: `кхо ${it.cyr} ${c.cyr} ${ncyr}` }
+    : { th: `ขอ${it.th}${nth}${c.th}`, lat: `khǒr ${it.lat} ${nlat} ${c.lat}`, cyr: `кхо ${it.cyr} ${ncyr} ${c.cyr}` };
+}
+
+/* ================= FOOD ================= */
+const FOOD = [
+  { g: 'meat', ru: 'Мясо и морепродукты', en: 'Meat & seafood', items: [['หมู', 'mǔu', 'му', 'свинина', 'pork'], ['ไก่', 'gài', 'кай', 'курица', 'chicken'], ['เนื้อ', 'núea', 'ныа', 'говядина', 'beef'], ['กุ้ง', 'gûng', 'кунг', 'креветки', 'shrimp'], ['ปลา', 'bplaa', 'пла', 'рыба', 'fish'], ['ปลาหมึก', 'bplaa-mùek', 'пла-мык', 'кальмар', 'squid'], ['ทะเล', 'thá-lee', 'тха-ле', 'морепродукты', 'seafood'], ['ไข่', 'khài', 'кхай', 'яйцо', 'egg']] },
+  { g: 'cook', ru: 'Как готовят', en: 'Cooking', items: [['ผัด', 'phàt', 'пхат', 'жареное в воке', 'stir-fried'], ['ทอด', 'thôt', 'тхот', 'во фритюре', 'deep-fried'], ['ต้ม', 'dtôm', 'том', 'варёное, суп', 'boiled, soup'], ['ย่าง', 'yâang', 'йанг', 'на гриле', 'grilled'], ['นึ่ง', 'nûeng', 'нынг', 'на пару', 'steamed'], ['แกง', 'gaeng', 'кэнг', 'карри', 'curry']] },
+  { g: 'dish', ru: 'Популярные блюда', en: 'Popular dishes', items: [['ผัดกะเพราหมู', 'phàt gà-phrao mǔu', 'пхат ка-прао му', 'свинина с базиликом — любимый обед тайцев', 'holy basil pork — Thais’ go-to lunch'], ['ผัดไทย', 'phàt thai', 'пхат тхай', 'пад тай', 'pad thai'], ['ต้มยำกุ้ง', 'dtôm-yam gûng', 'том-ям кунг', 'том ям с креветками', 'tom yum goong'], ['ส้มตำ', 'sôm-dtam', 'сом-там', 'салат из папайи', 'papaya salad'], ['ข้าวผัด', 'khâao phàt', 'кхао пхат', 'жареный рис', 'fried rice'], ['ข้าวมันไก่', 'khâao man gài', 'кхао ман кай', 'курица с рисом', 'chicken rice'], ['แกงเขียวหวาน', 'gaeng khǐao-wǎan', 'кэнг кхиао-ван', 'зелёное карри', 'green curry'], ['ก๋วยเตี๋ยว', 'gǔay-dtǐao', 'куай-тьео', 'суп с лапшой', 'noodle soup'], ['หมูกระทะ', 'mǔu grà-thá', 'му кра-тха', 'тайское барбекю', 'Thai BBQ'], ['ข้าวเหนียวมะม่วง', 'khâao-nǐao má-mûang', 'кхао-ниао ма-муанг', 'клейкий рис с манго', 'mango sticky rice']] },
+  { g: 'drink', ru: 'Напитки', en: 'Drinks', items: [['กาแฟเย็น', 'gaa-fae yen', 'ка-фэ йен', 'холодный кофе', 'iced coffee'], ['ชาเย็น', 'chaa yen', 'чха йен', 'тайский чай со льдом', 'Thai iced tea'], ['ชามะนาว', 'chaa má-naao', 'чха ма-нао', 'чай с лаймом', 'lime tea'], ['น้ำมะพร้าว', 'náam má-phráao', 'нам ма-прао', 'кокосовая вода', 'coconut water'], ['น้ำแข็ง', 'náam-khǎeng', 'нам-кхэнг', 'лёд', 'ice'], ['เบียร์', 'bia', 'бия', 'пиво', 'beer']] },
+  { g: 'ask', ru: 'Просьбы к повару', en: 'Requests', items: [['หวานน้อย', 'wǎan nói', 'ван ной', 'поменьше сладкого', 'less sweet'], ['ไม่หวาน', 'mâi wǎan', 'май ван', 'без сахара', 'no sugar'], ['เผ็ดน้อย', 'phèt nói', 'пхет ной', 'поменьше остроты', 'less spicy'], ['ไม่ใส่น้ำแข็ง', 'mâi sài náam-khǎeng', 'май сай нам-кхэнг', 'без льда', 'no ice'], ['ใส่ไข่ดาว', 'sài khài-daao', 'сай кхай-дао', 'с яйцом-глазуньей', 'add a fried egg'], ['พิเศษ', 'phí-sèt', 'пхи-сет', 'большая порция', 'extra large']] }
+].map(g => ({ ...g, items: g.items.map(([th, lat, cyr, ru, en]) => ({ th, lat, cyr, ru, en, np: 1 })) }));
+
+/* ================= SIGNS & PRICE TAGS ================= */
+// s = look: green (directions), red (warnings), blue (places), yellow (shops / price tags)
+const SIGNS = [
+  ['sign', 'green', 'ทางเข้า', 'thaang khâo', 'тханг кхао', 'Вход', 'Entrance'], ['sign', 'green', 'ทางออก', 'thaang òk', 'тханг ок', 'Выход', 'Exit'],
+  ['sign', 'blue', 'ห้องน้ำ', 'hông-náam', 'хонг-нам', 'Туалет', 'Toilet'], ['sign', 'blue', 'ชาย', 'chaai', 'чхай', 'Мужской', 'Men'], ['sign', 'blue', 'หญิง', 'yǐng', 'йинг', 'Женский', 'Women'],
+  ['sign', 'green', 'เปิด', 'bpòet', 'пёт', 'Открыто', 'Open'], ['sign', 'red', 'ปิด', 'bpìt', 'пит', 'Закрыто', 'Closed'],
+  ['sign', 'green', 'ดึง', 'dueng', 'дынг', 'На себя', 'Pull'], ['sign', 'green', 'ผลัก', 'phlàk', 'пхлак', 'От себя', 'Push'],
+  ['sign', 'red', 'ร้อน', 'rón', 'рон', 'Горячая (кран)', 'Hot (tap)'], ['sign', 'blue', 'เย็น', 'yen', 'йен', 'Холодная (кран)', 'Cold (tap)'],
+  ['sign', 'red', 'ห้ามสูบบุหรี่', 'hâam sùup bù-rìi', 'хам суп бу-ри', 'Курить запрещено', 'No smoking'], ['sign', 'red', 'ห้ามเข้า', 'hâam khâo', 'хам кхао', 'Вход запрещён', 'No entry'], ['sign', 'red', 'ระวัง', 'rá-wang', 'ра-ванг', 'Осторожно', 'Caution'],
+  ['sign', 'blue', 'ร้านขายยา', 'ráan khǎai yaa', 'ран кхай я', 'Аптека', 'Pharmacy'], ['sign', 'blue', 'โรงพยาบาล', 'rohng-phá-yaa-baan', 'ронг-пха-я-бан', 'Больница', 'Hospital'], ['sign', 'blue', 'ธนาคาร', 'thá-naa-khaan', 'тха-на-кхан', 'Банк', 'Bank'],
+  ['sign', 'yellow', 'ร้านอาหาร', 'ráan aa-hǎan', 'ран а-хан', 'Ресторан', 'Restaurant'], ['sign', 'yellow', 'อาหารตามสั่ง', 'aa-hǎan dtaam sàng', 'а-хан там санг', 'Еда на заказ — уличная кухня', 'Made-to-order — street kitchen'],
+  ['sign', 'yellow', 'ตลาด', 'dtà-làat', 'та-лат', 'Рынок', 'Market'], ['sign', 'yellow', 'นวด', 'nûat', 'нуат', 'Массаж', 'Massage'], ['sign', 'yellow', 'ปั๊มน้ำมัน', 'bpám náam-man', 'пам нам-ман', 'Заправка', 'Gas station'],
+  ['tag', 'yellow', 'ราคา', 'raa-khaa', 'ра-кха', 'Цена', 'Price'], ['tag', 'yellow', 'บาท', 'bàat', 'бат', 'Бат (฿)', 'Baht (฿)'], ['tag', 'red', 'ลดราคา', 'lót raa-khaa', 'лот ра-кха', 'Скидка', 'Sale'],
+  ['tag', 'red', '1 แถม 1', 'nùeng thǎem nùeng', 'нынг тхэм нынг', '1 + 1 в подарок', 'Buy 1 get 1 free'], ['tag', 'yellow', 'ชิ้น', 'chín', 'чхин', 'Штука (на ценниках)', 'Piece (on tags)'], ['tag', 'red', 'หมดอายุ', 'mòt aa-yú', 'мот а-ю', 'Годен до', 'Expiry date'],
+  ['tag', 'yellow', 'น้ำดื่ม', 'náam dùuem', 'нам дым', 'Питьевая вода', 'Drinking water'], ['tag', 'yellow', 'นม', 'nom', 'ном', 'Молоко', 'Milk'], ['tag', 'yellow', 'ขนมปัง', 'khà-nǒm-bpang', 'кха-ном-панг', 'Хлеб', 'Bread'],
+  ['tag', 'yellow', 'ไม่มีน้ำตาล', 'mâi mii náam-dtaan', 'май ми нам-тан', 'Без сахара', 'Sugar-free'], ['tag', 'yellow', 'ทิชชู่', 'thít-chûu', 'тхит-чху', 'Салфетки', 'Tissues'], ['tag', 'yellow', 'ยาสีฟัน', 'yaa sǐi-fan', 'я си-фан', 'Зубная паста', 'Toothpaste'],
+  ['tag', 'yellow', 'ครีมกันแดด', 'khriim gan-dàet', 'кхрим кан-дэт', 'Солнцезащитный крем', 'Sunscreen'], ['tag', 'yellow', 'ยากันยุง', 'yaa gan-yung', 'я кан-юнг', 'Средство от комаров', 'Mosquito repellent'], ['tag', 'yellow', 'ซิมการ์ด', 'sim-gáat', 'сим-кат', 'Сим-карта', 'SIM card']
+].map(([k, s, th, lat, cyr, ru, en]) => ({ k, s, th, lat, cyr, ru, en, np: 1 }));
+
 /* ================= STATE ================= */
 const store = {
   get(k, d) { try { return localStorage.getItem(k) || d } catch (e) { return d } },
@@ -911,7 +1344,7 @@ const say = x => x.say || x.th + (x.np ? '' : pt().th);
 const thHTML = x => x.th + (x.np ? '' : `<span class="text-accent/80">${pt().th}</span>`);
 const latTxt = x => x.lat + (x.np ? '' : ' ' + pt().lat);
 const cyrTxt = x => x.cyr ? x.cyr + (x.np ? '' : ' ' + pt().cyr) : '';
-const playBtn = (text, size = 'w-10 h-10') => `<button data-say="${text}" class="shrink-0 grid place-items-center ${size} rounded-full border border-white/10 hover:border-accent hover:text-accent transition" aria-label="Play"><i data-lucide="volume-2" class="w-4 h-4"></i></button>`;
+const playBtn = (text, size = 'w-10 h-10', voice) => `<button data-say="${text}"${voice ? ` data-voice="${voice}"` : ''} class="shrink-0 grid place-items-center ${size} rounded-full border border-white/10 hover:border-accent hover:text-accent transition" aria-label="Play"><i data-lucide="volume-2" class="w-4 h-4"></i></button>`;
 const curve = d => `<svg viewBox="0 0 60 34" class="w-full h-10" fill="none"><path d="M6 6 H54 M6 18 H54 M6 30 H54" stroke="currentColor" stroke-opacity=".08"/><path class="tone-path" pathLength="100" d="${d}" stroke="#e8b04b" stroke-width="3" stroke-linecap="round"/></svg>`;
 const chip = (on, extra = '') => `px-3.5 py-1.5 rounded-full text-sm font-medium border transition flex items-center gap-1.5 ${on ? 'bg-accent text-ink-950 border-accent' : 'border-white/10 text-zinc-400 hover:text-white'} ${extra}`;
 
@@ -934,18 +1367,19 @@ function ttsFallback(text, done) {
   u.onend = u.onerror = done;
   speechSynthesis.speak(u);
 }
-// text may be "part|part|part" — played back to back (used by the number builder)
-function speak(text, btn) {
+// text may be "part|part|part" — played back to back (used by the number builder).
+// voice: 'm' | 'f' overrides the He/She switch (lines spoken by Thais); onEnd fires when playback finishes.
+function speak(text, btn, voice, onEnd) {
   const id = ++playId, parts = text.split('|');
   player.pause(); if (hasTTS) speechSynthesis.cancel();
   $$('.speaking').forEach(b => b.classList.remove('speaking'));
   btn?.classList.add('speaking');
-  const done = () => { if (id === playId) btn?.classList.remove('speaking') };
+  const done = () => { if (id === playId) { btn?.classList.remove('speaking'); onEnd?.() } };
   let i = 0;
   const next = () => {
     if (id !== playId) return;
     if (i >= parts.length) return done();
-    player.src = `audio/${gender}/${fnv(parts[i++])}.mp3`;
+    player.src = `audio/${voice || gender}/${fnv(parts[i++])}.mp3`;
     player.play().catch(() => {});
   };
   player.onended = next;
@@ -961,7 +1395,7 @@ function toast(msg) {
 }
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-say]');
-  if (b) { e.stopPropagation(); speak(b.dataset.say, b) }
+  if (b) { e.stopPropagation(); speak(b.dataset.say, b, b.dataset.voice) }
 });
 
 /* ================= RENDER ================= */
@@ -1171,6 +1605,181 @@ function renderTopVerbs() {
 $('#tvSearch').addEventListener('input', () => { renderTopVerbs(); icons() });
 $('#tvMore').onclick = () => { tvAll = !tvAll; renderTopVerbs(); icons(); if (!tvAll) $('#topverbs').scrollIntoView({ behavior: 'smooth' }) };
 
+/* --- example tile: word + spoken example --- */
+const exTile = x => `<div class="rounded-2xl border border-white/10 bg-ink-900 p-4 hover:border-accent/40 transition">
+  <div class="flex items-start justify-between gap-2"><span class="font-thai text-2xl text-white">${x.th}</span>${playBtn(x.th, 'w-9 h-9')}</div>
+  <p class="mt-1 font-mono text-sm text-accent">${x.lat}</p>
+  ${lang === 'ru' ? `<p class="text-xs text-zinc-500">${x.cyr}</p>` : ''}
+  <p class="mt-2 text-sm font-medium text-white">${x[lang]}</p>
+  <button data-say="${x.xth + pt().th}" class="mt-3 w-full text-left flex items-start gap-2 rounded-xl bg-ink-950 border border-white/5 p-3 hover:border-accent/40 transition">
+    <i data-lucide="volume-2" class="w-4 h-4 mt-1 shrink-0 text-zinc-500"></i>
+    <span><span class="font-thai text-white">${x.xth}<span class="text-accent/70">${pt().th}</span></span><span class="block font-mono text-xs text-accent/80">${x.xlat} ${pt().lat}</span><span class="block text-xs text-zinc-400">${L(x.xru, x.xen)}</span></span>
+  </button></div>`;
+
+/* --- questions --- */
+function renderQues() {
+  $('#qwGrid').innerHTML = QWORDS.map(exTile).join('');
+  $('#qpGrid').innerHTML = QPARTS.map(exTile).join('');
+}
+
+/* --- classifiers & order builder --- */
+let ordI = 0, ordN = 2;
+function renderCls() {
+  $('#orderItems').innerHTML = ORDER.map((x, i) => `<button data-ord="${i}" class="${chip(i === ordI)}">${x[lang]}</button>`).join('');
+  $('#orderNums').innerHTML = ORDER_N.map(([n]) => `<button data-ordn="${n}" class="${chip(n === ordN)} font-mono">× ${n}</button>`).join('');
+  const it = ORDER[ordI], o = orderPhrase(it, ordN), c = CLS.find(x => x.th === it.cls), p = pt();
+  $('#orderOut').innerHTML = `<div class="fade-up flex items-start justify-between gap-4"><div>
+    <p class="font-thai text-3xl md:text-4xl text-white">${o.th}<span class="text-accent/80">${p.th}</span></p>
+    <p class="mt-2 font-mono text-accent">${o.lat} ${p.lat}</p>
+    ${lang === 'ru' ? `<p class="text-zinc-500">${o.cyr} ${p.cyr}</p>` : ''}
+    <p class="mt-3 text-lg font-semibold text-white">${L('Можно', 'Can I have')}: ${it[lang]} × ${ordN}</p>
+    <p class="mt-1 text-sm text-zinc-400">${L('Счётное слово', 'Classifier')}: <span class="font-thai text-white">${c.th}</span> — ${c[lang]}</p>
+  </div>${playBtn(o.th + p.th, 'w-12 h-12')}</div>`;
+  $('#clsGrid').innerHTML = CLS.map(x => wordTile(x)).join('');
+}
+$('#orderItems').addEventListener('click', e => { const b = e.target.closest('[data-ord]'); if (b) { ordI = +b.dataset.ord; renderCls(); icons() } });
+$('#orderNums').addEventListener('click', e => { const b = e.target.closest('[data-ordn]'); if (b) { ordN = +b.dataset.ordn; renderCls(); icons() } });
+
+/* --- food --- */
+function renderFood() {
+  $('#foodGroups').innerHTML = FOOD.map(g => `<div>
+    <h3 class="text-xs font-semibold uppercase tracking-widest text-zinc-500">${g[lang]}</h3>
+    <div class="mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">${g.items.map(x => wordTile(x)).join('')}</div></div>`).join('');
+}
+
+/* --- what they say --- */
+let ansCat = 'food';
+const voiceIcon = v => v === 'f' ? 'user-round' : 'user';
+function renderAns() {
+  $('#ansTabs').innerHTML = ANS_CATS.map(([c, ic]) => `<button data-anscat="${c}" class="${chip(c === ansCat)}"><i data-lucide="${ic}" class="w-3.5 h-3.5"></i>${t('ans_' + c)}</button>`).join('');
+  $('#ansGrid').innerHTML = ANS.filter(x => x.c === ansCat).map(x => `
+    <article class="fade-up group rounded-2xl border border-white/10 bg-ink-900 p-6 hover:border-accent/40 transition">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <p class="text-xs text-zinc-500 flex items-center gap-1.5"><i data-lucide="${voiceIcon(x.v)}" class="w-3.5 h-3.5"></i>${t(x.v === 'f' ? 'voiceF' : 'voiceM')}</p>
+          <p class="mt-2 font-thai text-2xl text-white leading-snug">${x.th}</p>
+        </div>${playBtn(x.th, 'w-10 h-10', x.v)}
+      </div>
+      <p class="mt-2 font-mono text-sm text-accent">${x.lat}</p>
+      ${lang === 'ru' ? `<p class="text-sm text-zinc-500">${x.cyr}</p>` : ''}
+      <p class="mt-4 font-semibold text-white">${x[lang]}</p>
+      ${x.tip ? `<p class="mt-1 text-sm text-zinc-400 leading-relaxed">${L(...x.tip)}</p>` : ''}
+    </article>`).join('');
+}
+$('#ansTabs').addEventListener('click', e => { const b = e.target.closest('[data-anscat]'); if (b) { ansCat = b.dataset.anscat; renderAns(); icons() } });
+
+/* --- dialogs --- */
+const dlg = { s: 0, step: 0, log: [], order: [], done: false, wait: false, token: 0 };
+function dlgStart(i, play) {
+  const first = SCENES[i].steps[0].them;
+  Object.assign(dlg, { s: i, step: 0, done: false, wait: false, log: [{ who: 'them', ...first }] });
+  dlg.order = shuffle(SCENES[i].steps[0].you.map((_, k) => k));
+  $('#dlgWhy').textContent = '';
+  renderDlg(); icons();
+  if (play) speak(first.th, null, first.v);
+}
+function dlgBubble(b) {
+  const p = pt(), tr = $('#dlgTr').checked;
+  if (b.who === 'them') return `<div class="fade-up flex items-end gap-2 max-w-[88%]">
+    <span class="grid place-items-center w-8 h-8 shrink-0 rounded-full bg-ink-800 border border-white/10 text-zinc-400"><i data-lucide="${voiceIcon(b.v)}" class="w-4 h-4"></i></span>
+    <button data-say="${b.th}" data-voice="${b.v}" class="text-left rounded-2xl rounded-bl-md bg-ink-800 border border-white/10 px-4 py-3 hover:border-accent/40 transition">
+      <span class="font-thai text-lg text-white">${b.th}</span><span class="block font-mono text-xs text-accent">${b.lat}</span>
+      ${tr ? `<span class="block mt-1 text-sm text-zinc-400">${b[lang]}</span>` : ''}</button></div>`;
+  return `<div class="fade-up flex justify-end"><button data-say="${b.th + p.th}" class="text-left max-w-[88%] rounded-2xl rounded-br-md bg-accent/15 border border-accent/30 px-4 py-3 hover:border-accent transition">
+    <span class="font-thai text-lg text-white">${b.th}<span class="text-accent">${p.th}</span></span><span class="block font-mono text-xs text-accent">${b.lat} ${p.lat}</span>
+    <span class="block mt-1 text-sm text-zinc-300">${b[lang]}</span></button></div>`;
+}
+function renderDlg() {
+  const sc = SCENES[dlg.s], n = sc.steps.length, p = pt();
+  $('#sceneTabs').innerHTML = SCENES.map((x, i) => `<button data-scene="${i}" class="${chip(i === dlg.s)}"><i data-lucide="${x.icon}" class="w-3.5 h-3.5"></i>${x[lang]}</button>`).join('');
+  $('#dlgProg').textContent = `${t('dlgStep')} ${Math.min(dlg.step + 1, n)} / ${n}`;
+  $('#dlgLog').innerHTML = dlg.log.map(dlgBubble).join('');
+  if (dlg.done) {
+    $('#dlgOpts').innerHTML = `<div class="fade-up pop rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-6 text-center">
+      <i data-lucide="party-popper" class="w-8 h-8 mx-auto text-emerald-400"></i><p class="mt-3 font-bold text-white">${t('dlgDone')}</p>
+      <button data-scene="${(dlg.s + 1) % SCENES.length}" class="mt-4 inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-ink-950 hover:brightness-110 transition">${t('dlgNext')}<i data-lucide="arrow-right" class="w-4 h-4"></i></button></div>`;
+    return;
+  }
+  if (dlg.wait) { $('#dlgOpts').innerHTML = `<div class="flex justify-start gap-1.5 pl-10 py-3">${[0, 1, 2].map(i => `<span class="w-2 h-2 rounded-full bg-zinc-600 animate-pulse" style="animation-delay:${i * 150}ms"></span>`).join('')}</div>`; return }
+  const opts = sc.steps[dlg.step].you;
+  $('#dlgOpts').innerHTML = `<p class="text-xs uppercase tracking-widest text-zinc-500">${t('dlgYou')}</p>` + dlg.order.map(i => { const o = opts[i]; return `
+    <button data-opt="${i}" class="fade-up text-left rounded-xl border border-white/10 bg-ink-900 px-4 py-3 hover:border-accent/50 transition">
+      <span class="font-thai text-lg text-white">${o.th}<span class="text-accent/70">${p.th}</span></span>
+      <span class="block font-mono text-xs text-accent">${o.lat} ${p.lat}</span>
+      <span class="block text-sm text-zinc-400">${o[lang]}</span></button>` }).join('');
+}
+function dlgTheirTurn(token) {
+  if (token !== dlg.token || !dlg.wait) return;
+  const st = SCENES[dlg.s].steps[dlg.step];
+  dlg.wait = false;
+  dlg.log.push({ who: 'them', ...st.them });
+  dlg.order = shuffle(st.you.map((_, k) => k));
+  renderDlg(); icons();
+  speak(st.them.th, null, st.them.v);
+}
+$('#dlgOpts').addEventListener('click', e => {
+  const b = e.target.closest('[data-opt]');
+  if (!b) return;
+  const o = SCENES[dlg.s].steps[dlg.step].you[+b.dataset.opt];
+  if (!o.ok) { b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake', '!border-rose-400'); $('#dlgWhy').textContent = L(...o.why); return }
+  $('#dlgWhy').textContent = '';
+  dlg.log.push({ who: 'you', ...o });
+  dlg.step++;
+  const token = ++dlg.token;
+  if (dlg.step >= SCENES[dlg.s].steps.length) { dlg.done = true; speak(o.th + pt().th); renderDlg(); icons(); return }
+  dlg.wait = true;
+  renderDlg(); icons();
+  // their reply comes after your line finishes (or after 5s if audio is interrupted)
+  speak(o.th + pt().th, null, null, () => setTimeout(() => dlgTheirTurn(token), 350));
+  setTimeout(() => dlgTheirTurn(token), 5000);
+});
+$('#sceneTabs').addEventListener('click', e => { const b = e.target.closest('[data-scene]'); if (b) dlgStart(+b.dataset.scene, true) });
+$('#dlgOpts').addEventListener('click', e => { const b = e.target.closest('[data-scene]'); if (b) dlgStart(+b.dataset.scene, true) });
+$('#dlgRestart').onclick = () => dlgStart(dlg.s, true);
+$('#dlgTr').onchange = () => { renderDlg(); icons() };
+
+/* --- etiquette --- */
+function renderEtq() {
+  const p = pt(), y = POLITE_YES[gender];
+  $('#addrGrid').innerHTML = ADDR.map(x => `<div class="rounded-2xl border border-white/10 bg-ink-900 p-5 hover:border-accent/40 transition">
+    <div class="flex items-start justify-between"><span class="font-thai text-3xl text-white">${x.th}</span>${playBtn(x.th, 'w-9 h-9')}</div>
+    <p class="font-mono text-sm text-accent">${x.lat}</p>${lang === 'ru' ? `<p class="text-xs text-zinc-500">${x.cyr}</p>` : ''}
+    <p class="mt-2 text-sm text-zinc-300 leading-relaxed">${x[lang]}</p>
+    ${x.th !== 'คุณ' ? `<button data-say="${x.th + p.th}" class="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 px-2.5 py-1 text-xs text-zinc-400 hover:border-accent hover:text-accent transition"><i data-lucide="megaphone" class="w-3 h-3"></i>${t('addrCall')} · <span class="font-thai">${x.th}${p.th}</span></button>` : ''}
+  </div>`).join('');
+  $('#politeYes').innerHTML = `<h3 class="font-semibold text-white flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-accent"></i>${t('politeTitle')}</h3>
+    <div class="mt-4 flex items-center gap-4"><span class="font-thai text-5xl text-white">${y.th}</span>${playBtn(y.th, 'w-12 h-12')}</div>
+    <p class="mt-2 font-mono text-accent">${y.lat}</p>${lang === 'ru' ? `<p class="text-sm text-zinc-500">${y.cyr}</p>` : ''}
+    <p class="mt-3 text-sm text-zinc-300 leading-relaxed">${t(gender === 'm' ? 'politeM' : 'politeF')}</p>`;
+  const list = (arr, color) => arr.map(([ic, ru, en]) => `<li class="flex items-start gap-3"><span class="grid place-items-center w-8 h-8 shrink-0 rounded-lg bg-white/5 ${color}"><i data-lucide="${ic}" class="w-4 h-4"></i></span><span class="pt-1 text-sm text-zinc-300 leading-relaxed">${L(ru, en)}</span></li>`).join('');
+  $('#waiList').innerHTML = `<h3 class="font-semibold text-white flex items-center gap-2"><i data-lucide="hand" class="w-4 h-4 text-accent"></i>${t('waiTitle')}</h3>
+    <button data-say="ไหว้" class="mt-1 font-thai text-sm text-zinc-500 hover:text-accent transition">ไหว้ · wâi</button>
+    <ul class="mt-4 space-y-3">${list(WAI, 'text-accent')}</ul>`;
+  $('#dontList').innerHTML = `<h3 class="font-semibold text-rose-200 flex items-center gap-2"><i data-lucide="shield-alert" class="w-4 h-4"></i>${t('dontTitle')}</h3>
+    <ul class="mt-4 grid md:grid-cols-2 gap-3">${list(DONTS, 'text-rose-300')}</ul>`;
+  $('#smileGrid').innerHTML = SMILE.map(phraseCard).join('');
+}
+
+/* --- signs & price tags --- */
+let sgKind = 'sign';
+const SIGN_STYLE = {
+  green: 'border-emerald-500/50 bg-emerald-500/10 text-emerald-100', red: 'border-rose-500/50 bg-rose-500/10 text-rose-100',
+  blue: 'border-sky-500/50 bg-sky-500/10 text-sky-100', yellow: 'border-amber-400/50 bg-amber-400/10 text-amber-100'
+};
+function renderSigns() {
+  $('#signTabs').innerHTML = [['sign', 'signpost'], ['tag', 'tag']].map(([k, ic]) => `<button data-sgk="${k}" class="${chip(k === sgKind)}"><i data-lucide="${ic}" class="w-3.5 h-3.5"></i>${t('sg_' + k)}</button>`).join('');
+  $('#signGrid').innerHTML = SIGNS.filter(x => x.k === sgKind).map(x => `
+    <button data-say="${x.th}" class="fade-up group text-left rounded-2xl border border-white/10 bg-ink-900 p-4 hover:border-accent/40 transition">
+      ${x.k === 'sign'
+        ? `<div class="rounded-xl border-2 ${SIGN_STYLE[x.s]} px-3 py-4 text-center font-thai text-2xl md:text-3xl font-semibold group-hover:scale-[1.03] transition">${x.th}</div>`
+        : `<div class="relative rounded-lg ${x.s === 'red' ? 'bg-rose-400' : 'bg-amber-300'} text-ink-950 pl-7 pr-3 py-4 text-center font-thai text-2xl font-bold group-hover:scale-[1.03] transition"><span class="absolute left-2.5 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-ink-900"></span>${x.th}</div>`}
+      <p class="mt-3 font-mono text-sm text-accent">${x.lat}</p>
+      ${lang === 'ru' ? `<p class="text-xs text-zinc-500">${x.cyr}</p>` : ''}
+      <p class="mt-1 text-sm font-medium text-white">${x[lang]}</p>
+    </button>`).join('');
+}
+$('#signTabs').addEventListener('click', e => { const b = e.target.closest('[data-sgk]'); if (b) { sgKind = b.dataset.sgk; renderSigns(); icons() } });
+
 /* --- hero --- */
 const HERO = PH.filter(x => ['greet', 'polite', 'bye'].includes(x.c));
 let heroI = 0;
@@ -1192,12 +1801,13 @@ $('#heroPlay').onclick = e => speak(say(HERO[heroI]), e.currentTarget);
 const POOLS = {
   phrases: PH,
   alpha: CONS.filter(c => !c.old).map(c => ({ th: c.ch, lat: c.name, ru: `${c.word} — ${c.ru}`, en: `${c.word} — ${c.en}`, say: c.ch + ' ' + c.word, np: 1 })),
+  answers: ANS, food: FOOD.flatMap(g => g.items), signs: SIGNS,
   num: NUM, body: BODY, verb: TOPV
 };
 const items = () => POOLS[pool];
 
 function renderPools() {
-  $('#poolTabs').innerHTML = Object.keys(POOLS).map(k => `<button data-pool="${k}" class="${chip(k === pool, ['tones', 'trace'].includes(tab) ? 'invisible' : '')}">${t('pool_' + k)}</button>`).join('');
+  $('#poolTabs').innerHTML = Object.keys(POOLS).map(k => `<button data-pool="${k}" class="${chip(k === pool, ['tones', 'trace', 'listen', 'speak'].includes(tab) ? 'invisible' : '')}">${t('pool_' + k)}</button>`).join('');
 }
 $('#poolTabs').addEventListener('click', e => {
   const b = e.target.closest('[data-pool]');
@@ -1232,7 +1842,7 @@ fc.onclick = () => fc.classList.toggle('flipped');
 fc.onkeydown = e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); fc.classList.toggle('flipped') } };
 $('#fcKnow').onclick = () => { deck.shift(); known++; fcShow() };
 $('#fcAgain').onclick = () => { deck.push(deck.shift()); fc.classList.add('shake'); setTimeout(() => fc.classList.remove('shake'), 400); fcShow() };
-$('#fcSay').onclick = e => deck.length && speak(say(items()[deck[0]]), e.currentTarget);
+$('#fcSay').onclick = e => deck.length && speak(say(items()[deck[0]]), e.currentTarget, items()[deck[0]].v);
 $('#fcReset').onclick = fcReset;
 
 /* quiz */
@@ -1250,7 +1860,7 @@ function qRender() {
     <p class="text-sm text-zinc-500">${t('quizQ')}</p>
     <p class="mt-4 font-thai text-4xl md:text-5xl text-white">${thHTML(x)}</p>
     <p class="mt-3 font-mono text-accent">${latTxt(x)}</p>
-    <button data-say="${say(x)}" class="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm hover:border-accent hover:text-accent transition"><i data-lucide="volume-2" class="w-4 h-4"></i>${t('listen')}</button></div>`;
+    <button data-say="${say(x)}"${x.v ? ` data-voice="${x.v}"` : ''} class="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm hover:border-accent hover:text-accent transition"><i data-lucide="volume-2" class="w-4 h-4"></i>${t('listen')}</button></div>`;
   $('#qOpts').innerHTML = q.opts.map(i => `<button data-q="${i}" class="fade-up rounded-xl border border-white/10 bg-ink-900 px-5 py-4 text-left font-medium hover:border-white/30 transition">${items()[i][lang]}</button>`).join('');
   $('#qScore').textContent = q.score; $('#qTotal').textContent = q.total; $('#qStreak').textContent = q.streak;
   icons();
@@ -1433,22 +2043,138 @@ $('#trCheck').onclick = trCheck;
 $('#trHide').onchange = () => { trRender(); icons() };
 document.fonts?.load('500 100px "Noto Sans Thai Looped"', 'กอ๑').then(() => tr.checked ? trCheck() : trRedraw());
 
+/* listening */
+const lq = { score: 0, total: 0, streak: 0, cur: 0, opts: [], lock: false };
+function lNext(play) {
+  lq.cur = Math.random() * ANS.length | 0;
+  lq.opts = shuffle([lq.cur, ...shuffle([...ANS.keys()].filter(i => i !== lq.cur)).slice(0, 3)]);
+  lq.lock = false;
+  lRender();
+  if (play) speak(ANS[lq.cur].th, $('#lPlay'), ANS[lq.cur].v);
+}
+function lRender() {
+  $('#lReveal').innerHTML = '';
+  $('#lOpts').innerHTML = lq.opts.map(i => `<button data-l="${i}" class="fade-up rounded-xl border border-white/10 bg-ink-900 px-5 py-4 text-left font-medium hover:border-white/30 transition">${ANS[i][lang]}</button>`).join('');
+  $('#lScore').textContent = lq.score; $('#lTotal').textContent = lq.total; $('#lStreak').textContent = lq.streak;
+}
+$('#lPlay').onclick = e => speak(ANS[lq.cur].th, e.currentTarget, ANS[lq.cur].v);
+$('#lOpts').addEventListener('click', e => {
+  const b = e.target.closest('[data-l]');
+  if (!b || lq.lock) return;
+  lq.lock = true; lq.total++;
+  const ok = +b.dataset.l === lq.cur, x = ANS[lq.cur];
+  ok ? (lq.score++, lq.streak++) : (lq.streak = 0);
+  $$('[data-l]').forEach(el => {
+    if (+el.dataset.l === lq.cur) el.className += ' !border-emerald-400 !bg-emerald-400/10 text-emerald-300 pop';
+    else if (el === b) el.className += ' !border-rose-400 !bg-rose-400/10 text-rose-300 shake';
+    else el.className += ' opacity-40';
+  });
+  $('#lReveal').innerHTML = `<div class="fade-up"><p class="font-thai text-2xl text-white">${x.th}</p><p class="font-mono text-sm text-accent">${x.lat}</p></div>`;
+  $('#lScore').textContent = lq.score; $('#lTotal').textContent = lq.total; $('#lStreak').textContent = lq.streak;
+  setTimeout(() => lNext(true), ok ? 2000 : 2800);
+});
+
+/* speak: record yourself + speech recognition check */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const spk = { i: 0, url: null, rec: null, recording: false, listening: false };
+const normTh = s => s.replace(/[\s.,!?ๆ]/g, '').replace(/ครับ|ค่ะ|คะ|นะ/g, '');
+function simil(a, b) {
+  a = normTh(a); b = normTh(b);
+  if (!a || !b) return 0;
+  let prev = [...Array(b.length + 1).keys()];
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    for (let j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    prev = cur;
+  }
+  return 1 - prev[b.length] / Math.max(a.length, b.length);
+}
+console.assert(simil('สวัสดีครับ', 'สวัสดี') === 1 && simil('ขอบคุณ', 'สวัสดี') < .5, 'simil');
+function spNext() {
+  spk.i = Math.random() * PH.length | 0;
+  if (spk.url) { URL.revokeObjectURL(spk.url); spk.url = null }
+  $('#spResult').innerHTML = '';
+  spRender(); icons();
+}
+function spRender() {
+  const x = PH[spk.i];
+  $('#spPhrase').innerHTML = `<div class="fade-up"><p class="font-thai text-4xl md:text-5xl text-white">${thHTML(x)}</p>
+    <p class="mt-3 font-mono text-accent">${latTxt(x)}</p>${lang === 'ru' ? `<p class="text-zinc-500">${cyrTxt(x)}</p>` : ''}
+    <p class="mt-3 text-lg text-white">${x[lang]}</p></div>`;
+  $('#spRec').innerHTML = spk.recording
+    ? `<i data-lucide="square" class="w-4 h-4 text-rose-400"></i><span>${t('spStop')}</span>`
+    : `<i data-lucide="mic" class="w-4 h-4"></i><span>${t('spRec')}</span>`;
+  $('#spRec').classList.toggle('!border-rose-400', spk.recording);
+  $('#spMine').disabled = !spk.url;
+  $('#spCheck').classList.toggle('hidden', !SR);
+  $('#spCheck').innerHTML = spk.listening
+    ? `<i data-lucide="audio-lines" class="w-4 h-4 animate-pulse"></i><span>${t('spListening')}</span>`
+    : `<i data-lucide="scan-eye" class="w-4 h-4"></i><span>${t('spCheck')}</span>`;
+  $('#spSupport').textContent = SR ? t('spNote') : t('spNoSR');
+}
+$('#spNext').onclick = spNext;
+$('#spListen').onclick = e => speak(say(PH[spk.i]), e.currentTarget);
+$('#spMine').onclick = () => spk.url && new Audio(spk.url).play();
+$('#spRec').onclick = async () => {
+  if (spk.recording) return spk.rec.stop();
+  if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) return toast(t('spMicErr'));
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const chunks = [], rec = new MediaRecorder(stream);
+    spk.rec = rec;
+    rec.ondataavailable = e => chunks.push(e.data);
+    rec.onstop = () => {
+      stream.getTracks().forEach(tr => tr.stop());
+      spk.recording = false;
+      if (spk.url) URL.revokeObjectURL(spk.url);
+      spk.url = URL.createObjectURL(new Blob(chunks, { type: rec.mimeType }));
+      spRender(); icons();
+      new Audio(spk.url).play();
+    };
+    rec.start(); spk.recording = true; spRender(); icons();
+    setTimeout(() => rec.state === 'recording' && rec.stop(), 7000);
+  } catch (e) { toast(t('spMicErr')) }
+};
+$('#spCheck').onclick = () => {
+  if (!SR || spk.listening) return;
+  const r = new SR();
+  r.lang = 'th-TH'; r.interimResults = false; r.maxAlternatives = 5;
+  r.onresult = e => {
+    const target = say(PH[spk.i]);
+    let best = { t: '', s: 0 };
+    for (const a of e.results[0]) { const s = simil(a.transcript, target); if (s >= best.s) best = { t: a.transcript, s } }
+    const pct = Math.round(best.s * 100), lvl = pct >= 85 ? 2 : pct >= 60 ? 1 : 0;
+    const tone = ['border-rose-400/40 bg-rose-400/5 text-rose-300', 'border-accent/40 bg-accent/5 text-accent', 'border-emerald-400/40 bg-emerald-400/5 text-emerald-400'][lvl];
+    $('#spResult').innerHTML = `<div class="fade-up ${lvl ? 'pop' : 'shake'} rounded-2xl border ${tone} p-5">
+      <div class="flex items-center gap-4"><span class="font-mono text-4xl font-bold">${pct}%</span><p class="font-semibold text-white">${t('spR' + lvl)}</p></div>
+      <p class="mt-3 text-sm text-zinc-500">${t('spHeard')}: <span class="font-thai text-white">${best.t || '—'}</span></p></div>`;
+  };
+  r.onerror = e => toast(e.error === 'not-allowed' ? t('spMicErr') : e.error === 'no-speech' ? t('spNothing') : t('spSrErr') + e.error);
+  r.onend = () => { spk.listening = false; spRender(); icons() };
+  spk.listening = true; spRender(); icons();
+  r.start();
+};
+
 /* trainer tabs */
 function renderTabs() {
   $$('.tab').forEach(b => { const on = b.dataset.tab === tab; b.classList.toggle('bg-accent', on); b.classList.toggle('text-ink-950', on); b.classList.toggle('text-zinc-400', !on) });
   $$('[data-panel]').forEach(p => p.classList.toggle('hidden', p.dataset.panel !== tab));
   renderPools();
 }
-$$('.tab').forEach(b => b.onclick = () => {
-  const first = tab !== 'tones' && b.dataset.tab === 'tones';
-  tab = b.dataset.tab; renderTabs();
-  if (first) speak(TONES[tn.cur].th, $('#tPlay'));
-});
+function openTab(name) {
+  if (tab === name) return;
+  tab = name; renderTabs();
+  if (name === 'tones') speak(TONES[tn.cur].th, $('#tPlay'));
+  if (name === 'listen') speak(ANS[lq.cur].th, $('#lPlay'), ANS[lq.cur].v);
+}
+$$('.tab').forEach(b => b.onclick = () => openTab(b.dataset.tab));
+$$('[data-goto-tab]').forEach(b => b.onclick = () => { $('#train').scrollIntoView({ behavior: 'smooth' }); openTab(b.dataset.gotoTab) });
 
 /* ================= TOGGLES & INIT ================= */
 function renderAll() {
   renderText(); renderSounds(); renderTones(); renderPoster(); renderAlphabet(); renderPhrases();
-  renderNum(); renderBody(); renderVerbs(); renderTopVerbs(); renderHero(); renderPools();
+  renderNum(); renderBody(); renderVerbs(); renderQues(); renderCls(); renderFood(); renderTopVerbs(); renderHero(); renderPools();
+  renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender();
   fcShow(); qRender(); tRender(); trRender(); icons();
 }
 $$('[data-lang]').forEach(b => b.onclick = () => { lang = b.dataset.lang; store.set('tf-lang', lang); renderAll() });
@@ -1460,6 +2186,9 @@ $$('.reveal').forEach(el => io.observe(el));
 deck = shuffle(items().map((_, i) => i));
 qNext();
 tNext(false);
+lNext(false);
+spk.i = Math.random() * PH.length | 0;
+dlgStart(0, false);
 renderTabs();
 renderVtabs();
 renderAll();
