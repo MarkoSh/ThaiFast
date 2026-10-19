@@ -7,12 +7,12 @@
 <meta name="description" content="Тайский язык с нуля: звуки, тоны, алфавит, цифры, нужные фразы и быстрые тренажёры.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+Thai+Looped:wght@500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
   theme: { extend: {
-    fontFamily: { sans: ['Inter', 'Noto Sans Thai', 'system-ui', 'sans-serif'], thai: ['Noto Sans Thai', 'sans-serif'] },
+    fontFamily: { sans: ['Inter', 'Noto Sans Thai', 'system-ui', 'sans-serif'], thai: ['Noto Sans Thai', 'sans-serif'], loop: ['Noto Sans Thai Looped', 'Noto Sans Thai', 'sans-serif'] },
     colors: { ink: { 950: '#09090b', 900: '#101114', 800: '#17191d', 700: '#23262c', 600: '#33373f' }, accent: '#e8b04b' }
   } }
 }
@@ -167,6 +167,20 @@ tailwind.config = {
         </div>
         <div id="classTabs" class="flex flex-wrap gap-2"></div>
       </div>
+      <div class="reveal mt-10 rounded-3xl border border-white/10 bg-ink-900/60 p-5 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+          <div class="max-w-2xl">
+            <h3 class="text-xl font-bold text-white flex items-center gap-2"><i data-lucide="layout-grid" class="w-5 h-5 text-accent"></i><span data-i18n="posterTitle"></span></h3>
+            <p class="mt-2 text-sm text-zinc-400" data-i18n="posterSub"></p>
+          </div>
+          <div class="flex self-start rounded-lg border border-white/10 p-0.5 text-xs font-semibold shrink-0">
+            <button data-pfont="loop" class="px-3 py-1.5 rounded-md transition" data-i18n="fontLoop"></button>
+            <button data-pfont="print" class="px-3 py-1.5 rounded-md transition" data-i18n="fontPrint"></button>
+          </div>
+        </div>
+        <div id="poster" class="mt-6"></div>
+      </div>
+
       <div class="reveal mt-10 grid lg:grid-cols-[1fr_340px] gap-6 items-start">
         <div id="consGrid" class="grid grid-cols-5 sm:grid-cols-8 lg:grid-cols-9 gap-2"></div>
         <aside id="consDetail" class="lg:sticky lg:top-24 rounded-2xl border border-white/10 bg-ink-900 p-6"></aside>
@@ -278,6 +292,7 @@ tailwind.config = {
           <button data-tab="cards" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="layers" class="w-4 h-4"></i><span data-i18n="tabCards"></span></button>
           <button data-tab="quiz" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="list-checks" class="w-4 h-4"></i><span data-i18n="tabQuiz"></span></button>
           <button data-tab="tones" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="audio-lines" class="w-4 h-4"></i><span data-i18n="tabTones"></span></button>
+          <button data-tab="trace" class="tab px-4 py-2.5 rounded-xl flex items-center gap-2 transition"><i data-lucide="pen-line" class="w-4 h-4"></i><span data-i18n="tabTrace"></span></button>
         </div>
       </div>
       <div id="poolTabs" class="reveal mt-4 flex flex-wrap justify-center gap-2"></div>
@@ -339,6 +354,33 @@ tailwind.config = {
             <p id="tReveal" class="mt-5 h-8 font-mono text-xl text-accent"></p>
           </div>
           <div id="tOpts" class="mt-6 grid grid-cols-2 sm:grid-cols-5 gap-3"></div>
+        </div>
+
+        <!-- Trace -->
+        <div data-panel="trace" class="hidden">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div id="trSets" class="flex flex-wrap gap-2"></div>
+            <label class="flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
+              <input id="trHide" type="checkbox" class="w-4 h-4 accent-[#e8b04b]"><span data-i18n="trHide"></span>
+            </label>
+          </div>
+          <div class="mt-6 grid md:grid-cols-[340px_1fr] gap-6 items-start">
+            <div class="mx-auto w-full max-w-[340px]">
+              <canvas id="trCanvas" class="block w-full aspect-square rounded-2xl border border-white/10 bg-ink-900 cursor-crosshair" style="touch-action:none"></canvas>
+              <div class="mt-3 grid grid-cols-4 gap-2">
+                <button id="trPrev" class="rounded-xl border border-white/10 py-2.5 hover:bg-white/5 transition grid place-items-center" aria-label="Prev"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                <button id="trClear" class="rounded-xl border border-white/10 py-2.5 hover:bg-white/5 transition grid place-items-center" aria-label="Clear"><i data-lucide="eraser" class="w-4 h-4"></i></button>
+                <button id="trRand" class="rounded-xl border border-white/10 py-2.5 hover:bg-white/5 transition grid place-items-center" aria-label="Random"><i data-lucide="shuffle" class="w-4 h-4"></i></button>
+                <button id="trNext" class="rounded-xl border border-white/10 py-2.5 hover:bg-white/5 transition grid place-items-center" aria-label="Next"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+              </div>
+              <button id="trCheck" class="mt-2 w-full rounded-xl bg-accent text-ink-950 py-3 font-semibold hover:brightness-110 transition flex items-center justify-center gap-2"><i data-lucide="scan-eye" class="w-4 h-4"></i><span data-i18n="trCheck"></span></button>
+            </div>
+            <div>
+              <div id="trInfo"></div>
+              <div id="trResult" class="mt-6 min-h-[120px]"></div>
+              <p class="mt-6 flex items-start gap-2 text-xs text-zinc-500"><i data-lucide="info" class="w-3.5 h-3.5 shrink-0 mt-0.5"></i><span data-i18n="trTip"></span></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -413,6 +455,11 @@ const T = {
     tonesSub: 'Высота голоса — часть слова. Один и тот же слог «май» пятью тонами — пять разных значений. Знак над гласной в транскрипции показывает тон.',
     twister: 'Скороговорка', twisterTr: '«Новое дерево ведь не горит?»',
     listen: 'Слушать',
+    posterTitle: 'Весь алфавит одним взглядом',
+    posterSub: 'Так алфавит висит в каждом тайском классе: 44 согласные по порядку от ก до ฮ, у каждой — слово-подсказка. Ниже — 32 гласные, 4 знака тона и 10 цифр. Нажмите на любой символ, чтобы услышать.',
+    fontLoop: 'Рукописный', fontPrint: 'Печатный',
+    pCons: 'согласных', pVow: 'гласных', pTone: 'знака тона', pDig: 'цифр',
+    pVowNote: 'Пунктир ◌ — место согласной.', pToneNote: 'Ставятся над согласной и вместе с её классом определяют тон.',
     alphaTitle: '44 согласные',
     alphaSub: 'У каждой буквы есть имя-слово: ก — «гор гай», «к как в курице». Так учат тайские дети. Нажмите на букву — услышите её и узнаете, как она звучит в начале и в конце слога.',
     clsAll: 'Все', clsM: 'Средний класс', clsH: 'Высокий класс', clsL: 'Низкий класс',
@@ -440,7 +487,13 @@ const T = {
     tvVerb: 'Глагол', tvMeaning: 'Значение', tvExample: 'Как говорят', tvFreq: 'Частота', tvSearch: 'Поиск: ไป, есть, buy…', tvMore: 'Показать все', tvLess: 'Свернуть',
     tvSource: 'Частота — число постов с этим глаголом в корпусе <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/wisesight-sentiment" target="_blank" rel="noopener">Wisesight</a> (26 737 постов из тайских соцсетей), сверено с <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/pythainlp" target="_blank" rel="noopener">Thai National Corpus</a>. Разметка частей речи — PyThaiNLP.',
     trainTitle: 'Тренажёры', trainSub: 'Выберите набор и тренируйтесь пару минут.',
-    tabCards: 'Карточки', tabQuiz: 'Викторина', tabTones: 'Тоны',
+    tabCards: 'Карточки', tabQuiz: 'Викторина', tabTones: 'Тоны', tabTrace: 'Обведи',
+    trSet_cons: 'Согласные', trSet_vow: 'Гласные', trSet_dig: 'Цифры', trHide: 'Без подсказки', trCheck: 'Оценить',
+    trHint: 'Обведите по серым линиям — пальцем, мышкой или стилусом, затем «Оценить».', trHintHidden: 'Напишите по памяти, затем «Оценить» — шаблон появится.',
+    trEmpty: 'Сначала обведите символ', trCover: 'Обведено', trPrec: 'Точность',
+    trR0: 'Ещё разок', trR1: 'Неплохо', trR2: 'Хорошо', trR3: 'Отлично!',
+    trLegend: 'Зелёный — попали, красный — пропустили, оранжевый — мимо линий.',
+    trTip: 'Тайские буквы обычно пишут, начиная с маленького кружочка-«головы», одним движением. Цифры — тоже с кружка.',
     pool_phrases: 'Фразы', pool_alpha: 'Алфавит', pool_num: 'Цифры', pool_body: 'Тело', pool_verb: 'Глаголы',
     known: 'Выучено', restart: 'Заново', tapFlip: 'Нажмите, чтобы перевернуть',
     again: 'Ещё раз', iKnow: 'Знаю', fcDone: 'Все карточки выучены!',
@@ -466,6 +519,11 @@ const T = {
     tonesSub: 'Pitch is part of the word. The syllable “mai” in five tones gives five meanings. The mark above the vowel shows the tone.',
     twister: 'Tongue twister', twisterTr: '“New wood doesn’t burn, does it?”',
     listen: 'Listen',
+    posterTitle: 'The whole alphabet at a glance',
+    posterSub: 'This is the chart on every Thai classroom wall: 44 consonants in order from ก to ฮ, each with its memory word. Below — 32 vowels, 4 tone marks and 10 digits. Tap any symbol to hear it.',
+    fontLoop: 'Handwritten', fontPrint: 'Print',
+    pCons: 'consonants', pVow: 'vowels', pTone: 'tone marks', pDig: 'digits',
+    pVowNote: 'The dotted ◌ marks where the consonant goes.', pToneNote: 'Written above the consonant; together with its class they set the tone.',
     alphaTitle: '44 consonants',
     alphaSub: 'Every letter has a name-word: ก is “gor gài” — g as in chicken. That’s how Thai kids learn. Tap a letter to hear it and see how it sounds at the start and end of a syllable.',
     clsAll: 'All', clsM: 'Mid class', clsH: 'High class', clsL: 'Low class',
@@ -493,7 +551,13 @@ const T = {
     tvVerb: 'Verb', tvMeaning: 'Meaning', tvExample: 'How it’s said', tvFreq: 'Frequency', tvSearch: 'Search: ไป, eat, buy…', tvMore: 'Show all', tvLess: 'Collapse',
     tvSource: 'Frequency = number of posts containing the verb in the <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/wisesight-sentiment" target="_blank" rel="noopener">Wisesight</a> corpus (26,737 Thai social media posts), cross-checked with the <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/pythainlp" target="_blank" rel="noopener">Thai National Corpus</a>. POS tagging by PyThaiNLP.',
     trainTitle: 'Practice', trainSub: 'Pick a set and drill for a couple of minutes.',
-    tabCards: 'Cards', tabQuiz: 'Quiz', tabTones: 'Tones',
+    tabCards: 'Cards', tabQuiz: 'Quiz', tabTones: 'Tones', tabTrace: 'Trace',
+    trSet_cons: 'Consonants', trSet_vow: 'Vowels', trSet_dig: 'Digits', trHide: 'No guide', trCheck: 'Check',
+    trHint: 'Trace over the grey lines with finger, mouse or stylus, then hit “Check”.', trHintHidden: 'Write it from memory, then “Check” — the guide will appear.',
+    trEmpty: 'Trace the character first', trCover: 'Covered', trPrec: 'Accuracy',
+    trR0: 'Try again', trR1: 'Not bad', trR2: 'Good', trR3: 'Excellent!',
+    trLegend: 'Green — hit, red — missed, orange — off the lines.',
+    trTip: 'Thai letters usually start at the small loop (the “head”) and flow in one stroke. Digits start at the loop too.',
     pool_phrases: 'Phrases', pool_alpha: 'Alphabet', pool_num: 'Numbers', pool_body: 'Body', pool_verb: 'Verbs',
     known: 'Learned', restart: 'Restart', tapFlip: 'Tap to flip',
     again: 'Again', iKnow: 'Got it', fcDone: 'All cards learned!',
@@ -697,6 +761,13 @@ const VOWELS = [
   ['เอ', 'ee', 'долгое узкое «э»', 'long e'], ['แอ', 'ae', 'широкое «э»', 'open ae'], ['โอ', 'oh', 'долгое «о»', 'long o'], ['ออ', 'or', 'открытое «о», как в «кот»', 'open aw'],
   ['ไอ', 'ai', '«ай»', 'ai'], ['ใอ', 'ai', '«ай» (20 слов)', 'ai (20 words)'], ['อำ', 'am', '«ам»', 'am'], ['เอา', 'ao', '«ао»', 'ao']
 ];
+
+// Full traditional set of 32 vowels (สระ 32 รูป) — shown on the alphabet chart
+const VOWELS32 = 'อะ a|อา aa|อิ i|อี ii|อึ ue|อือ uue|อุ u|อู uu|เอะ e|เอ ee|แอะ ae|แอ aae|โอะ o|โอ oh|เอาะ or|ออ or|เออะ oe|เออ oe|เอียะ ia|เอีย iia|เอือะ uea|เอือ uuea|อัวะ ua|อัว uua|อำ am|ใอ ai|ไอ ai|เอา ao|ฤ rue|ฤๅ ruue|ฦ lue|ฦๅ luue'
+  .split('|').map(r => r.split(' '));
+// ฤ ฦ are read as syllables — TTS needs the spelled-out reading
+const VSAY = { 'ฤ': 'รึ', 'ฤๅ': 'รือ', 'ฦ': 'ลึ', 'ฦๅ': 'ลือ' };
+const TONEMARKS = [['่', 'ไม้เอก', 'mái èek'], ['้', 'ไม้โท', 'mái thoo'], ['๊', 'ไม้ตรี', 'mái dtrii'], ['๋', 'ไม้จัตวา', 'mái jàt-dtà-waa']];
 
 /* ================= WORDS ================= */
 const NUM = [
@@ -971,6 +1042,23 @@ $('#consGrid').addEventListener('click', e => {
   if (window.innerWidth < 1024) $('#consDetail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 });
 
+/* --- alphabet chart --- */
+let pfont = 'loop';
+function renderPoster() {
+  $$('[data-pfont]').forEach(b => b.className = `px-3 py-1.5 rounded-md transition ${b.dataset.pfont === pfont ? 'bg-white text-ink-950' : 'text-zinc-400 hover:text-white'}`);
+  const f = pfont === 'loop' ? 'font-loop' : 'font-thai';
+  const head = (n, key, note = '') => `<div class="mt-8 first:mt-0 flex flex-wrap items-baseline gap-x-3 gap-y-1"><span class="font-mono text-2xl font-bold text-accent">${n}</span><span class="text-sm font-semibold text-white">${t(key)}</span>${note ? `<span class="text-xs text-zinc-500">${t(note)}</span>` : ''}</div>`;
+  const cell = (say, glyph, sub, extra = '') => `<button data-say="${say}" class="group rounded-xl border border-white/5 bg-ink-950 hover:border-accent/50 hover:-translate-y-0.5 transition pt-1 pb-2 px-1 text-center ${extra}"><span class="flex h-16 md:h-[72px] items-center justify-center ${f} text-3xl md:text-4xl leading-none text-white group-hover:text-accent transition">${glyph}</span><span class="block font-thai text-[11px] leading-tight text-zinc-500 truncate">${sub}</span></button>`;
+  $('#poster').innerHTML =
+    head(44, 'pCons') +
+    `<div class="mt-3 grid grid-cols-6 sm:grid-cols-8 lg:grid-cols-11 gap-1.5">${CONS.map(c => cell(c.ch + ' ' + c.word, c.ch, c.word, c.old ? 'opacity-40' : '')).join('')}</div>` +
+    head(32, 'pVow', 'pVowNote') +
+    `<div class="mt-3 grid grid-cols-4 sm:grid-cols-8 gap-1.5">${VOWELS32.map(([v, lat]) => cell(VSAY[v] || v, v.replace('อ', '◌'), lat)).join('')}</div>` +
+    `<div class="mt-8 grid md:grid-cols-2 gap-6"><div>${head(4, 'pTone', 'pToneNote')}<div class="mt-3 grid grid-cols-4 gap-1.5">${TONEMARKS.map(([m, name, lat]) => cell(name, 'ก' + m, lat)).join('')}</div></div>` +
+    `<div>${head(10, 'pDig')}<div class="mt-3 grid grid-cols-5 gap-1.5">${NUM.slice(0, 10).map(x => cell(x.th, x.digit, x.ru)).join('')}</div></div></div>`;
+}
+$$('[data-pfont]').forEach(b => b.onclick = () => { pfont = b.dataset.pfont; renderPoster() });
+
 /* --- phrases --- */
 function phraseCard(x) {
   return `<article class="fade-up group rounded-2xl border border-white/10 bg-ink-900 p-6 hover:border-accent/40 transition">
@@ -1110,7 +1198,7 @@ const POOLS = {
 const items = () => POOLS[pool];
 
 function renderPools() {
-  $('#poolTabs').innerHTML = Object.keys(POOLS).map(k => `<button data-pool="${k}" class="${chip(k === pool, tab === 'tones' ? 'invisible' : '')}">${t('pool_' + k)}</button>`).join('');
+  $('#poolTabs').innerHTML = Object.keys(POOLS).map(k => `<button data-pool="${k}" class="${chip(k === pool, ['tones', 'trace'].includes(tab) ? 'invisible' : '')}">${t('pool_' + k)}</button>`).join('');
 }
 $('#poolTabs').addEventListener('click', e => {
   const b = e.target.closest('[data-pool]');
@@ -1213,6 +1301,139 @@ $('#tOpts').addEventListener('click', e => {
   setTimeout(() => tNext(true), 1800);
 });
 
+/* trace */
+// Scoring compares pixels: glyph vs. user ink, each with a tolerance halo.
+// ponytail: no stroke-order check — needs per-letter stroke data we don't have.
+const TR_SETS = {
+  cons: () => CONS.filter(c => !c.old).map(c => ({ g: c.ch, say: c.ch + ' ' + c.word, lat: c.name, ru: c.ru, en: c.en })),
+  vow: () => VOWELS.map(([g, lat, ru, en]) => ({ g, say: g, lat, ru, en })),
+  dig: () => NUM.slice(0, 10).map(x => ({ g: x.digit, say: x.th, lat: x.lat, ru: x.ru + ' · ' + x.th, en: x.en + ' · ' + x.th }))
+};
+const TR_W = 340, TR_BRUSH = 15, TR_TOL = 9;
+const tr = { set: 'cons', i: 0, strokes: [], drawing: false, checked: false };
+const trCv = $('#trCanvas'), trCtx = trCv.getContext('2d');
+const trDpr = Math.min(window.devicePixelRatio || 1, 3);
+trCv.width = trCv.height = TR_W * trDpr;
+const trList = () => TR_SETS[tr.set]();
+const trCur = () => trList()[tr.i];
+
+function trFont(ctx, text) {
+  let fs = TR_W * .6;
+  ctx.font = `500 ${fs}px "Noto Sans Thai Looped"`;
+  let m = ctx.measureText(text);
+  const w = m.actualBoundingBoxLeft + m.actualBoundingBoxRight, h = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
+  fs *= Math.min(TR_W * .66 / Math.max(w, h, 1), 1.5);
+  ctx.font = `500 ${fs}px "Noto Sans Thai Looped"`;
+  m = ctx.measureText(text);
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  return {
+    x: TR_W / 2 - (m.actualBoundingBoxRight - m.actualBoundingBoxLeft) / 2,
+    y: TR_W / 2 + (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2
+  };
+}
+function trGlyph(ctx, color, halo = 0) {
+  const g = trCur().g, { x, y } = trFont(ctx, g);
+  ctx.fillStyle = ctx.strokeStyle = color;
+  ctx.fillText(g, x, y);
+  if (halo) { ctx.lineWidth = halo * 2; ctx.lineJoin = 'round'; ctx.strokeText(g, x, y) }
+}
+function trInk(ctx, color, width) {
+  ctx.strokeStyle = ctx.fillStyle = color; ctx.lineWidth = width; ctx.lineCap = ctx.lineJoin = 'round';
+  for (const st of tr.strokes) {
+    if (st.length === 1) { ctx.beginPath(); ctx.arc(st[0][0], st[0][1], width / 2, 0, 7); ctx.fill(); continue }
+    ctx.beginPath(); ctx.moveTo(...st[0]); st.forEach(p => ctx.lineTo(...p)); ctx.stroke();
+  }
+}
+function trGuides() {
+  trCtx.strokeStyle = 'rgba(255,255,255,.05)'; trCtx.lineWidth = 1; trCtx.setLineDash([4, 6]);
+  trCtx.beginPath(); trCtx.moveTo(TR_W / 2, 0); trCtx.lineTo(TR_W / 2, TR_W); trCtx.moveTo(0, TR_W / 2); trCtx.lineTo(TR_W, TR_W / 2); trCtx.stroke();
+  trCtx.setLineDash([]);
+}
+function trRedraw() {
+  trCtx.setTransform(trDpr, 0, 0, trDpr, 0, 0);
+  trCtx.clearRect(0, 0, TR_W, TR_W);
+  trGuides();
+  if (!$('#trHide').checked) trGlyph(trCtx, 'rgba(255,255,255,.13)');
+  trInk(trCtx, '#e8b04b', TR_BRUSH);
+}
+function trMask(draw) {
+  const c = document.createElement('canvas'); c.width = c.height = TR_W;
+  const ctx = c.getContext('2d', { willReadFrequently: true });
+  draw(ctx);
+  const d = ctx.getImageData(0, 0, TR_W, TR_W).data, out = new Uint8Array(TR_W * TR_W);
+  for (let i = 0; i < out.length; i++) out[i] = d[i * 4 + 3] > 100;
+  return out;
+}
+function trCheck() {
+  if (!tr.strokes.length) return toast(t('trEmpty'));
+  const G = trMask(c => trGlyph(c, '#fff')), Gd = trMask(c => trGlyph(c, '#fff', TR_TOL));
+  const U = trMask(c => trInk(c, '#fff', TR_BRUSH)), Ud = trMask(c => trInk(c, '#fff', TR_BRUSH + TR_TOL * 2));
+  let g = 0, gHit = 0, u = 0, uHit = 0;
+  const img = new ImageData(TR_W, TR_W), px = img.data;
+  const paint = (i, r, gg, b, a) => { px[i * 4] = r; px[i * 4 + 1] = gg; px[i * 4 + 2] = b; px[i * 4 + 3] = a };
+  for (let i = 0; i < G.length; i++) {
+    if (G[i]) { g++; if (Ud[i]) { gHit++; paint(i, 52, 211, 153, 255) } else paint(i, 251, 113, 133, 255) }
+    if (U[i]) { u++; if (Gd[i]) uHit++; else if (!G[i]) paint(i, 251, 146, 60, 150) }
+  }
+  const cover = gHit / g, prec = uHit / u;
+  const score = Math.round(200 * cover * prec / (cover + prec || 1));
+  const off = document.createElement('canvas'); off.width = off.height = TR_W;
+  off.getContext('2d').putImageData(img, 0, 0);
+  trCtx.setTransform(trDpr, 0, 0, trDpr, 0, 0);
+  trCtx.clearRect(0, 0, TR_W, TR_W); trGuides();
+  trCtx.drawImage(off, 0, 0);
+  tr.checked = true;
+  const stars = score >= 88 ? 3 : score >= 75 ? 2 : score >= 55 ? 1 : 0;
+  $('#trResult').innerHTML = `<div class="fade-up ${stars ? 'pop' : 'shake'}">
+    <div class="flex items-center gap-4">
+      <span class="font-mono text-5xl font-bold ${stars >= 2 ? 'text-emerald-400' : stars ? 'text-accent' : 'text-rose-400'}">${score}<span class="text-2xl">%</span></span>
+      <div><div class="flex gap-1">${[1, 2, 3].map(n => `<i data-lucide="star" class="w-5 h-5 ${n <= stars ? 'text-accent fill-accent' : 'text-zinc-700'}"></i>`).join('')}</div>
+      <p class="mt-1 font-semibold text-white">${t('trR' + stars)}</p></div>
+    </div>
+    <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+      <div><p class="text-zinc-500">${t('trCover')}</p><div class="mt-1 h-1.5 rounded-full bg-white/5 overflow-hidden"><div class="h-full bg-emerald-400" style="width:${cover * 100}%"></div></div><p class="mt-1 font-mono text-xs text-zinc-400">${Math.round(cover * 100)}%</p></div>
+      <div><p class="text-zinc-500">${t('trPrec')}</p><div class="mt-1 h-1.5 rounded-full bg-white/5 overflow-hidden"><div class="h-full bg-accent" style="width:${prec * 100}%"></div></div><p class="mt-1 font-mono text-xs text-zinc-400">${Math.round(prec * 100)}%</p></div>
+    </div>
+    <p class="mt-3 text-xs text-zinc-500">${t('trLegend')}</p></div>`;
+  icons();
+}
+function trRender() {
+  $('#trSets').innerHTML = Object.keys(TR_SETS).map(k => `<button data-trset="${k}" class="${chip(k === tr.set)}">${t('trSet_' + k)}</button>`).join('');
+  const x = trCur(), n = trList().length;
+  $('#trInfo').innerHTML = `<div class="fade-up">
+    <div class="flex items-center justify-between text-sm text-zinc-500"><span class="font-mono">${tr.i + 1} / ${n}</span></div>
+    <div class="mt-3 flex items-start justify-between gap-4">
+      <div><p class="font-loop text-6xl text-white leading-none">${x.g}</p>
+      <p class="mt-4 font-mono text-accent">${x.lat}</p><p class="text-sm text-zinc-400">${L(x.ru, x.en)}</p></div>
+      ${playBtn(x.say, 'w-12 h-12')}
+    </div>
+    <p class="mt-5 text-sm text-zinc-400">${t($('#trHide').checked ? 'trHintHidden' : 'trHint')}</p></div>`;
+  if (!tr.checked) $('#trResult').innerHTML = '';
+  if (tr.checked) trCheck(); else trRedraw();
+}
+function trGo(i) { const n = trList().length; tr.i = (i + n) % n; tr.strokes = []; tr.checked = false; trRender(); icons() }
+const trPt = e => { const r = trCv.getBoundingClientRect(); return [(e.clientX - r.left) * TR_W / r.width, (e.clientY - r.top) * TR_W / r.height] };
+trCv.addEventListener('pointerdown', e => {
+  e.preventDefault(); trCv.setPointerCapture(e.pointerId);
+  if (tr.checked) { tr.checked = false; $('#trResult').innerHTML = '' }
+  tr.drawing = true; tr.strokes.push([trPt(e)]); trRedraw();
+});
+trCv.addEventListener('pointermove', e => {
+  if (!tr.drawing) return;
+  const st = tr.strokes[tr.strokes.length - 1];
+  (e.getCoalescedEvents?.() || [e]).forEach(ev => st.push(trPt(ev)));
+  trRedraw();
+});
+['pointerup', 'pointercancel'].forEach(ev => trCv.addEventListener(ev, () => { tr.drawing = false }));
+$('#trSets').addEventListener('click', e => { const b = e.target.closest('[data-trset]'); if (b) { tr.set = b.dataset.trset; trGo(0) } });
+$('#trPrev').onclick = () => trGo(tr.i - 1);
+$('#trNext').onclick = () => trGo(tr.i + 1);
+$('#trRand').onclick = () => trGo(Math.random() * trList().length | 0);
+$('#trClear').onclick = () => trGo(tr.i);
+$('#trCheck').onclick = trCheck;
+$('#trHide').onchange = () => { trRender(); icons() };
+document.fonts?.load('500 100px "Noto Sans Thai Looped"', 'กอ๑').then(() => tr.checked ? trCheck() : trRedraw());
+
 /* trainer tabs */
 function renderTabs() {
   $$('.tab').forEach(b => { const on = b.dataset.tab === tab; b.classList.toggle('bg-accent', on); b.classList.toggle('text-ink-950', on); b.classList.toggle('text-zinc-400', !on) });
@@ -1227,9 +1448,9 @@ $$('.tab').forEach(b => b.onclick = () => {
 
 /* ================= TOGGLES & INIT ================= */
 function renderAll() {
-  renderText(); renderSounds(); renderTones(); renderAlphabet(); renderPhrases();
+  renderText(); renderSounds(); renderTones(); renderPoster(); renderAlphabet(); renderPhrases();
   renderNum(); renderBody(); renderVerbs(); renderTopVerbs(); renderHero(); renderPools();
-  fcShow(); qRender(); tRender(); icons();
+  fcShow(); qRender(); tRender(); trRender(); icons();
 }
 $$('[data-lang]').forEach(b => b.onclick = () => { lang = b.dataset.lang; store.set('tf-lang', lang); renderAll() });
 $$('[data-gender]').forEach(b => b.onclick = () => { gender = b.dataset.gender; store.set('tf-gender', gender); renderAll() });
