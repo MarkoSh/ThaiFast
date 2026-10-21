@@ -510,6 +510,9 @@ tailwind.config = {
           <div class="flex flex-wrap items-center justify-between gap-3">
             <div id="trSets" class="flex flex-wrap gap-2"></div>
             <div id="trSizes" class="flex rounded-lg border border-white/10 p-0.5 text-xs font-semibold" role="group" aria-label="Size"></div>
+            <label id="trPropWrap" class="hidden flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
+              <input id="trProp" type="checkbox" checked class="w-4 h-4 accent-[#e8b04b]"><i data-lucide="notebook-pen" class="w-4 h-4"></i><span data-i18n="trProp"></span>
+            </label>
             <label class="flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
               <input id="trHide" type="checkbox" class="w-4 h-4 accent-[#e8b04b]"><span data-i18n="trHide"></span>
             </label>
@@ -674,7 +677,7 @@ const T = {
     tvSource: 'Частота — число постов с этим глаголом в корпусе <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/wisesight-sentiment" target="_blank" rel="noopener">Wisesight</a> (26 737 постов из тайских соцсетей), сверено с <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/pythainlp" target="_blank" rel="noopener">Thai National Corpus</a>. Разметка частей речи — PyThaiNLP.',
     trainTitle: 'Тренажёры', trainSub: 'Выберите набор и тренируйтесь пару минут.',
     tabCards: 'Карточки', tabQuiz: 'Викторина', tabTones: 'Тоны', tabTrace: 'Обведи',
-    trSet_cons: 'Согласные', trSet_vow: 'Гласные', trSet_dig: 'Цифры', trStyle_loop: 'Печатный', trStyle_school: 'Школьный', trStyle_hand: 'Рукописный', trStyle_cursive: 'Курсив', trSlant: 'Наклон', trSize_l: 'Крупно', trSize_m: 'Средне', trSize_s: 'Мелко', trSize_xs: 'Письмо', trSizeHint_l: 'Наглядно, чтобы рассмотреть форму', trSizeHint_m: 'Удобно обводить', trSizeHint_s: 'Мелкие буквы — для стилуса', trSizeHint_xs: 'Размер обычного почерка — стилусом на планшете', trHide: 'Без подсказки', trCheck: 'Оценить',
+    trSet_cons: 'Согласные', trSet_vow: 'Гласные', trSet_dig: 'Цифры', trStyle_loop: 'Печатный', trStyle_school: 'Школьный', trStyle_hand: 'Рукописный', trStyle_cursive: 'Курсив', trSlant: 'Наклон', trSize_l: 'Крупно', trSize_m: 'Средне', trSize_s: 'Мелко', trSize_xs: 'Письмо', trSizeHint_l: 'Наглядно, чтобы рассмотреть форму', trSizeHint_m: 'Удобно обводить', trSizeHint_s: 'Мелкие буквы — для стилуса', trSizeHint_xs: 'Размер обычного почерка — стилусом на планшете', trHide: 'Без подсказки', trProp: 'Пропись', trHintProp: 'Пропись: обведите образец в первой клетке и повторите букву в каждой. Оценка — когда заполнены все {total}.', trPropLeft: 'Заполнено {n} из {total} — допишите букву в остальных клетках', trCheck: 'Оценить',
     trHint: 'Обведите по серым линиям — пальцем, мышкой или стилусом, затем «Оценить».', trHintHidden: 'Напишите по памяти, затем «Оценить» — шаблон появится.',
     trEmpty: 'Сначала обведите символ', trCover: 'Обведено', trPrec: 'Точность',
     trR0: 'Ещё разок', trR1: 'Неплохо', trR2: 'Хорошо', trR3: 'Отлично!',
@@ -766,7 +769,7 @@ const T = {
     tvSource: 'Frequency = number of posts containing the verb in the <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/wisesight-sentiment" target="_blank" rel="noopener">Wisesight</a> corpus (26,737 Thai social media posts), cross-checked with the <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/pythainlp" target="_blank" rel="noopener">Thai National Corpus</a>. POS tagging by PyThaiNLP.',
     trainTitle: 'Practice', trainSub: 'Pick a set and drill for a couple of minutes.',
     tabCards: 'Cards', tabQuiz: 'Quiz', tabTones: 'Tones', tabTrace: 'Trace',
-    trSet_cons: 'Consonants', trSet_vow: 'Vowels', trSet_dig: 'Digits', trStyle_loop: 'Print', trStyle_school: 'School', trStyle_hand: 'Handwritten', trStyle_cursive: 'Cursive', trSlant: 'Slant', trSize_l: 'Large', trSize_m: 'Medium', trSize_s: 'Small', trSize_xs: 'Writing', trSizeHint_l: 'Big, to study the shape', trSizeHint_m: 'Comfortable to trace', trSizeHint_s: 'Small letters — for a stylus', trSizeHint_xs: 'Real handwriting size — stylus on a tablet', trHide: 'No guide', trCheck: 'Check',
+    trSet_cons: 'Consonants', trSet_vow: 'Vowels', trSet_dig: 'Digits', trStyle_loop: 'Print', trStyle_school: 'School', trStyle_hand: 'Handwritten', trStyle_cursive: 'Cursive', trSlant: 'Slant', trSize_l: 'Large', trSize_m: 'Medium', trSize_s: 'Small', trSize_xs: 'Writing', trSizeHint_l: 'Big, to study the shape', trSizeHint_m: 'Comfortable to trace', trSizeHint_s: 'Small letters — for a stylus', trSizeHint_xs: 'Real handwriting size — stylus on a tablet', trHide: 'No guide', trProp: 'Copybook', trHintProp: 'Copybook: trace the sample in the first cell, then repeat the letter in every cell. Graded once all {total} are filled.', trPropLeft: '{n} of {total} filled — write the letter in the remaining cells', trCheck: 'Check',
     trHint: 'Trace over the grey lines with finger, mouse or stylus, then hit “Check”.', trHintHidden: 'Write it from memory, then “Check” — the guide will appear.',
     trEmpty: 'Trace the character first', trCover: 'Covered', trPrec: 'Accuracy',
     trR0: 'Try again', trR1: 'Not bad', trR2: 'Good', trR3: 'Excellent!',
@@ -1943,7 +1946,22 @@ trCv.width = trCv.height = TR_W * trDpr;
 const trList = () => TR_SETS[tr.set]();
 const trCur = () => trList()[tr.i];
 
-function trFont(ctx, text) {
+// Copybook mode (only for the "writing" size): the letter is repeated in a grid of cells
+const TR_PROP = { cols: 3, rows: 2 };
+tr.prop = true;
+const trPropOn = () => tr.size === 'xs' && tr.prop;
+const trCells = () => {
+  if (!trPropOn()) return [[TR_W / 2, TR_W / 2]];
+  const { cols, rows } = TR_PROP, out = [];
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) out.push([TR_W * (c + .5) / cols, TR_W * (r + .5) / rows]);
+  return out;
+};
+const trCellOf = (x, y) => {
+  const { cols, rows } = TR_PROP;
+  return Math.min(rows - 1, y * rows / TR_W | 0) * cols + Math.min(cols - 1, x * cols / TR_W | 0);
+};
+
+function trFont(ctx, text, cx, cy) {
   let fs = TR_W * trSz().k;
   ctx.font = trFontCss(fs);
   let m = ctx.measureText(text);
@@ -1953,19 +1971,24 @@ function trFont(ctx, text) {
   m = ctx.measureText(text);
   ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   return {
-    x: TR_W / 2 - (m.actualBoundingBoxRight - m.actualBoundingBoxLeft) / 2,
-    y: TR_W / 2 + (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2
+    x: cx - (m.actualBoundingBoxRight - m.actualBoundingBoxLeft) / 2,
+    y: cy + (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2
   };
 }
-function trGlyph(ctx, color, halo = 0) {
-  const g = trCur().g, { x, y } = trFont(ctx, g);
-  ctx.save();
-  // slant around the canvas centre (positive = leaning right, like handwriting)
-  ctx.translate(TR_W / 2, TR_W / 2); ctx.transform(1, 0, -Math.tan(tr.slant * Math.PI / 180), 1, 0, 0); ctx.translate(-TR_W / 2, -TR_W / 2);
-  ctx.fillStyle = ctx.strokeStyle = color;
-  ctx.fillText(g, x, y);
-  if (halo) { ctx.lineWidth = halo * 2; ctx.lineJoin = 'round'; ctx.strokeText(g, x, y) }
-  ctx.restore();
+// draws the glyph in every cell, or only in cell `only`
+function trGlyph(ctx, color, halo = 0, only = -1) {
+  const g = trCur().g;
+  trCells().forEach(([cx, cy], k) => {
+    if (only >= 0 && k !== only) return;
+    const { x, y } = trFont(ctx, g, cx, cy);
+    ctx.save();
+    // slant around the cell centre (positive = leaning right, like handwriting)
+    ctx.translate(cx, cy); ctx.transform(1, 0, -Math.tan(tr.slant * Math.PI / 180), 1, 0, 0); ctx.translate(-cx, -cy);
+    ctx.fillStyle = ctx.strokeStyle = color;
+    ctx.fillText(g, x, y);
+    if (halo) { ctx.lineWidth = halo * 2; ctx.lineJoin = 'round'; ctx.strokeText(g, x, y) }
+    ctx.restore();
+  });
 }
 function trInk(ctx, color, width) {
   ctx.strokeStyle = ctx.fillStyle = color; ctx.lineWidth = width; ctx.lineCap = ctx.lineJoin = 'round';
@@ -1975,15 +1998,36 @@ function trInk(ctx, color, width) {
   }
 }
 function trGuides() {
-  trCtx.strokeStyle = 'rgba(255,255,255,.05)'; trCtx.lineWidth = 1; trCtx.setLineDash([4, 6]);
-  trCtx.beginPath(); trCtx.moveTo(TR_W / 2, 0); trCtx.lineTo(TR_W / 2, TR_W); trCtx.moveTo(0, TR_W / 2); trCtx.lineTo(TR_W, TR_W / 2); trCtx.stroke();
-  trCtx.setLineDash([]);
+  const c = trCtx;
+  if (!trPropOn()) {
+    c.strokeStyle = 'rgba(255,255,255,.05)'; c.lineWidth = 1; c.setLineDash([4, 6]);
+    c.beginPath(); c.moveTo(TR_W / 2, 0); c.lineTo(TR_W / 2, TR_W); c.moveTo(0, TR_W / 2); c.lineTo(TR_W, TR_W / 2); c.stroke();
+    c.setLineDash([]);
+    return;
+  }
+  // copybook ruling: top / bottom line per row, dashed midline, faint cell dividers
+  const { cols, rows } = TR_PROP, half = TR_W * trSz().k * .75;
+  for (let r = 0; r < rows; r++) {
+    const cy = TR_W * (r + .5) / rows;
+    c.strokeStyle = 'rgba(255,255,255,.12)'; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(8, cy - half); c.lineTo(TR_W - 8, cy - half); c.moveTo(8, cy + half); c.lineTo(TR_W - 8, cy + half); c.stroke();
+    c.strokeStyle = 'rgba(255,255,255,.06)'; c.setLineDash([3, 5]);
+    c.beginPath(); c.moveTo(8, cy); c.lineTo(TR_W - 8, cy); c.stroke(); c.setLineDash([]);
+  }
+  c.strokeStyle = 'rgba(255,255,255,.04)';
+  c.beginPath();
+  for (let k = 1; k < cols; k++) { c.moveTo(TR_W * k / cols, 0); c.lineTo(TR_W * k / cols, TR_W) }
+  for (let k = 1; k < rows; k++) { c.moveTo(0, TR_W * k / rows); c.lineTo(TR_W, TR_W * k / rows) }
+  c.stroke();
 }
 function trRedraw() {
   trCtx.setTransform(trDpr, 0, 0, trDpr, 0, 0);
   trCtx.clearRect(0, 0, TR_W, TR_W);
   trGuides();
-  if (!$('#trHide').checked) trGlyph(trCtx, 'rgba(255,255,255,.13)');
+  if (!$('#trHide').checked) {
+    if (trPropOn()) { trGlyph(trCtx, 'rgba(255,255,255,.07)'); trGlyph(trCtx, 'rgba(255,255,255,.3)', 0, 0) }
+    else trGlyph(trCtx, 'rgba(255,255,255,.13)');
+  }
   trInk(trCtx, '#e8b04b', trSz().brush);
 }
 function trMask(draw) {
@@ -1995,32 +2039,45 @@ function trMask(draw) {
   for (let i = 0; i < out.length; i++) out[i] = d[i * 4 + 3] > 100;
   return out;
 }
+const f1 = (cover, prec) => Math.round(200 * cover * prec / (cover + prec || 1));
 function trCheck() {
   if (!tr.strokes.length) return toast(t('trEmpty'));
   const G = trMask(c => trGlyph(c, '#fff')), Gd = trMask(c => trGlyph(c, '#fff', trSz().tol));
   const U = trMask(c => trInk(c, '#fff', trSz().brush)), Ud = trMask(c => trInk(c, '#fff', trSz().brush + trSz().tol * 2));
-  let g = 0, gHit = 0, u = 0, uHit = 0;
-  const N = TR_W * TR_EV, img = new ImageData(N, N), px = img.data;
+  const N = TR_W * TR_EV, nc = trCells().length;
+  const cell = [...Array(nc)].map(() => ({ g: 0, gHit: 0, u: 0, uHit: 0 }));
+  const img = new ImageData(N, N), px = img.data;
   const paint = (i, r, gg, b, a) => { px[i * 4] = r; px[i * 4 + 1] = gg; px[i * 4 + 2] = b; px[i * 4 + 3] = a };
   for (let i = 0; i < G.length; i++) {
-    if (G[i]) { g++; if (Ud[i]) { gHit++; paint(i, 52, 211, 153, 255) } else paint(i, 251, 113, 133, 255) }
-    if (U[i]) { u++; if (Gd[i]) uHit++; else if (!G[i]) paint(i, 251, 146, 60, 150) }
+    if (!G[i] && !U[i]) continue;
+    const s = cell[nc > 1 ? trCellOf((i % N) / TR_EV, (i / N | 0) / TR_EV) : 0];
+    if (G[i]) { s.g++; if (Ud[i]) { s.gHit++; paint(i, 52, 211, 153, 255) } else paint(i, 251, 113, 133, 255) }
+    if (U[i]) { s.u++; if (Gd[i]) s.uHit++; else if (!G[i]) paint(i, 251, 146, 60, 150) }
   }
-  const cover = gHit / g, prec = uHit / u;
-  const score = Math.round(200 * cover * prec / (cover + prec || 1));
+  // copybook: every cell must contain writing before it is graded
+  const filled = cell.filter(s => s.u > s.g * .15).length;
+  if (nc > 1 && filled < nc) return toast(t('trPropLeft').replace('{n}', filled).replace('{total}', nc));
+  const scores = cell.map(s => f1(s.gHit / s.g, s.u ? s.uHit / s.u : 0));
+  const sum = cell.reduce((a, s) => ({ g: a.g + s.g, gHit: a.gHit + s.gHit, u: a.u + s.u, uHit: a.uHit + s.uHit }), { g: 0, gHit: 0, u: 0, uHit: 0 });
+  const cover = sum.gHit / sum.g, prec = sum.uHit / sum.u;
+  const score = nc > 1 ? Math.round(scores.reduce((a, b) => a + b, 0) / nc) : scores[0];
   const off = document.createElement('canvas'); off.width = off.height = N;
   off.getContext('2d').putImageData(img, 0, 0);
   trCtx.setTransform(trDpr, 0, 0, trDpr, 0, 0);
   trCtx.clearRect(0, 0, TR_W, TR_W); trGuides();
   trCtx.drawImage(off, 0, 0, TR_W, TR_W);
   tr.checked = true;
-  const stars = score >= 88 ? 3 : score >= 75 ? 2 : score >= 55 ? 1 : 0;
+  let stars = score >= 88 ? 3 : score >= 75 ? 2 : score >= 55 ? 1 : 0;
+  // copybook: the weakest cell caps the stars — one sloppy letter spoils the line
+  if (nc > 1) { const worst = Math.min(...scores); stars = Math.min(stars, worst >= 75 ? 3 : worst >= 55 ? 2 : 1) }
+  const tone = v => v >= 75 ? 'border-emerald-400/40 text-emerald-300' : v >= 55 ? 'border-accent/40 text-accent' : 'border-rose-400/40 text-rose-300';
   $('#trResult').innerHTML = `<div class="fade-up ${stars ? 'pop' : 'shake'}">
     <div class="flex items-center gap-4">
       <span class="font-mono text-5xl font-bold ${stars >= 2 ? 'text-emerald-400' : stars ? 'text-accent' : 'text-rose-400'}">${score}<span class="text-2xl">%</span></span>
       <div><div class="flex gap-1">${[1, 2, 3].map(n => `<i data-lucide="star" class="w-5 h-5 ${n <= stars ? 'text-accent fill-accent' : 'text-zinc-700'}"></i>`).join('')}</div>
       <p class="mt-1 font-semibold text-white">${t('trR' + stars)}</p></div>
     </div>
+    ${nc > 1 ? `<div class="mt-4 grid gap-1.5" style="grid-template-columns:repeat(${TR_PROP.cols},minmax(0,1fr))">${scores.map((v, k) => `<div class="rounded-lg border ${tone(v)} bg-ink-900 py-1.5 text-center font-mono text-xs">${k + 1} · ${v}%</div>`).join('')}</div>` : ''}
     <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
       <div><p class="text-zinc-500">${t('trCover')}</p><div class="mt-1 h-1.5 rounded-full bg-white/5 overflow-hidden"><div class="h-full bg-emerald-400" style="width:${cover * 100}%"></div></div><p class="mt-1 font-mono text-xs text-zinc-400">${Math.round(cover * 100)}%</p></div>
       <div><p class="text-zinc-500">${t('trPrec')}</p><div class="mt-1 h-1.5 rounded-full bg-white/5 overflow-hidden"><div class="h-full bg-accent" style="width:${prec * 100}%"></div></div><p class="mt-1 font-mono text-xs text-zinc-400">${Math.round(prec * 100)}%</p></div>
@@ -2032,6 +2089,7 @@ function trRender() {
   $('#trSets').innerHTML = Object.keys(TR_SETS).map(k => `<button data-trset="${k}" class="${chip(k === tr.set)}">${t('trSet_' + k)}</button>`).join('');
   $('#trStyles').innerHTML = Object.entries(TR_STYLES).map(([k, [fam, w]]) => `<button data-trstyle="${k}" class="${chip(k === tr.style)}"><span style="font:${w} 18px '${fam}'" class="leading-none">กขค</span>${t('trStyle_' + k)}</button>`).join('');
   $('#trSizes').innerHTML = Object.keys(TR_SIZES).map(k => `<button data-trsize="${k}" title="${t('trSizeHint_' + k)}" class="px-3 py-1.5 rounded-md transition flex items-center gap-1.5 ${k === tr.size ? 'bg-white text-ink-950' : 'text-zinc-400 hover:text-white'}"><span class="font-loop leading-none ${{ l: 'text-lg', m: 'text-sm', s: 'text-[10px]', xs: 'text-[7px]' }[k]}">ก</span>${t('trSize_' + k)}</button>`).join('');
+  $('#trPropWrap').classList.toggle('hidden', tr.size !== 'xs');
   const x = trCur(), n = trList().length;
   $('#trInfo').innerHTML = `<div class="fade-up">
     <div class="flex items-center justify-between text-sm text-zinc-500"><span class="font-mono">${tr.i + 1} / ${n}</span></div>
@@ -2040,7 +2098,7 @@ function trRender() {
       <p class="mt-4 font-mono text-accent">${x.lat}</p><p class="text-sm text-zinc-400">${L(x.ru, x.en)}</p></div>
       ${playBtn(x.say, 'w-12 h-12')}
     </div>
-    <p class="mt-5 text-sm text-zinc-400">${t($('#trHide').checked ? 'trHintHidden' : 'trHint')}</p></div>`;
+    <p class="mt-5 text-sm text-zinc-400">${t(trPropOn() ? 'trHintProp' : $('#trHide').checked ? 'trHintHidden' : 'trHint').replace('{total}', trCells().length)}</p></div>`;
   if (!tr.checked) $('#trResult').innerHTML = '';
   if (tr.checked) trCheck(); else trRedraw();
 }
@@ -2073,6 +2131,7 @@ $('#trRand').onclick = () => trGo(Math.random() * trList().length | 0);
 $('#trClear').onclick = () => trGo(tr.i);
 $('#trCheck').onclick = trCheck;
 $('#trHide').onchange = () => { trRender(); icons() };
+$('#trProp').onchange = e => { tr.prop = e.target.checked; trGo(tr.i) };
 document.fonts?.load('500 100px "Noto Sans Thai Looped"', 'กอ๑').then(() => tr.checked ? trCheck() : trRedraw());
 
 /* listening */
