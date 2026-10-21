@@ -61,6 +61,7 @@ tailwind.config = {
       <a href="#alphabet" class="hover:text-white transition" data-i18n="navAlpha"></a>
       <a href="#phrases" class="hover:text-white transition" data-i18n="navPhrases"></a>
       <a href="#words" class="hover:text-white transition" data-i18n="navWords"></a>
+      <a href="#grammar" class="hover:text-white transition" data-i18n="navGram"></a>
       <a href="#dialogs" class="hover:text-white transition" data-i18n="navDialogs"></a>
       <a href="#etiquette" class="hover:text-white transition" data-i18n="navEtq"></a>
       <a href="#train" class="hover:text-white transition" data-i18n="navTrain"></a>
@@ -319,11 +320,31 @@ tailwind.config = {
     </div>
   </section>
 
-  <!-- 06 ANSWERS -->
-  <section id="answers" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
+  <!-- 06 SENTENCES -->
+  <section id="grammar" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
     <div class="max-w-6xl mx-auto px-4">
       <div class="reveal max-w-2xl">
         <p class="font-mono text-sm text-accent">06</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="gramTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="gramSub"></p>
+      </div>
+      <div class="reveal mt-10 rounded-3xl border border-white/10 bg-ink-950 p-6 md:p-8">
+        <p class="text-xs uppercase tracking-widest text-zinc-500" data-i18n="gramType"></p>
+        <div id="stTypes" class="mt-3 flex flex-wrap gap-2"></div>
+        <p class="mt-5 text-xs uppercase tracking-widest text-zinc-500" data-i18n="gramBase"></p>
+        <div id="stBases" class="mt-3 flex flex-wrap gap-2"></div>
+        <div id="stOut" class="mt-8 min-h-[260px]"></div>
+      </div>
+      <h3 class="reveal mt-12 text-lg font-bold text-white" data-i18n="gramRules"></h3>
+      <div id="stRules" class="reveal mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+  </section>
+
+  <!-- 07 ANSWERS -->
+  <section id="answers" class="py-20 md:py-28 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">07</p>
         <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="ansTitle"></h2>
         <p class="mt-3 text-zinc-400" data-i18n="ansSub"></p>
       </div>
@@ -339,11 +360,11 @@ tailwind.config = {
     </div>
   </section>
 
-  <!-- 07 DIALOGS -->
-  <section id="dialogs" class="py-20 md:py-28 border-t border-white/5">
+  <!-- 08 DIALOGS -->
+  <section id="dialogs" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
     <div class="max-w-6xl mx-auto px-4">
       <div class="reveal max-w-2xl">
-        <p class="font-mono text-sm text-accent">07</p>
+        <p class="font-mono text-sm text-accent">08</p>
         <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="dlgTitle"></h2>
         <p class="mt-3 text-zinc-400" data-i18n="dlgSub"></p>
       </div>
@@ -363,11 +384,11 @@ tailwind.config = {
     </div>
   </section>
 
-  <!-- 08 ETIQUETTE -->
-  <section id="etiquette" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
+  <!-- 09 ETIQUETTE -->
+  <section id="etiquette" class="py-20 md:py-28 border-t border-white/5">
     <div class="max-w-6xl mx-auto px-4">
       <div class="reveal max-w-2xl">
-        <p class="font-mono text-sm text-accent">08</p>
+        <p class="font-mono text-sm text-accent">09</p>
         <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="etqTitle"></h2>
         <p class="mt-3 text-zinc-400" data-i18n="etqSub"></p>
       </div>
@@ -383,12 +404,12 @@ tailwind.config = {
     </div>
   </section>
 
-  <!-- 09 SIGNS -->
-  <section id="signs" class="py-20 md:py-28 border-t border-white/5">
+  <!-- 10 SIGNS -->
+  <section id="signs" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
     <div class="max-w-6xl mx-auto px-4">
       <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div class="max-w-2xl">
-          <p class="font-mono text-sm text-accent">09</p>
+          <p class="font-mono text-sm text-accent">10</p>
           <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="signsTitle"></h2>
           <p class="mt-3 text-zinc-400" data-i18n="signsSub"></p>
         </div>
@@ -398,11 +419,11 @@ tailwind.config = {
     </div>
   </section>
 
-  <!-- 10 TRAINERS -->
-  <section id="train" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
+  <!-- 11 TRAINERS -->
+  <section id="train" class="py-20 md:py-28 border-t border-white/5">
     <div class="max-w-4xl mx-auto px-4">
       <div class="reveal text-center max-w-2xl mx-auto">
-        <p class="font-mono text-sm text-accent">10</p>
+        <p class="font-mono text-sm text-accent">11</p>
         <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="trainTitle"></h2>
         <p class="mt-3 text-zinc-400" data-i18n="trainSub"></p>
       </div>
@@ -551,12 +572,12 @@ tailwind.config = {
     </div>
   </section>
 
-  <!-- 07 TOP VERBS -->
-  <section id="topverbs" class="py-20 md:py-28 border-t border-white/5">
+  <!-- 12 TOP VERBS -->
+  <section id="topverbs" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
     <div class="max-w-6xl mx-auto px-4">
       <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div class="max-w-2xl">
-          <p class="font-mono text-sm text-accent">11</p>
+          <p class="font-mono text-sm text-accent">12</p>
           <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight"><span id="tvCount"></span> <span data-i18n="tvTitle"></span></h2>
           <p class="mt-3 text-zinc-400" data-i18n="tvSub"></p>
         </div>
@@ -605,7 +626,9 @@ tailwind.config = {
 /* ================= UI TEXT ================= */
 const T = {
   ru: {
-    navDialogs: 'Диалоги', navEtq: 'Этикет',
+    navDialogs: 'Диалоги', navEtq: 'Этикет', navGram: 'Грамматика',
+    gramTitle: 'Как строить предложения', gramSub: 'Тайская грамматика — это порядок слов и несколько маленьких слов-помощников. Глаголы не спрягаются, для вопроса ничего не переставляют. Выберите тип предложения и посмотрите, как меняются блоки.',
+    gramType: 'Тип предложения', gramBase: 'Пример', gramRules: 'Главные правила',
     vQues: 'Вопросы', vCls: 'Счёт', vFood: 'Еда',
     quesNote: 'Вопросительное слово ставится в конец: ไปไหน — дословно «идёшь куда?». Порядок слов как в обычной фразе, просто в конце — вопрос.',
     qpTitle: 'Частицы вопроса',
@@ -697,7 +720,9 @@ const T = {
     noVoice: 'В браузере не найден тайский голос. Попробуйте Chrome или Edge либо установите тайский голос в системе.'
   },
   en: {
-    navDialogs: 'Dialogs', navEtq: 'Etiquette',
+    navDialogs: 'Dialogs', navEtq: 'Etiquette', navGram: 'Grammar',
+    gramTitle: 'How to build sentences', gramSub: 'Thai grammar is word order plus a few tiny helper words. Verbs never conjugate and questions need no reordering. Pick a sentence type and watch the blocks change.',
+    gramType: 'Sentence type', gramBase: 'Example', gramRules: 'Key rules',
     vQues: 'Questions', vCls: 'Counting', vFood: 'Food',
     quesNote: 'The question word goes at the end: ไปไหน — literally “go where?”. Same word order as a statement, the question just comes last.',
     qpTitle: 'Question particles',
@@ -1341,6 +1366,64 @@ const SIGNS = [
   ['tag', 'yellow', 'ครีมกันแดด', 'khriim gan-dàet', 'кхрим кан-дэт', 'Солнцезащитный крем', 'Sunscreen'], ['tag', 'yellow', 'ยากันยุง', 'yaa gan-yung', 'я кан-юнг', 'Средство от комаров', 'Mosquito repellent'], ['tag', 'yellow', 'ซิมการ์ด', 'sim-gáat', 'сим-кат', 'Сим-карта', 'SIM card']
 ].map(([k, s, th, lat, cyr, ru, en]) => ({ k, s, th, lat, cyr, ru, en, np: 1 }));
 
+/* ================= SENTENCES ================= */
+// Sentence builder: each form is a list of word blocks with a role (S who, V action, O what/where, NEG, Q/QW question, T time, M want, P politeness)
+const SENT_JOIN = '', SENT_END = {};
+// placeholders resolved by the He/She switch; women ask with คะ (high tone) and answer with ค่ะ
+const SENT_PH = {
+  '{I}': () => PRONOUN[gender],
+  '{P}': () => PARTICLE[gender],
+  '{PQ}': () => gender === 'f' ? { th: 'คะ', lat: 'khá', cyr: 'кха' } : PARTICLE.m
+};
+const ROLE_RU = { S: ['кто', 'who'], V: ['действие', 'action'], O: ['что / где', 'what / where'], NEG: ['не', 'not'], Q: ['вопрос', 'question'], QW: ['вопрос', 'question'], T: ['время', 'time'], M: ['хочу', 'want'], P: ['вежливость', 'politeness'] };
+const SENT_TYPES = [
+  { k: 'st', ru: 'Утверждение', en: 'Statement', note: ['Порядок как в русском: кто → что делает → что. Вежливая частица — в самом конце.', 'Same order as English: who → does → what. The polite particle goes at the very end.'] },
+  { k: 'neg', ru: 'Отрицание', en: 'Negative', note: ['ไม่ (mâi) ставится прямо перед глаголом. Больше ничего не меняется.', 'ไม่ (mâi) goes right before the verb. Nothing else changes.'] },
+  { k: 'yn', ru: 'Вопрос да / нет', en: 'Yes/no question', note: ['Слова не переставляются — в конец добавляется ไหม (mǎi). Женщины в вопросе говорят คะ (высокий тон), а не ค่ะ. Отвечают глаголом: กิน — да, ไม่กิน — нет.', 'No reordering — just add ไหม (mǎi) at the end. Women use คะ (high tone) in questions, not ค่ะ. Answer with the verb: กิน — yes, ไม่กิน — no.'] },
+  { k: 'wh', ru: 'Вопрос со словом', en: 'Wh-question', note: ['Вопросительное слово встаёт на место ответа: «ты ешь рис» → «ты ешь что?». Поэтому оно обычно в конце.', 'The question word takes the place of the answer: “you eat rice” → “you eat what?”. So it usually comes last.'] },
+  { k: 'yet', ru: 'Уже или ещё нет?', en: '…yet?', note: ['หรือยัง (rǔe yang) в конце — «уже или ещё нет?». Ответ: …แล้ว (уже) или ยัง (ещё нет).', 'หรือยัง (rǔe yang) at the end — “yet or not?”. Answer: …แล้ว (already) or ยัง (not yet).'] },
+  { k: 'past', ru: 'Уже сделал', en: 'Already done', note: ['Глагол не меняется. Что действие завершено, показывает แล้ว (láew) в конце.', 'The verb never changes. แล้ว (láew) at the end shows it’s done.'] },
+  { k: 'fut', ru: 'Будущее', en: 'Future', note: ['จะ (jà) перед глаголом — «буду, собираюсь».', 'จะ (jà) before the verb — “will, going to”.'] },
+  { k: 'want', ru: 'Хочу', en: 'Want to', note: ['อยาก (yàak) перед глаголом. Хочу вещь, а не действие — อยากได้ + предмет.', 'อยาก (yàak) before the verb. To want a thing — อยากได้ + object.'] }
+];
+const sw = (r, th, lat, cyr) => ({ r, th, lat, cyr });
+const S_ME = sw('S', '{I}'), S_YOU = sw('S', 'คุณ', 'khun', 'кхун'), S_P = sw('P', '{P}'), S_PQ = sw('P', '{PQ}');
+const SENT_FORMS = {
+  st: b => [S_ME, sw('V', ...b.v), sw('O', ...b.o), S_P],
+  neg: b => [S_ME, sw('NEG', 'ไม่', 'mâi', 'май'), sw('V', ...b.v), sw('O', ...b.o), S_P],
+  yn: b => [S_YOU, sw('V', ...b.v), sw('O', ...b.o), sw('Q', 'ไหม', 'mǎi', 'май'), S_PQ],
+  wh: b => [S_YOU, sw('V', ...b.v), sw('QW', ...b.wh), S_PQ],
+  yet: b => [S_YOU, sw('V', ...b.v), sw('O', ...b.o), sw('Q', 'หรือยัง', 'rǔe yang', 'ры йанг'), S_PQ],
+  past: b => [S_ME, sw('V', ...b.v), sw('O', ...b.o), sw('T', 'แล้ว', 'láew', 'лэо'), S_P],
+  fut: b => [S_ME, sw('T', 'จะ', 'jà', 'джа'), sw('V', ...b.v), sw('O', ...b.o), S_P],
+  want: b => [S_ME, sw('M', 'อยาก', 'yàak', 'як'), sw('V', ...b.v), sw('O', ...b.o), S_P]
+};
+// {а} → feminine ending when She is selected
+const SENT_BASES = [
+  { ru: 'поесть', en: 'eat', v: ['กิน', 'gin', 'кин'], o: ['ข้าว', 'khâao', 'кхао'], wh: ['อะไร', 'à-rai', 'а-рай'], tr: {
+    st: ['Я ем', 'I’m eating'], neg: ['Я не ем', 'I don’t eat'], yn: ['Будешь есть?', 'Will you eat?'], wh: ['Что ты ешь?', 'What are you eating?'],
+    yet: ['Ты уже поел?', 'Have you eaten yet?'], past: ['Я уже поел{а}', 'I’ve already eaten'], fut: ['Я буду есть', 'I will eat'], want: ['Я хочу есть', 'I want to eat'] } },
+  { ru: 'кофе', en: 'coffee', v: ['ดื่ม', 'dùuem', 'дым'], o: ['กาแฟ', 'gaa-fae', 'ка-фэ'], wh: ['อะไร', 'à-rai', 'а-рай'], tr: {
+    st: ['Я пью кофе', 'I drink coffee'], neg: ['Я не пью кофе', 'I don’t drink coffee'], yn: ['Ты пьёшь кофе?', 'Do you drink coffee?'], wh: ['Что ты пьёшь?', 'What are you drinking?'],
+    yet: ['Ты уже выпил кофе?', 'Have you had coffee yet?'], past: ['Я уже выпил{а} кофе', 'I’ve already had coffee'], fut: ['Я выпью кофе', 'I will drink coffee'], want: ['Я хочу выпить кофе', 'I want to drink coffee'] } },
+  { ru: 'на рынок', en: 'market', v: ['ไป', 'bpai', 'пай'], o: ['ตลาด', 'dtà-làat', 'та-лат'], wh: ['ไหน', 'nǎi', 'най'], tr: {
+    st: ['Я иду на рынок', 'I’m going to the market'], neg: ['Я не иду на рынок', 'I’m not going to the market'], yn: ['Ты идёшь на рынок?', 'Are you going to the market?'], wh: ['Куда ты идёшь?', 'Where are you going?'],
+    yet: ['Ты уже сходил на рынок?', 'Have you been to the market yet?'], past: ['Я уже сходил{а} на рынок', 'I’ve already been to the market'], fut: ['Я пойду на рынок', 'I will go to the market'], want: ['Я хочу на рынок', 'I want to go to the market'] } },
+  { ru: 'билет', en: 'ticket', v: ['ซื้อ', 'súue', 'сы'], o: ['ตั๋ว', 'dtǔa', 'туа'], wh: ['อะไร', 'à-rai', 'а-рай'], tr: {
+    st: ['Я покупаю билет', 'I’m buying a ticket'], neg: ['Я не покупаю билет', 'I’m not buying a ticket'], yn: ['Ты покупаешь билет?', 'Are you buying a ticket?'], wh: ['Что ты покупаешь?', 'What are you buying?'],
+    yet: ['Ты уже купил билет?', 'Have you bought the ticket yet?'], past: ['Я уже купил{а} билет', 'I’ve already bought the ticket'], fut: ['Я куплю билет', 'I will buy a ticket'], want: ['Я хочу купить билет', 'I want to buy a ticket'] } }
+];
+const SENT_RULES = [
+  ['arrow-right', ['Порядок как в русском', 'Same order as English'], ['Кто → что делает → что: ผม กิน ข้าว — «я ем рис».', 'Who → does → what: ผม กิน ข้าว — “I eat rice”.']],
+  ['sparkles', ['Прилагательное — после слова', 'Adjective after the noun'], ['บ้านใหญ่ — «дом большой». ข้าวผัดกุ้ง — «рис жареный креветка».', 'บ้านใหญ่ — “house big”. ข้าวผัดกุ้ง — “rice fried shrimp”.']],
+  ['circle-slash', ['Нет «быть» с прилагательным', 'No “to be” with adjectives'], ['อาหารอร่อย — «еда вкусная». เป็น нужно только с существительным: ผมเป็นครู — «я учитель».', 'อาหารอร่อย — “food delicious”. เป็น is only for nouns: ผมเป็นครู — “I am a teacher”.']],
+  ['clock', ['Время — словами', 'Time is shown by words'], ['กิน — и «ем», и «ел», и «буду есть». Уточняют แล้ว (уже), จะ (буду), เมื่อวาน (вчера).', 'กิน is eat, ate and will eat. Add แล้ว (already), จะ (will), เมื่อวาน (yesterday).']],
+  ['message-square-reply', ['Ответ — тем же глаголом', 'Answer with the verb'], ['«Да» — сам глагол: ไปไหม? — ไป. «Нет» — ไม่ + глагол: ไม่ไป.', '“Yes” is the verb itself: ไปไหม? — ไป. “No” is ไม่ + verb: ไม่ไป.']],
+  ['user-round-x', ['«Я» и «ты» можно опустить', 'Drop “I” and “you”'], ['Если понятно, о ком речь, местоимение выбрасывают: ไปไหน? — «(ты) куда?».', 'When it’s clear who you mean, drop the pronoun: ไปไหน? — “(you) going where?”.']]
+];
+const sentSlots = (k, b) => SENT_FORMS[k](SENT_BASES[b]).map(s => SENT_PH[s.th] ? { r: s.r, ...SENT_PH[s.th]() } : s);
+const sentText = (k, b) => sentSlots(k, b).map(s => s.th).join(SENT_JOIN) + (SENT_END[k] || '');
+
 /* ================= STATE ================= */
 const store = {
   get(k, d) { try { return localStorage.getItem(k) || d } catch (e) { return d } },
@@ -1831,6 +1914,42 @@ function renderSigns() {
 }
 $('#signTabs').addEventListener('click', e => { const b = e.target.closest('[data-sgk]'); if (b) { sgKind = b.dataset.sgk; renderSigns(); icons() } });
 
+/* --- sentence builder --- */
+let stType = 'st', stBase = 0;
+const ROLE_CLS = {
+  S: 'border-sky-400/40 bg-sky-400/10 text-sky-100', V: 'border-accent/50 bg-accent/10 text-amber-100', O: 'border-emerald-400/40 bg-emerald-400/10 text-emerald-100',
+  NEG: 'border-rose-400/50 bg-rose-400/10 text-rose-100', Q: 'border-violet-400/50 bg-violet-400/10 text-violet-100', QW: 'border-violet-400/50 bg-violet-400/10 text-violet-100',
+  T: 'border-orange-300/40 bg-orange-300/10 text-orange-100', M: 'border-orange-300/40 bg-orange-300/10 text-orange-100', P: 'border-white/15 bg-white/5 text-zinc-300'
+};
+function renderSent() {
+  $('#stTypes').innerHTML = SENT_TYPES.map(x => `<button data-sttype="${x.k}" class="${chip(x.k === stType)}">${L(x.ru, x.en)}</button>`).join('');
+  $('#stBases').innerHTML = SENT_BASES.map((b, i) => `<button data-stbase="${i}" class="${chip(i === stBase)}"><span class="font-thai">${b.v[0]}</span> · ${L(b.ru, b.en)}</button>`).join('');
+  const slots = sentSlots(stType, stBase), text = sentText(stType, stBase), type = SENT_TYPES.find(x => x.k === stType);
+  const tr = L(...SENT_BASES[stBase].tr[stType]).replace('{а}', gender === 'f' ? 'а' : '');
+  $('#stOut').innerHTML = `
+    <div class="flex flex-wrap items-start gap-2 md:gap-3">${slots.map((s, i) => `
+      <div class="fade-up flex flex-col items-center gap-1.5" style="animation-delay:${i * 70}ms;animation-fill-mode:both">
+        <span class="rounded-xl border px-3 py-2 font-thai text-2xl md:text-3xl leading-tight ${ROLE_CLS[s.r]}">${s.th}</span>
+        <span class="font-mono text-xs text-accent">${s.lat}</span>
+        <span class="text-[10px] uppercase tracking-wider text-zinc-500">${L(...ROLE_RU[s.r])}</span>
+      </div>`).join('')}${SENT_END[stType] ? `<span class="pt-2 font-thai text-2xl md:text-3xl text-zinc-500">${SENT_END[stType]}</span>` : ''}</div>
+    <div class="mt-8 pt-6 border-t border-white/5 flex items-start justify-between gap-4">
+      <div>
+        <p class="font-thai text-3xl text-white">${text}</p>
+        <p class="mt-2 font-mono text-accent">${slots.map(s => s.lat).join(' ')}</p>
+        ${lang === 'ru' ? `<p class="text-zinc-500">${slots.map(s => s.cyr).join(' ')}</p>` : ''}
+        <p class="mt-3 text-lg font-semibold text-white">${tr}</p>
+      </div>${playBtn(text, 'w-12 h-12')}
+    </div>
+    <p class="mt-5 flex items-start gap-3 rounded-2xl border border-accent/20 bg-accent/5 p-4 text-sm text-zinc-300 leading-relaxed"><i data-lucide="lightbulb" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i><span>${L(...type.note)}</span></p>`;
+  $('#stRules').innerHTML = SENT_RULES.map(([ic, title, body]) => `<div class="rounded-2xl border border-white/10 bg-ink-900 p-5">
+    <div class="flex items-center gap-3"><span class="grid place-items-center w-9 h-9 shrink-0 rounded-xl bg-accent/10 text-accent"><i data-lucide="${ic}" class="w-4 h-4"></i></span><h3 class="font-semibold text-white">${L(...title)}</h3></div>
+    <p class="mt-3 text-sm text-zinc-400 leading-relaxed">${L(...body)}</p></div>`).join('');
+}
+const sentPick = () => { renderSent(); icons(); speak(sentText(stType, stBase), $('#stOut [data-say]')) };
+$('#stTypes').addEventListener('click', e => { const b = e.target.closest('[data-sttype]'); if (b) { stType = b.dataset.sttype; sentPick() } });
+$('#stBases').addEventListener('click', e => { const b = e.target.closest('[data-stbase]'); if (b) { stBase = +b.dataset.stbase; sentPick() } });
+
 /* --- hero --- */
 const HERO = PH.filter(x => ['greet', 'polite', 'bye'].includes(x.c));
 let heroI = 0;
@@ -2308,7 +2427,7 @@ $$('[data-goto-tab]').forEach(b => b.onclick = () => { $('#train').scrollIntoVie
 /* ================= TOGGLES & INIT ================= */
 function renderAll() {
   renderText(); renderSounds(); renderTones(); renderPoster(); renderAlphabet(); renderPhrases();
-  renderNum(); renderBody(); renderVerbs(); renderQues(); renderCls(); renderFood(); renderTopVerbs(); renderHero(); renderPools();
+  renderNum(); renderBody(); renderVerbs(); renderQues(); renderCls(); renderFood(); renderSent(); renderTopVerbs(); renderHero(); renderPools();
   renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender();
   fcShow(); qRender(); tRender(); trRender(); icons();
 }

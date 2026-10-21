@@ -2,7 +2,7 @@
 // Usage: node tools/texts.js > texts.json
 const src = require('fs').readFileSync(__dirname + '/../index.html', 'utf8');
 const js = src.slice(src.indexOf('/* ================= PHRASES'), src.indexOf('/* ================= STATE'));
-const out = new Function(js + `
+const out = new Function('let gender;\n' + js + `
   const res = { m: new Set(), f: new Set() };
   const both = x => { res.m.add(x); res.f.add(x) };
   for (const g of ['m', 'f']) {
@@ -30,6 +30,7 @@ const out = new Function(js + `
     QWORDS.concat(QPARTS).forEach(x => res[g].add(x.xth + P));
     ORDER.forEach(it => ORDER_N.forEach(([n]) => res[g].add(orderPhrase(it, n).th + P)));
   }
+  for (const g of ['m', 'f']) { gender = g; SENT_TYPES.forEach(t => SENT_BASES.forEach((_, b) => res[g].add(sentText(t.k, b)))) }
   return { m: [...res.m], f: [...res.f] };
 `)();
 console.log(JSON.stringify(out));
