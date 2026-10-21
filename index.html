@@ -7,7 +7,7 @@
 <meta name="description" content="Тайский язык с нуля: звуки, тоны, алфавит, цифры, нужные фразы и быстрые тренажёры.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+Thai+Looped:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+Thai+Looped:wght@500&family=Mali:wght@500&family=Sriracha&family=Charm:wght@700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -514,6 +514,14 @@ tailwind.config = {
               <input id="trHide" type="checkbox" class="w-4 h-4 accent-[#e8b04b]"><span data-i18n="trHide"></span>
             </label>
           </div>
+          <div class="mt-3 flex flex-wrap items-center justify-between gap-3">
+            <div id="trStyles" class="flex flex-wrap gap-2"></div>
+            <label class="flex items-center gap-2 text-sm text-zinc-400 select-none">
+              <i data-lucide="italic" class="w-4 h-4"></i><span data-i18n="trSlant"></span>
+              <input id="trSlant" type="range" min="0" max="15" step="1" value="0" class="w-28 accent-[#e8b04b]">
+              <span id="trSlantVal" class="w-8 font-mono text-xs text-zinc-300">0°</span>
+            </label>
+          </div>
           <div class="mt-6 grid md:grid-cols-[340px_1fr] gap-6 items-start">
             <div class="mx-auto w-full max-w-[340px]">
               <canvas id="trCanvas" class="block w-full aspect-square rounded-2xl border border-white/10 bg-ink-900 cursor-crosshair" style="touch-action:none"></canvas>
@@ -666,7 +674,7 @@ const T = {
     tvSource: 'Частота — число постов с этим глаголом в корпусе <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/wisesight-sentiment" target="_blank" rel="noopener">Wisesight</a> (26 737 постов из тайских соцсетей), сверено с <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/pythainlp" target="_blank" rel="noopener">Thai National Corpus</a>. Разметка частей речи — PyThaiNLP.',
     trainTitle: 'Тренажёры', trainSub: 'Выберите набор и тренируйтесь пару минут.',
     tabCards: 'Карточки', tabQuiz: 'Викторина', tabTones: 'Тоны', tabTrace: 'Обведи',
-    trSet_cons: 'Согласные', trSet_vow: 'Гласные', trSet_dig: 'Цифры', trSize_l: 'Крупно', trSize_m: 'Средне', trSize_s: 'Письмо', trSizeHint_l: 'Наглядно, чтобы рассмотреть форму', trSizeHint_m: 'Удобно обводить', trSizeHint_s: 'Размер почерка — для стилуса', trHide: 'Без подсказки', trCheck: 'Оценить',
+    trSet_cons: 'Согласные', trSet_vow: 'Гласные', trSet_dig: 'Цифры', trStyle_loop: 'Печатный', trStyle_school: 'Школьный', trStyle_hand: 'Рукописный', trStyle_cursive: 'Курсив', trSlant: 'Наклон', trSize_l: 'Крупно', trSize_m: 'Средне', trSize_s: 'Письмо', trSizeHint_l: 'Наглядно, чтобы рассмотреть форму', trSizeHint_m: 'Удобно обводить', trSizeHint_s: 'Размер почерка — для стилуса', trHide: 'Без подсказки', trCheck: 'Оценить',
     trHint: 'Обведите по серым линиям — пальцем, мышкой или стилусом, затем «Оценить».', trHintHidden: 'Напишите по памяти, затем «Оценить» — шаблон появится.',
     trEmpty: 'Сначала обведите символ', trCover: 'Обведено', trPrec: 'Точность',
     trR0: 'Ещё разок', trR1: 'Неплохо', trR2: 'Хорошо', trR3: 'Отлично!',
@@ -758,7 +766,7 @@ const T = {
     tvSource: 'Frequency = number of posts containing the verb in the <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/wisesight-sentiment" target="_blank" rel="noopener">Wisesight</a> corpus (26,737 Thai social media posts), cross-checked with the <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/pythainlp" target="_blank" rel="noopener">Thai National Corpus</a>. POS tagging by PyThaiNLP.',
     trainTitle: 'Practice', trainSub: 'Pick a set and drill for a couple of minutes.',
     tabCards: 'Cards', tabQuiz: 'Quiz', tabTones: 'Tones', tabTrace: 'Trace',
-    trSet_cons: 'Consonants', trSet_vow: 'Vowels', trSet_dig: 'Digits', trSize_l: 'Large', trSize_m: 'Medium', trSize_s: 'Writing', trSizeHint_l: 'Big, to study the shape', trSizeHint_m: 'Comfortable to trace', trSizeHint_s: 'Handwriting size — for a stylus', trHide: 'No guide', trCheck: 'Check',
+    trSet_cons: 'Consonants', trSet_vow: 'Vowels', trSet_dig: 'Digits', trStyle_loop: 'Print', trStyle_school: 'School', trStyle_hand: 'Handwritten', trStyle_cursive: 'Cursive', trSlant: 'Slant', trSize_l: 'Large', trSize_m: 'Medium', trSize_s: 'Writing', trSizeHint_l: 'Big, to study the shape', trSizeHint_m: 'Comfortable to trace', trSizeHint_s: 'Handwriting size — for a stylus', trHide: 'No guide', trCheck: 'Check',
     trHint: 'Trace over the grey lines with finger, mouse or stylus, then hit “Check”.', trHintHidden: 'Write it from memory, then “Check” — the guide will appear.',
     trEmpty: 'Trace the character first', trCover: 'Covered', trPrec: 'Accuracy',
     trR0: 'Try again', trR1: 'Not bad', trR2: 'Good', trR3: 'Excellent!',
@@ -1924,6 +1932,10 @@ const TR_W = 340;
 const TR_SIZES = { l: { k: .62, brush: 15, tol: 9 }, m: { k: .32, brush: 10, tol: 7 }, s: { k: .17, brush: 5, tol: 4 } };
 const tr = { set: 'cons', size: 'm', i: 0, strokes: [], drawing: false, checked: false };
 const trSz = () => TR_SIZES[tr.size];
+// template styles: printed with loops + three handwriting fonts
+const TR_STYLES = { loop: ['Noto Sans Thai Looped', 500], school: ['Mali', 500], hand: ['Sriracha', 400], cursive: ['Charm', 700] };
+tr.style = 'loop'; tr.slant = 0;
+const trFontCss = fs => { const [fam, w] = TR_STYLES[tr.style]; return `${w} ${fs}px "${fam}"` };
 const trCv = $('#trCanvas'), trCtx = trCv.getContext('2d');
 const trDpr = Math.min(window.devicePixelRatio || 1, 3);
 trCv.width = trCv.height = TR_W * trDpr;
@@ -1932,11 +1944,11 @@ const trCur = () => trList()[tr.i];
 
 function trFont(ctx, text) {
   let fs = TR_W * trSz().k;
-  ctx.font = `500 ${fs}px "Noto Sans Thai Looped"`;
+  ctx.font = trFontCss(fs);
   let m = ctx.measureText(text);
   const w = m.actualBoundingBoxLeft + m.actualBoundingBoxRight, h = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
   fs *= Math.min(TR_W * trSz().k * 1.08 / Math.max(w, h, 1), 1.5);
-  ctx.font = `500 ${fs}px "Noto Sans Thai Looped"`;
+  ctx.font = trFontCss(fs);
   m = ctx.measureText(text);
   ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   return {
@@ -1946,9 +1958,13 @@ function trFont(ctx, text) {
 }
 function trGlyph(ctx, color, halo = 0) {
   const g = trCur().g, { x, y } = trFont(ctx, g);
+  ctx.save();
+  // slant around the canvas centre (positive = leaning right, like handwriting)
+  ctx.translate(TR_W / 2, TR_W / 2); ctx.transform(1, 0, -Math.tan(tr.slant * Math.PI / 180), 1, 0, 0); ctx.translate(-TR_W / 2, -TR_W / 2);
   ctx.fillStyle = ctx.strokeStyle = color;
   ctx.fillText(g, x, y);
   if (halo) { ctx.lineWidth = halo * 2; ctx.lineJoin = 'round'; ctx.strokeText(g, x, y) }
+  ctx.restore();
 }
 function trInk(ctx, color, width) {
   ctx.strokeStyle = ctx.fillStyle = color; ctx.lineWidth = width; ctx.lineCap = ctx.lineJoin = 'round';
@@ -2012,12 +2028,13 @@ function trCheck() {
 }
 function trRender() {
   $('#trSets').innerHTML = Object.keys(TR_SETS).map(k => `<button data-trset="${k}" class="${chip(k === tr.set)}">${t('trSet_' + k)}</button>`).join('');
+  $('#trStyles').innerHTML = Object.entries(TR_STYLES).map(([k, [fam, w]]) => `<button data-trstyle="${k}" class="${chip(k === tr.style)}"><span style="font:${w} 18px '${fam}'" class="leading-none">กขค</span>${t('trStyle_' + k)}</button>`).join('');
   $('#trSizes').innerHTML = Object.keys(TR_SIZES).map(k => `<button data-trsize="${k}" title="${t('trSizeHint_' + k)}" class="px-3 py-1.5 rounded-md transition flex items-center gap-1.5 ${k === tr.size ? 'bg-white text-ink-950' : 'text-zinc-400 hover:text-white'}"><span class="font-loop leading-none ${{ l: 'text-lg', m: 'text-sm', s: 'text-[10px]' }[k]}">ก</span>${t('trSize_' + k)}</button>`).join('');
   const x = trCur(), n = trList().length;
   $('#trInfo').innerHTML = `<div class="fade-up">
     <div class="flex items-center justify-between text-sm text-zinc-500"><span class="font-mono">${tr.i + 1} / ${n}</span></div>
     <div class="mt-3 flex items-start justify-between gap-4">
-      <div><p class="font-loop text-6xl text-white leading-none">${x.g}</p>
+      <div><p class="text-6xl text-white leading-none" style="font:${trFontCss(60)};transform:skewX(${-tr.slant}deg);transform-origin:bottom left">${x.g}</p>
       <p class="mt-4 font-mono text-accent">${x.lat}</p><p class="text-sm text-zinc-400">${L(x.ru, x.en)}</p></div>
       ${playBtn(x.say, 'w-12 h-12')}
     </div>
@@ -2039,6 +2056,13 @@ trCv.addEventListener('pointermove', e => {
   trRedraw();
 });
 ['pointerup', 'pointercancel'].forEach(ev => trCv.addEventListener(ev, () => { tr.drawing = false }));
+$('#trStyles').addEventListener('click', e => {
+  const b = e.target.closest('[data-trstyle]');
+  if (!b) return;
+  tr.style = b.dataset.trstyle;
+  document.fonts.load(trFontCss(100), 'กอ๑').finally(() => trGo(tr.i));
+});
+$('#trSlant').addEventListener('input', e => { tr.slant = +e.target.value; $('#trSlantVal').textContent = tr.slant + '°'; trGo(tr.i) });
 $('#trSizes').addEventListener('click', e => { const b = e.target.closest('[data-trsize]'); if (b) { tr.size = b.dataset.trsize; trGo(tr.i) } });
 $('#trSets').addEventListener('click', e => { const b = e.target.closest('[data-trset]'); if (b) { tr.set = b.dataset.trset; trGo(0) } });
 $('#trPrev').onclick = () => trGo(tr.i - 1);
