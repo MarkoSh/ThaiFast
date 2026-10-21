@@ -1918,7 +1918,7 @@ const TR_SETS = {
   vow: () => VOWELS.map(([g, lat, ru, en]) => ({ g, say: g, lat, ru, en })),
   dig: () => NUM.slice(0, 10).map(x => ({ g: x.digit, say: x.th, lat: x.lat, ru: x.ru + ' · ' + x.th, en: x.en + ' · ' + x.th }))
 };
-const TR_W = 340, TR_BRUSH = 15, TR_TOL = 9;
+const TR_W = 340, TR_BRUSH = 10, TR_TOL = 7;
 const tr = { set: 'cons', i: 0, strokes: [], drawing: false, checked: false };
 const trCv = $('#trCanvas'), trCtx = trCv.getContext('2d');
 const trDpr = Math.min(window.devicePixelRatio || 1, 3);
@@ -1927,11 +1927,11 @@ const trList = () => TR_SETS[tr.set]();
 const trCur = () => trList()[tr.i];
 
 function trFont(ctx, text) {
-  let fs = TR_W * .6;
+  let fs = TR_W * .3;
   ctx.font = `500 ${fs}px "Noto Sans Thai Looped"`;
   let m = ctx.measureText(text);
   const w = m.actualBoundingBoxLeft + m.actualBoundingBoxRight, h = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
-  fs *= Math.min(TR_W * .66 / Math.max(w, h, 1), 1.5);
+  fs *= Math.min(TR_W * .33 / Math.max(w, h, 1), 1.5);
   ctx.font = `500 ${fs}px "Noto Sans Thai Looped"`;
   m = ctx.measureText(text);
   ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
