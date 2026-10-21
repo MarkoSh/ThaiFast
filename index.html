@@ -1385,8 +1385,32 @@ function ttsFallback(text, done) {
 }
 // text may be "part|part|part" — played back to back (used by the number builder).
 // voice: 'm' | 'f' overrides the He/She switch (lines spoken by Thais); onEnd fires when playback finishes.
+const audioUrl = (text, voice) => `audio/${voice || gender}/${fnv(text)}.mp3`;
+// Preloading: files are fetched ahead (hover / touch / focus, visible sections, the next trainer item)
+// and kept as blob URLs, so a click plays straight from memory.
+const audioReady = new Map(), audioLoading = new Map();
+function loadAudio(url) {
+  if (audioReady.has(url)) return Promise.resolve();
+  if (!audioLoading.has(url)) audioLoading.set(url, fetch(url)
+    .then(r => r.ok ? r.blob() : null).then(b => { if (b) audioReady.set(url, URL.createObjectURL(b)) })
+    .catch(() => {}).finally(() => audioLoading.delete(url)));
+  return audioLoading.get(url);
+}
+const urlsOf = (text, voice) => String(text).split('|').map(p => audioUrl(p, voice));
+const preload = (text, voice) => urlsOf(text, voice).forEach(loadAudio);
+// background preloading goes through a small queue so it never blocks what the user clicks
+const bgQueue = []; let bgActive = 0;
+function preloadIdle(text, voice) { bgQueue.push(...urlsOf(text, voice)); pumpBg() }
+function pumpBg() {
+  while (bgActive < 3 && bgQueue.length) {
+    const url = bgQueue.shift();
+    if (audioReady.has(url) || audioLoading.has(url)) continue;
+    bgActive++; loadAudio(url).finally(() => { bgActive--; pumpBg() });
+  }
+}
 function speak(text, btn, voice, onEnd) {
   const id = ++playId, parts = text.split('|');
+  preload(text, voice);
   player.pause(); if (hasTTS) speechSynthesis.cancel();
   $$('.speaking').forEach(b => b.classList.remove('speaking'));
   btn?.classList.add('speaking');
@@ -1395,7 +1419,8 @@ function speak(text, btn, voice, onEnd) {
   const next = () => {
     if (id !== playId) return;
     if (i >= parts.length) return done();
-    player.src = `audio/${voice || gender}/${fnv(parts[i++])}.mp3`;
+    const url = audioUrl(parts[i++], voice);
+    player.src = audioReady.get(url) || url;
     player.play().catch(() => {});
   };
   player.onended = next;
@@ -1409,6 +1434,10 @@ function toast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => $('#toast').classList.add('opacity-0'), 4500);
 }
+const warmAudio = e => { const b = e.target.closest?.('[data-say]'); if (b) preload(b.dataset.say, b.dataset.voice) };
+document.addEventListener('pointerover', warmAudio, { passive: true });
+document.addEventListener('touchstart', warmAudio, { passive: true });
+document.addEventListener('focusin', warmAudio);
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-say]');
   if (b) { e.stopPropagation(); speak(b.dataset.say, b, b.dataset.voice) }
@@ -1689,11 +1718,15 @@ const dlg = { s: 0, step: 0, log: [], order: [], done: false, wait: false, token
 function dlgStart(i, play) {
   const first = SCENES[i].steps[0].them;
   Object.assign(dlg, { s: i, step: 0, done: false, wait: false, log: [{ who: 'them', ...first }] });
+  SCENES.forEach(sc => preload(sc.steps[0].them.th, sc.steps[0].them.v));
   dlg.order = shuffle(SCENES[i].steps[0].you.map((_, k) => k));
   $('#dlgWhy').textContent = '';
   renderDlg(); icons();
   if (play) speak(first.th, null, first.v);
 }
+// your replies: He/She voice with the polite particle
+const dlgYouV = () => undefined;
+const dlgYouSay = o => o.th + pt().th;
 function dlgBubble(b) {
   const p = pt(), tr = $('#dlgTr').checked;
   if (b.who === 'them') return `<div class="fade-up flex items-end gap-2 max-w-[88%]">
@@ -1717,7 +1750,9 @@ function renderDlg() {
     return;
   }
   if (dlg.wait) { $('#dlgOpts').innerHTML = `<div class="flex justify-start gap-1.5 pl-10 py-3">${[0, 1, 2].map(i => `<span class="w-2 h-2 rounded-full bg-zinc-600 animate-pulse" style="animation-delay:${i * 150}ms"></span>`).join('')}</div>`; return }
-  const opts = sc.steps[dlg.step].you;
+  const opts = sc.steps[dlg.step].you, nextStep = sc.steps[dlg.step + 1];
+  opts.forEach(o => preload(dlgYouSay(o), dlgYouV()));
+  if (nextStep) preload(nextStep.them.th, nextStep.them.v);
   $('#dlgOpts').innerHTML = `<p class="text-xs uppercase tracking-widest text-zinc-500">${t('dlgYou')}</p>` + dlg.order.map(i => { const o = opts[i]; return `
     <button data-opt="${i}" class="fade-up text-left rounded-xl border border-white/10 bg-ink-900 px-4 py-3 hover:border-accent/50 transition">
       <span class="font-thai text-lg text-white">${o.th}<span class="text-accent/70">${p.th}</span></span>
@@ -1742,11 +1777,11 @@ $('#dlgOpts').addEventListener('click', e => {
   dlg.log.push({ who: 'you', ...o });
   dlg.step++;
   const token = ++dlg.token;
-  if (dlg.step >= SCENES[dlg.s].steps.length) { dlg.done = true; speak(o.th + pt().th); renderDlg(); icons(); return }
+  if (dlg.step >= SCENES[dlg.s].steps.length) { dlg.done = true; speak(dlgYouSay(o), null, dlgYouV()); renderDlg(); icons(); return }
   dlg.wait = true;
   renderDlg(); icons();
   // their reply comes after your line finishes (or after 5s if audio is interrupted)
-  speak(o.th + pt().th, null, null, () => setTimeout(() => dlgTheirTurn(token), 350));
+  speak(dlgYouSay(o), null, dlgYouV(), () => setTimeout(() => dlgTheirTurn(token), 350));
   setTimeout(() => dlgTheirTurn(token), 5000);
 });
 $('#sceneTabs').addEventListener('click', e => { const b = e.target.closest('[data-scene]'); if (b) dlgStart(+b.dataset.scene, true) });
@@ -1848,6 +1883,7 @@ function fcShow() {
   fc.classList.remove('flipped');
   setTimeout(() => {
     const x = items()[deck[0]];
+    preload(say(x), x.v);
     $('#fcFront').innerHTML = thHTML(x);
     $('#fcMeaning').textContent = x[lang];
     $('#fcLat').textContent = latTxt(x);
@@ -1899,7 +1935,9 @@ $('#qOpts').addEventListener('click', e => {
 /* tones */
 const tn = { score: 0, total: 0, cur: 0, lock: false };
 function tNext(play) {
-  tn.cur = Math.random() * TONES.length | 0;
+  tn.cur = tn.next ?? (Math.random() * TONES.length | 0);
+  tn.next = Math.random() * TONES.length | 0;
+  preload(TONES[tn.cur].th); preload(TONES[tn.next].th);
   tn.lock = false;
   $('#tReveal').textContent = '';
   tRender();
@@ -2141,7 +2179,9 @@ document.fonts?.load('500 100px "Noto Sans Thai Looped"', 'กอ๑').then(() =
 /* listening */
 const lq = { score: 0, total: 0, streak: 0, cur: 0, opts: [], lock: false };
 function lNext(play) {
-  lq.cur = Math.random() * ANS.length | 0;
+  lq.cur = lq.next ?? (Math.random() * ANS.length | 0);
+  lq.next = Math.random() * ANS.length | 0;
+  preload(ANS[lq.cur].th, ANS[lq.cur].v); preload(ANS[lq.next].th, ANS[lq.next].v);
   lq.opts = shuffle([lq.cur, ...shuffle([...ANS.keys()].filter(i => i !== lq.cur)).slice(0, 3)]);
   lq.lock = false;
   lRender();
@@ -2287,6 +2327,15 @@ dlgStart(0, false);
 renderTabs();
 renderVtabs();
 renderAll();
+const audioIO = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  audioIO.unobserve(e.target);
+  (window.requestIdleCallback || setTimeout)(() => e.target.querySelectorAll('[data-say]').forEach(b => preloadIdle(b.dataset.say, b.dataset.voice)));
+}), { rootMargin: '300px' });
+$$('main > section').forEach(sec => audioIO.observe(sec));
+// first screen right away: the phrase of the day now, the rest of its list in the background
+preload(say(HERO[heroI]));
+HERO.forEach(x => preloadIdle(say(x)));
 </script>
 </body>
 </html>
