@@ -1947,7 +1947,7 @@ const trList = () => TR_SETS[tr.set]();
 const trCur = () => trList()[tr.i];
 
 // Copybook mode (only for the "writing" size): the letter is repeated in a grid of cells
-const TR_PROP = { cols: 3, rows: 2 };
+const TR_PROP = { cols: 4, rows: 4 };
 tr.prop = true;
 const trPropOn = () => tr.size === 'xs' && tr.prop;
 const trCells = () => {
