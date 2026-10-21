@@ -171,7 +171,6 @@ tailwind.config = {
           <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="alphaTitle"></h2>
           <p class="mt-3 text-zinc-400" data-i18n="alphaSub"></p>
         </div>
-        <div id="classTabs" class="flex flex-wrap gap-2"></div>
       </div>
       <div class="reveal mt-10 rounded-3xl border border-white/10 bg-ink-900/60 p-5 md:p-8">
         <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
@@ -187,7 +186,8 @@ tailwind.config = {
         <div id="poster" class="mt-6"></div>
       </div>
 
-      <div class="reveal mt-10 grid lg:grid-cols-[1fr_340px] gap-6 items-start">
+      <div id="classTabs" class="reveal mt-10 flex flex-wrap gap-2"></div>
+      <div class="reveal mt-4 grid lg:grid-cols-[1fr_340px] gap-6 items-start">
         <div id="consGrid" class="grid grid-cols-5 sm:grid-cols-8 lg:grid-cols-9 gap-2"></div>
         <aside id="consDetail" class="lg:sticky lg:top-24 rounded-2xl border border-white/10 bg-ink-900 p-6"></aside>
       </div>
