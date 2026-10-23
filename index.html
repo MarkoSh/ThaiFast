@@ -40,6 +40,10 @@ tailwind.config = {
   .pop { animation: pop .35s; }
   @keyframes pulseRing { 0% { box-shadow: 0 0 0 0 rgba(232,176,75,.55) } 100% { box-shadow: 0 0 0 14px rgba(232,176,75,0) } }
   .speaking { animation: pulseRing 1s infinite; color: #e8b04b; border-color: #e8b04b; }
+  .kb-key { position: relative; flex: 1 1 0; height: 3.5rem; border-radius: .6rem; border: 1px solid #ffffff1a; background: #0d0e11; transition: background .15s, border-color .15s, transform .1s; }
+  .kb-key:hover { background: #ffffff0d; } .kb-key:active { transform: translateY(1px); }
+  .kb-used { border-color: #e8b04b80; } .kb-shift-on { background: #e8b04b26; }
+  .kb-on, .kb-on * { background: #e8b04b !important; color: #09090b !important; border-color: #e8b04b !important; }
   .say-th { cursor: pointer; color: #e4e4e7; text-decoration: underline dotted #e8b04b80; text-underline-offset: 4px; transition: color .2s; }
   .say-th:hover, .say-th.speaking { color: #e8b04b; animation: none; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
@@ -604,6 +608,34 @@ tailwind.config = {
     </div>
   </section>
 
+  <!-- KEYBOARD -->
+  <section id="keyboard" class="py-20 md:py-28 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">13</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="kbTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="kbSub"></p>
+      </div>
+      <div class="reveal mt-8 rounded-2xl border border-white/10 bg-ink-900 p-4 md:p-6">
+        <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+          <input id="kbIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" class="flex-1 min-w-0 h-14 rounded-xl border border-white/10 bg-ink-950 px-4 font-thai text-2xl text-white placeholder:text-zinc-600 placeholder:text-base placeholder:font-sans focus:outline-none focus:border-accent">
+          <div class="flex gap-2">
+            <button id="kbPlay" class="h-14 flex-1 sm:flex-none rounded-xl bg-accent px-5 font-semibold text-ink-950 hover:brightness-110 transition flex items-center justify-center gap-2"><i data-lucide="keyboard" class="w-4 h-4"></i><span data-i18n="kbShow"></span></button>
+            <button id="kbSay" data-say="" class="h-14 w-14 shrink-0 rounded-xl border border-white/10 hover:bg-white/5 transition grid place-items-center" aria-label="play"><i data-lucide="volume-2" class="w-5 h-5"></i></button>
+            <button id="kbClear" class="h-14 w-14 shrink-0 rounded-xl border border-white/10 text-zinc-400 hover:bg-white/5 hover:text-white transition grid place-items-center" aria-label="clear"><i data-lucide="x" class="w-5 h-5"></i></button>
+          </div>
+        </div>
+        <div id="kbEx" class="mt-3 flex flex-wrap gap-2"></div>
+        <div id="kbOut"></div>
+        <p class="mt-6 text-xs uppercase tracking-wider text-zinc-500" data-i18n="kbHow"></p>
+        <div id="kbSeq" class="mt-2 flex flex-wrap gap-1.5 min-h-[56px]"></div>
+        <div class="mt-6 overflow-x-auto pb-1"><div id="kbRows" class="min-w-[680px] space-y-1.5 select-none"></div></div>
+        <p class="mt-5 text-sm text-zinc-500 leading-relaxed" data-i18n="kbNote"></p>
+      </div>
+    </div>
+  </section>
+  <!-- /KEYBOARD -->
+
   <!-- CTA -->
   <section class="py-20 md:py-28 border-t border-white/5">
     <div class="reveal max-w-3xl mx-auto px-4 text-center">
@@ -712,6 +744,9 @@ const T = {
     hurts: 'Болит',
     sentBuilder: 'Соберите предложение', verbNote: 'Глаголы не спрягаются: กิน — «ем», «ел» и «буду есть». Время показывают маленькие слова вроде จะ (буду). «Я» у мужчин — ผม, у женщин — ฉัน.',
     m_none: 'Я делаю', m_want: 'Я хочу', m_not: 'Я не', m_will: 'Я буду',
+    kbTitle: 'Тайская клавиатура', kbSub: 'Стандартная раскладка Kedmanee — она стоит на всех тайских компьютерах и телефонах. Печатайте прямо на своей клавиатуре: клавиши сами наберут тайские буквы. Ниже видно, что и в каком порядке нажимать.',
+    kbPh: 'Наберите или вставьте слово', kbShow: 'Показать', kbHow: 'Порядок нажатий', kbEmpty: 'Выберите слово выше или начните печатать',
+    kbNote: 'Печатают в порядке письма: เ แ โ ใ ไ — первыми, хотя читаются после согласной. Знак тона ставят после гласной сверху или снизу. Цифры обычно набирают арабские. Чтобы печатать по-тайски вне сайта, добавьте раскладку Thai (Kedmanee) в настройках системы.',
     tvTitle: 'самых частых глаголов', tvSub: 'Отобраны по частоте в постах тайцев из соцсетей — это живая речь, а не учебник. Примеры — так, как говорят в жизни. Нажмите на слово или пример, чтобы услышать.',
     tvVerb: 'Глагол', tvMeaning: 'Значение', tvExample: 'Как говорят', tvFreq: 'Частота', tvSearch: 'Поиск: ไป, есть, buy…', tvMore: 'Показать все', tvLess: 'Свернуть',
     tvSource: 'Частота — число постов с этим глаголом в корпусе <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/wisesight-sentiment" target="_blank" rel="noopener">Wisesight</a> (26 737 постов из тайских соцсетей), сверено с <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/pythainlp" target="_blank" rel="noopener">Thai National Corpus</a>. Разметка частей речи — PyThaiNLP.',
@@ -807,6 +842,9 @@ const T = {
     hurts: 'Hurts',
     sentBuilder: 'Build a sentence', verbNote: 'Verbs never conjugate: กิน means eat, ate and will eat. Little words like จะ (will) mark the time. “I” is ผม for men, ฉัน for women.',
     m_none: 'I do', m_want: 'I want', m_not: 'I don’t', m_will: 'I will',
+    kbTitle: 'Thai keyboard', kbSub: 'Kedmanee, the standard layout on every Thai computer and phone. Type on your own keyboard and the keys produce Thai letters. Below you see what to press and in which order.',
+    kbPh: 'Type or paste a word', kbShow: 'Show', kbHow: 'Key order', kbEmpty: 'Pick a word above or start typing',
+    kbNote: 'You type in writing order: เ แ โ ใ ไ come first even though they are read after the consonant. A tone mark goes after an upper or lower vowel. Numbers are usually typed as Arabic digits. To type Thai outside this page, add the Thai (Kedmanee) layout in your system settings.',
     tvTitle: 'most common verbs', tvSub: 'Ranked by how often Thais use them in social media posts — real speech, not a textbook. Examples are how people actually say it. Tap a word or example to hear it.',
     tvVerb: 'Verb', tvMeaning: 'Meaning', tvExample: 'How it’s said', tvFreq: 'Frequency', tvSearch: 'Search: ไป, eat, buy…', tvMore: 'Show all', tvLess: 'Collapse',
     tvSource: 'Frequency = number of posts containing the verb in the <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/wisesight-sentiment" target="_blank" rel="noopener">Wisesight</a> corpus (26,737 Thai social media posts), cross-checked with the <a class="underline hover:text-white" href="https://github.com/PyThaiNLP/pythainlp" target="_blank" rel="noopener">Thai National Corpus</a>. POS tagging by PyThaiNLP.',
@@ -1498,7 +1536,7 @@ function loadAudio(url) {
   return audioLoading.get(url);
 }
 const urlsOf = (text, voice) => String(text).split('|').map(p => audioUrl(p, voice));
-const preload = (text, voice) => urlsOf(text, voice).forEach(loadAudio);
+const preload = (text, voice) => text && urlsOf(text, voice).forEach(loadAudio);
 // background preloading goes through a small queue so it never blocks what the user clicks
 const bgQueue = []; let bgActive = 0;
 function preloadIdle(text, voice) { bgQueue.push(...urlsOf(text, voice)); pumpBg() }
@@ -1535,7 +1573,7 @@ function toast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => $('#toast').classList.add('opacity-0'), 4500);
 }
-const warmAudio = e => { const b = e.target.closest?.('[data-say]'); if (b) preload(b.dataset.say, b.dataset.voice) };
+const warmAudio = e => { const b = e.target.closest?.('[data-say]'); if (b?.dataset.say) preload(b.dataset.say, b.dataset.voice) };
 document.addEventListener('pointerover', warmAudio, { passive: true });
 document.addEventListener('touchstart', warmAudio, { passive: true });
 document.addEventListener('focusin', warmAudio);
@@ -2490,10 +2528,107 @@ $$('.tab').forEach(b => b.onclick = () => openTab(b.dataset.tab));
 $$('[data-goto-tab]').forEach(b => b.onclick = () => { $('#train').scrollIntoView({ behavior: 'smooth' }); openTab(b.dataset.gotoTab) });
 
 /* ================= TOGGLES & INIT ================= */
+/* ================= KEYBOARD ================= */
+// Kedmanee, the standard Thai layout. Each row: Latin key labels, Thai, Thai with Shift
+const KB_ROWS = [
+  ['`1234567890-=', '_ๅ/-ภถุึคตจขช', '%+๑๒๓๔ู฿๕๖๗๘๙'],
+  ['qwertyuiop[]\\', 'ๆไำพะัีรนยบลฃ', '๐"ฎฑธํ๊ณฯญฐ,ฅ'],
+  ["asdfghjkl;'", 'ฟหกดเ้่าสวง', 'ฤฆฏโฌ็๋ษศซ.'],
+  ['zxcvbnm,./', 'ผปแอิืทมใฝ', '()ฉฮฺ์?ฒฬฦ'],
+];
+const KB_HINT = {};                       // small accent label per Latin key (used by SumerFast)
+const KB_EX = ['สวัสดี', 'ขอบคุณ', 'ครับ', 'น้ำ', 'ไม่เป็นไร'];
+const kbConv = s => s;                    // typed text -> shown text
+const kbKeys = s => s;                    // shown text -> characters on the keys
+const kbOut = () => '';                   // extra result under the field
+const KB_CODE = { '`': 'Backquote', '-': 'Minus', '=': 'Equal', '[': 'BracketLeft', ']': 'BracketRight', '\\': 'Backslash', ';': 'Semicolon', "'": 'Quote', ',': 'Comma', '.': 'Period', '/': 'Slash' };
+const KB = KB_ROWS.flatMap(([lat, base, shift], r) => {
+  const b = [...base], sh = [...shift];
+  return [...lat].map((l, i) => ({ r, l, code: KB_CODE[l] || (/\d/.test(l) ? 'Digit' + l : 'Key' + l.toUpperCase()), base: b[i], shift: sh[i] }));
+});
+const KB_FIND = new Map();
+KB.forEach(k => KB_FIND.set(k.shift, [k, 1])); KB.forEach(k => KB_FIND.set(k.base, [k, 0]));
+const esc = v => String(v).replace(/[&<>"]/g, c => `&#${c.charCodeAt(0)};`);
+const kbShow = ch => /\p{M}/u.test(ch) ? '◌' + ch : ch;
+let kbShift = false, kbTimer;
+// one entry per shown character, with the keys that type it: [{ code, l, sh }] (null = no key)
+const kbSeq = v => [...v].map(ch => ({ ch, keys: ch === ' ' ? [{ code: 'Space', l: 'Space' }] : [...kbKeys(ch)].map(c => KB_FIND.has(c) ? { code: KB_FIND.get(c)[0].code, l: KB_FIND.get(c)[0].l, sh: KB_FIND.get(c)[1] } : null) }));
+const kbBtn = (code, inner, cls = '') => `<button type="button" data-kb="${code}" class="kb-key ${cls}">${inner}</button>`;
+function kbRender() {
+  $('#kbIn').placeholder = t('kbPh');
+  $('#kbRows').innerHTML = KB_ROWS.map((_, r) => `<div class="flex gap-1.5" style="padding-left:${[0, 3.5, 5.5, 8.5][r]}%">${KB.filter(k => k.r === r).map(k => kbBtn(k.code, `
+    <span class="absolute left-1.5 top-1 font-mono text-[10px] uppercase text-zinc-500">${esc(k.l)}</span>
+    <span class="absolute right-1.5 top-1 text-xs ${KB_HINT[k.l] ? 'text-accent font-semibold' : 'text-zinc-500 font-thai'}">${esc(KB_HINT[k.l] || kbShow(k.shift))}</span>
+    <span class="font-thai text-xl text-white">${esc(kbShow(k.base))}</span>`)).join('')}</div>`).join('') + `
+    <div class="flex gap-1.5">${kbBtn('Shift', '<span class="text-xs text-zinc-300">⇧ Shift</span>', '!flex-[2]')}${kbBtn('Space', '<span class="text-xs text-zinc-500">Space</span>', '!flex-[6]')}${kbBtn('Backspace', '<span class="text-xs text-zinc-300">⌫</span>', '!flex-[2]')}</div>`;
+  $('#kbEx').innerHTML = KB_EX.map(w => `<button type="button" data-kbex="${esc(w)}" class="rounded-lg border border-white/10 px-3 py-1.5 font-thai text-white hover:border-accent/60 transition">${esc(w)}</button>`).join('');
+  kbUpdate();
+}
+function kbUpdate() {
+  const v = $('#kbIn').value, seq = kbSeq(v);
+  const keys = seq.flatMap(x => x.keys).filter(Boolean);
+  $$('.kb-key').forEach(b => b.classList.toggle('kb-used', keys.some(k => k.code === b.dataset.kb || (b.dataset.kb === 'Shift' && k.sh))));
+  $('[data-kb="Shift"]').classList.toggle('kb-shift-on', kbShift);
+  $('#kbSeq').innerHTML = seq.length ? seq.map((x, i) => `<span data-kbi="${i}" class="inline-flex flex-col items-center min-w-[44px] rounded-lg border border-white/10 bg-ink-950 px-2 py-1">
+    <span class="font-thai text-lg leading-tight text-white">${x.ch === ' ' ? '␣' : esc(kbShow(x.ch))}</span>
+    <span class="font-mono text-[11px] text-zinc-500">${x.keys.map(k => k ? (k.sh ? '⇧ ' : '') + esc(k.l.length > 1 ? k.l : k.l.toUpperCase()) : '?').join(' ')}</span></span>`).join('') : `<span class="self-center text-sm text-zinc-500">${t('kbEmpty')}</span>`;
+  $('#kbSay').dataset.say = v.trim(); $('#kbSay').classList.toggle('invisible', !v.trim());
+  $('#kbOut').innerHTML = kbOut(v.trim());
+}
+function kbType(ch) {
+  const el = $('#kbIn');
+  el.setRangeText(ch, el.selectionStart ?? el.value.length, el.selectionEnd ?? el.value.length, 'end');
+  const v = kbConv(el.value); if (v !== el.value) el.value = v;
+  kbUpdate();
+}
+function kbFlash(code) {
+  const b = $(`[data-kb="${code}"]`); if (!b) return;
+  b.classList.add('kb-on'); setTimeout(() => b.classList.remove('kb-on'), 160);
+}
+function kbPlay() {
+  clearTimeout(kbTimer);
+  const steps = kbSeq($('#kbIn').value).flatMap((x, i) => x.keys.map(k => ({ i, k })));
+  $$('.kb-on').forEach(b => b.classList.remove('kb-on'));
+  const step = i => {
+    $$('.kb-on').forEach(b => b.classList.remove('kb-on'));
+    if (i >= steps.length) return;
+    const { i: ci, k } = steps[i];
+    $(`[data-kbi="${ci}"]`)?.classList.add('kb-on');
+    if (k) $(`[data-kb="${k.code}"]`)?.classList.add('kb-on');
+    if (k?.sh) $('[data-kb="Shift"]').classList.add('kb-on');
+    kbTimer = setTimeout(() => { $$('.kb-on').forEach(b => b.classList.remove('kb-on')); kbTimer = setTimeout(() => step(i + 1), 120) }, 520);
+  };
+  step(0);
+}
+$('#kbIn').addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey || e.isComposing) return;
+  const k = KB.find(k => k.code === e.code); if (!k) return;
+  e.preventDefault(); kbType(e.shiftKey ? k.shift : k.base); kbFlash(k.code);
+});
+$('#kbIn').addEventListener('input', e => { const el = e.target, v = kbConv(el.value); if (v !== el.value) el.value = v; kbUpdate() });
+$('#kbRows').addEventListener('click', e => {
+  const code = e.target.closest('[data-kb]')?.dataset.kb; if (!code) return;
+  const el = $('#kbIn');
+  if (code === 'Shift') { kbShift = !kbShift; return kbUpdate() }
+  if (code === 'Backspace') {
+    const a = el.selectionStart ?? el.value.length, b = el.selectionEnd ?? a;
+    el.setRangeText('', a === b ? Math.max(0, a - 1) : a, b, 'end'); kbFlash(code); return kbUpdate();
+  }
+  const k = KB.find(k => k.code === code);
+  kbType(code === 'Space' ? ' ' : kbShift ? k.shift : k.base); kbFlash(code);
+  if (kbShift) { kbShift = false; kbUpdate() }
+});
+$('#kbEx').addEventListener('click', e => {
+  const w = e.target.closest('[data-kbex]')?.dataset.kbex; if (!w) return;
+  $('#kbIn').value = w; kbUpdate(); kbPlay();
+});
+$('#kbPlay').onclick = kbPlay;
+$('#kbClear').onclick = () => { clearTimeout(kbTimer); $('#kbIn').value = ''; kbUpdate() };
+
 function renderAll() {
   renderText(); renderSounds(); renderTones(); renderPoster(); renderAlphabet(); renderPhrases();
   renderNum(); renderBody(); renderVerbs(); renderQues(); renderCls(); renderFood(); renderSent(); renderTopVerbs(); renderHero(); renderPools();
-  renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender(); renderMore();
+  renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender(); renderMore(); kbRender();
   fcShow(); qRender(); tRender(); trRender(); icons();
 }
 $$('[data-lang]').forEach(b => b.onclick = () => { lang = b.dataset.lang; store.set('tf-lang', lang); renderAll() });
@@ -2514,7 +2649,7 @@ renderAll();
 const audioIO = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
   audioIO.unobserve(e.target);
-  (window.requestIdleCallback || setTimeout)(() => e.target.querySelectorAll('[data-say]').forEach(b => preloadIdle(b.dataset.say, b.dataset.voice)));
+  (window.requestIdleCallback || setTimeout)(() => e.target.querySelectorAll('[data-say]:not([data-say=""])').forEach(b => preloadIdle(b.dataset.say, b.dataset.voice)));
 }), { rootMargin: '300px' });
 $$('main > section').forEach(sec => audioIO.observe(sec));
 // first screen right away: the phrase of the day now, the rest of its list in the background

@@ -37,4 +37,6 @@ const out = new Function('let gender;\n' + js + `
 const ui = src.slice(src.indexOf('/* ================= UI TEXT'), src.indexOf('/* ================= STATE'));
 for (const [q] of ui.matchAll(/'(?:[^'\\\n]|\\.)*'/g))
   if (/[a-zA-Zа-яА-ЯёЁ]/.test(q)) (q.match(/[\u0E00-\u0E7F]+(?: [\u0E00-\u0E7F]+)*/g) || []).forEach(x => { out.m.includes(x) || out.m.push(x); out.f.includes(x) || out.f.push(x) });
+// example words of the keyboard block
+new Function('return ' + src.match(/const KB_EX = (\[.*\]);/)[1])().forEach(x => { out.m.includes(x) || out.m.push(x); out.f.includes(x) || out.f.push(x) });
 console.log(JSON.stringify(out));
