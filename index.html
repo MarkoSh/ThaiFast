@@ -45,6 +45,7 @@ tailwind.config = {
   .kb-tall .kb-key { height: 4.75rem; } .kb-tall .kb-key .text-xs { font-size: .9rem; }
   .kb-used { border-color: #e8b04b80; } .kb-shift-on { background: #e8b04b26; }
   .kb-on, .kb-on * { background: #e8b04b !important; color: #09090b !important; border-color: #e8b04b !important; }
+  #navMenu:not(.hidden) { animation: navIn .2s ease-out; } @keyframes navIn { from { opacity: 0; transform: translateY(-6px) } }
   .say-th { cursor: pointer; color: #e4e4e7; text-decoration: underline dotted #e8b04b80; text-underline-offset: 4px; transition: color .2s; }
   .say-th:hover, .say-th.speaking { color: #e8b04b; animation: none; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
@@ -62,7 +63,7 @@ tailwind.config = {
   <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
     <a href="#top" class="flex items-center gap-2 font-bold tracking-tight text-white">
       <span class="grid place-items-center w-8 h-8 rounded-lg bg-accent text-ink-950"><i data-lucide="zap" class="w-4 h-4"></i></span>
-      ThaiFast
+      <span class="hidden min-[360px]:inline">ThaiFast</span>
     </a>
     <div class="hidden lg:flex items-center gap-5 text-sm text-zinc-400">
       <a href="#sounds" class="hover:text-white transition" data-i18n="navSounds"></a>
@@ -76,15 +77,21 @@ tailwind.config = {
     </div>
     <div class="flex items-center gap-2">
       <div class="flex rounded-lg border border-white/10 p-0.5 text-xs font-semibold" role="group" aria-label="Gender">
-        <button data-gender="m" class="px-2.5 py-1.5 rounded-md transition flex items-center gap-1"><i data-lucide="user" class="w-3.5 h-3.5"></i><span data-i18n="male"></span></button>
-        <button data-gender="f" class="px-2.5 py-1.5 rounded-md transition flex items-center gap-1"><i data-lucide="user-round" class="w-3.5 h-3.5"></i><span data-i18n="female"></span></button>
+        <button data-gender="m" class="px-2.5 py-1.5 rounded-md transition flex items-center gap-1"><i data-lucide="user" class="w-3.5 h-3.5"></i><span class="hidden sm:inline" data-i18n="male"></span></button>
+        <button data-gender="f" class="px-2.5 py-1.5 rounded-md transition flex items-center gap-1"><i data-lucide="user-round" class="w-3.5 h-3.5"></i><span class="hidden sm:inline" data-i18n="female"></span></button>
       </div>
       <div class="flex rounded-lg border border-white/10 p-0.5 text-xs font-semibold" role="group" aria-label="Language">
         <button data-lang="ru" class="px-2.5 py-1.5 rounded-md transition">RU</button>
         <button data-lang="en" class="px-2.5 py-1.5 rounded-md transition">EN</button>
       </div>
+      <button id="navBtn" class="lg:hidden grid place-items-center w-9 h-9 rounded-lg border border-white/10 text-zinc-300 hover:text-white transition" aria-label="Menu" aria-expanded="false" aria-controls="navMenu">
+        <i data-lucide="menu" class="w-5 h-5 nav-closed"></i><i data-lucide="x" class="w-5 h-5 nav-opened hidden"></i>
+      </button>
     </div>
   </nav>
+  <div id="navMenu" class="lg:hidden hidden border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4 py-3 grid grid-cols-2 gap-1 text-sm"></div>
+  </div>
 </header>
 
 <main id="top">
@@ -2640,6 +2647,21 @@ $$('.tab').forEach(b => b.onclick = () => openTab(b.dataset.tab));
 $$('[data-goto-tab]').forEach(b => b.onclick = () => { $('#train').scrollIntoView({ behavior: 'smooth' }); openTab(b.dataset.gotoTab) });
 
 /* ================= TOGGLES & INIT ================= */
+/* ================= MOBILE MENU ================= */
+function navFill() {
+  $('#navMenu > div').innerHTML = [...$$('header nav > div.lg\\:flex a')].map(a => `<a href="${a.getAttribute('href')}" class="rounded-lg px-3 py-2.5 text-zinc-300 hover:bg-white/5 hover:text-white transition">${a.textContent}</a>`).join('');
+}
+function navToggle(open = $('#navMenu').classList.contains('hidden')) {
+  $('#navMenu').classList.toggle('hidden', !open);
+  $('#navBtn').setAttribute('aria-expanded', open);
+  $$('#navBtn .nav-closed').forEach(i => i.classList.toggle('hidden', open));
+  $$('#navBtn .nav-opened').forEach(i => i.classList.toggle('hidden', !open));
+}
+$('#navBtn').onclick = e => { e.stopPropagation(); navToggle() };
+$('#navMenu').addEventListener('click', e => e.target.closest('a') && navToggle(false));
+document.addEventListener('click', e => !e.target.closest('header') && navToggle(false));
+document.addEventListener('keydown', e => e.key === 'Escape' && navToggle(false));
+
 /* ================= KEYBOARD ================= */
 // Kedmanee, the standard Thai layout. Rows: Latin key labels, then one layer per modifier:
 // plain, Shift, AltGr, AltGr+Shift. A layer is a string (one character per key) or an array ('' = nothing).
@@ -2794,7 +2816,7 @@ $('#kbClear').onclick = () => { clearTimeout(kbTimer); $('#kbIn').value = ''; kb
 function renderAll() {
   renderText(); renderSounds(); renderTones(); renderPoster(); renderAlphabet(); renderPhrases();
   renderNum(); renderBody(); renderVerbs(); renderQues(); renderCls(); renderFood(); renderSent(); renderTopVerbs(); renderHero(); renderPools();
-  renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender(); renderMore(); kbRender(); renderTwisters(); renderLearn();
+  renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender(); renderMore(); kbRender(); renderTwisters(); renderLearn(); navFill();
   fcShow(); qRender(); tRender(); trRender(); icons();
 }
 $$('[data-lang]').forEach(b => b.onclick = () => { lang = b.dataset.lang; store.set('tf-lang', lang); renderAll() });
