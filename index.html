@@ -638,6 +638,33 @@ tailwind.config = {
   </section>
   <!-- /KEYBOARD -->
 
+  <!-- TWISTERS -->
+  <section id="twisters" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">14</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="twTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="twSub"></p>
+      </div>
+      <div id="twGrid" class="reveal mt-10 grid md:grid-cols-2 gap-4"></div>
+    </div>
+  </section>
+  <!-- /TWISTERS -->
+
+  <!-- LEARN -->
+  <section id="learn" class="py-20 md:py-28 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">15</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="lnTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="lnSub"></p>
+      </div>
+      <div id="lnGrid" class="reveal mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      <p class="reveal mt-8 text-xs text-zinc-500 leading-relaxed" data-i18n-html="lnSrc"></p>
+    </div>
+  </section>
+  <!-- /LEARN -->
+
   <!-- CTA -->
   <section class="py-20 md:py-28 border-t border-white/5">
     <div class="reveal max-w-3xl mx-auto px-4 text-center">
@@ -673,6 +700,11 @@ tailwind.config = {
 const T = {
   ru: {
     navDialogs: 'Диалоги', navEtq: 'Этикет', navGram: 'Грамматика',
+    twTitle: 'Скороговорки', twSub: 'Тайцы называют их ประโยคพูดยาก — «фразы, которые трудно сказать». Сначала медленно, потом быстрее: отличная тренировка тонов и трудных согласных.',
+    twPlay: 'Слушать', twSlow: 'Медленно', twFast: 'Быстро',
+    lnTitle: 'Как учить быстрее', lnSub: 'Короткая выжимка: что подтверждают исследования памяти и обучения, что работает у полиглотов и во что верить не стоит. Метка на карточке показывает, насколько метод проверен.',
+    lnProof: 'Доказано', lnData: 'Есть данные', lnPoly: 'Опыт полиглотов', lnMyth: 'Миф',
+    lnSrc: 'Исследования: <a class="underline hover:text-white" href="https://doi.org/10.1037/0033-2909.132.3.354" target="_blank" rel="noopener">Cepeda et al., 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noopener">Roediger &amp; Karpicke, 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.3138/cmlr.63.1.59" target="_blank" rel="noopener">Nation, 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.1121/1.1894649" target="_blank" rel="noopener">Logan, Lively &amp; Pisoni, 1991</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2008.02127.x" target="_blank" rel="noopener">Kornell &amp; Bjork, 2008</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2007.01885.x" target="_blank" rel="noopener">Dumay &amp; Gaskell, 2007</a> · <a class="underline hover:text-white" href="https://doi.org/10.1037/h0076156" target="_blank" rel="noopener">Atkinson &amp; Raugh, 1975</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1539-6053.2009.01038.x" target="_blank" rel="noopener">Pashler et al., 2008</a>',
     moreTitle: 'Другие курсы', moreSub: 'Тот же формат и те же тренажёры — другой язык.',
     gramTitle: 'Как строить предложения', gramSub: 'Тайская грамматика — это порядок слов и несколько маленьких слов-помощников. Глаголы не спрягаются, для вопроса ничего не переставляют. Выберите тип предложения и посмотрите, как меняются блоки.',
     gramType: 'Тип предложения', gramBase: 'Пример', gramRules: 'Главные правила',
@@ -771,6 +803,11 @@ const T = {
   },
   en: {
     navDialogs: 'Dialogs', navEtq: 'Etiquette', navGram: 'Grammar',
+    twTitle: 'Tongue twisters', twSub: 'Thais call them ประโยคพูดยาก, “hard-to-say sentences”. Start slow, then speed up: great practice for tones and tricky consonants.',
+    twPlay: 'Listen', twSlow: 'Slow', twFast: 'Fast',
+    lnTitle: 'How to learn faster', lnSub: 'A short digest: what research on memory and learning supports, what works for polyglots, and what not to believe. The tag on each card shows how well tested the method is.',
+    lnProof: 'Proven', lnData: 'Some evidence', lnPoly: 'Polyglot practice', lnMyth: 'Myth',
+    lnSrc: 'Research: <a class="underline hover:text-white" href="https://doi.org/10.1037/0033-2909.132.3.354" target="_blank" rel="noopener">Cepeda et al., 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noopener">Roediger &amp; Karpicke, 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.3138/cmlr.63.1.59" target="_blank" rel="noopener">Nation, 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.1121/1.1894649" target="_blank" rel="noopener">Logan, Lively &amp; Pisoni, 1991</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2008.02127.x" target="_blank" rel="noopener">Kornell &amp; Bjork, 2008</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2007.01885.x" target="_blank" rel="noopener">Dumay &amp; Gaskell, 2007</a> · <a class="underline hover:text-white" href="https://doi.org/10.1037/h0076156" target="_blank" rel="noopener">Atkinson &amp; Raugh, 1975</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1539-6053.2009.01038.x" target="_blank" rel="noopener">Pashler et al., 2008</a>',
     moreTitle: 'More courses', moreSub: 'Same format, same drills — another language.',
     gramTitle: 'How to build sentences', gramSub: 'Thai grammar is word order plus a few tiny helper words. Verbs never conjugate and questions need no reordering. Pick a sentence type and watch the blocks change.',
     gramType: 'Sentence type', gramBase: 'Example', gramRules: 'Key rules',
@@ -1482,6 +1519,54 @@ const SENT_RULES = [
 const sentSlots = (k, b) => SENT_FORMS[k](SENT_BASES[b]).map(s => SENT_PH[s.th] ? { r: s.r, ...SENT_PH[s.th]() } : s);
 const sentText = (k, b) => sentSlots(k, b).map(s => s.th).join(SENT_JOIN) + (SENT_END[k] || '');
 
+/* ================= TONGUE TWISTERS ================= */
+// popular ประโยคพูดยาก from Thai collections (Pantip, gotoknow, bkklovehoro)
+const TWISTERS = [
+  { th: 'ไม้ใหม่ไม่ไหม้ไหม', lat: 'mái mài mâi mâi mǎi', cyr: 'май май май май май?', ru: 'Новое дерево ведь не горит?', en: 'New wood doesn’t burn, does it?',
+    tip: ['Пять одинаковых слогов — пять разных тонов: высокий, низкий, нисходящий, нисходящий, восходящий.', 'Five identical syllables, five tones: high, low, falling, falling, rising.'] },
+  { th: 'ยายกินลำไย น้ำลายยายไหลย้อย', lat: 'yaai gin lam-yai, náam-laai yaai lǎi yói', cyr: 'яай кин лам-яй, нам-лай яай лай йой', ru: 'Бабушка ест лонган — у бабушки текут слюнки', en: 'Grandma eats longan and her mouth waters',
+    tip: ['Тренирует ย и ล: язык не должен их путать. ไหล — восходящий тон, ย้อย — высокий.', 'Drills ย against ล. ไหล has a rising tone, ย้อย a high one.'] },
+  { th: 'ชามเขียวคว่ำเช้า ชามขาวคว่ำค่ำ', lat: 'chaam khǐao khwâm cháao, chaam khǎao khwâm khâm', cyr: 'чхам кхьяо кхвам чхао, чхам кхао кхвам кхам', ru: 'Зелёную миску переворачивают утром, белую — вечером', en: 'The green bowl goes upside down in the morning, the white one at night',
+    tip: ['ช и ค с придыханием, а เขียว (зелёный) и ขาว (белый) различаются одной гласной.', 'Aspirated ช and ค; เขียว (green) and ขาว (white) differ by one vowel.'] },
+  { th: 'เช้าฟาดผัดฟัก เย็นฟาดฟักผัด', lat: 'cháao fâat phàt fák, yen fâat fák phàt', cyr: 'чхао фат пхат фак, йен фат фак пхат', ru: 'Утром уплетаю жареную тыкву, вечером — тыкву жареную', en: 'Morning: I wolf down fried melon. Evening: melon, fried',
+    tip: ['ฟ — настоящее «ф», а ผ — «п» с выдохом. ฟาด здесь — разговорное «уплетать».', 'ฟ is a real f, ผ is p with a puff of air. ฟาด is slang for “wolf down”.'] },
+  { th: 'ยักษ์ใหญ่ไล่ยักษ์เล็ก ยักษ์เล็กไล่ยักษ์ใหญ่', lat: 'yák yài lâi yák lék, yák lék lâi yák yài', cyr: 'як яй лай як лек, як лек лай як яй', ru: 'Большой великан гонится за маленьким, маленький — за большим', en: 'The big giant chases the small one, the small one chases the big one',
+    tip: ['ยักษ์ — великан-якша, стражи у входа в храмы. Все слоги короткие: не тяните гласные.', 'ยักษ์ are the giant guardians at temple gates. Every syllable is short: don’t stretch the vowels.'] },
+  { th: 'กินมันติดเหงือก กินเผือกติดฟัน', lat: 'gin man dtìt ngʉ̀ak, gin phʉ̀ak dtìt fan', cyr: 'кин ман тит нгыак, кин пхыак тит фан', ru: 'Съешь батат — липнет к дёснам, съешь таро — липнет к зубам', en: 'Eat yam and it sticks to your gums, eat taro and it sticks to your teeth',
+    tip: ['เหงือก начинается с носового ง — как «нг» без «г». ʉa — гласная «ы», переходящая в «а».', 'เหงือก starts with the nasal ง. ʉa glides from a Russian-style “ы” to “a”.'] },
+  { th: 'ระนอง ระยอง ยะลา', lat: 'ra-nong, ra-yong, ya-laa', cyr: 'ра-нонг, ра-йонг, я-ла', ru: 'Ранонг, Районг, Яла', en: 'Ranong, Rayong, Yala',
+    tip: ['Три провинции: на юге, на востоке и на самом юге. Попробуйте быстро, не путая ร, ย и ล.', 'Three provinces: south, east and far south. Say them fast without mixing up ร, ย and ล.'] },
+];
+
+/* ================= HOW TO LEARN ================= */
+// ev: proof | data | poly | myth (the tag shown on the card)
+const LEARN = [
+  { icon: 'calendar-clock', ev: 'proof', t: ['Интервальные повторения', 'Spaced repetition'],
+    d: ['Повторяйте не подряд, а с растущими паузами: через день, через три, через неделю. Так забывается в разы меньше, чем после зубрёжки за один вечер, — один из самых надёжных результатов психологии памяти.', 'Review with growing gaps: after a day, three days, a week. You forget far less than after one evening of cramming — one of the most solid findings in memory research.'] },
+  { icon: 'brain', ev: 'proof', t: ['Вспоминать, а не перечитывать', 'Recall, don’t reread'],
+    d: ['Закройте перевод и попробуйте вспомнить сами. Попытка вспомнить закрепляет лучше повторного чтения, даже если ошиблись. Поэтому в тренажёрах сначала вопрос, а ответ — потом.', 'Cover the translation and try to recall it. Trying to remember fixes it better than rereading, even when you get it wrong. That is why the drills ask first and show the answer after.'] },
+  { icon: 'trending-up', ev: 'data', t: ['Сначала самое частое', 'Frequent words first'],
+    d: ['Первые две-три тысячи самых частых слов покрывают около 90% обычной разговорной речи. Поэтому здесь частотные глаголы и живые фразы, а не редкая лексика.', 'The first two or three thousand most frequent words cover about 90% of everyday speech. So this course gives you the top verbs and real phrases, not rare vocabulary.'] },
+  { icon: 'link', ev: 'data', t: ['Учите фразами', 'Learn in chunks'],
+    d: ['Запоминайте готовые куски — ขอเก็บตังค์หน่อย целиком, а не по словам. Носители сами говорят заготовками, а фраза сразу даёт и грамматику, и мелодию.', 'Memorise ready-made chunks — ขอเก็บตังค์หน่อย as a whole, not word by word. Native speakers talk in chunks, and a phrase brings its grammar and melody with it.'] },
+  { icon: 'audio-lines', ev: 'data', t: ['Тоны — на контрастах', 'Tones by contrast'],
+    d: ['Тренируйте слух на парах слов, которые различаются только тоном, и на разных голосах. Такой тренинг (HVPT) заметно улучшает различение звуков и тонов — его проверяли на тональных языках.', 'Train your ear on word pairs that differ only in tone, voiced by different speakers. This training (HVPT) clearly improves how well you tell sounds and tones apart, and it has been tested on tone languages.'] },
+  { icon: 'headphones', ev: 'poly', t: ['Шэдоуинг', 'Shadowing'],
+    d: ['Включите аудио и повторяйте за голосом почти одновременно, копируя мелодию. Любимый приём полиглотов; небольшие исследования показывают пользу для произношения и понимания на слух.', 'Play the audio and repeat along with the voice almost at once, copying the melody. A polyglot favourite; small studies show gains in pronunciation and listening.'] },
+  { icon: 'messages-square', ev: 'poly', t: ['Говорите с первого дня', 'Speak from day one'],
+    d: ['Не ждите «готовности»: สวัสดีครับ и пара фраз с официантом дают больше, чем месяц молчаливой теории. Ошибки на старте — нормальная часть учёбы.', 'Don’t wait until you feel ready: สวัสดีครับ and a couple of lines with a waiter beat a month of silent theory. Early mistakes are a normal part of learning.'] },
+  { icon: 'clock', ev: 'proof', t: ['Коротко, но каждый день', 'Short and daily'],
+    d: ['15 минут каждый день лучше двух часов раз в неделю: это то же правило интервалов, только в масштабе недели.', '15 minutes a day beats two hours once a week: the same spacing rule on a weekly scale.'] },
+  { icon: 'shuffle', ev: 'data', t: ['Перемешивайте темы', 'Mix topics'],
+    d: ['Чередуйте темы и типы заданий вместо блоков «только числа». Чередование кажется труднее, но запоминается лучше.', 'Alternate topics and kinds of tasks instead of blocks like “numbers only”. Mixing feels harder but sticks better.'] },
+  { icon: 'moon', ev: 'data', t: ['Повторите перед сном', 'Review before sleep'],
+    d: ['Во сне память переносит выученное днём в долговременную. Для новых слов это показано в экспериментах: после ночи их вспоминают лучше.', 'During sleep, memory moves what you learned into long-term storage. Experiments show this for new words: they are recalled better after a night.'] },
+  { icon: 'sparkles', ev: 'proof', t: ['Яркие ассоциации', 'Vivid associations'],
+    d: ['Свяжите новое слово с похожим по звучанию русским и смешной картинкой. Метод ключевых слов заметно ускоряет запоминание слов.', 'Link a new word to a similar-sounding word you know and a funny picture. The keyword method clearly speeds up learning vocabulary.'] },
+  { icon: 'ban', ev: 'myth', t: ['«Я визуал»', '“I’m a visual learner”'],
+    d: ['Учить «под свой тип» — визуал, аудиал — бесполезно: проверки не нашли никакого эффекта. Методы выше работают для всех.', 'Studying to “your style” — visual, auditory — doesn’t help: tests found no effect. The methods above work for everyone.'] },
+];
+
 /* ================= STATE ================= */
 const store = {
   get(k, d) { try { return localStorage.getItem(k) || d } catch (e) { return d } },
@@ -1581,7 +1666,7 @@ document.addEventListener('touchstart', warmAudio, { passive: true });
 document.addEventListener('focusin', warmAudio);
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-say]');
-  if (b) { e.stopPropagation(); speak(b.dataset.say, b, b.dataset.voice) }
+  if (b) { e.stopPropagation(); player.defaultPlaybackRate = player.playbackRate = +(b.dataset.rate || 1); speak(b.dataset.say, b, b.dataset.voice) }
 });
 // Thai words inside notes and tips become tappable: only text that mixes Thai with Latin/Cyrillic,
 // so phrase cards (pure Thai) and buttons keep their own behaviour
@@ -2042,6 +2127,31 @@ const SITES = [
   { k: 'eng', url: 'https://eng.dateonymous.com/', name: ['Eng', 'Fast'], glyph: 'Aa', ru: ['Американский английский', 'Звуки, интонация, фразы для кафе, Uber и отеля, этикет и чаевые.'], en: ['American English', 'Sounds, intonation, phrases for cafés, Uber and hotels, etiquette and tipping.'] },
   { k: 'sumer', url: 'https://sumer.dateonymous.com/', name: ['Sumer', 'Fast'], glyph: '𒀭', ru: ['Шумерский и клинопись', 'Язык первых табличек: клинопись, грамматика и строки из настоящих текстов.'], en: ['Sumerian & cuneiform', 'The language of the first tablets: cuneiform, grammar and lines from real texts.'] }
 ];
+const LN_TAG = { proof: ['lnProof', 'text-emerald-300 border-emerald-400/30 bg-emerald-400/5'], data: ['lnData', 'text-accent border-accent/30 bg-accent/5'],
+  poly: ['lnPoly', 'text-sky-300 border-sky-400/30 bg-sky-400/5'], myth: ['lnMyth', 'text-rose-300 border-rose-400/30 bg-rose-400/5'], scribe: ['lnScribe', 'text-violet-300 border-violet-400/30 bg-violet-400/5'] };
+function renderTwisters() {
+  const btn = 'inline-flex items-center gap-2 rounded-xl border border-white/10 px-3 py-2 text-sm font-semibold hover:border-accent/60 hover:text-white transition';
+  $('#twGrid').innerHTML = TWISTERS.map(x => `<div class="rounded-2xl border border-white/10 bg-ink-900 p-6 flex flex-col">
+    <p class="font-thai text-2xl md:text-3xl text-white leading-snug">${x.th}</p>
+    <p class="mt-2 font-mono text-sm text-accent">${x.lat}</p>
+    ${lang === 'ru' && x.cyr ? `<p class="mt-1 text-xs text-zinc-500">${x.cyr}</p>` : ''}
+    <p class="mt-3 text-zinc-200">${L(x.ru, x.en)}</p>
+    ${x.tip ? `<p class="mt-2 text-sm text-zinc-400 leading-relaxed">${L(...x.tip)}</p>` : ''}
+    <div class="mt-auto pt-5 flex flex-wrap gap-2">
+      <button data-say="${x.say || x.th}" class="${btn} text-zinc-200"><i data-lucide="volume-2" class="w-4 h-4 text-accent"></i>${t('twPlay')}</button>
+      <button data-say="${x.say || x.th}" data-rate=".7" class="${btn} text-zinc-400"><i data-lucide="snail" class="w-4 h-4"></i>${t('twSlow')}</button>
+      <button data-say="${x.say || x.th}" data-rate="1.35" class="${btn} text-zinc-400"><i data-lucide="rabbit" class="w-4 h-4"></i>${t('twFast')}</button>
+    </div></div>`).join('');
+}
+function renderLearn() {
+  $('#lnGrid').innerHTML = LEARN.map(x => `<div class="rounded-2xl border border-white/10 bg-ink-900 p-5">
+    <div class="flex items-start justify-between gap-3">
+      <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent"><i data-lucide="${x.icon}" class="w-5 h-5"></i></span>
+      <span class="rounded-full border px-2.5 py-0.5 text-xs font-medium ${LN_TAG[x.ev][1]}">${t(LN_TAG[x.ev][0])}</span>
+    </div>
+    <h3 class="mt-4 font-semibold text-white">${L(...x.t)}</h3>
+    <p class="mt-2 text-sm text-zinc-400 leading-relaxed">${L(...x.d)}</p></div>`).join('');
+}
 function renderMore() {
   $('#moreGrid').innerHTML = SITES.filter(x => x.k !== SITE).map(x => `
     <a href="${x.url}" target="_blank" rel="noopener" class="group flex items-center gap-5 rounded-3xl border border-white/10 bg-ink-900 p-6 hover:border-accent/50 hover:-translate-y-1 transition duration-300">
@@ -2684,7 +2794,7 @@ $('#kbClear').onclick = () => { clearTimeout(kbTimer); $('#kbIn').value = ''; kb
 function renderAll() {
   renderText(); renderSounds(); renderTones(); renderPoster(); renderAlphabet(); renderPhrases();
   renderNum(); renderBody(); renderVerbs(); renderQues(); renderCls(); renderFood(); renderSent(); renderTopVerbs(); renderHero(); renderPools();
-  renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender(); renderMore(); kbRender();
+  renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender(); renderMore(); kbRender(); renderTwisters(); renderLearn();
   fcShow(); qRender(); tRender(); trRender(); icons();
 }
 $$('[data-lang]').forEach(b => b.onclick = () => { lang = b.dataset.lang; store.set('tf-lang', lang); renderAll() });
