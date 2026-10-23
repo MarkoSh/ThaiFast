@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+Thai+Looped:wght@500&family=Mali:wght@500&family=Sriracha&family=Charm:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@600&family=Noto+Sans+Cuneiform&text=%E0%B8%81%F0%92%80%AD&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -612,6 +613,14 @@ tailwind.config = {
       </a>
     </div>
   </section>
+  <!-- MORE COURSES -->
+  <section id="more" class="py-16 md:py-20 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="reveal text-2xl md:text-3xl font-bold text-white tracking-tight" data-i18n="moreTitle"></h2>
+      <p class="reveal mt-2 text-zinc-400" data-i18n="moreSub"></p>
+      <div id="moreGrid" class="reveal mt-8 grid md:grid-cols-2 gap-4"></div>
+    </div>
+  </section>
 </main>
 
 <footer class="border-t border-white/5 py-8 text-center text-sm text-zinc-600">
@@ -627,6 +636,7 @@ tailwind.config = {
 const T = {
   ru: {
     navDialogs: 'Диалоги', navEtq: 'Этикет', navGram: 'Грамматика',
+    moreTitle: 'Другие курсы', moreSub: 'Тот же формат и те же тренажёры — другой язык.',
     gramTitle: 'Как строить предложения', gramSub: 'Тайская грамматика — это порядок слов и несколько маленьких слов-помощников. Глаголы не спрягаются, для вопроса ничего не переставляют. Выберите тип предложения и посмотрите, как меняются блоки.',
     gramType: 'Тип предложения', gramBase: 'Пример', gramRules: 'Главные правила',
     vQues: 'Вопросы', vCls: 'Счёт', vFood: 'Еда',
@@ -721,6 +731,7 @@ const T = {
   },
   en: {
     navDialogs: 'Dialogs', navEtq: 'Etiquette', navGram: 'Grammar',
+    moreTitle: 'More courses', moreSub: 'Same format, same drills — another language.',
     gramTitle: 'How to build sentences', gramSub: 'Thai grammar is word order plus a few tiny helper words. Verbs never conjugate and questions need no reordering. Pick a sentence type and watch the blocks change.',
     gramType: 'Sentence type', gramBase: 'Example', gramRules: 'Key rules',
     vQues: 'Questions', vCls: 'Counting', vFood: 'Food',
@@ -1950,6 +1961,27 @@ const sentPick = () => { renderSent(); icons(); speak(sentText(stType, stBase), 
 $('#stTypes').addEventListener('click', e => { const b = e.target.closest('[data-sttype]'); if (b) { stType = b.dataset.sttype; sentPick() } });
 $('#stBases').addEventListener('click', e => { const b = e.target.closest('[data-stbase]'); if (b) { stBase = +b.dataset.stbase; sentPick() } });
 
+/* --- sibling courses: each site promotes the other two --- */
+const SITE = 'thai';
+// names are split so the per-site build (which renames the brand) leaves them alone
+const SITES = [
+  { k: 'thai', url: 'https://thai.dateonymous.com/', name: ['Thai', 'Fast'], glyph: 'ก', ru: ['Тайский с нуля', 'Звуки, тоны, алфавит и живые фразы для кафе, такси и рынка. Пропись тайских букв.'], en: ['Thai from zero', 'Sounds, tones, the alphabet and real phrases for cafés, taxis and markets. Thai letter copybook.'] },
+  { k: 'eng', url: 'https://eng.dateonymous.com/', name: ['Eng', 'Fast'], glyph: 'Aa', ru: ['Американский английский', 'Звуки, интонация, фразы для кафе, Uber и отеля, этикет и чаевые.'], en: ['American English', 'Sounds, intonation, phrases for cafés, Uber and hotels, etiquette and tipping.'] },
+  { k: 'sumer', url: 'https://sumer.dateonymous.com/', name: ['Sumer', 'Fast'], glyph: '𒀭', ru: ['Шумерский и клинопись', 'Язык первых табличек: клинопись, грамматика и строки из настоящих текстов.'], en: ['Sumerian & cuneiform', 'The language of the first tablets: cuneiform, grammar and lines from real texts.'] }
+];
+function renderMore() {
+  $('#moreGrid').innerHTML = SITES.filter(x => x.k !== SITE).map(x => `
+    <a href="${x.url}" class="group flex items-center gap-5 rounded-3xl border border-white/10 bg-ink-900 p-6 hover:border-accent/50 hover:-translate-y-1 transition duration-300">
+      <span class="grid place-items-center w-16 h-16 shrink-0 rounded-2xl bg-accent/10 text-3xl font-semibold text-accent" style="font-family:'Noto Sans Thai','Noto Sans Cuneiform',Inter,sans-serif">${x.glyph}</span>
+      <span class="flex-1 min-w-0">
+        <span class="flex items-center gap-1.5 text-sm font-bold text-white"><i data-lucide="zap" class="w-3.5 h-3.5 text-accent"></i><span>${x.name[0]}<span class="text-accent">${x.name[1]}</span></span></span>
+        <span class="block mt-1 text-lg font-semibold text-white">${L(x.ru[0], (x.en || x.ru)[0])}</span>
+        <span class="block mt-1 text-sm text-zinc-400 leading-relaxed">${L(x.ru[1], (x.en || x.ru)[1])}</span>
+      </span>
+      <i data-lucide="arrow-up-right" class="w-5 h-5 shrink-0 text-zinc-500 group-hover:text-accent transition"></i>
+    </a>`).join('');
+}
+
 /* --- hero --- */
 const HERO = PH.filter(x => ['greet', 'polite', 'bye'].includes(x.c));
 let heroI = 0;
@@ -2428,7 +2460,7 @@ $$('[data-goto-tab]').forEach(b => b.onclick = () => { $('#train').scrollIntoVie
 function renderAll() {
   renderText(); renderSounds(); renderTones(); renderPoster(); renderAlphabet(); renderPhrases();
   renderNum(); renderBody(); renderVerbs(); renderQues(); renderCls(); renderFood(); renderSent(); renderTopVerbs(); renderHero(); renderPools();
-  renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender();
+  renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender(); renderMore();
   fcShow(); qRender(); tRender(); trRender(); icons();
 }
 $$('[data-lang]').forEach(b => b.onclick = () => { lang = b.dataset.lang; store.set('tf-lang', lang); renderAll() });
