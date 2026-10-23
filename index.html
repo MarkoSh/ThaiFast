@@ -2553,7 +2553,7 @@ const KB_CODE = { '`': 'Backquote', '-': 'Minus', '=': 'Equal', '[': 'BracketLef
 const KB_MOD = ['', '⇧ ', 'AltGr ', 'AltGr ⇧ '];
 const esc = v => String(v).replace(/[&<>"]/g, c => `&#${c.charCodeAt(0)};`);
 const kbShow = ch => /\p{M}/u.test(ch) ? '◌' + ch : ch;
-let kbSet = 0, KB = [], KB_FIND = new Map(), kbLayers = 2, kbMod = 0, kbTimer;
+let kbSet = 0, KB = [], KB_FIND = new Map(), kbLayers = 2, kbMod = 0, kbHeld = 0, kbDrawn = 0, kbTimer;
 const kbS = () => KB_SETS[kbSet];
 function kbBuild() {
   const S = kbS();
@@ -2572,6 +2572,23 @@ const kbW = n => `flex:0 0 calc((100% - ${(kbCols() - 1) * .375}rem) * ${n} / ${
 const kbCols = () => Math.max(...kbS().rows.map(r => [...r[0]].length));
 const kbBtn = (code, inner, n = 1) => `<button type="button" data-kb="${code}" class="kb-key" style="${kbW(n)}">${inner}</button>`;
 const kbCap = (s, cls) => s ? `<span class="${cls}">${esc(kbShow(s))}</span>` : '';
+// key face for the active modifier layer m: that layer goes to the centre, the plain one takes its corner
+const KB_POS = ['font-thai text-xl', 'absolute right-1.5 top-1 text-xs font-thai', 'absolute right-1.5 bottom-1 text-xs font-thai', 'absolute left-1.5 bottom-1 text-xs font-thai'];
+function kbFace(k, m) {
+  const S = kbS(), at = l => l === m ? 0 : l === 0 ? m : l;
+  return `<span class="absolute left-1.5 top-1 font-mono text-[10px] uppercase text-zinc-500">${esc(k.l)}</span>` + k.out.map((o, l) => {
+    const p = at(l);
+    if (p === 1 && S.hint[k.l]) return `<span class="${KB_POS[1]} font-semibold text-accent">${esc(S.hint[k.l])}</span>`;
+    return kbCap(o, `${KB_POS[p]} ${p ? 'text-zinc-500' : m ? 'text-accent' : 'text-white'}`);
+  }).join('');
+}
+// redraw key faces when the visible layer changes (on-screen Shift/AltGr or held physical modifiers)
+function kbFaces() {
+  const m = (kbMod | kbHeld) & (kbLayers > 2 ? 3 : 1);
+  if (m === kbDrawn) return;
+  kbDrawn = m;
+  KB.forEach(k => { const b = $(`[data-kb="${k.code}"]`); if (b) b.innerHTML = kbFace(k, m) });
+}
 function kbRender() {
   kbBuild();
   const S = kbS(), on = 'bg-white text-ink-950', off = 'text-zinc-400 hover:text-white';
@@ -2579,11 +2596,8 @@ function kbRender() {
   $('#kbIn').placeholder = t(S.ph);
   $('#kbRows').classList.toggle('kb-tall', kbLayers > 2);
   $('#kbNote').innerHTML = t(S.note);
-  $('#kbRows').innerHTML = S.rows.map((_, r) => `<div class="flex justify-center gap-1.5">${KB.filter(k => k.r === r).map(k => kbBtn(k.code, `
-    <span class="absolute left-1.5 top-1 font-mono text-[10px] uppercase text-zinc-500">${esc(k.l)}</span>
-    ${S.hint[k.l] ? `<span class="absolute right-1.5 top-1 text-xs font-semibold text-accent">${esc(S.hint[k.l])}</span>` : kbCap(k.out[1], 'absolute right-1.5 top-1 text-xs text-zinc-500 font-thai')}
-    ${kbCap(k.out[2], 'absolute right-1.5 bottom-1 text-xs text-zinc-500 font-thai')}${kbCap(k.out[3], 'absolute left-1.5 bottom-1 text-xs text-zinc-500 font-thai')}
-    ${kbCap(k.out[0], 'font-thai text-xl text-white')}`)).join('')}</div>`).join('') + `
+  kbDrawn = 0;
+  $('#kbRows').innerHTML = S.rows.map((_, r) => `<div class="flex justify-center gap-1.5">${KB.filter(k => k.r === r).map(k => kbBtn(k.code, kbFace(k, 0))).join('')}</div>`).join('') + `
     <div class="flex justify-center gap-1.5">${kbBtn('Shift', '<span class="text-xs text-zinc-300">⇧ Shift</span>', 2)}${kbLayers > 2 ? kbBtn('AltGr', '<span class="text-xs text-zinc-300">AltGr</span>', 2) : ''}${kbBtn('Space', '<span class="text-xs text-zinc-500">Space</span>', kbLayers > 2 ? 5 : 7)}${kbBtn('Backspace', '<span class="text-xs text-zinc-300">⌫</span>', 2)}</div>`;
   $('#kbEx').innerHTML = S.ex.map(w => `<button type="button" data-kbex="${esc(w)}" class="rounded-lg border border-white/10 px-3 py-1.5 font-thai text-white hover:border-accent/60 transition">${esc(w)}</button>`).join('');
   kbUpdate();
@@ -2593,6 +2607,7 @@ function kbUpdate() {
   $$('.kb-key').forEach(b => b.classList.toggle('kb-used', keys.some(k => k.code === b.dataset.kb || (b.dataset.kb === 'Shift' && k.m & 1) || (b.dataset.kb === 'AltGr' && k.m & 2))));
   $('[data-kb="Shift"]').classList.toggle('kb-shift-on', !!(kbMod & 1));
   $('[data-kb="AltGr"]')?.classList.toggle('kb-shift-on', !!(kbMod & 2));
+  kbFaces();
   $('#kbSeq').innerHTML = seq.length ? seq.map((x, i) => `<span data-kbi="${i}" class="inline-flex flex-col items-center min-w-[44px] rounded-lg border border-white/10 bg-ink-950 px-2 py-1">
     <span class="font-thai text-lg leading-tight text-white">${x.ch === ' ' ? '␣' : esc(kbShow(x.ch))}</span>
     ${S.read?.(x.ch) ? `<span class="font-mono text-[11px] text-accent">${esc(S.read(x.ch))}</span>` : ''}
@@ -2628,7 +2643,14 @@ function kbPlay() {
   };
   step(0);
 }
+const kbHold = e => {
+  const h = (e.shiftKey ? 1 : 0) + (e.getModifierState?.('AltGraph') || (e.altKey && kbLayers > 2) ? 2 : 0);
+  if (h !== kbHeld) { kbHeld = h; kbFaces() }
+};
+$('#kbIn').addEventListener('keyup', kbHold);
+$('#kbIn').addEventListener('blur', () => { kbHeld = 0; kbFaces() });
 $('#kbIn').addEventListener('keydown', e => {
+  kbHold(e);
   const alt = e.getModifierState?.('AltGraph') || (e.altKey && kbLayers > 2);
   if ((e.ctrlKey && !alt) || e.metaKey || (e.altKey && !alt) || e.isComposing) return;
   const k = KB.find(k => k.code === e.code); if (!k) return;
