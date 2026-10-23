@@ -40,7 +40,7 @@ tailwind.config = {
   .pop { animation: pop .35s; }
   @keyframes pulseRing { 0% { box-shadow: 0 0 0 0 rgba(232,176,75,.55) } 100% { box-shadow: 0 0 0 14px rgba(232,176,75,0) } }
   .speaking { animation: pulseRing 1s infinite; color: #e8b04b; border-color: #e8b04b; }
-  .kb-key { position: relative; flex: 1 1 0; height: 3.5rem; border-radius: .6rem; border: 1px solid #ffffff1a; background: #0d0e11; transition: background .15s, border-color .15s, transform .1s; }
+  .kb-key { position: relative; height: 3.5rem; border-radius: .6rem; border: 1px solid #ffffff1a; background: #0d0e11; transition: background .15s, border-color .15s, transform .1s; }
   .kb-key:hover { background: #ffffff0d; } .kb-key:active { transform: translateY(1px); }
   .kb-used { border-color: #e8b04b80; } .kb-shift-on { background: #e8b04b26; }
   .kb-on, .kb-on * { background: #e8b04b !important; color: #09090b !important; border-color: #e8b04b !important; }
@@ -617,6 +617,7 @@ tailwind.config = {
         <p class="mt-3 text-zinc-400" data-i18n="kbSub"></p>
       </div>
       <div class="reveal mt-8 rounded-2xl border border-white/10 bg-ink-900 p-4 md:p-6">
+        <div id="kbTabs" class="mb-4 empty:hidden"></div>
         <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
           <input id="kbIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" class="flex-1 min-w-0 h-14 rounded-xl border border-white/10 bg-ink-950 px-4 font-thai text-2xl text-white placeholder:text-zinc-600 placeholder:text-base placeholder:font-sans focus:outline-none focus:border-accent">
           <div class="flex gap-2">
@@ -630,7 +631,7 @@ tailwind.config = {
         <p class="mt-6 text-xs uppercase tracking-wider text-zinc-500" data-i18n="kbHow"></p>
         <div id="kbSeq" class="mt-2 flex flex-wrap gap-1.5 min-h-[56px]"></div>
         <div class="mt-6 overflow-x-auto pb-1"><div id="kbRows" class="min-w-[680px] space-y-1.5 select-none"></div></div>
-        <p class="mt-5 text-sm text-zinc-500 leading-relaxed" data-i18n="kbNote"></p>
+        <p id="kbNote" class="mt-5 text-sm text-zinc-500 leading-relaxed"></p>
       </div>
     </div>
   </section>
@@ -2529,56 +2530,80 @@ $$('[data-goto-tab]').forEach(b => b.onclick = () => { $('#train').scrollIntoVie
 
 /* ================= TOGGLES & INIT ================= */
 /* ================= KEYBOARD ================= */
-// Kedmanee, the standard Thai layout. Each row: Latin key labels, Thai, Thai with Shift
-const KB_ROWS = [
-  ['`1234567890-=', '_ๅ/-ภถุึคตจขช', '%+๑๒๓๔ู฿๕๖๗๘๙'],
-  ['qwertyuiop[]\\', 'ๆไำพะัีรนยบลฃ', '๐"ฎฑธํ๊ณฯญฐ,ฅ'],
-  ["asdfghjkl;'", 'ฟหกดเ้่าสวง', 'ฤฆฏโฌ็๋ษศซ.'],
-  ['zxcvbnm,./', 'ผปแอิืทมใฝ', '()ฉฮฺ์?ฒฬฦ'],
-];
-const KB_HINT = {};                       // small accent label per Latin key (used by SumerFast)
+// Kedmanee, the standard Thai layout. Rows: Latin key labels, then one layer per modifier:
+// plain, Shift, AltGr, AltGr+Shift. A layer is a string (one character per key) or an array ('' = nothing).
 const KB_EX = ['สวัสดี', 'ขอบคุณ', 'ครับ', 'น้ำ', 'ไม่เป็นไร'];
-const kbConv = s => s;                    // typed text -> shown text
-const kbKeys = s => s;                    // shown text -> characters on the keys
-const kbOut = () => '';                   // extra result under the field
+const KB_SETS = [{
+  name: ['Kedmanee', 'Kedmanee'], ph: 'kbPh', note: 'kbNote', ex: KB_EX,
+  rows: [
+    ['`1234567890-=\\', '_ๅ/-ภถุึคตจขชฃ', '%+๑๒๓๔ู฿๕๖๗๘๙ฅ'],
+    ['qwertyuiop[]', 'ๆไำพะัีรนยบล', '๐"ฎฑธํ๊ณฯญฐ,'],
+    ["asdfghjkl;'", 'ฟหกดเ้่าสวง', 'ฤฆฏโฌ็๋ษศซ.'],
+    ['zxcvbnm,./', 'ผปแอิืทมใฝ', '()ฉฮฺ์?ฒฬฦ'],
+  ],
+  hint: {},                 // accent label per Latin key, shown instead of the Shift layer
+  conv: s => s,             // typed text -> shown text
+  keys: ch => [ch],         // shown character -> outputs of the keys that type it
+  read: null,               // shown character -> reading under it in the key order
+  say: v => v,              // text for the play button ('' hides it)
+  out: () => '',            // extra result under the field
+}];
 const KB_CODE = { '`': 'Backquote', '-': 'Minus', '=': 'Equal', '[': 'BracketLeft', ']': 'BracketRight', '\\': 'Backslash', ';': 'Semicolon', "'": 'Quote', ',': 'Comma', '.': 'Period', '/': 'Slash' };
-const KB = KB_ROWS.flatMap(([lat, base, shift], r) => {
-  const b = [...base], sh = [...shift];
-  return [...lat].map((l, i) => ({ r, l, code: KB_CODE[l] || (/\d/.test(l) ? 'Digit' + l : 'Key' + l.toUpperCase()), base: b[i], shift: sh[i] }));
-});
-const KB_FIND = new Map();
-KB.forEach(k => KB_FIND.set(k.shift, [k, 1])); KB.forEach(k => KB_FIND.set(k.base, [k, 0]));
+const KB_MOD = ['', '⇧ ', 'AltGr ', 'AltGr ⇧ '];
 const esc = v => String(v).replace(/[&<>"]/g, c => `&#${c.charCodeAt(0)};`);
 const kbShow = ch => /\p{M}/u.test(ch) ? '◌' + ch : ch;
-let kbShift = false, kbTimer;
-// one entry per shown character, with the keys that type it: [{ code, l, sh }] (null = no key)
-const kbSeq = v => [...v].map(ch => ({ ch, keys: ch === ' ' ? [{ code: 'Space', l: 'Space' }] : [...kbKeys(ch)].map(c => KB_FIND.has(c) ? { code: KB_FIND.get(c)[0].code, l: KB_FIND.get(c)[0].l, sh: KB_FIND.get(c)[1] } : null) }));
-const kbBtn = (code, inner, cls = '') => `<button type="button" data-kb="${code}" class="kb-key ${cls}">${inner}</button>`;
+let kbSet = 0, KB = [], KB_FIND = new Map(), kbLayers = 2, kbMod = 0, kbTimer;
+const kbS = () => KB_SETS[kbSet];
+function kbBuild() {
+  const S = kbS();
+  KB = S.rows.flatMap(([lat, ...layers], r) => {
+    const L = layers.map(l => typeof l === 'string' ? [...l] : l);
+    return [...lat].map((l, i) => ({ r, l, code: KB_CODE[l] || (/\d/.test(l) ? 'Digit' + l : 'Key' + l.toUpperCase()), out: L.map(x => x[i] || '') }));
+  });
+  kbLayers = Math.max(...S.rows.map(r => r.length - 1));
+  KB_FIND = new Map();   // output -> [key, layer]; the plainest layer wins
+  for (let m = kbLayers - 1; m >= 0; m--) KB.forEach(k => k.out[m] && KB_FIND.set(k.out[m], [k, m]));
+}
+// one entry per shown character, with the keys that type it: [{ code, l, m }] (null = no key)
+const kbSeq = v => [...v].map(ch => ({ ch, keys: ch === ' ' ? [{ code: 'Space', l: 'Space', m: 0 }] : kbS().keys(ch).map(c => KB_FIND.has(c) ? { code: KB_FIND.get(c)[0].code, l: KB_FIND.get(c)[0].l, m: KB_FIND.get(c)[1] } : null) }));
+// every key is one unit wide and rows are centred: the rows step in like a trapezoid
+const kbW = n => `flex:0 0 calc((100% - ${(kbCols() - 1) * .375}rem) * ${n} / ${kbCols()} + ${(n - 1) * .375}rem)`;
+const kbCols = () => Math.max(...kbS().rows.map(r => [...r[0]].length));
+const kbBtn = (code, inner, n = 1) => `<button type="button" data-kb="${code}" class="kb-key" style="${kbW(n)}">${inner}</button>`;
+const kbCap = (s, cls) => s ? `<span class="${cls}">${esc(kbShow(s))}</span>` : '';
 function kbRender() {
-  $('#kbIn').placeholder = t('kbPh');
-  $('#kbRows').innerHTML = KB_ROWS.map((_, r) => `<div class="flex gap-1.5" style="padding-left:${[0, 3.5, 5.5, 8.5][r]}%">${KB.filter(k => k.r === r).map(k => kbBtn(k.code, `
+  kbBuild();
+  const S = kbS(), on = 'bg-white text-ink-950', off = 'text-zinc-400 hover:text-white';
+  $('#kbTabs').innerHTML = KB_SETS.length < 2 ? '' : `<div class="inline-flex rounded-lg border border-white/10 p-0.5 text-sm font-semibold">${KB_SETS.map((x, i) => `<button type="button" data-kbset="${i}" class="px-3 py-1.5 rounded-md transition ${i === kbSet ? on : off}">${esc(L(...x.name))}</button>`).join('')}</div>`;
+  $('#kbIn').placeholder = t(S.ph);
+  $('#kbNote').innerHTML = t(S.note);
+  $('#kbRows').innerHTML = S.rows.map((_, r) => `<div class="flex justify-center gap-1.5">${KB.filter(k => k.r === r).map(k => kbBtn(k.code, `
     <span class="absolute left-1.5 top-1 font-mono text-[10px] uppercase text-zinc-500">${esc(k.l)}</span>
-    <span class="absolute right-1.5 top-1 text-xs ${KB_HINT[k.l] ? 'text-accent font-semibold' : 'text-zinc-500 font-thai'}">${esc(KB_HINT[k.l] || kbShow(k.shift))}</span>
-    <span class="font-thai text-xl text-white">${esc(kbShow(k.base))}</span>`)).join('')}</div>`).join('') + `
-    <div class="flex gap-1.5">${kbBtn('Shift', '<span class="text-xs text-zinc-300">⇧ Shift</span>', '!flex-[2]')}${kbBtn('Space', '<span class="text-xs text-zinc-500">Space</span>', '!flex-[6]')}${kbBtn('Backspace', '<span class="text-xs text-zinc-300">⌫</span>', '!flex-[2]')}</div>`;
-  $('#kbEx').innerHTML = KB_EX.map(w => `<button type="button" data-kbex="${esc(w)}" class="rounded-lg border border-white/10 px-3 py-1.5 font-thai text-white hover:border-accent/60 transition">${esc(w)}</button>`).join('');
+    ${S.hint[k.l] ? `<span class="absolute right-1.5 top-1 text-xs font-semibold text-accent">${esc(S.hint[k.l])}</span>` : kbCap(k.out[1], 'absolute right-1.5 top-1 text-xs text-zinc-500 font-thai')}
+    ${kbCap(k.out[2], 'absolute right-1.5 bottom-1 text-xs text-zinc-500 font-thai')}${kbCap(k.out[3], 'absolute left-1.5 bottom-1 text-xs text-zinc-500 font-thai')}
+    ${kbCap(k.out[0], 'font-thai text-xl text-white')}`)).join('')}</div>`).join('') + `
+    <div class="flex justify-center gap-1.5">${kbBtn('Shift', '<span class="text-xs text-zinc-300">⇧ Shift</span>', 2)}${kbLayers > 2 ? kbBtn('AltGr', '<span class="text-xs text-zinc-300">AltGr</span>', 2) : ''}${kbBtn('Space', '<span class="text-xs text-zinc-500">Space</span>', kbLayers > 2 ? 5 : 7)}${kbBtn('Backspace', '<span class="text-xs text-zinc-300">⌫</span>', 2)}</div>`;
+  $('#kbEx').innerHTML = S.ex.map(w => `<button type="button" data-kbex="${esc(w)}" class="rounded-lg border border-white/10 px-3 py-1.5 font-thai text-white hover:border-accent/60 transition">${esc(w)}</button>`).join('');
   kbUpdate();
 }
 function kbUpdate() {
-  const v = $('#kbIn').value, seq = kbSeq(v);
-  const keys = seq.flatMap(x => x.keys).filter(Boolean);
-  $$('.kb-key').forEach(b => b.classList.toggle('kb-used', keys.some(k => k.code === b.dataset.kb || (b.dataset.kb === 'Shift' && k.sh))));
-  $('[data-kb="Shift"]').classList.toggle('kb-shift-on', kbShift);
+  const S = kbS(), v = $('#kbIn').value, seq = kbSeq(v), keys = seq.flatMap(x => x.keys).filter(Boolean);
+  $$('.kb-key').forEach(b => b.classList.toggle('kb-used', keys.some(k => k.code === b.dataset.kb || (b.dataset.kb === 'Shift' && k.m & 1) || (b.dataset.kb === 'AltGr' && k.m & 2))));
+  $('[data-kb="Shift"]').classList.toggle('kb-shift-on', !!(kbMod & 1));
+  $('[data-kb="AltGr"]')?.classList.toggle('kb-shift-on', !!(kbMod & 2));
   $('#kbSeq').innerHTML = seq.length ? seq.map((x, i) => `<span data-kbi="${i}" class="inline-flex flex-col items-center min-w-[44px] rounded-lg border border-white/10 bg-ink-950 px-2 py-1">
     <span class="font-thai text-lg leading-tight text-white">${x.ch === ' ' ? '␣' : esc(kbShow(x.ch))}</span>
-    <span class="font-mono text-[11px] text-zinc-500">${x.keys.map(k => k ? (k.sh ? '⇧ ' : '') + esc(k.l.length > 1 ? k.l : k.l.toUpperCase()) : '?').join(' ')}</span></span>`).join('') : `<span class="self-center text-sm text-zinc-500">${t('kbEmpty')}</span>`;
-  $('#kbSay').dataset.say = v.trim(); $('#kbSay').classList.toggle('invisible', !v.trim());
-  $('#kbOut').innerHTML = kbOut(v.trim());
+    ${S.read?.(x.ch) ? `<span class="font-mono text-[11px] text-accent">${esc(S.read(x.ch))}</span>` : ''}
+    <span class="font-mono text-[11px] text-zinc-500">${x.keys.map(k => k ? KB_MOD[k.m] + esc(k.l.length > 1 ? k.l : k.l.toUpperCase()) : '?').join(' ')}</span></span>`).join('') : `<span class="self-center text-sm text-zinc-500">${t('kbEmpty')}</span>`;
+  const say = v.trim() && S.say(v.trim());
+  $('#kbSay').dataset.say = say || ''; $('#kbSay').classList.toggle('invisible', !say);
+  $('#kbOut').innerHTML = S.out(v.trim());
 }
 function kbType(ch) {
+  if (!ch) return;
   const el = $('#kbIn');
   el.setRangeText(ch, el.selectionStart ?? el.value.length, el.selectionEnd ?? el.value.length, 'end');
-  const v = kbConv(el.value); if (v !== el.value) el.value = v;
+  const v = kbS().conv(el.value); if (v !== el.value) el.value = v;
   kbUpdate();
 }
 function kbFlash(code) {
@@ -2588,39 +2613,46 @@ function kbFlash(code) {
 function kbPlay() {
   clearTimeout(kbTimer);
   const steps = kbSeq($('#kbIn').value).flatMap((x, i) => x.keys.map(k => ({ i, k })));
-  $$('.kb-on').forEach(b => b.classList.remove('kb-on'));
+  const off = () => $$('.kb-on').forEach(b => b.classList.remove('kb-on'));
   const step = i => {
-    $$('.kb-on').forEach(b => b.classList.remove('kb-on'));
+    off();
     if (i >= steps.length) return;
     const { i: ci, k } = steps[i];
     $(`[data-kbi="${ci}"]`)?.classList.add('kb-on');
     if (k) $(`[data-kb="${k.code}"]`)?.classList.add('kb-on');
-    if (k?.sh) $('[data-kb="Shift"]').classList.add('kb-on');
-    kbTimer = setTimeout(() => { $$('.kb-on').forEach(b => b.classList.remove('kb-on')); kbTimer = setTimeout(() => step(i + 1), 120) }, 520);
+    if (k?.m & 1) $('[data-kb="Shift"]').classList.add('kb-on');
+    if (k?.m & 2) $('[data-kb="AltGr"]')?.classList.add('kb-on');
+    kbTimer = setTimeout(() => { off(); kbTimer = setTimeout(() => step(i + 1), 120) }, 520);
   };
   step(0);
 }
 $('#kbIn').addEventListener('keydown', e => {
-  if (e.ctrlKey || e.metaKey || e.altKey || e.isComposing) return;
+  const alt = e.getModifierState?.('AltGraph') || (e.altKey && kbLayers > 2);
+  if ((e.ctrlKey && !alt) || e.metaKey || (e.altKey && !alt) || e.isComposing) return;
   const k = KB.find(k => k.code === e.code); if (!k) return;
-  e.preventDefault(); kbType(e.shiftKey ? k.shift : k.base); kbFlash(k.code);
+  e.preventDefault(); kbType(k.out[(alt ? 2 : 0) + (e.shiftKey ? 1 : 0)]); kbFlash(k.code);
 });
-$('#kbIn').addEventListener('input', e => { const el = e.target, v = kbConv(el.value); if (v !== el.value) el.value = v; kbUpdate() });
+$('#kbIn').addEventListener('input', e => { const el = e.target, v = kbS().conv(el.value); if (v !== el.value) el.value = v; kbUpdate() });
 $('#kbRows').addEventListener('click', e => {
   const code = e.target.closest('[data-kb]')?.dataset.kb; if (!code) return;
   const el = $('#kbIn');
-  if (code === 'Shift') { kbShift = !kbShift; return kbUpdate() }
+  if (code === 'Shift' || code === 'AltGr') { kbMod ^= code === 'Shift' ? 1 : 2; return kbUpdate() }
   if (code === 'Backspace') {
     const a = el.selectionStart ?? el.value.length, b = el.selectionEnd ?? a;
-    el.setRangeText('', a === b ? Math.max(0, a - 1) : a, b, 'end'); kbFlash(code); return kbUpdate();
+    const cut = a === b ? (a && /[\uDC00-\uDFFF]/.test(el.value[a - 1]) ? 2 : 1) : 0;
+    el.setRangeText('', Math.max(0, a - cut), b, 'end'); kbFlash(code); return kbUpdate();
   }
   const k = KB.find(k => k.code === code);
-  kbType(code === 'Space' ? ' ' : kbShift ? k.shift : k.base); kbFlash(code);
-  if (kbShift) { kbShift = false; kbUpdate() }
+  kbType(code === 'Space' ? ' ' : k.out[kbMod]); kbFlash(code);
+  if (kbMod) { kbMod = 0; kbUpdate() }
 });
 $('#kbEx').addEventListener('click', e => {
   const w = e.target.closest('[data-kbex]')?.dataset.kbex; if (!w) return;
   $('#kbIn').value = w; kbUpdate(); kbPlay();
+});
+$('#kbTabs').addEventListener('click', e => {
+  const i = e.target.closest('[data-kbset]')?.dataset.kbset; if (i == null) return;
+  kbSet = +i; kbMod = 0; clearTimeout(kbTimer); $('#kbIn').value = ''; kbRender(); icons();
 });
 $('#kbPlay').onclick = kbPlay;
 $('#kbClear').onclick = () => { clearTimeout(kbTimer); $('#kbIn').value = ''; kbUpdate() };
