@@ -42,6 +42,7 @@ tailwind.config = {
   .speaking { animation: pulseRing 1s infinite; color: #e8b04b; border-color: #e8b04b; }
   .kb-key { position: relative; height: 3.5rem; border-radius: .6rem; border: 1px solid #ffffff1a; background: #0d0e11; transition: background .15s, border-color .15s, transform .1s; }
   .kb-key:hover { background: #ffffff0d; } .kb-key:active { transform: translateY(1px); }
+  .kb-tall .kb-key { height: 4.75rem; } .kb-tall .kb-key .text-xs { font-size: .9rem; }
   .kb-used { border-color: #e8b04b80; } .kb-shift-on { background: #e8b04b26; }
   .kb-on, .kb-on * { background: #e8b04b !important; color: #09090b !important; border-color: #e8b04b !important; }
   .say-th { cursor: pointer; color: #e4e4e7; text-decoration: underline dotted #e8b04b80; text-underline-offset: 4px; transition: color .2s; }
@@ -2576,6 +2577,7 @@ function kbRender() {
   const S = kbS(), on = 'bg-white text-ink-950', off = 'text-zinc-400 hover:text-white';
   $('#kbTabs').innerHTML = KB_SETS.length < 2 ? '' : `<div class="inline-flex rounded-lg border border-white/10 p-0.5 text-sm font-semibold">${KB_SETS.map((x, i) => `<button type="button" data-kbset="${i}" class="px-3 py-1.5 rounded-md transition ${i === kbSet ? on : off}">${esc(L(...x.name))}</button>`).join('')}</div>`;
   $('#kbIn').placeholder = t(S.ph);
+  $('#kbRows').classList.toggle('kb-tall', kbLayers > 2);
   $('#kbNote').innerHTML = t(S.note);
   $('#kbRows').innerHTML = S.rows.map((_, r) => `<div class="flex justify-center gap-1.5">${KB.filter(k => k.r === r).map(k => kbBtn(k.code, `
     <span class="absolute left-1.5 top-1 font-mono text-[10px] uppercase text-zinc-500">${esc(k.l)}</span>
