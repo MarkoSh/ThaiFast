@@ -1971,7 +1971,7 @@ const SITES = [
 ];
 function renderMore() {
   $('#moreGrid').innerHTML = SITES.filter(x => x.k !== SITE).map(x => `
-    <a href="${x.url}" class="group flex items-center gap-5 rounded-3xl border border-white/10 bg-ink-900 p-6 hover:border-accent/50 hover:-translate-y-1 transition duration-300">
+    <a href="${x.url}" target="_blank" rel="noopener" class="group flex items-center gap-5 rounded-3xl border border-white/10 bg-ink-900 p-6 hover:border-accent/50 hover:-translate-y-1 transition duration-300">
       <span class="grid place-items-center w-16 h-16 shrink-0 rounded-2xl bg-accent/10 text-3xl font-semibold text-accent" style="font-family:'Noto Sans Thai','Noto Sans Cuneiform',Inter,sans-serif">${x.glyph}</span>
       <span class="flex-1 min-w-0">
         <span class="flex items-center gap-1.5 text-sm font-bold text-white"><i data-lucide="zap" class="w-3.5 h-3.5 text-accent"></i><span>${x.name[0]}<span class="text-accent">${x.name[1]}</span></span></span>
