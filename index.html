@@ -40,6 +40,8 @@ tailwind.config = {
   .pop { animation: pop .35s; }
   @keyframes pulseRing { 0% { box-shadow: 0 0 0 0 rgba(232,176,75,.55) } 100% { box-shadow: 0 0 0 14px rgba(232,176,75,0) } }
   .speaking { animation: pulseRing 1s infinite; color: #e8b04b; border-color: #e8b04b; }
+  .say-th { cursor: pointer; color: #e4e4e7; text-decoration: underline dotted #e8b04b80; text-underline-offset: 4px; transition: color .2s; }
+  .say-th:hover, .say-th.speaking { color: #e8b04b; animation: none; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
   .fade-up { animation: fadeUp .45s cubic-bezier(.2,.8,.2,1); }
   .grid-bg { background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 48px 48px; }
@@ -1541,6 +1543,31 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-say]');
   if (b) { e.stopPropagation(); speak(b.dataset.say, b, b.dataset.voice) }
 });
+// Thai words inside notes and tips become tappable: only text that mixes Thai with Latin/Cyrillic,
+// so phrase cards (pure Thai) and buttons keep their own behaviour
+const SAY_RUN = /[\u0E00-\u0E7F]+(?: [\u0E00-\u0E7F]+)*/g, SAY_HAS = /[\u0E00-\u0E7F]/, SAY_OTHER = /[a-zA-Zа-яА-ЯёЁ]/;
+function sayThai(root) {
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), nodes = [];
+  while (w.nextNode()) {
+    const n = w.currentNode, v = n.nodeValue;
+    if (SAY_HAS.test(v) && SAY_OTHER.test(v) && !n.parentElement.closest('button, a, [data-say], script, style, textarea, input')) nodes.push(n);
+  }
+  nodes.forEach(n => {
+    const f = document.createDocumentFragment(); let last = 0;
+    n.nodeValue.replace(SAY_RUN, (m, i) => {
+      f.append(n.nodeValue.slice(last, i));
+      const s = document.createElement('span');
+      s.className = 'say-th'; s.dataset.say = m; s.textContent = m;
+      f.append(s); last = i + m.length;
+    });
+    f.append(n.nodeValue.slice(last));
+    n.replaceWith(f);
+  });
+}
+let sayQueued = false;
+new MutationObserver(() => {
+  if (!sayQueued) { sayQueued = true; requestAnimationFrame(() => { sayQueued = false; sayThai(document.body) }) }
+}).observe(document.body, { childList: true, subtree: true, characterData: true });
 
 /* ================= RENDER ================= */
 function renderText() {
