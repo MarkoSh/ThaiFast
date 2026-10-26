@@ -1033,7 +1033,10 @@ const PH = [
   { c: 'survive', np: 1, th: 'สู้ๆ', lat: 'sûu sûu', cyr: 'су су!', ru: 'Держись! Давай!', en: 'You got this!', tip: ['Подбодрить кого угодно — тайцы это обожают.', 'Cheer anyone on — Thais love it.'] }
 ];
 
-const PARTICLE = { m: { th: 'ครับ', lat: 'khráp', cyr: 'кхрап' }, f: { th: 'ค่ะ', lat: 'khâ', cyr: 'кха' } };
+// women end questions and calls with คะ (high tone), everything else with ค่ะ; men always use ครับ.
+// qre spots a question by its Thai question word (ไหม, อะไร, ไหน, กี่, เท่าไหร่, … or a final ยัง / บ้าง / ไง / เหรอ / เปล่า)
+const PARTICLE = { m: { th: 'ครับ', lat: 'khráp', cyr: 'кхрап' }, f: { th: 'ค่ะ', lat: 'khâ', cyr: 'кха' }, q: { th: 'คะ', lat: 'khá', cyr: 'кха' },
+  qre: /ไหม|มั้ย|อะไร|ไหน|เท่าไร|เท่าไหร่|กี่|ใคร|ทำไม|ยังไง|อย่างไร|เมื่อไร|เมื่อไหร่|หรือเปล่า|หรือยัง|(ยัง|บ้าง|ไง|เหรอ|หรอ|เปล่า|ป่าว)$/ };
 const PRONOUN = { m: { th: 'ผม', lat: 'phǒm', cyr: 'пхом' }, f: { th: 'ฉัน', lat: 'chǎn', cyr: 'чхан' } };
 
 /* ================= SOUNDS & TONES ================= */
@@ -1597,13 +1600,15 @@ const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 const t = k => T[lang][k];
 const L = (ru, en) => lang === 'ru' ? ru : en;
-const pt = () => PARTICLE[gender];
+// particle for a sentence th (pt() with no text: the plain one); ptCall: calling someone (น้องคะ!)
+const pt = th => gender === 'f' && PARTICLE.q && PARTICLE.qre.test((th || '').replace(/\s+/g, '')) ? PARTICLE.q : PARTICLE[gender];
+const ptCall = () => gender === 'f' && PARTICLE.q ? PARTICLE.q : PARTICLE[gender];
 const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]] } return a };
 const icons = () => lucide.createIcons();
-const say = x => x.say || x.th + (x.np ? '' : pt().th);
-const thHTML = x => x.th + (x.np ? '' : `<span class="text-accent/80">${pt().th}</span>`);
-const latTxt = x => x.lat + (x.np ? '' : ' ' + pt().lat);
-const cyrTxt = x => x.cyr ? x.cyr + (x.np ? '' : ' ' + pt().cyr) : '';
+const say = x => x.say || x.th + (x.np ? '' : pt(x.th).th);
+const thHTML = x => x.th + (x.np ? '' : `<span class="text-accent/80">${pt(x.th).th}</span>`);
+const latTxt = x => x.lat + (x.np ? '' : ' ' + pt(x.th).lat);
+const cyrTxt = x => x.cyr ? x.cyr + (x.np ? '' : ' ' + pt(x.th).cyr) : '';
 const playBtn = (text, size = 'w-10 h-10', voice) => `<button data-say="${text}"${voice ? ` data-voice="${voice}"` : ''} class="shrink-0 grid place-items-center ${size} rounded-full border border-white/10 hover:border-accent hover:text-accent transition" aria-label="Play"><i data-lucide="volume-2" class="w-4 h-4"></i></button>`;
 const curve = d => `<svg viewBox="0 0 60 34" class="w-full h-10" fill="none"><path d="M6 6 H54 M6 18 H54 M6 30 H54" stroke="currentColor" stroke-opacity=".08"/><path class="tone-path" pathLength="100" d="${d}" stroke="#e8b04b" stroke-width="3" stroke-linecap="round"/></svg>`;
 const chip = (on, extra = '') => `px-3.5 py-1.5 rounded-full text-sm font-medium border transition flex items-center gap-1.5 ${on ? 'bg-accent text-ink-950 border-accent' : 'border-white/10 text-zinc-400 hover:text-white'} ${extra}`;
@@ -1926,9 +1931,9 @@ const exTile = x => `<div class="rounded-2xl border border-white/10 bg-ink-900 p
   <p class="mt-1 font-mono text-sm text-accent">${x.lat}</p>
   ${lang === 'ru' ? `<p class="text-xs text-zinc-500">${x.cyr}</p>` : ''}
   <p class="mt-2 text-sm font-medium text-white">${x[lang]}</p>
-  <button data-say="${x.xth + pt().th}" class="mt-3 w-full text-left flex items-start gap-2 rounded-xl bg-ink-950 border border-white/5 p-3 hover:border-accent/40 transition">
+  <button data-say="${x.xth + pt(x.xth).th}" class="mt-3 w-full text-left flex items-start gap-2 rounded-xl bg-ink-950 border border-white/5 p-3 hover:border-accent/40 transition">
     <i data-lucide="volume-2" class="w-4 h-4 mt-1 shrink-0 text-zinc-500"></i>
-    <span><span class="font-thai text-white">${x.xth}<span class="text-accent/70">${pt().th}</span></span><span class="block font-mono text-xs text-accent/80">${x.xlat} ${pt().lat}</span><span class="block text-xs text-zinc-400">${L(x.xru, x.xen)}</span></span>
+    <span><span class="font-thai text-white">${x.xth}<span class="text-accent/70">${pt(x.xth).th}</span></span><span class="block font-mono text-xs text-accent/80">${x.xlat} ${pt(x.xth).lat}</span><span class="block text-xs text-zinc-400">${L(x.xru, x.xen)}</span></span>
   </button></div>`;
 
 /* --- questions --- */
@@ -1942,7 +1947,7 @@ let ordI = 0, ordN = 2;
 function renderCls() {
   $('#orderItems').innerHTML = ORDER.map((x, i) => `<button data-ord="${i}" class="${chip(i === ordI)}">${x[lang]}</button>`).join('');
   $('#orderNums').innerHTML = ORDER_N.map(([n]) => `<button data-ordn="${n}" class="${chip(n === ordN)} font-mono">× ${n}</button>`).join('');
-  const it = ORDER[ordI], o = orderPhrase(it, ordN), c = CLS.find(x => x.th === it.cls), p = pt();
+  const it = ORDER[ordI], o = orderPhrase(it, ordN), c = CLS.find(x => x.th === it.cls), p = pt(o.th);
   $('#orderOut').innerHTML = `<div class="fade-up flex items-start justify-between gap-4"><div>
     <p class="font-thai text-3xl md:text-4xl text-white">${o.th}<span class="text-accent/80">${p.th}</span></p>
     <p class="mt-2 font-mono text-accent">${o.lat} ${p.lat}</p>
@@ -1996,9 +2001,9 @@ function dlgStart(i, play) {
 }
 // your replies: He/She voice with the polite particle
 const dlgYouV = () => undefined;
-const dlgYouSay = o => o.th + pt().th;
+const dlgYouSay = o => o.th + pt(o.th).th;
 function dlgBubble(b) {
-  const p = pt(), tr = $('#dlgTr').checked;
+  const p = pt(b.th), tr = $('#dlgTr').checked;
   if (b.who === 'them') return `<div class="fade-up flex items-end gap-2 max-w-[88%]">
     <span class="grid place-items-center w-8 h-8 shrink-0 rounded-full bg-ink-800 border border-white/10 text-zinc-400"><i data-lucide="${voiceIcon(b.v)}" class="w-4 h-4"></i></span>
     <button data-say="${b.th}" data-voice="${b.v}" class="text-left rounded-2xl rounded-bl-md bg-ink-800 border border-white/10 px-4 py-3 hover:border-accent/40 transition">
@@ -2009,7 +2014,7 @@ function dlgBubble(b) {
     <span class="block mt-1 text-sm text-zinc-300">${b[lang]}</span></button></div>`;
 }
 function renderDlg() {
-  const sc = SCENES[dlg.s], n = sc.steps.length, p = pt();
+  const sc = SCENES[dlg.s], n = sc.steps.length;
   $('#sceneTabs').innerHTML = SCENES.map((x, i) => `<button data-scene="${i}" class="${chip(i === dlg.s)}"><i data-lucide="${x.icon}" class="w-3.5 h-3.5"></i>${x[lang]}</button>`).join('');
   $('#dlgProg').textContent = `${t('dlgStep')} ${Math.min(dlg.step + 1, n)} / ${n}`;
   $('#dlgLog').innerHTML = dlg.log.map(dlgBubble).join('');
@@ -2025,8 +2030,8 @@ function renderDlg() {
   if (nextStep) preload(nextStep.them.th, nextStep.them.v);
   $('#dlgOpts').innerHTML = `<p class="text-xs uppercase tracking-widest text-zinc-500">${t('dlgYou')}</p>` + dlg.order.map(i => { const o = opts[i]; return `
     <button data-opt="${i}" class="fade-up text-left rounded-xl border border-white/10 bg-ink-900 px-4 py-3 hover:border-accent/50 transition">
-      <span class="font-thai text-lg text-white">${o.th}<span class="text-accent/70">${p.th}</span></span>
-      <span class="block font-mono text-xs text-accent">${o.lat} ${p.lat}</span>
+      <span class="font-thai text-lg text-white">${o.th}<span class="text-accent/70">${pt(o.th).th}</span></span>
+      <span class="block font-mono text-xs text-accent">${o.lat} ${pt(o.th).lat}</span>
       <span class="block text-sm text-zinc-400">${o[lang]}</span></button>` }).join('');
 }
 function dlgTheirTurn(token) {
@@ -2061,7 +2066,7 @@ $('#dlgTr').onchange = () => { renderDlg(); icons() };
 
 /* --- etiquette --- */
 function renderEtq() {
-  const p = pt(), y = POLITE_YES[gender];
+  const p = ptCall(), y = POLITE_YES[gender];
   $('#addrGrid').innerHTML = ADDR.map(x => `<div class="rounded-2xl border border-white/10 bg-ink-900 p-5 hover:border-accent/40 transition">
     <div class="flex items-start justify-between"><span class="font-thai text-3xl text-white">${x.th}</span>${playBtn(x.th, 'w-9 h-9')}</div>
     <p class="font-mono text-sm text-accent">${x.lat}</p>${lang === 'ru' ? `<p class="text-xs text-zinc-500">${x.cyr}</p>` : ''}
