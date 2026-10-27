@@ -23,7 +23,7 @@ const out = new Function('let gender;\n' + js + `
   SCENES.forEach(sc => sc.steps.forEach(st => res[st.them.v].add(st.them.th)));
   both('ไหว้'); res.m.add(POLITE_YES.m.th); res.f.add(POLITE_YES.f.th);
   ADDR.forEach(x => both(x.th)); QWORDS.concat(QPARTS).forEach(x => both(x.th));
-  CLS.forEach(x => both(x.th)); FOOD.forEach(g => g.items.forEach(x => both(x.th))); SIGNS.forEach(x => both(x.th)); TWISTERS.forEach(x => both(x.th)); STORIES.forEach(st => st.paras.forEach(x => res.m.add(x.th)));
+  CLS.forEach(x => both(x.th)); FOOD.forEach(g => g.items.forEach(x => both(x.th))); SIGNS.forEach(x => both(x.th)); TWISTERS.forEach(x => both(x.th));
   for (const g of ['m', 'f']) {
     const call = (g === 'f' ? PARTICLE.q : PARTICLE.m).th;
     SCENES.forEach(sc => sc.steps.forEach(st => st.you.forEach(o => res[g].add(o.th + pf(g, o.th)))));
