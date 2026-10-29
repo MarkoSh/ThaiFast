@@ -733,6 +733,7 @@ tailwind.config = {
 
 <footer class="border-t border-white/5 py-8 text-center text-sm text-zinc-600">
   <p>ThaiFast · <span data-i18n="footer"></span></p>
+  <p id="offlineState" class="mt-3 text-xs text-zinc-600"></p>
   <a href="https://github.com/MarkoSh/ThaiFast" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-1.5 text-zinc-500 hover:text-accent transition"><i data-lucide="github" class="w-4 h-4"></i>github.com/MarkoSh/ThaiFast</a>
 </footer>
 
@@ -3015,6 +3016,28 @@ $$('main > section').forEach(sec => audioIO.observe(sec));
 // first screen right away: the phrase of the day now, the rest of its list in the background
 preload(say(HERO[heroI]));
 HERO.forEach(x => preloadIdle(say(x)));
+
+/* ================= OFFLINE ================= */
+// sw.js keeps the whole site (page, audio, libraries, fonts) for use without internet and, when online,
+// downloads only what changed (offline.json, written by tools/offline.py on every commit)
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  const OFF = {
+    ru: ['Сохраняем сайт для работы без интернета: {p}%', 'Сайт сохранён — работает и без интернета', 'Нет сети — открыта сохранённая версия'],
+    en: ['Saving the site for offline use: {p}%', 'Saved — the site works without internet too', 'Offline — showing the saved version'],
+    th: ['กำลังบันทึกเว็บไว้ใช้แบบออฟไลน์: {p}%', 'บันทึกแล้ว ใช้งานได้แม้ไม่มีอินเทอร์เน็ต', 'ไม่มีอินเทอร์เน็ต กำลังแสดงเวอร์ชันที่บันทึกไว้'],
+  };
+  const offSay = (i, p) => { const el = document.getElementById('offlineState'); if (el) el.textContent = (OFF[document.documentElement.lang] || OFF.en)[i].replace('{p}', p) };
+  navigator.serviceWorker.addEventListener('message', e => {
+    const d = e.data; if (!d || d.type !== 'offline') return;
+    if (d.offline) offSay(2); else if (d.done < d.total) offSay(0, Math.floor(d.done / d.total * 100)); else offSay(1);
+  });
+  addEventListener('offline', () => offSay(2));
+  addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').then(() => navigator.serviceWorker.ready)
+      .then(r => r.active && r.active.postMessage({ type: 'sync', full: !(navigator.connection && navigator.connection.saveData) }))
+      .catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
