@@ -683,11 +683,25 @@ tailwind.config = {
   </section>
   <!-- /FACTS -->
 
-  <!-- STORIES -->
-  <section id="stories" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
-    <div class="max-w-4xl mx-auto px-4">
+  <!-- IDIOMS -->
+  <section id="idioms" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
+    <div class="max-w-6xl mx-auto px-4">
       <div class="reveal max-w-2xl">
         <p class="font-mono text-sm text-accent">16</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="idTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="idSub"></p>
+      </div>
+      <div id="idTable" class="reveal mt-10 rounded-2xl border border-white/10 bg-ink-900 overflow-hidden"></div>
+      <p class="reveal mt-6 text-xs text-zinc-500 leading-relaxed" data-i18n-html="idSrc"></p>
+    </div>
+  </section>
+  <!-- /IDIOMS -->
+
+  <!-- STORIES -->
+  <section id="stories" class="py-20 md:py-28 border-t border-white/5">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">17</p>
         <h2 class="mt-2 flex flex-wrap items-center gap-3 text-3xl md:text-4xl font-bold text-white tracking-tight"><span data-i18n="stTitle"></span><span class="rounded-full border border-violet-400/30 bg-violet-400/5 px-2.5 py-0.5 text-xs font-medium text-violet-300" data-i18n="stBadge"></span></h2>
         <p class="mt-3 text-zinc-400" data-i18n="stSub"></p>
       </div>
@@ -697,10 +711,10 @@ tailwind.config = {
   <!-- /STORIES -->
 
   <!-- LEARN -->
-  <section id="learn" class="py-20 md:py-28 border-t border-white/5">
+  <section id="learn" class="py-20 md:py-28 border-t border-white/5 bg-ink-900/40">
     <div class="max-w-6xl mx-auto px-4">
       <div class="reveal max-w-2xl">
-        <p class="font-mono text-sm text-accent">17</p>
+        <p class="font-mono text-sm text-accent">18</p>
         <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="lnTitle"></h2>
         <p class="mt-3 text-zinc-400" data-i18n="lnSub"></p>
       </div>
@@ -752,6 +766,10 @@ const T = {
     fc_phys: 'Физика и химия', fc_body: 'Трюки тела', fc_lang: 'О языке',
     twTitle: 'Скороговорки', twSub: 'Тайцы называют их ประโยคพูดยาก — «фразы, которые трудно сказать». Сначала медленно, потом быстрее: отличная тренировка тонов и трудных согласных.',
     twPlay: 'Слушать', twSlow: 'Медленно', twFast: 'Быстро',
+    idTitle: 'Идиомы', idSub: 'Тайцы любят สำนวน — короткие картинки из деревни, с рынка и из храма: кориандр поверх блюда, лягушка под половинкой кокоса. Сверху — то, что услышите почти наверняка. Нажмите на идиому или пример, чтобы услышать.',
+    idColIdiom: 'Идиома', idColMeaning: 'Значение', idColExample: 'Пример', idColFreq: 'Частота', idLit: 'дословно',
+    idTier: ['', 'встречается', 'часто', 'очень часто'],
+    idSrc: 'Частота — наша оценка, а не подсчёт: открытого корпуса тайской речи с подсчётом идиом нет. Опирались на школьные списки สำนวน и สุภาษิต (учебники и <a class="underline hover:text-accent" href="https://th.wiktionary.org/wiki/หมวดหมู่:สำนวนภาษาไทย" target="_blank" rel="noopener">тайский Викисловарь</a>) и на то, какие из них знает любой тайский школьник.',
     lnTitle: 'Как учить быстрее', lnSub: 'Короткая выжимка: что подтверждают исследования памяти и обучения, что работает у полиглотов и во что верить не стоит. Метка на карточке показывает, насколько метод проверен.',
     lnProof: 'Доказано', lnData: 'Есть данные', lnPoly: 'Опыт полиглотов', lnMyth: 'Миф',
     lnSrc: 'Исследования: <a class="underline hover:text-white" href="https://doi.org/10.1037/0033-2909.132.3.354" target="_blank" rel="noopener">Cepeda et al., 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noopener">Roediger &amp; Karpicke, 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.3138/cmlr.63.1.59" target="_blank" rel="noopener">Nation, 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.1121/1.1894649" target="_blank" rel="noopener">Logan, Lively &amp; Pisoni, 1991</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2008.02127.x" target="_blank" rel="noopener">Kornell &amp; Bjork, 2008</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2007.01885.x" target="_blank" rel="noopener">Dumay &amp; Gaskell, 2007</a> · <a class="underline hover:text-white" href="https://doi.org/10.1037/h0076156" target="_blank" rel="noopener">Atkinson &amp; Raugh, 1975</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1539-6053.2009.01038.x" target="_blank" rel="noopener">Pashler et al., 2008</a>',
@@ -859,6 +877,10 @@ const T = {
     fc_phys: 'Physics & chemistry', fc_body: 'Body tricks', fc_lang: 'About the language',
     twTitle: 'Tongue twisters', twSub: 'Thais call them ประโยคพูดยาก, “hard-to-say sentences”. Start slow, then speed up: great practice for tones and tricky consonants.',
     twPlay: 'Listen', twSlow: 'Slow', twFast: 'Fast',
+    idTitle: 'Idioms', idSub: 'Thais love สำนวน: little pictures from the village, the market and the temple — coriander sprinkled on top, a frog under a coconut shell. The ones at the top you are almost sure to hear. Tap an idiom or an example to hear it.',
+    idColIdiom: 'Idiom', idColMeaning: 'Meaning', idColExample: 'Example', idColFreq: 'Frequency', idLit: 'literally',
+    idTier: ['', 'you’ll meet it', 'common', 'very common'],
+    idSrc: 'Frequency is our estimate, not a count: there is no open corpus of spoken Thai with idiom counts. We relied on school lists of สำนวน and สุภาษิต (textbooks and the <a class="underline hover:text-accent" href="https://th.wiktionary.org/wiki/หมวดหมู่:สำนวนภาษาไทย" target="_blank" rel="noopener">Thai Wiktionary</a>) and on which ones every Thai schoolchild knows.',
     lnTitle: 'How to learn faster', lnSub: 'A short digest: what research on memory and learning supports, what works for polyglots, and what not to believe. The tag on each card shows how well tested the method is.',
     lnProof: 'Proven', lnData: 'Some evidence', lnPoly: 'Polyglot practice', lnMyth: 'Myth',
     lnSrc: 'Research: <a class="underline hover:text-white" href="https://doi.org/10.1037/0033-2909.132.3.354" target="_blank" rel="noopener">Cepeda et al., 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noopener">Roediger &amp; Karpicke, 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.3138/cmlr.63.1.59" target="_blank" rel="noopener">Nation, 2006</a> · <a class="underline hover:text-white" href="https://doi.org/10.1121/1.1894649" target="_blank" rel="noopener">Logan, Lively &amp; Pisoni, 1991</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2008.02127.x" target="_blank" rel="noopener">Kornell &amp; Bjork, 2008</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1467-9280.2007.01885.x" target="_blank" rel="noopener">Dumay &amp; Gaskell, 2007</a> · <a class="underline hover:text-white" href="https://doi.org/10.1037/h0076156" target="_blank" rel="noopener">Atkinson &amp; Raugh, 1975</a> · <a class="underline hover:text-white" href="https://doi.org/10.1111/j.1539-6053.2009.01038.x" target="_blank" rel="noopener">Pashler et al., 2008</a>',
@@ -1597,6 +1619,93 @@ const TWISTERS = [
     tip: ['Три провинции: на юге, на востоке и на самом юге. Попробуйте быстро, не путая ร, ย и ล.', 'Three provinces: south, east and far south. Say them fast without mixing up ร, ย and ล.'] },
 ];
 
+/* ================= IDIOMS ================= */
+// สำนวน in everyday use; f: 3 very common, 2 common, 1 you'll meet it (our estimate, see idSrc)
+const IDIOM_SCALE = 'tier';
+const IDIOMS = [
+  { th: 'ผักชีโรยหน้า', lat: 'phàk-chii roi nâa', cyr: 'пхак-чхи рой на', f: 3, lit: ['кориандр, посыпанный сверху', 'coriander sprinkled on top'],
+    ru: 'сделать для вида, навести красоту снаружи', en: 'window dressing, doing it just for show',
+    ex: { th: 'ทำความสะอาดแค่ผักชีโรยหน้า', ru: 'Прибрались только для вида.', en: 'They cleaned up just for show.' } },
+  { th: 'เส้นใหญ่', lat: 'sên yài', cyr: 'сен яй', f: 3, lit: ['толстая лапша / толстая нить', 'a thick noodle, a thick line'],
+    ru: 'со связями, «блатной»', en: 'well-connected, has pull',
+    ex: { th: 'เขาได้งานนี้เพราะเส้นใหญ่', ru: 'Он получил эту работу по блату.', en: 'He got this job through connections.' } },
+  { th: 'ยิงปืนนัดเดียวได้นกสองตัว', lat: 'ying bpuen nát diao dâai nók sǒng dtua', cyr: 'йинг пын нат дьяо дай нок сонг туа', f: 3, lit: ['один выстрел — две птицы', 'one shot, two birds'],
+    ru: 'убить двух зайцев', en: 'kill two birds with one stone',
+    ex: { th: 'ไปเที่ยวด้วย ทำงานด้วย ยิงปืนนัดเดียวได้นกสองตัว', ru: 'И отдохнём, и поработаем — двух зайцев сразу.', en: 'A trip and work at once: two birds with one stone.' } },
+  { th: 'วัวหายล้อมคอก', lat: 'wua hǎai lóm khôk', cyr: 'уа хай лом кхок', f: 3, lit: ['корова пропала — огородили загон', 'the cow is gone, now fence the pen'],
+    ru: 'спохватиться, когда уже поздно', en: 'closing the stable door after the horse has bolted',
+    ex: { th: 'ติดกล้องหลังโดนขโมย วัวหายล้อมคอกชัด ๆ', ru: 'Камеру поставили после кражи — поздно спохватились.', en: 'A camera after the theft: shutting the stable door too late.' } },
+  { th: 'น้ำขึ้นให้รีบตัก', lat: 'náam khûen hâi rîip dtàk', cyr: 'нам кхын хай рип так', f: 3, lit: ['вода поднялась — скорее черпай', 'when the water rises, scoop fast'],
+    ru: 'куй железо, пока горячо', en: 'make hay while the sun shines',
+    ex: { th: 'ลดราคาวันนี้วันเดียว น้ำขึ้นให้รีบตัก', ru: 'Скидка только сегодня — лови момент.', en: 'The sale is today only: make hay while the sun shines.' } },
+  { th: 'ไก่เห็นตีนงู งูเห็นนมไก่', lat: 'gài hěn dtiin nguu, nguu hěn nom gài', cyr: 'кай хен тин нгу, нгу хен ном кай', f: 3, lit: ['курица видит ноги змеи, змея — соски курицы', 'the hen sees the snake’s feet, the snake sees the hen’s teats'],
+    ru: 'оба знают секреты друг друга', en: 'each knows the other’s secrets',
+    ex: { th: 'สองคนนี้ไม่กล้าแฉกัน ไก่เห็นตีนงู งูเห็นนมไก่', ru: 'Эти двое друг друга не сдадут — оба знают лишнее.', en: 'Those two won’t expose each other: each knows too much.' } },
+  { th: 'ปิดทองหลังพระ', lat: 'bpìt thong lǎng phrá', cyr: 'пит тхонг ланг пхра', f: 3, lit: ['клеить золото на спину Будды', 'gilding the back of the Buddha'],
+    ru: 'делать добро, которого никто не видит', en: 'doing good work nobody sees',
+    ex: { th: 'แม่บ้านคนนี้ปิดทองหลังพระมาตลอด', ru: 'Эта уборщица всегда тихо делала всю работу.', en: 'This housekeeper has always done the unseen work.' } },
+  { th: 'กบในกะลา', lat: 'gòp nai gà-laa', cyr: 'коп най ка-ла', f: 3, lit: ['лягушка под скорлупой кокоса', 'a frog under a coconut shell'],
+    ru: 'человек с узким кругозором', en: 'someone with a narrow view of the world',
+    ex: { th: 'ออกไปดูโลกบ้าง อย่าเป็นกบในกะลา', ru: 'Посмотри мир, не сиди в своей скорлупе.', en: 'Go see the world, don’t be a frog in a well.' } },
+  { th: 'เด็กเลี้ยงแกะ', lat: 'dèk líang gàe', cyr: 'дэк льянг кэ', f: 3, lit: ['мальчик-пастушок', 'the shepherd boy'],
+    ru: 'лгун, которому уже не верят', en: 'a liar no one believes any more (the boy who cried wolf)',
+    ex: { th: 'โกหกบ่อยจนกลายเป็นเด็กเลี้ยงแกะ', ru: 'Врал так часто, что ему больше не верят.', en: 'He lied so often that nobody believes him now.' } },
+  { th: 'สีซอให้ควายฟัง', lat: 'sǐi so hâi khwaai fang', cyr: 'си со хай кхвай фанг', f: 2, lit: ['играть на скрипке для буйвола', 'playing the fiddle to a buffalo'],
+    ru: 'объяснять тому, кто не хочет понять', en: 'talking to a brick wall',
+    ex: { th: 'บอกเขาไปก็เหมือนสีซอให้ควายฟัง', ru: 'Говорить ему — всё равно что об стену.', en: 'Telling him is like talking to a wall.' } },
+  { th: 'หมาเห่าใบตองแห้ง', lat: 'mǎa hào bai dtong hâeng', cyr: 'ма хао бай тонг хэнг', f: 2, lit: ['собака лает на сухой банановый лист', 'a dog barking at a dry banana leaf'],
+    ru: 'много шума, а дела нет', en: 'all bark and no bite',
+    ex: { th: 'ขู่ไปงั้นแหละ หมาเห่าใบตองแห้ง', ru: 'Просто пугает — лает, да не кусает.', en: 'He’s just threatening: all bark, no bite.' } },
+  { th: 'ตำน้ำพริกละลายแม่น้ำ', lat: 'dtam náam-phrík lá-laai mâe-náam', cyr: 'там нам-пхрик ла-лай мэ-нам', f: 2, lit: ['растереть чили-пасту и растворить в реке', 'pounding chili paste and dissolving it in the river'],
+    ru: 'выбросить деньги или силы на ветер', en: 'pouring money down the drain',
+    ex: { th: 'ลงทุนแบบนี้ตำน้ำพริกละลายแม่น้ำ', ru: 'Такие вложения — деньги на ветер.', en: 'Investing like this is money down the drain.' } },
+  { th: 'ขี่ช้างจับตั๊กแตน', lat: 'khìi cháang jàp dták-gà-dtaen', cyr: 'кхи чханг чап так-ка-тэн', f: 2, lit: ['ехать на слоне ловить кузнечика', 'riding an elephant to catch a grasshopper'],
+    ru: 'стрелять из пушки по воробьям', en: 'using a sledgehammer to crack a nut',
+    ex: { th: 'จ้างทีมสิบคนแก้แค่นี้ ขี่ช้างจับตั๊กแตน', ru: 'Нанять десять человек ради такой мелочи — пушкой по воробьям.', en: 'Ten people for this small fix: a sledgehammer to crack a nut.' } },
+  { th: 'เข้าเมืองตาหลิ่วต้องหลิ่วตาตาม', lat: 'khâo mueang dtaa lìu dtông lìu dtaa dtaam', cyr: 'кхао мыанг та лиу тонг лиу та там', f: 2, lit: ['в городе прищуренных глаз щурься и ты', 'in the town of squinting eyes, squint too'],
+    ru: 'в чужой монастырь со своим уставом не ходят', en: 'when in Rome, do as the Romans do',
+    ex: { th: 'ที่นี่ถอดรองเท้าก่อนเข้าบ้าน เข้าเมืองตาหลิ่วต้องหลิ่วตาตาม', ru: 'Здесь разуваются у входа — таков обычай.', en: 'Here you take your shoes off indoors: when in Rome.' } },
+  { th: 'น้ำผึ้งหยดเดียว', lat: 'náam-phûeng yòt diao', cyr: 'нам-пхынг йот дьяо', f: 2, lit: ['одна капля мёда', 'a single drop of honey'],
+    ru: 'мелочь, из-за которой вспыхнула большая ссора', en: 'a tiny thing that sparks a big fight',
+    ex: { th: 'ทะเลาะกันเพราะน้ำผึ้งหยดเดียว', ru: 'Поссорились из-за сущей мелочи.', en: 'They fell out over a trifle.' } },
+  { th: 'จับปลาสองมือ', lat: 'jàp bplaa sǒng mue', cyr: 'чап пла сонг мы', f: 2, lit: ['ловить рыбу обеими руками', 'catching fish with both hands'],
+    ru: 'гнаться за двумя зайцами', en: 'trying to have it both ways',
+    ex: { th: 'อย่าจับปลาสองมือ เลือกสักทาง', ru: 'Не гонись за двумя зайцами, выбери что-то одно.', en: 'Don’t try to have it both ways, pick one.' } },
+  { th: 'ฝนตกไม่ทั่วฟ้า', lat: 'fǒn dtòk mâi thûa fáa', cyr: 'фон ток май тхуа фа', f: 2, lit: ['дождь идёт не по всему небу', 'the rain doesn’t fall over the whole sky'],
+    ru: 'блага достаются не всем поровну', en: 'the benefits don’t reach everyone equally',
+    ex: { th: 'โบนัสปีนี้ฝนตกไม่ทั่วฟ้า', ru: 'Премию в этом году дали не всем.', en: 'This year’s bonus didn’t reach everyone.' } },
+  { th: 'ชักใบให้เรือเสีย', lat: 'chák bai hâi ruea sǐa', cyr: 'чхак бай хай рыа сиа', f: 2, lit: ['повернуть парус так, что лодка сбилась', 'trimming the sail so the boat goes off course'],
+    ru: 'увести разговор в сторону, сбить с толку', en: 'derailing a conversation',
+    ex: { th: 'ประชุมอยู่ดี ๆ มีคนชักใบให้เรือเสีย', ru: 'Совещание шло нормально, пока кто-то не увёл разговор в сторону.', en: 'The meeting was fine until someone derailed it.' } },
+  { th: 'ช้างตายทั้งตัวเอาใบบัวปิด', lat: 'cháang dtaai tháng dtua ao bai bua bpìt', cyr: 'чханг тай тханг туа ао бай буа пит', f: 2, lit: ['мёртвого слона целиком прикрыть листом лотоса', 'covering a whole dead elephant with a lotus leaf'],
+    ru: 'пытаться скрыть то, что не скроешь', en: 'trying to hide something far too big to hide',
+    ex: { th: 'ปิดข่าวไม่มิดหรอก ช้างตายทั้งตัวเอาใบบัวปิด', ru: 'Шило в мешке не утаишь.', en: 'You can’t keep this quiet: it’s far too big.' } },
+  { th: 'ฆ่าควายเสียดายพริก', lat: 'khâa khwaai sǐa-daai phrík', cyr: 'кха кхвай сиа-дай пхрик', f: 2, lit: ['зарезать буйвола, а пожалеть перца', 'killing a buffalo but begrudging the chili'],
+    ru: 'экономить на мелочи и всё испортить', en: 'penny-wise and pound-foolish',
+    ex: { th: 'จัดงานแพงแต่ไม่จ้างช่างภาพ ฆ่าควายเสียดายพริก', ru: 'Дорогая свадьба без фотографа — сэкономили на спичках.', en: 'A pricey party with no photographer: penny-wise, pound-foolish.' } },
+  { th: 'หัวล้านได้หวี', lat: 'hǔa láan dâai wǐi', cyr: 'хуа лан дай ви', f: 1, lit: ['лысому досталась расчёска', 'a bald man gets a comb'],
+    ru: 'получить то, что тебе ни к чему', en: 'getting something you have no use for',
+    ex: { th: 'ได้คูปองร้านเหล้าทั้งที่ไม่ดื่ม หัวล้านได้หวีชัด ๆ', ru: 'Купон в бар, а я не пью — лысому расчёска.', en: 'A bar voucher when I don’t drink: a comb for a bald man.' } },
+  { th: 'คางคกขึ้นวอ', lat: 'khaang-khók khûen wo', cyr: 'кханг-кхок кхын во', f: 1, lit: ['жаба забралась в паланкин', 'a toad climbing into a palanquin'],
+    ru: 'выскочка, который зазнался', en: 'an upstart who lets success go to their head',
+    ex: { th: 'พอได้ตำแหน่งก็คางคกขึ้นวอเลย', ru: 'Как получил должность — сразу задрал нос.', en: 'The moment he got the post, it went to his head.' } },
+  { th: 'มือไม่พายเอาเท้าราน้ำ', lat: 'mue mâi phaai ao tháao raa náam', cyr: 'мы май пхай ао тхао ра нам', f: 1, lit: ['руками не гребёт, а ногами тормозит воду', 'not rowing, and dragging your feet in the water'],
+    ru: 'сам не помогает и другим мешает', en: 'not helping and getting in the way',
+    ex: { th: 'ไม่ช่วยแล้วยังติอีก มือไม่พายเอาเท้าราน้ำ', ru: 'Сам не помогает, ещё и критикует.', en: 'Doesn’t help and still criticises.' } },
+  { th: 'ปากหวานก้นเปรี้ยว', lat: 'bpàak wǎan gôn bprîao', cyr: 'пак ван кон прьяо', f: 1, lit: ['рот сладкий, а зад кислый', 'sweet mouth, sour bottom'],
+    ru: 'много обещает, но не делает', en: 'sweet talk and no follow-through',
+    ex: { th: 'อย่าไปเชื่อ เขาปากหวานก้นเปรี้ยว', ru: 'Не верь — наобещает и не сделает.', en: 'Don’t believe him: all promises, no action.' } },
+  { th: 'ใจดีสู้เสือ', lat: 'jai dii sûu sǔea', cyr: 'чай ди су сыа', f: 1, lit: ['со спокойным сердцем против тигра', 'facing a tiger with a calm heart'],
+    ru: 'сохранять спокойствие перед угрозой', en: 'keeping cool in the face of danger',
+    ex: { th: 'เจอหัวหน้าโมโหก็ต้องใจดีสู้เสือ', ru: 'Начальник в ярости — держи лицо.', en: 'The boss is furious: keep your cool.' } },
+  { th: 'น้ำท่วมทุ่ง ผักบุ้งโหรงเหรง', lat: 'náam thûam thûng, phàk-bûng rǒng-rěng', cyr: 'нам тхуам тхунг, пхак-бунг ронг-ренг', f: 1, lit: ['поле затоплено, а водяного шпината — горстка', 'the field is flooded, but there’s hardly any morning glory'],
+    ru: 'много слов, мало сути', en: 'lots of words, little substance',
+    ex: { th: 'พูดตั้งชั่วโมง น้ำท่วมทุ่ง ผักบุ้งโหรงเหรง', ru: 'Час говорил — а по сути ничего.', en: 'He talked for an hour and said nothing.' } },
+  { th: 'ขิงก็รา ข่าก็แรง', lat: 'khǐng gô raa, khàa gô raeng', cyr: 'кхинг ко ра, кха ко рэнг', f: 1, lit: ['имбирь острый, и галангал крепкий', 'ginger is hot and galangal is strong'],
+    ru: 'нашла коса на камень: оба упрямы', en: 'both sides are equally stubborn',
+    ex: { th: 'สองคนนี้ไม่มีใครยอมใคร ขิงก็รา ข่าก็แรง', ru: 'Ни один не уступит — нашла коса на камень.', en: 'Neither gives in: they’re as stubborn as each other.' } },
+];
+
 /* ================= FACTS ================= */
 // c: phys | body | lang; Thai words inside the text are tappable (see sayThai) and voiced (tools/texts.js)
 const FACTS = [
@@ -2308,6 +2417,23 @@ function renderFacts() {
 }
 $('#factTabs').addEventListener('click', e => { const k = e.target.closest('[data-fact]')?.dataset.fact; if (k) { factCat = k; renderFacts(); icons() } });
 // language of the story title (the text itself is in the UI language with foreign phrases)
+// idioms table: ranked by frequency (IDIOM_SCALE 'ngram' = per million words, 'tier' = our 1–3 estimate)
+function renderIdioms() {
+  const top = Math.max(...IDIOMS.map(x => x.f)), say = 'text-left hover:text-accent transition';
+  const freq = x => IDIOM_SCALE === 'tier'
+    ? `<span class="flex gap-1" title="${t('idTier')[x.f]}">${[1, 2, 3].map(i => `<span class="w-2 h-2 rounded-full ${i <= x.f ? 'bg-accent' : 'bg-white/10'}"></span>`).join('')}</span><span class="text-xs text-zinc-500">${t('idTier')[x.f]}</span>`
+    : `<span class="block w-16 h-1.5 rounded-full bg-white/10 overflow-hidden"><span class="block h-full bg-accent" style="width:${x.f / top * 100}%"></span></span><span class="font-mono text-xs text-zinc-500">${x.f.toFixed(2)}</span>`;
+  const head = ['#', t('idColIdiom'), t('idColMeaning'), t('idColExample'), t('idColFreq')];
+  const cols = 'md:grid md:grid-cols-[2rem_1.2fr_1.3fr_1.5fr_6.5rem] md:gap-5';
+  $('#idTable').innerHTML = `<div class="hidden ${cols} px-5 py-3 border-b border-white/10 text-xs uppercase tracking-wider text-zinc-500">${head.map(h => `<span>${h}</span>`).join('')}</div>`
+    + IDIOMS.map((x, i) => `<div class="${cols} px-5 py-4 border-b border-white/5 last:border-0 hover:bg-white/[.02]">
+      <span class="hidden md:block font-mono text-sm text-zinc-600 pt-1">${i + 1}</span>
+      <div><button data-say="${x.th}" class="${say} font-thai text-lg md:text-xl text-white leading-snug"><span class="md:hidden font-mono text-sm text-zinc-600 mr-2">${i + 1}</span>${x.th}</button>
+        ${x.lat ? `<p class="mt-1 font-mono text-xs text-accent">${x.lat}</p>` : ''}${lang === 'ru' && x.cyr ? `<p class="text-xs text-zinc-500">${x.cyr}</p>` : ''}</div>
+      <div class="mt-2 md:mt-0"><p class="text-zinc-200">${L(x.ru, x.en)}</p>${x.lit ? `<p class="mt-1 text-xs text-zinc-500">${t('idLit')}: ${L(...x.lit)}</p>` : ''}</div>
+      <div class="mt-2 md:mt-0"><button data-say="${x.ex.th}" class="${say} font-thai text-zinc-300 leading-relaxed"><i data-lucide="volume-2" class="inline w-3.5 h-3.5 mr-1 text-accent"></i>${x.ex.th}</button><p class="mt-1 text-sm text-zinc-500">${L(x.ex.ru, x.ex.en)}</p></div>
+      <div class="mt-3 md:mt-1 flex md:flex-col items-center md:items-start gap-2">${freq(x)}</div></div>`).join('');
+}
 const STORY_L = 'th';
 let storyOpen = false;
 function renderStories() {
@@ -2989,7 +3115,7 @@ $('#kbClear').onclick = () => { clearTimeout(kbTimer); $('#kbIn').value = ''; kb
 function renderAll() {
   renderText(); renderSounds(); renderTones(); renderPoster(); renderAlphabet(); renderPhrases();
   renderNum(); renderBody(); renderVerbs(); renderQues(); renderCls(); renderFood(); renderSent(); renderTopVerbs(); renderHero(); renderPools();
-  renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender(); renderMore(); kbRender(); renderTwisters(); renderFacts(); renderStories(); renderLearn(); navFill();
+  renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender(); renderMore(); kbRender(); renderTwisters(); renderFacts(); renderIdioms(); renderStories(); renderLearn(); navFill();
   fcShow(); qRender(); tRender(); trRender(); icons();
 }
 $$('[data-lang]').forEach(b => b.onclick = () => { lang = b.dataset.lang; store.set('tf-lang', lang); renderAll() });
