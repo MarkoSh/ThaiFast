@@ -20,7 +20,7 @@
 <meta name="description" content="Тайский язык с нуля: звуки, тоны, алфавит, цифры, нужные фразы и быстрые тренажёры.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+Thai+Looped:wght@500&family=Mali:wght@500&family=Sriracha&family=Charm:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+Thai+Looped:wght@500&family=Playpen+Sans+Thai:wght@400&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@600&family=Noto+Sans+Cuneiform&text=%E0%B8%81%F0%92%80%AD&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -2647,9 +2647,9 @@ const TR_SIZES = { l: { k: .62, brush: 15, tol: 9 }, m: { k: .32, brush: 10, tol
 const TR_EV = 2; // masks are evaluated at 2× so thin strokes of the small sizes stay accurate
 const tr = { set: 'cons', size: 'm', i: 0, strokes: [], drawing: false, checked: false };
 const trSz = () => TR_SIZES[tr.size];
-// template styles: printed with loops + three handwriting fonts
-const TR_STYLES = { loop: ['Noto Sans Thai Looped', 500], school: ['Mali', 500], hand: ['Sriracha', 400], cursive: ['Charm', 700] };
-tr.style = 'loop'; tr.slant = 0;
+// template style: neat handwriting
+const TR_STYLES = { hand: ['Playpen Sans Thai', 400] };
+tr.style = 'hand'; tr.slant = 0;
 const trFontCss = fs => { const [fam, w] = TR_STYLES[tr.style]; return `${w} ${fs}px '${fam}'` };
 const trCv = $('#trCanvas'), trCtx = trCv.getContext('2d');
 const trDpr = Math.min(window.devicePixelRatio || 1, 3);
@@ -2855,7 +2855,7 @@ function trPrint() {
   document.fonts.load(`${w} 40px '${fam}'`, 'กอ๑').finally(() => print());
 }
 $('#trPrint').onclick = trPrint;
-document.fonts?.load('500 100px "Noto Sans Thai Looped"', 'กอ๑').then(() => tr.checked ? trCheck() : trRedraw());
+document.fonts?.load(trFontCss(100), 'กอ๑').then(() => tr.checked ? trCheck() : trRedraw());
 
 /* listening */
 const lq = { score: 0, total: 0, streak: 0, cur: 0, opts: [], lock: false };
