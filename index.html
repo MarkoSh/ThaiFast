@@ -737,6 +737,42 @@ tailwind.config = {
   </section>
   <!-- /LEARN -->
 
+  <!-- SHADOWING -->
+  <section id="shadow" class="py-20 md:py-28 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal max-w-2xl">
+        <p class="font-mono text-sm text-accent">19</p>
+        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-white tracking-tight" data-i18n="shTitle"></h2>
+        <p class="mt-3 text-zinc-400" data-i18n="shSub"></p>
+      </div>
+      <div class="reveal mt-10 grid lg:grid-cols-[340px_1fr] gap-6 items-start">
+        <div class="rounded-3xl border border-white/10 bg-ink-900 p-5 space-y-4">
+          <div id="shPools" class="flex flex-wrap gap-1.5"></div>
+          <label class="block text-sm text-zinc-400"><span class="flex justify-between"><span data-i18n="shRate"></span><b id="shRateV" class="font-mono text-zinc-200"></b></span>
+            <input id="shRate" type="range" min="0.5" max="1.2" step="0.05" class="mt-1 w-full accent-[#e8b04b]"></label>
+          <label class="block text-sm text-zinc-400"><span class="flex justify-between"><span data-i18n="shReps"></span><b id="shRepsV" class="font-mono text-zinc-200"></b></span>
+            <input id="shReps" type="range" min="1" max="10" step="1" class="mt-1 w-full accent-[#e8b04b]"></label>
+          <label class="block text-sm text-zinc-400"><span class="flex justify-between"><span data-i18n="shPr"></span><b id="shPrV" class="font-mono text-zinc-200"></b></span>
+            <input id="shPr" type="range" min="0" max="10" step="0.5" class="mt-1 w-full accent-[#e8b04b]"></label>
+          <label class="block text-sm text-zinc-400"><span class="flex justify-between"><span data-i18n="shPi"></span><b id="shPiV" class="font-mono text-zinc-200"></b></span>
+            <input id="shPi" type="range" min="0" max="10" step="0.5" class="mt-1 w-full accent-[#e8b04b]"></label>
+          <label class="flex items-center justify-between gap-3 text-sm text-zinc-400"><span data-i18n="shReveal"></span>
+            <select id="shReveal" class="rounded-lg border border-white/10 bg-ink-950 py-1.5 px-2 text-zinc-200"></select></label>
+          <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-zinc-400">
+            <label class="flex items-center gap-2 cursor-pointer select-none"><input id="shShuffle" type="checkbox" class="w-4 h-4 accent-[#e8b04b]"><span data-i18n="shShuffle"></span></label>
+            <label class="flex items-center gap-2 cursor-pointer select-none"><input id="shLoop" type="checkbox" class="w-4 h-4 accent-[#e8b04b]"><span data-i18n="shLoop"></span></label>
+          </div>
+          <button id="shGo" class="w-full rounded-xl bg-accent text-ink-950 py-3 font-semibold hover:brightness-110 transition flex items-center justify-center gap-2"><i data-lucide="play" class="w-4 h-4"></i><span data-i18n="shStart"></span></button>
+        </div>
+        <div class="min-w-0">
+          <div id="shNow" class="rounded-3xl border border-accent/25 bg-ink-950 p-6 md:p-8 min-h-[230px]"></div>
+          <div id="shList" class="relative mt-4 max-h-[22rem] overflow-y-auto rounded-2xl border border-white/10 bg-ink-900 p-1.5"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /SHADOWING -->
+
   <!-- CTA -->
   <section class="py-20 md:py-28 border-t border-white/5">
     <div class="reveal max-w-3xl mx-auto px-4 text-center">
@@ -876,6 +912,8 @@ const T = {
     trNote: 'Если буква не выводится строго по нарисованной — возможно, дело в неточности ввода вашего устройства. Калибровка экрана или стилуса может помочь, но лишь временно или не так, как хотелось бы. Поэтому обязательно тренируйте письмо на бумаге — ручкой или карандашом: для этого и есть прописи.',
     prnS_l: 'Крупно', prnS_m: 'Обычно', prnS_s: 'Мелко', prnMm: 'мм', prnDec: ',', prnSize: 'Высота обычной буквы — {mm} мм: от сплошной линии до пунктирной; над пунктиром — место для выносных элементов и знаков, под сплошной — для хвостов. Проверьте масштаб при печати: эта полоска должна быть',
     prnTitle: 'Прописи тайских букв', prnHow: 'Обведите первые буквы в строке, затем пишите поверх — образец светлеет с каждой буквой. В конце строки пишите сами.',
+    shTitle: 'Шэдоуинг', shSub: 'Плеер для повторения вслух за диктором. Выберите набор, скорость, число повторов и паузы. Перевод появится после заданного повтора, так можно проверить себя по памяти. Оценки произношения нет: плеер только воспроизводит.',
+    shAll: 'Всё', shRate: 'Скорость', shReps: 'Повторов каждой фразы', shPr: 'Пауза между повторами', shPi: 'Пауза между фразами', shReveal: 'Перевод', shNow0: 'сразу', shAfter: 'после повтора {n}', shShuffle: 'Вперемешку', shLoop: 'По кругу', shStart: 'Старт', shStop: 'Стоп', shRep: 'Повтор', shSec: 'с',
     trTip: 'Тайские буквы обычно пишут, начиная с маленького кружочка-«головы», одним движением. Цифры — тоже с кружка.',
     pool_phrases: 'Фразы', pool_alpha: 'Алфавит', pool_num: 'Цифры', pool_body: 'Тело', pool_verb: 'Глаголы',
     known: 'Выучено', restart: 'Заново', tapFlip: 'Нажмите, чтобы перевернуть',
@@ -991,6 +1029,8 @@ const T = {
     trNote: 'If a letter will not come out exactly along the drawn one, it may be your device’s input imprecision. Calibrating the screen or stylus can help, but only temporarily or not as much as you would like. So always practise writing on paper with a pen or pencil — that is what the copybook is for.',
     prnS_l: 'Large', prnS_m: 'Regular', prnS_s: 'Small', prnMm: 'mm', prnDec: '.', prnSize: 'Height of a plain letter: {mm} mm, from the solid line up to the dashed one; above the dashed line is room for tall strokes and tone marks, below the solid one for tails. Check the print scale: this bar should be',
     prnTitle: 'Thai letter copybook', prnHow: 'Trace the first letters in each line, then write over them — the sample gets lighter with every letter. Write the rest of the line yourself.',
+    shTitle: 'Shadowing', shSub: 'A player for repeating aloud after the speaker. Pick a set, speed, number of repeats and pauses. The translation appears after the repeat you choose, so you can check yourself from memory. There is no pronunciation scoring: the player only plays.',
+    shAll: 'All', shRate: 'Speed', shReps: 'Repeats per phrase', shPr: 'Pause between repeats', shPi: 'Pause between phrases', shReveal: 'Translation', shNow0: 'immediately', shAfter: 'after repeat {n}', shShuffle: 'Shuffle', shLoop: 'Loop', shStart: 'Start', shStop: 'Stop', shRep: 'Repeat', shSec: 's',
     trTip: 'Thai letters usually start at the small loop (the “head”) and flow in one stroke. Digits start at the loop too.',
     pool_phrases: 'Phrases', pool_alpha: 'Alphabet', pool_num: 'Numbers', pool_body: 'Body', pool_verb: 'Verbs',
     known: 'Learned', restart: 'Restart', tapFlip: 'Tap to flip',
@@ -3020,6 +3060,97 @@ $('#navMenu').addEventListener('click', e => e.target.closest('a') && navToggle(
 document.addEventListener('click', e => !e.target.closest('header') && navToggle(false));
 document.addEventListener('keydown', e => e.key === 'Escape' && navToggle(false));
 
+/* shadowing: a plain player over every phrase, word and number of the site */
+const SH_KEY = 'tf-shadow';
+const sh = { rate: .85, reps: 3, pr: 2, pi: 2, reveal: 3, shuffle: false, loop: true, src: 'phrases' };
+try { Object.assign(sh, JSON.parse(store.get(SH_KEY, '{}'))) } catch (e) {}
+Object.assign(sh, { run: false, list: [], ord: [], k: 0, n: 0, timer: 0 });
+const shSave = () => store.set(SH_KEY, JSON.stringify({ rate: sh.rate, reps: sh.reps, pr: sh.pr, pi: sh.pi, reveal: sh.reveal, shuffle: sh.shuffle, loop: sh.loop, src: sh.src }));
+const shCur = () => sh.list[sh.ord[sh.k]];
+function shBuild() {
+  if (sh.src !== 'all' && !POOLS[sh.src]) sh.src = Object.keys(POOLS)[0];
+  sh.list = sh.src === 'all' ? Object.values(POOLS).flat() : POOLS[sh.src];
+  sh.ord = sh.list.map((_, i) => i);
+  if (sh.shuffle) sh.ord = shuffle(sh.ord);
+  sh.k = 0; sh.n = 0;
+}
+function shStop() {
+  sh.run = false; clearTimeout(sh.timer); playId++; player.pause(); if (hasTTS) speechSynthesis.cancel();
+  $$('.speaking').forEach(b => b.classList.remove('speaking'));
+  shShow();
+}
+function shPlay() {
+  if (!sh.run) return;
+  const x = shCur();
+  for (let j = 1; j <= 2; j++) { const nx = sh.list[sh.ord[sh.k + j]]; if (nx) preloadIdle(say(nx), nx.v) }
+  player.defaultPlaybackRate = player.playbackRate = sh.rate;
+  shShow();
+  speak(say(x), null, x.v, () => {
+    if (!sh.run) return;
+    sh.n++; shShow();
+    const last = sh.n >= sh.reps;
+    sh.timer = setTimeout(last ? shNext : shPlay, (last ? sh.pi : sh.pr) * 1000);
+  });
+}
+function shNext() {
+  sh.k++; sh.n = 0;
+  if (sh.k >= sh.ord.length) {
+    if (!sh.loop) return shStop();
+    if (sh.shuffle) sh.ord = shuffle(sh.ord);
+    sh.k = 0;
+  }
+  shPlay();
+}
+function shStart(k) {
+  clearTimeout(sh.timer);
+  if (k != null) sh.k = k;
+  sh.n = 0; sh.run = true;
+  shPlay();
+}
+function shShow() {
+  const x = shCur(), open = !sh.run || sh.reveal === 0 || sh.n >= sh.reveal;
+  $('#shGo').innerHTML = `<i data-lucide="${sh.run ? 'square' : 'play'}" class="w-4 h-4"></i><span>${t(sh.run ? 'shStop' : 'shStart')}</span>`;
+  $('#shNow').innerHTML = x ? `<div class="flex items-center justify-between font-mono text-xs text-zinc-500"><span>${sh.k + 1} / ${sh.ord.length}</span><span>${sh.run ? `${t('shRep')} ${Math.min(sh.n + 1, sh.reps)} / ${sh.reps}` : ''}</span></div>
+    <p class="mt-4 font-thai text-4xl md:text-5xl font-semibold text-white leading-tight">${thHTML(x).replace('/80', '')}</p>
+    <p class="mt-3 font-mono text-lg text-accent">${latTxt(x)}</p>
+    ${lang === 'ru' && x.cyr ? `<p class="text-zinc-500">${cyrTxt(x)}</p>` : ''}
+    <p class="mt-4 min-h-[2rem] text-xl ${open ? 'text-zinc-200' : 'text-zinc-700'}">${open ? x[lang] : '· · ·'}</p>` : '';
+  $$('#shList [data-shi]').forEach(b => {
+    const on = +b.dataset.shi === sh.k;
+    b.classList.toggle('bg-accent/10', on); b.classList.toggle('border-accent/40', on);
+    b.querySelector('[data-shtr]').classList.toggle('invisible', on && sh.run && !open);
+    if (on && sh.run) $('#shList').scrollTop = b.offsetTop - $('#shList').clientHeight / 2 + b.offsetHeight / 2;
+  });
+  icons();
+}
+function shLabels() {
+  $('#shRateV').textContent = '×' + sh.rate.toFixed(2); $('#shRepsV').textContent = sh.reps;
+  $('#shPrV').textContent = sh.pr + ' ' + t('shSec'); $('#shPiV').textContent = sh.pi + ' ' + t('shSec');
+  if (sh.reveal > sh.reps) sh.reveal = sh.reps;
+  $('#shReveal').innerHTML = [...Array(sh.reps + 1).keys()].map(n => `<option value="${n}"${n === sh.reveal ? ' selected' : ''}>${n ? t('shAfter').replace('{n}', n) : t('shNow0')}</option>`).join('');
+}
+function shRender() {
+  if (sh.run) shStop();
+  shBuild();
+  $('#shPools').innerHTML = ['all', ...Object.keys(POOLS)].map(k => `<button data-shpool="${k}" class="${chip(k === sh.src)}">${k === 'all' ? t('shAll') : t('pool_' + k)}</button>`).join('');
+  $('#shRate').value = sh.rate; $('#shReps').value = sh.reps; $('#shPr').value = sh.pr; $('#shPi').value = sh.pi;
+  $('#shShuffle').checked = sh.shuffle; $('#shLoop').checked = sh.loop;
+  shLabels();
+  $('#shList').innerHTML = sh.ord.map((i, pos) => { const x = sh.list[i];
+    return `<button data-shi="${pos}" style="content-visibility:auto;contain-intrinsic-size:auto 52px" class="w-full text-left rounded-xl border border-transparent px-3 py-2 hover:bg-white/5 transition flex items-baseline gap-3"><span class="font-thai text-lg text-white shrink-0">${x.th}</span><span data-shtr class="text-sm text-zinc-500 truncate">${x[lang]}</span></button>` }).join('');
+  shShow();
+}
+$('#shGo').onclick = () => sh.run ? shStop() : shStart();
+$('#shList').addEventListener('click', e => { const b = e.target.closest('[data-shi]'); if (b) shStart(+b.dataset.shi) });
+$('#shPools').addEventListener('click', e => { const b = e.target.closest('[data-shpool]'); if (b) { sh.src = b.dataset.shpool; shSave(); shRender() } });
+[['shRate', 'rate', parseFloat], ['shReps', 'reps', parseInt], ['shPr', 'pr', parseFloat], ['shPi', 'pi', parseFloat], ['shReveal', 'reveal', parseInt]].forEach(([id, key, f]) =>
+  $('#' + id).addEventListener('input', e => {
+    sh[key] = f(e.target.value); shSave();
+    shLabels(); shShow(); // takes effect from the next playback, no restart
+  }));
+$('#shShuffle').onchange = e => { sh.shuffle = e.target.checked; shSave(); shRender() };
+$('#shLoop').onchange = e => { sh.loop = e.target.checked; shSave() };
+
 /* ================= KEYBOARD ================= */
 // Kedmanee, the standard Thai layout. Rows: Latin key labels, then one layer per modifier:
 // plain, Shift, AltGr, AltGr+Shift. A layer is a string (one character per key) or an array ('' = nothing).
@@ -3175,7 +3306,7 @@ function renderAll() {
   renderText(); renderSounds(); renderTones(); renderPoster(); renderAlphabet(); renderPhrases();
   renderNum(); renderBody(); renderVerbs(); renderQues(); renderCls(); renderFood(); renderSent(); renderTopVerbs(); renderHero(); renderPools();
   renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender(); renderMore(); kbRender(); renderTwisters(); renderFacts(); renderIdioms(); renderStories(); renderLearn(); navFill();
-  fcShow(); qRender(); tRender(); trRender(); icons();
+  fcShow(); qRender(); tRender(); trRender(); shRender(); icons();
 }
 $$('[data-lang]').forEach(b => b.onclick = () => { lang = b.dataset.lang; store.set('tf-lang', lang); renderAll() });
 $$('[data-gender]').forEach(b => b.onclick = () => { gender = b.dataset.gender; store.set('tf-gender', gender); renderAll() });
