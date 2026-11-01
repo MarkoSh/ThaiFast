@@ -2848,10 +2848,10 @@ $('#trProp').onchange = e => { tr.prop = e.target.checked; trGo(tr.i) };
 // Sizes are real millimetres: `body` = height of a plain letter (baseline to the dashed line), ascender zone above it, descender zone below.
 // The font is scaled so the body glyph PRN_BODY is exactly that tall, so the printed size does not depend on the font.
 // ponytail: body heights are typical school/adult handwriting values, not a national standard — adjust PRN_SIZES to taste.
-const PRN_FADE = [.75, .6, .45, .32, .2, .1, .05, 0, 0, 0];
+const PRN_FADE = [.75, .56, .37, .21, .09, .03, 0, 0, 0, 0];
 const PRN_BODY = 'ก', PRN_UP = 1, PRN_DOWN = .9;
 const PRN_SIZES = { l: { body: 6, rows: 4 }, m: { body: 4.5, rows: 5 }, s: { body: 3.5, rows: 6 } };
-const PRN_FADE_LONG = [.75, .45, .2, 0, 0]; // multi-digit numbers are wide: fewer, wider cells
+const PRN_FADE_LONG = [.75, .4, .12, 0, 0]; // multi-digit numbers are wide: fewer, wider cells
 const PRN_W = 190;
 // a printed item may expand into several blocks (EngFast: capital, small, joined) — a group of several gets a page of its own
 const PRN_VARIANTS = x => [x];
