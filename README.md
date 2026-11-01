@@ -25,7 +25,7 @@ favicon*, apple-touch-icon.png   иконки (tools/icons.py)
 offline.json, sw.js офлайн-кэш (tools/offline.py), руками не править
 tools/
   texts.js          печатает все тайские строки, которые сайт умеет озвучить
-  gen_audio.py      озвучка через edge-tts (th-TH Niwat / Premwadee), пропускает готовые файлы
+  gen_audio.py      озвучка через edge-tts (th-TH Niwat / Premwadee), пропускает готовые файлы; то, что движок читает неверно (ๆ, цифры), подменяет в `tts_text()`
   offline.py        offline.json + копия sw.js для любого сайта семейства
   sw.js             шаблон service worker для всех сайтов — править только здесь
   icons.py          иконки Thai/Eng/Sumer/BrainFast из их глифа или иконки lucide (у Meditat.io своя, ручная)
