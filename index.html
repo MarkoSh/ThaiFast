@@ -49,12 +49,8 @@ tailwind.config = {
     body.printing > *:not(#prn) { display: none !important }
     body.printing { background: #fff !important }
     body.printing #prn { display: block; color: #000; font-family: Inter, sans-serif }
-    #prn .blk { break-inside: avoid; height: 88mm }
-    #prn .row { display: flex; height: 14mm; border-top: .2mm solid #aaa; border-bottom: .2mm solid #aaa; position: relative }
-    #prn .row::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: .2mm dashed #ccc }
-    #prn .row + .row { border-top: 0 }
-    #prn .row b { flex: 1; display: grid; place-items: center; font-weight: 400; font-size: 9mm; line-height: 1; border-left: .2mm dotted #ccc }
-    #prn .row b:first-child { border-left: 0 }
+    #prn .blk { break-inside: avoid; margin-bottom: 4mm }
+    #prn svg { display: block; width: 190mm }
   }
   .tone-path { stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1); }
   .reveal.in .tone-path, .tone-btn .tone-path { stroke-dashoffset: 0; }
@@ -585,8 +581,8 @@ tailwind.config = {
             <div id="trStyles" class="flex flex-wrap gap-2"></div>
             <label class="flex items-center gap-2 text-sm text-zinc-400 select-none">
               <i data-lucide="italic" class="w-4 h-4"></i><span data-i18n="trSlant"></span>
-              <input id="trSlant" type="range" min="0" max="15" step="1" value="0" class="w-28 accent-[#e8b04b]">
-              <span id="trSlantVal" class="w-8 font-mono text-xs text-zinc-300">0°</span>
+              <input id="trSlant" type="range" min="0" max="15" step="1" value="8" class="w-28 accent-[#e8b04b]">
+              <span id="trSlantVal" class="w-8 font-mono text-xs text-zinc-300">8°</span>
             </label>
           </div>
           <div class="mt-6 grid md:grid-cols-[340px_1fr] gap-6 items-start">
@@ -599,6 +595,7 @@ tailwind.config = {
                 <button id="trNext" class="rounded-xl border border-white/10 py-2.5 hover:bg-white/5 transition grid place-items-center" aria-label="Next"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
               </div>
               <button id="trCheck" class="mt-2 w-full rounded-xl bg-accent text-ink-950 py-3 font-semibold hover:brightness-110 transition flex items-center justify-center gap-2"><i data-lucide="scan-eye" class="w-4 h-4"></i><span data-i18n="trCheck"></span></button>
+              <select id="trPrnSize" class="mt-2 w-full rounded-xl border border-white/10 bg-ink-900 py-2 px-3 text-sm text-zinc-300"></select>
               <button id="trPrint" class="mt-2 w-full rounded-xl border border-white/10 py-2.5 text-sm text-zinc-300 hover:bg-white/5 transition flex items-center justify-center gap-2"><i data-lucide="printer" class="w-4 h-4"></i><span data-i18n="trPrint"></span></button>
               <p class="mt-2 text-xs text-zinc-500" data-i18n="trPrintHint"></p>
             </div>
@@ -877,6 +874,7 @@ const T = {
     trLegend: 'Зелёный — попали, красный — пропустили, оранжевый — мимо линий.',
     trPrint: 'Прописи для печати', trPrintHint: 'Лист на каждую букву выбранного набора — в выбранном стиле и наклоне. В окне печати выберите «Сохранить как PDF» или принтер (A4, масштаб 100%).',
     trNote: 'Если буква не выводится строго по нарисованной — возможно, дело в неточности ввода вашего устройства. Калибровка экрана или стилуса может помочь, но лишь временно или не так, как хотелось бы. Поэтому обязательно тренируйте письмо на бумаге — ручкой или карандашом: для этого и есть прописи.',
+    prnS_l: 'Крупно', prnS_m: 'Обычно', prnS_s: 'Мелко', prnMm: 'мм', prnDec: ',', prnSize: 'Высота обычной буквы — {mm} мм: от сплошной линии до пунктирной; над пунктиром — место для выносных элементов и знаков, под сплошной — для хвостов. Проверьте масштаб при печати: эта полоска должна быть',
     prnTitle: 'Прописи тайских букв', prnHow: 'Обведите первые буквы в строке, затем пишите поверх — образец светлеет с каждой буквой. В конце строки пишите сами.',
     trTip: 'Тайские буквы обычно пишут, начиная с маленького кружочка-«головы», одним движением. Цифры — тоже с кружка.',
     pool_phrases: 'Фразы', pool_alpha: 'Алфавит', pool_num: 'Цифры', pool_body: 'Тело', pool_verb: 'Глаголы',
@@ -991,6 +989,7 @@ const T = {
     trLegend: 'Green — hit, red — missed, orange — off the lines.',
     trPrint: 'Printable copybook', trPrintHint: 'One sheet per letter of the chosen set, in the chosen style and slant. In the print dialog pick “Save as PDF” or a printer (A4, 100% scale).',
     trNote: 'If a letter will not come out exactly along the drawn one, it may be your device’s input imprecision. Calibrating the screen or stylus can help, but only temporarily or not as much as you would like. So always practise writing on paper with a pen or pencil — that is what the copybook is for.',
+    prnS_l: 'Large', prnS_m: 'Regular', prnS_s: 'Small', prnMm: 'mm', prnDec: '.', prnSize: 'Height of a plain letter: {mm} mm, from the solid line up to the dashed one; above the dashed line is room for tall strokes and tone marks, below the solid one for tails. Check the print scale: this bar should be',
     prnTitle: 'Thai letter copybook', prnHow: 'Trace the first letters in each line, then write over them — the sample gets lighter with every letter. Write the rest of the line yourself.',
     trTip: 'Thai letters usually start at the small loop (the “head”) and flow in one stroke. Digits start at the loop too.',
     pool_phrases: 'Phrases', pool_alpha: 'Alphabet', pool_num: 'Numbers', pool_body: 'Body', pool_verb: 'Verbs',
@@ -2649,7 +2648,7 @@ const tr = { set: 'cons', size: 'm', i: 0, strokes: [], drawing: false, checked:
 const trSz = () => TR_SIZES[tr.size];
 // template style: neat handwriting
 const TR_STYLES = { hand: ['Playpen Sans Thai', 400] };
-tr.style = 'hand'; tr.slant = 0;
+tr.style = 'hand'; tr.slant = 8; // default lean like real handwriting
 const trFontCss = fs => { const [fam, w] = TR_STYLES[tr.style]; return `${w} ${fs}px '${fam}'` };
 const trCv = $('#trCanvas'), trCtx = trCv.getContext('2d');
 const trDpr = Math.min(window.devicePixelRatio || 1, 3);
@@ -2801,6 +2800,8 @@ function trRender() {
   $('#trStyles').innerHTML = Object.entries(TR_STYLES).map(([k, [fam, w]]) => `<button data-trstyle="${k}" class="${chip(k === tr.style)}"><span style="font:${w} 18px '${fam}'" class="leading-none">กขค</span>${t('trStyle_' + k)}</button>`).join('');
   $('#trSizes').innerHTML = Object.keys(TR_SIZES).map(k => `<button data-trsize="${k}" title="${t('trSizeHint_' + k)}" class="px-3 py-1.5 rounded-md transition flex items-center gap-1.5 ${k === tr.size ? 'bg-white text-ink-950' : 'text-zinc-400 hover:text-white'}"><span class="font-loop leading-none ${{ l: 'text-lg', m: 'text-sm', s: 'text-[10px]', xs: 'text-[7px]' }[k]}">ก</span>${t('trSize_' + k)}</button>`).join('');
   $('#trPropWrap').classList.toggle('hidden', tr.size !== 'xs');
+  const ps = $('#trPrnSize');
+  if (ps) { const v = ps.value || 'm'; ps.innerHTML = Object.entries(PRN_SIZES).map(([k, z]) => `<option value="${k}">${t('prnS_' + k)} · ${z.body} ${t('prnMm')}</option>`).join(''); ps.value = v }
   const x = trCur(), n = trList().length;
   $('#trInfo').innerHTML = `<div class="fade-up">
     <div class="flex items-center justify-between text-sm text-zinc-500"><span class="font-mono">${tr.i + 1} / ${n}</span></div>
@@ -2843,13 +2844,27 @@ $('#trClear').onclick = () => trGo(tr.i);
 $('#trCheck').onclick = trCheck;
 $('#trHide').onchange = () => { trRender(); icons() };
 $('#trProp').onchange = e => { tr.prop = e.target.checked; trGo(tr.i) };
-// printable copybook: one block per letter, 5 lines, the sample fades along each line (on screen it is hidden, the print CSS shows it)
+// printable copybook: one block per letter, the sample fades along each line (on screen it is hidden, the print CSS shows it)
+// Sizes are real millimetres: `body` = height of a plain letter (baseline to the dashed line), ascender zone above it, descender zone below.
+// The font is scaled so the body glyph PRN_BODY is exactly that tall, so the printed size does not depend on the font.
+// ponytail: body heights are typical school/adult handwriting values, not a national standard — adjust PRN_SIZES to taste.
 const PRN_FADE = [.75, .6, .45, .32, .2, .1, .05, 0, 0, 0];
+const PRN_BODY = 'ก', PRN_UP = 1, PRN_DOWN = .9;
+const PRN_SIZES = { l: { body: 6, rows: 4 }, m: { body: 4.5, rows: 5 }, s: { body: 3.5, rows: 6 } };
+const PRN_W = 190;
 function trPrint() {
-  const [fam, w] = TR_STYLES[tr.style], sk = `transform:skewX(${-tr.slant}deg)`;
-  const line = g => `<div class="row">${PRN_FADE.map(o => `<b style="font-family:'${fam}';font-weight:${w}"><span style="opacity:${o};${sk}">${o ? g : ''}</span></b>`).join('')}</div>`;
-  const blk = x => `<section class="blk"><div style="display:flex;align-items:baseline;gap:4mm;margin-bottom:2mm"><span style="font:${w} 9mm '${fam}';${sk}">${x.g}</span><span style="font:600 4mm Inter">${x.lat}</span><span style="font:3.5mm Inter;color:#555">${L(x.ru, x.en)}</span></div>${line(x.g).repeat(5)}</section>`;
-  $('#prn').innerHTML = `<p style="font:3mm Inter;color:#555;margin:0 0 4mm"><b>${t('prnTitle')}.</b> ${t('prnHow')} ${t('trNote')}</p>` + trList().map(blk).join('');
+  const [fam, w] = TR_STYLES[tr.style], { body, rows } = PRN_SIZES[$('#trPrnSize').value];
+  const c = document.createElement('canvas').getContext('2d');
+  c.font = `${w} 100px '${fam}'`;
+  const fs = body / (c.measureText(PRN_BODY).actualBoundingBoxAscent / 100); // font size in mm
+  const a = body * PRN_UP, H = a + body + body * PRN_DOWN, cw = PRN_W / PRN_FADE.length, base = a + body, tan = Math.tan(tr.slant * Math.PI / 180);
+  const hl = (y, col, dash = '') => `<line x1="0" x2="${PRN_W}" y1="${y}" y2="${y}" stroke="${col}" stroke-width=".25" ${dash}/>`;
+  const line = g => `<svg viewBox="0 0 ${PRN_W} ${H}" height="${H}mm">${hl(0, '#bbb')}${hl(a, '#999', 'stroke-dasharray="1.2 1.2"')}${hl(base, '#555')}${hl(H, '#bbb')}`
+    + PRN_FADE.map((o, k) => (k ? `<line x1="${k * cw}" x2="${k * cw}" y1="0" y2="${H}" stroke="#ccc" stroke-width=".2" stroke-dasharray=".4 1"/>` : '')
+      + (o ? `<text transform="translate(${(k + .5) * cw} ${base}) matrix(1 0 ${-tan} 1 0 0)" text-anchor="middle" font-family="${fam}" font-weight="${w}" font-size="${fs}" opacity="${o}">${g}</text>` : '')).join('') + '</svg>';
+  const blk = x => `<section class="blk"><div style="display:flex;align-items:baseline;gap:4mm;margin-bottom:2mm"><span style="font:${w} 9mm '${fam}';transform:skewX(${-tr.slant}deg)">${x.g}</span><span style="font:600 4mm Inter">${x.lat}</span><span style="font:3.5mm Inter;color:#555">${L(x.ru, x.en)}</span></div>${line(x.g).repeat(rows)}</section>`;
+  const mm = String(body).replace('.', t('prnDec'));
+  $('#prn').innerHTML = `<p style="font:3mm/1.4 Inter;color:#555;margin:0 0 4mm"><b>${t('prnTitle')}.</b> ${t('prnHow')} ${t('prnSize').replace('{mm}', mm)} <span style="display:inline-block;width:10mm;border-top:1mm solid #000;vertical-align:middle"></span> = 10 ${t('prnMm')}. ${t('trNote')}</p>` + trList().map(blk).join('');
   document.body.classList.add('printing');
   addEventListener('afterprint', () => document.body.classList.remove('printing'), { once: true });
   document.fonts.load(`${w} 40px '${fam}'`, 'กอ๑').finally(() => print());
