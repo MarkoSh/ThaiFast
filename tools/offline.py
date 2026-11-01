@@ -1,7 +1,7 @@
 """Offline support for a *Fast site: writes offline.json (every file the site needs, with a content hash,
 plus the CDN scripts and stylesheets index.html loads) and copies tools/sw.js next to index.html.
 
-Usage: python3 tools/offline.py <site dir>   — run by the pre-commit hook of every *Fast repo."""
+Usage: python3 tools/offline.py <site dir>   — before each commit; EngFast/SumerFast build.py and fastdeploy run it too."""
 import hashlib, json, os, re, shutil, sys
 
 root = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else '.')
