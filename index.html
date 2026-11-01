@@ -2638,7 +2638,7 @@ $('#tOpts').addEventListener('click', e => {
 const TR_SETS = {
   cons: () => CONS.filter(c => !c.old).map(c => ({ g: c.ch, say: c.ch + ' ' + c.word, lat: c.name, ru: c.ru, en: c.en })),
   vow: () => VOWELS.map(([g, lat, ru, en]) => ({ g, say: g, lat, ru, en })),
-  dig: () => NUM.slice(0, 10).map(x => ({ g: x.digit, say: x.th, lat: x.lat, ru: x.ru + ' · ' + x.th, en: x.en + ' · ' + x.th }))
+  dig: () => NUM.filter(x => +x.ru < 10 || [10, 11, 20, 100, 1000, 10000].includes(+x.ru)).map(x => ({ g: x.digit, say: x.th, lat: x.lat, ru: x.ru + ' · ' + x.th, en: x.en + ' · ' + x.th }))
 };
 const TR_W = 340;
 // glyph size (share of the canvas), brush width and scoring tolerance per size; small one is meant for a stylus
@@ -2851,6 +2851,7 @@ $('#trProp').onchange = e => { tr.prop = e.target.checked; trGo(tr.i) };
 const PRN_FADE = [.75, .6, .45, .32, .2, .1, .05, 0, 0, 0];
 const PRN_BODY = 'ก', PRN_UP = 1, PRN_DOWN = .9;
 const PRN_SIZES = { l: { body: 6, rows: 4 }, m: { body: 4.5, rows: 5 }, s: { body: 3.5, rows: 6 } };
+const PRN_FADE_LONG = [.75, .45, .2, 0, 0]; // multi-digit numbers are wide: fewer, wider cells
 const PRN_W = 190;
 // a printed item may expand into several blocks (EngFast: capital, small, joined) — a group of several gets a page of its own
 const PRN_VARIANTS = x => [x];
@@ -2859,11 +2860,11 @@ function trPrint() {
   const c = document.createElement('canvas').getContext('2d');
   c.font = `${w} 100px '${fam}'`;
   const fs = body / (c.measureText(PRN_BODY).actualBoundingBoxAscent / 100); // font size in mm
-  const a = body * PRN_UP, H = a + body + body * PRN_DOWN, cw = PRN_W / PRN_FADE.length, base = a + body, tan = Math.tan(tr.slant * Math.PI / 180);
+  const a = body * PRN_UP, H = a + body + body * PRN_DOWN, base = a + body, tan = Math.tan(tr.slant * Math.PI / 180);
   const hl = (y, col, dash = '') => `<line x1="0" x2="${PRN_W}" y1="${y}" y2="${y}" stroke="${col}" stroke-width=".25" ${dash}/>`;
-  const line = g => `<svg viewBox="0 0 ${PRN_W} ${H}" height="${H}mm">${hl(0, '#bbb')}${hl(a, '#999', 'stroke-dasharray="1.2 1.2"')}${hl(base, '#555')}${hl(H, '#bbb')}`
-    + PRN_FADE.map((o, k) => (k ? `<line x1="${k * cw}" x2="${k * cw}" y1="0" y2="${H}" stroke="#ccc" stroke-width=".2" stroke-dasharray=".4 1"/>` : '')
-      + (o ? `<text transform="translate(${(k + .5) * cw} ${base}) matrix(1 0 ${-tan} 1 0 0)" text-anchor="middle" font-family="${fam}" font-weight="${w}" font-size="${fs}" opacity="${o}">${g}</text>` : '')).join('') + '</svg>';
+  const line = g => { const fade = g.length > 2 ? PRN_FADE_LONG : PRN_FADE, cw = PRN_W / fade.length; return `<svg viewBox="0 0 ${PRN_W} ${H}" height="${H}mm">${hl(0, '#bbb')}${hl(a, '#999', 'stroke-dasharray="1.2 1.2"')}${hl(base, '#555')}${hl(H, '#bbb')}`
+    + fade.map((o, k) => (k ? `<line x1="${k * cw}" x2="${k * cw}" y1="0" y2="${H}" stroke="#ccc" stroke-width=".2" stroke-dasharray=".4 1"/>` : '')
+      + (o ? `<text transform="translate(${(k + .5) * cw} ${base}) matrix(1 0 ${-tan} 1 0 0)" text-anchor="middle" font-family="${fam}" font-weight="${w}" font-size="${fs}" opacity="${o}">${g}</text>` : '')).join('') + '</svg>' };
   const blk = x => `<section class="blk"><div style="display:flex;align-items:baseline;gap:4mm;margin-bottom:2mm"><span style="font:${w} 9mm '${fam}';transform:skewX(${-tr.slant}deg)">${x.g}</span><span style="font:600 4mm Inter">${x.lat}</span><span style="font:3.5mm Inter;color:#555">${L(x.ru, x.en)}</span>${x.tag ? `<span style="font:3.5mm Inter;color:#555;margin-left:auto">${x.tag}</span>` : ''}</div>${line(x.g).repeat(rows)}</section>`;
   const mm = String(body).replace('.', t('prnDec'));
   $('#prn').innerHTML = `<p style="font:3mm/1.4 Inter;color:#555;margin:0 0 4mm;${PRN_VARIANTS(trList()[0]).length > 1 ? 'break-after:page' : ''}"><b>${t('prnTitle')}.</b> ${t('prnHow')} ${t('prnSize').replace('{mm}', mm)} <span style="display:inline-block;width:10mm;border-top:1mm solid #000;vertical-align:middle"></span> = 10 ${t('prnMm')}. ${t('trNote')}</p>` + trList().map(x => { const v = PRN_VARIANTS(x); return v.length > 1 ? `<div style="break-after:page">${v.map(blk).join('')}</div>` : blk(v[0]) }).join('');
