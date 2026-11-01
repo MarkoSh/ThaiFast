@@ -43,6 +43,11 @@ tailwind.config = {
   .face.back { transform: rotateY(180deg); }
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s cubic-bezier(.2,.8,.2,1); }
   .reveal.in { opacity: 1; transform: none; }
+  #shList { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.18) transparent }
+  #shList::-webkit-scrollbar { width: 8px }
+  #shList::-webkit-scrollbar-track { background: transparent; margin: 6px 0 }
+  #shList::-webkit-scrollbar-thumb { background: rgba(255,255,255,.14); border-radius: 8px; border: 2px solid transparent; background-clip: content-box }
+  #shList::-webkit-scrollbar-thumb:hover { background: rgba(232,176,75,.6); background-clip: content-box }
   #prn { display: none }
   @media print {
     @page { size: A4; margin: 10mm }
