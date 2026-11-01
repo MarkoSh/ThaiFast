@@ -19,7 +19,7 @@ const out = new Function('let gender;\n' + js + `
   VERB.forEach(x => both(x.th)); TOPV.forEach(x => { both(x.th); both(x.xth) });
   for (let n = 0; n < 100000; n++) thaiNum(n).parts.forEach(both);
   // lines spoken by Thais — fixed speaker voice
-  ANS.forEach(x => res[x.v].add(x.th));
+  ANS.forEach(x => { res[x.v].add(x.th); const o = x.v === 'm' ? 'f' : 'm'; res[o].add(swapVoice(x, o).th) }); // shadowing plays them in both voices
   SCENES.forEach(sc => sc.steps.forEach(st => res[st.them.v].add(st.them.th)));
   both('ไหว้'); res.m.add(POLITE_YES.m.th); res.f.add(POLITE_YES.f.th);
   ADDR.forEach(x => both(x.th)); QWORDS.concat(QPARTS).forEach(x => both(x.th));

@@ -1411,6 +1411,15 @@ const ANS = [
   { c: 'people', v: 'f', th: 'ไม่เป็นไรค่ะ', lat: 'mâi bpen rai khâ', cyr: 'май пен рай кха', ru: 'Не за что / Ничего страшного', en: 'You’re welcome / No worries' },
   { c: 'people', v: 'm', th: 'ระวังนะครับ', lat: 'rá-wang ná khráp', cyr: 'ра-ванг на кхрап', ru: 'Осторожно!', en: 'Careful!' }
 ].map(x => ({ ...x, np: 1 }));
+// the same line as said by a man / a woman: only the final particle changes (ครับ / ค่ะ / คะ). Used by the shadowing player, so every line has both voices.
+function swapVoice(x, g) {
+  if (!x.v || x.v === g) return x;
+  const P = PARTICLE, w = g === 'm' ? P.m : P.qre.test(x.th.replace(/\s+/g, '')) ? P.q : P.f;
+  return { ...x, v: undefined,
+    th: x.th.replace(/(ครับ|ค่ะ|คะ)(?=\s|$)/g, w.th),
+    lat: x.lat.replace(/(?<=\s)(khráp|khâ|khá)(?=\s|$)/g, w.lat),
+    cyr: x.cyr.replace(/(?<=\s)(кхрап|кха)(?=[?,]|\s|$)/g, w.cyr + (/\?/.test(x.cyr) ? '?' : '')).replace(/\?\?/g, '?') };
+}
 
 /* ================= DIALOGS ================= */
 // them = what the Thai says (fixed voice); options = your replies (particle added by gender). ok: right answer, why: explanation for wrong ones
@@ -3074,7 +3083,7 @@ const shSave = () => store.set(SH_KEY, JSON.stringify({ rate: sh.rate, reps: sh.
 const shCur = () => sh.list[sh.ord[sh.k]];
 function shBuild() {
   if (sh.src !== 'all' && !POOLS[sh.src]) sh.src = Object.keys(POOLS)[0];
-  sh.list = sh.src === 'all' ? Object.values(POOLS).flat() : POOLS[sh.src];
+  sh.list = (sh.src === 'all' ? Object.values(POOLS).flat() : POOLS[sh.src]).map(x => typeof swapVoice === 'function' ? swapVoice(x, gender) : x); // swapVoice exists on ThaiFast only
   sh.ord = sh.list.map((_, i) => i);
   if (sh.shuffle) sh.ord = shuffle(sh.ord);
   sh.k = 0; sh.n = 0;
