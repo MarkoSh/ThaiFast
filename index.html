@@ -285,6 +285,7 @@ tailwind.config = {
           <p class="mt-3 text-zinc-400" data-i18n="wordsSub"></p>
         </div>
         <div class="flex flex-wrap self-start rounded-2xl border border-white/10 bg-ink-900 p-1 text-sm font-semibold">
+          <button data-vtab="pron" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="users" class="w-4 h-4"></i><span data-i18n="vPron"></span></button>
           <button data-vtab="num" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="hash" class="w-4 h-4"></i><span data-i18n="vNum"></span></button>
           <button data-vtab="body" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="person-standing" class="w-4 h-4"></i><span data-i18n="vBody"></span></button>
           <button data-vtab="verb" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="move-right" class="w-4 h-4"></i><span data-i18n="vVerb"></span></button>
@@ -292,6 +293,15 @@ tailwind.config = {
           <button data-vtab="cls" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="shopping-cart" class="w-4 h-4"></i><span data-i18n="vCls"></span></button>
           <button data-vtab="food" class="vtab px-4 py-2 rounded-xl flex items-center gap-2 transition"><i data-lucide="soup" class="w-4 h-4"></i><span data-i18n="vFood"></span></button>
         </div>
+      </div>
+
+      <!-- Pronouns -->
+      <div data-vpanel="pron" class="hidden mt-10">
+        <div class="flex items-start gap-3 rounded-2xl border border-accent/20 bg-accent/5 p-5 text-sm">
+          <i data-lucide="users" class="w-5 h-5 text-accent shrink-0 mt-0.5"></i>
+          <p class="text-zinc-300" data-i18n="pronNote"></p>
+        </div>
+        <div id="pronGrid" class="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>
       </div>
 
       <!-- Numbers -->
@@ -899,7 +909,7 @@ const T = {
     billTitle: 'Счёт, пожалуйста', billSub: 'Позвать официанта, разделить счёт или оплатить всё вместе.',
     wordsTitle: 'Базовый словарь',
     wordsSub: 'Слова, из которых собираются фразы. Тайская грамматика проста: слова не меняются по родам, числам и временам.',
-    vNum: 'Цифры', vBody: 'Тело', vVerb: 'Глаголы',
+    vPron: 'Местоимения', pronNote: 'Тайское слово не меняется ни по роду, ни по числу, ни по времени: ผมหิว, เขาหิว, เราหิว — «я / он / мы голодны», глагол один. «Я» зависит от пола говорящего: мужчина — ผม, женщина — ฉัน. Местоимения часто опускают. Нажмите на слово или на пример.', vNum: 'Цифры', vBody: 'Тело', vVerb: 'Глаголы',
     numBuilder: 'Скажите любое число', numRandom: 'Случайная цена',
     numNote: 'Тайские цифры ๐–๙ встречаются на ценниках «для местных» и в храмах. 11, 21, 31… заканчиваются на «эт», а не на «нынг», а 20 — «йи-сип», а не «сонг-сип».',
     bodyNote: 'ปวด (bpùat) + часть тела = «болит». ปวดหัว — болит голова, ปวดท้อง — болит живот. Покажите аптекарю — поймёт сразу. Нажмите «Болит», чтобы услышать.',
@@ -1027,7 +1037,7 @@ const T = {
     billTitle: 'Check, please', billSub: 'Call for the bill, split it, or pay for everyone.',
     wordsTitle: 'Core vocabulary',
     wordsSub: 'The words phrases are built from. Thai grammar is simple: words never change for gender, number or tense.',
-    vNum: 'Numbers', vBody: 'Body', vVerb: 'Verbs',
+    vPron: 'Pronouns', pronNote: 'Thai words never change for gender, number or tense: ผมหิว, เขาหิว, เราหิว — “I / he / we are hungry”, same verb. “I” depends on the speaker: men say ผม, women say ฉัน. Pronouns are often dropped. Tap a word or its example.', vNum: 'Numbers', vBody: 'Body', vVerb: 'Verbs',
     numBuilder: 'Say any number', numRandom: 'Random price',
     numNote: 'Thai digits ๐–๙ appear on “locals” price tags and in temples. 11, 21, 31… end in “èt”, not “nùeng”, and 20 is “yîi-sìp”, not “sǒng-sìp”.',
     bodyNote: 'ปวด (bpùat) + body part = “it hurts”. ปวดหัว — headache, ปวดท้อง — stomach ache. Show it to a pharmacist. Tap “Hurts” to hear it.',
@@ -1292,6 +1302,13 @@ const NUM = [
   ['แปด', 'bpàet', 'пэт', '8', '๘'], ['เก้า', 'gâo', 'као', '9', '๙'], ['สิบ', 'sìp', 'сип', '10', '๑๐'], ['สิบเอ็ด', 'sìp-èt', 'сип-эт', '11', '๑๑'],
   ['ยี่สิบ', 'yîi-sìp', 'йи-сип', '20', '๒๐'], ['ร้อย', 'rói', 'рой', '100', '๑๐๐'], ['พัน', 'phan', 'пхан', '1000', '๑๐๐๐'], ['หมื่น', 'mùuen', 'мын', '10 000', '๑๐๐๐๐']
 ].map(([th, lat, cyr, n, d]) => ({ th, lat, cyr, ru: n, en: n, digit: d, np: 1 }));
+
+const PRONS = [
+  ['ผม', 'phǒm', 'пхом', 'я (говорит мужчина)', 'I (said by a man)'], ['ฉัน', 'chǎn', 'чхан', 'я (говорит женщина)', 'I (said by a woman)'],
+  ['คุณ', 'khun', 'кхун', 'ты, вы (вежливо)', 'you (polite)'], ['เขา', 'khǎo', 'кхао', 'он (и «она» в речи)', 'he (also “she” in speech)'],
+  ['เธอ', 'thoe', 'тхё', 'она', 'she'], ['เรา', 'rao', 'рао', 'мы', 'we'],
+  ['พวกเขา', 'phûak-khǎo', 'пхуак-кхао', 'они', 'they'], ['มัน', 'man', 'ман', 'оно, это (о вещах и животных)', 'it (things, animals)']
+].map(([th, lat, cyr, ru, en]) => ({ th, lat, cyr, ru, en, xth: th + 'หิว' }));
 
 const BODY = [
   ['หัว', 'hǔa', 'хуа', 'голова', 'head'], ['ผม', 'phǒm', 'пхом', 'волосы', 'hair', 1], ['ตา', 'dtaa', 'та', 'глаз', 'eye'], ['หู', 'hǔu', 'ху', 'ухо', 'ear'],
@@ -2211,6 +2228,10 @@ $('#numMinus').onclick = () => setNum((+$('#numIn').value || 0) - 1);
 $('#numPlus').onclick = () => setNum((+$('#numIn').value || 0) + 1);
 $('#numRand').onclick = () => { setNum([20, 40, 50, 60, 80, 120, 150, 250, 350, 499, 1200, 3500][Math.random() * 12 | 0]); speak(thaiNum(+$('#numIn').value).parts.join('|'), $('#numOut [data-say]')) };
 
+function renderPron() {
+  $('#pronGrid').innerHTML = PRONS.map(x => wordTile(x,
+    `<button data-say="${x.xth}" class="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 px-2.5 py-1 text-xs text-zinc-400 hover:border-accent hover:text-accent transition"><i data-lucide="message-circle" class="w-3 h-3"></i><span class="font-thai">${x.xth}</span></button>`)).join('');
+}
 function renderBody() {
   $('#bodyGrid').innerHTML = BODY.map(x => wordTile(x, x.noPain ? '' :
     `<button data-say="ปวด${x.th}" class="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 px-2.5 py-1 text-xs text-zinc-400 hover:border-accent hover:text-accent transition"><i data-lucide="activity" class="w-3 h-3"></i>${t('hurts')} · <span class="font-thai">ปวด${x.th}</span></button>`)).join('');
@@ -3346,7 +3367,7 @@ $('#kbClear').onclick = () => { clearTimeout(kbTimer); $('#kbIn').value = ''; kb
 
 function renderAll() {
   renderText(); renderSounds(); renderTones(); renderPoster(); renderAlphabet(); renderPhrases();
-  renderNum(); renderBody(); renderVerbs(); renderQues(); renderCls(); renderFood(); renderSent(); renderTopVerbs(); renderHero(); renderPools();
+  renderNum(); renderPron(); renderBody(); renderVerbs(); renderQues(); renderCls(); renderFood(); renderSent(); renderTopVerbs(); renderHero(); renderPools();
   renderAns(); renderDlg(); renderEtq(); renderSigns(); lRender(); spRender(); renderMore(); kbRender(); renderTwisters(); renderFacts(); renderIdioms(); renderStories(); renderLearn(); navFill();
   fcShow(); qRender(); tRender(); trRender(); shRender(); icons();
 }
