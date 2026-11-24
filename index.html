@@ -81,6 +81,9 @@ tailwind.config = {
   .st-sw { cursor: pointer; color: #7dd3fc; text-decoration: underline wavy rgba(125,211,252,.7); text-underline-offset: 5px; }
   .st-sw::after { content: '⇄'; font: 600 .62em Inter, sans-serif; margin-left: 2px; vertical-align: super; color: #7dd3fc; }
   .st-sw:hover, .st-sw.speaking { color: #bae6fd; }
+  /* no highlight: swapped letters, words and moved phrases look like the rest of the text (balloons still work) */
+  .st-plain .st-l, .st-plain .st-w, .st-plain .st-sw, .st-plain .st-th { color: inherit; background: none; text-decoration: none; font-weight: inherit; font-size: inherit; padding: 0; }
+  .st-plain .st-sw::after { content: none; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
   .fade-up { animation: fadeUp .45s cubic-bezier(.2,.8,.2,1); }
   .grid-bg { background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 48px 48px; }
@@ -839,7 +842,7 @@ const T = {
   ru: {
     navDialogs: 'Диалоги', navEtq: 'Этикет', navGram: 'Грамматика',
     stTitle: 'Рассказы', stBadge: 'эксперимент', stSub: 'Настоящая литература, где часть слов — на тайском, с произношением и переводом в скобках. Нажмите на тайское слово, чтобы услышать его.',
-    stMT: 'Текст', stM0: 'Буквы', stM1: 'Слова', stM2: 'Микс', stM3: 'Порядок', stGrow: 'Нарастание', stSeed: 'Другой набор', stDt: 'Оригинал рассказа, без замен.', stD0: 'В некоторых словах буква (согласная или гласная) заменена тайской, самой близкой по звуку. Нажмите на неё: как читается и школьное слово для этой буквы.', stD1: 'Слова заменены тайскими на своих местах, по порядку слов русского. Нажмите на слово: транскрипция и что было в тексте.', stD2: 'Смесь: часть слов тайские целиком, в остальных заменены отдельные буквы.', stD3: 'Тайские слова стоят в правильном тайском порядке. Подчёркнутое волной — слова, которые пришлось переставить: наведите или нажмите, и увидите, как было и почему.', stDG: 'Чем дальше по рассказу, тем больше замен: от 8% до 60% по параболе.', stTipFrom: 'В тексте было', stTipIni: 'Начало слога', stTipFin: 'Конец слога', stTipCls: 'Класс буквы (определяет тон)', stTipRep: 'Заменяет', stTipOrig: 'Как было в оригинале', stTipVow: 'Гласная', stTipVowD: 'Школьное название — «สระ» + звук; в слове пишется рядом с согласной, здесь показана отдельно.', stTipLit: 'Дословно по-тайски', stTipWhy: 'Почему поменяли',
+    stMT: 'Текст', stM0: 'Буквы', stM1: 'Слова', stM2: 'Микс', stM3: 'Порядок', stGrow: 'Нарастание', stSeed: 'Другой набор', stDt: 'Оригинал рассказа, без замен.', stD0: 'В некоторых словах буква (согласная или гласная) заменена тайской, самой близкой по звуку. Нажмите на неё: как читается и школьное слово для этой буквы.', stD1: 'Слова заменены тайскими на своих местах, по порядку слов русского. Нажмите на слово: транскрипция и что было в тексте.', stD2: 'Смесь: часть слов тайские целиком, в остальных заменены отдельные буквы.', stD3: 'Тайские слова стоят в правильном тайском порядке. Подчёркнутое волной — слова, которые пришлось переставить: наведите или нажмите, и увидите, как было и почему.', stDG: 'Чем дальше по рассказу, тем больше замен: от 8% до 60% по параболе.', stTipFrom: 'В тексте было', stTipIni: 'Начало слога', stTipFin: 'Конец слога', stTipCls: 'Класс буквы (определяет тон)', stTipRep: 'Заменяет', stPlain: 'Без подсветки', stPlainH: 'Заменённое выглядит как обычный текст; баллуны работают', stTipOrig: 'Как было в оригинале', stTipVow: 'Гласная', stTipVowD: 'Школьное название — «สระ» + звук; в слове пишется рядом с согласной, здесь показана отдельно.', stTipLit: 'Дословно по-тайски', stTipWhy: 'Почему поменяли',
     stMore: 'Читать полностью', stLess: 'Свернуть', stBy: 'автор —', stSrc: 'Оригинал', stNote: 'Тайские вставки и перевод на английский — любительские. Автор разрешает свободно распространять свои тексты с указанием «автор — Леонид Каганов» и ссылкой на его сайт.',
     fcTitle: 'Интересные факты', fcSub: 'Физика и химия, которую видно на кухне, трюки собственного тела и сам тайский язык. Тайские слова в тексте кликабельны — нажмите, чтобы услышать.',
     fc_phys: 'Физика и химия', fc_body: 'Трюки тела', fc_lang: 'О языке',
@@ -968,7 +971,7 @@ const T = {
   en: {
     navDialogs: 'Dialogs', navEtq: 'Etiquette', navGram: 'Grammar',
     stTitle: 'Stories', stBadge: 'experiment', stSub: 'Real fiction with some words in Thai, pronunciation and meaning in brackets. Tap a Thai word to hear it.',
-    stMT: 'Text', stM0: 'Letters', stM1: 'Words', stM2: 'Mix', stM3: 'Order', stGrow: 'Growing', stSeed: 'Another set', stDt: 'The story as it is, nothing swapped.', stD0: 'In some words a letter (consonant or vowel) is swapped for the Thai letter that sounds closest. Tap it: how it is read and the school word for that letter.', stD1: 'Words are swapped for Thai in place, in English word order. Tap a word: the pronunciation and what was in the text.', stD2: 'A mix: some words are fully Thai, in the others single letters are swapped.', stD3: 'Thai words stand in correct Thai order. A wavy underline marks words that had to move: hover or tap to see how it was and why.', stDG: 'The further into the story, the more swaps: from 8% to 60% along a parabola.', stTipFrom: 'In the text', stTipIni: 'Start of a syllable', stTipFin: 'End of a syllable', stTipCls: 'Letter class (sets the tone)', stTipRep: 'Replaces', stTipOrig: 'Original order', stTipVow: 'Vowel', stTipVowD: 'The school name is “สระ” + the sound; in a word it sits next to a consonant, shown alone here.', stTipLit: 'Word for word in Thai', stTipWhy: 'Why it moved',
+    stMT: 'Text', stM0: 'Letters', stM1: 'Words', stM2: 'Mix', stM3: 'Order', stGrow: 'Growing', stSeed: 'Another set', stDt: 'The story as it is, nothing swapped.', stD0: 'In some words a letter (consonant or vowel) is swapped for the Thai letter that sounds closest. Tap it: how it is read and the school word for that letter.', stD1: 'Words are swapped for Thai in place, in English word order. Tap a word: the pronunciation and what was in the text.', stD2: 'A mix: some words are fully Thai, in the others single letters are swapped.', stD3: 'Thai words stand in correct Thai order. A wavy underline marks words that had to move: hover or tap to see how it was and why.', stDG: 'The further into the story, the more swaps: from 8% to 60% along a parabola.', stTipFrom: 'In the text', stTipIni: 'Start of a syllable', stTipFin: 'End of a syllable', stTipCls: 'Letter class (sets the tone)', stTipRep: 'Replaces', stPlain: 'No highlight', stPlainH: 'Swaps look like ordinary text; balloons still work', stTipOrig: 'Original order', stTipVow: 'Vowel', stTipVowD: 'The school name is “สระ” + the sound; in a word it sits next to a consonant, shown alone here.', stTipLit: 'Word for word in Thai', stTipWhy: 'Why it moved',
     stMore: 'Read the whole story', stLess: 'Collapse', stBy: 'by', stSrc: 'Original (Russian)', stNote: 'The Thai inserts and the English translation are amateur work. The author allows his texts to be shared freely with the credit “author — Leonid Kaganov” and a link to his site.',
     fcTitle: 'Curious facts', fcSub: 'Physics and chemistry you can see in the kitchen, tricks of your own body and the Thai language itself. Thai words in the text are tappable — tap to hear them.',
     fc_phys: 'Physics & chemistry', fc_body: 'Body tricks', fc_lang: 'About the language',
@@ -2663,6 +2666,7 @@ function stModeBar() {
     </div>
     <div class="mt-3 flex flex-wrap items-center gap-2 min-h-[2.5rem]">
       ${canGrow ? `<button id="stGrow" aria-pressed="${stS.grow}" class="${chip(stS.grow)}"><i data-lucide="trending-up" class="w-4 h-4"></i>${t('stGrow')}</button>` : ''}
+      ${stS.mode !== 't' ? `<button id="stPlain" aria-pressed="${stS.plain}" class="${chip(stS.plain)}" title="${t('stPlainH')}"><i data-lucide="eye-off" class="w-4 h-4"></i>${t('stPlain')}</button>` : ''}
       ${stS.mode !== 't' && stS.mode !== '1' || stS.grow ? `<button id="stSeed" class="${chip(false)}" title="${t('stSeed')}"><i data-lucide="shuffle" class="w-4 h-4"></i>${t('stSeed')}</button>` : ''}
     </div>
     <p class="mt-2 min-h-[4.5rem] text-sm leading-relaxed text-zinc-500 sm:min-h-[3.25rem]">${t('stD' + stS.mode)}${canGrow && stS.grow ? ' ' + t('stDG') : ''}</p>`;
@@ -2670,7 +2674,7 @@ function stModeBar() {
 
 /*@@ST-A-END*/
 const ST_KEY = 'tf-story';
-const stS = Object.assign({ mode: '1', grow: false, seed: 1 }, (() => { try { return JSON.parse(store.get(ST_KEY, '{}')) } catch (e) { return {} } })());
+const stS = Object.assign({ mode: '1', grow: false, plain: false, seed: 1 }, (() => { try { return JSON.parse(store.get(ST_KEY, '{}')) } catch (e) { return {} } })());
 const stSave = () => store.set(ST_KEY, JSON.stringify(stS));
 let stData = null;
 function renderStories() {
@@ -2680,7 +2684,7 @@ function renderStories() {
     <h3 class="mt-2 text-3xl md:text-4xl font-bold text-white">${L(st.title.ru, st.title.en)}</h3>
     <p class="mt-1 font-thai text-lg text-zinc-500">${st.title[STORY_L]}</p>
     ${trainer ? stModeBar() : ''}
-    <div id="storyBody" class="relative mt-8 space-y-5">${trainer ? paras.map((_, i) => `<p class="text-[17px] leading-relaxed text-zinc-200">${stPara(i)}</p>`).join('') : paras.map(p => `<p class="text-[17px] leading-relaxed text-zinc-200">${L(...p)}</p>`).join('')}
+    <div id="storyBody" class="relative mt-8 space-y-5${stS.plain ? ' st-plain' : ''}">${trainer ? paras.map((_, i) => `<p class="text-[17px] leading-relaxed text-zinc-200">${stPara(i)}</p>`).join('') : paras.map(p => `<p class="text-[17px] leading-relaxed text-zinc-200">${L(...p)}</p>`).join('')}
       ${storyOpen ? '' : '<div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink-900"></div>'}</div>
     <button id="stMore" class="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-accent hover:border-accent/60 hover:text-white transition">${t(storyOpen ? 'stLess' : 'stMore')}<i data-lucide="${storyOpen ? 'chevron-up' : 'chevron-down'}" class="w-4 h-4"></i></button>
     <p class="mt-8 border-t border-white/5 pt-4 text-xs text-zinc-500 leading-relaxed">${t('stSrc')}: <a href="${st.url}" target="_blank" rel="noopener" class="underline hover:text-white">${st.url.replace('https://', '')}</a> · ${t('stNote')}</p>
@@ -2692,6 +2696,7 @@ $('#storyBox').addEventListener('click', e => {
   if (e.target.closest('#stMore')) { storyOpen = !storyOpen; renderStories(); icons() }
   else if (md) set('mode', md.dataset.stmode);
   else if (e.target.closest('#stGrow')) set('grow', !stS.grow);
+  else if (e.target.closest('#stPlain')) set('plain', !stS.plain);
   else if (e.target.closest('#stSeed')) set('seed', stS.seed + 1);
 });
 // the Thai data of the trainer is loaded after the first paint (200 KB); the Thai site only
