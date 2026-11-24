@@ -1,0 +1,466 @@
+# Story lexicon: Thai word <TAB> Russian lemmas <TAB> English lemmas [<TAB> roman override]
+# lemma/POS limits a Russian lemma to one part of speech (pymorphy3 tags). Lemmas not listed stay in the reader's language.
+# Mapping is word for word (the 'swap the word in place' trainer modes); the Thai may not be the only right translation.
+และ	и	and
+ใน	в,внутри	in,inside
+บน	на	on
+ที่		at
+ไปยัง	к	toward,towards
+กับ	с	with
+เพื่อ	для	for
+จาก	из,от,из-под	from
+ของ		of
+โดย		by
+เป็น	быть	be
+มี	иметь,присутствовать	have
+ไม่	не,нет	not,no
+ไม่เคย	никогда	never
+แต่	но	but
+หรือ	или	or
+ถ้า	если	if
+เมื่อ	когда	when
+ว่า	что/CONJ	that
+อะไร	что/NPRO	what
+ใคร	кто	who
+ทำไม		why
+อย่างไร	как/CONJ	how
+ฉัน	я	i
+เรา	мы	we,us
+ของเรา	наш	our
+เขา	он	he,him
+ของเขา		his
+เธอ	она	she
+มัน	оно	it
+พวกเขา	они	they,them
+ของพวกเขา		their
+คุณ	вы	you
+ของคุณ		your
+ของฉัน	мой	my
+นี่	это/NPRO,этот	this,these
+ทุก	каждый	every,each
+ทั้งหมด	весь,всё	all,whole
+บาง	некоторый	some
+อื่น	другой	other,another
+เดียวกัน	тот	same
+เอง	сам	
+ของตัวเอง	свой	own
+มากกว่า	более	more
+น้อย	немного	few,little
+ตอนนี้	сейчас	now
+แล้ว	уже	already
+อีกครั้ง	вновь,снова	again
+ตอนนั้น	тогда,затем	then
+ที่นี่	тут	here
+ที่นั่น	там,туда	there
+ทั่ว	повсюду	everywhere
+ข้างใน		inside
+ข้างนอก		out
+ขึ้น		up
+ลง		down
+กลับ	назад	back,ago
+ไปข้างหน้า	вперёд	ahead,forward
+ก่อน		before
+หลังจาก	после	after
+ระหว่าง	среди	among
+ข้างใต้	под	under
+รอบ	вокруг	around,round
+เกี่ยวกับ	о/PREP,про	about
+โดยไม่มี	без	without
+ประมาณ	около	
+ใกล้	близко	near,close
+มาก	очень	very
+เกินไป		too
+เพียง	лишь,только	only
+แค่	просто	just,simply
+เพียงแค่		mere
+อย่างรวดเร็ว	быстро,стремительно	rapidly,quickly,swiftly
+อย่างช้าๆ		slowly
+เกือบจะ		nearly
+ไม่นาน	вскоре	soon
+เสมอ		always
+แน่นอน	безусловно	exactly
+ดูเหมือน	видимо	apparently
+สักครู่		
+เดี๋ยวนี้		
+# --- nouns
+ดาวเคราะห์	планета	planet
+กัปตัน	капитан	captain
+นาโนบอท	нанобот,бот	nanobot,bot
+นักนาโนเทคโนโลยี	нанотехнолог	nanotechnologist
+ยานอวกาศ	корабль	ship
+วินาที	секунда	
+ปัญญา	разум	intelligence,mind
+ดาว	звезда	star
+กาแล็กซี	галактика	galaxy
+ห้องควบคุม	рубка	bridge
+ผู้อ่าน	читатель	reader
+ซิลิกอน	кремний	silicon
+คาร์บอน	углеродный	carbon
+ความเร็ว	скорость	speed
+บรรยากาศ	атмосфера	atmosphere
+ก้อน	глыба	lump
+นักเดินทาง	странник	
+คนแปลกหน้า		stranger
+นักวิทยาศาสตร์	учёный	scientist
+ห้องทดลอง	лаборатория	laboratory
+หุ่นยนต์	робот	robot
+จอภาพ	экран	screen,viewscreen
+พื้นผิว	поверхность	surface
+ผู้อาวุโส	старейшина	elder
+ปี	год	year
+จักรวาล	вселенная	universe
+สเปกตรัม	спектр	spectrum
+ผู้อาศัย	обитатель	inhabitant
+ล้าน	миллион	million
+หัว	голова	head
+คำนำ	предисловие	introduction
+โลก	мир	world
+คาร์บอนไดออกไซด์	углекислота	dioxide,carbon-dioxide
+พ่อ	отец	father
+แคปซูล	капсула	capsule
+วัฒนธรรม	культура	culture
+การเข้าใกล้	приближение	
+เวลา	время	time
+การเดา	догадка	guess
+กระบวนการ	процесс	process
+ระบบ	система	system
+นักเดินเรือ	штурман	navigator
+นักฟิสิกส์	физик	physicist
+ยานสำรวจ	зонд	probe
+ชีวิต	жизнь	life
+พันล้าน	миллиард	billion
+โครงสร้าง	структура	structure
+การติดต่อ	контакт	contact
+การกระทำ	акт	act
+อวกาศ	космос	space
+คู่	пара	couple
+วัตถุ	объект	object
+สถานที่	место	place
+ลูกเรือ	экипаж	crew,crow
+ตู้ข้างเตียง	тумбочка	nightstand
+รูปร่าง	форма	shape
+พิพิธภัณฑ์	музей	museum
+เดือน	месяц	month
+วัน	день	day
+ปัญหา	проблема	problem
+เรื่อง	дело	matter,thing
+เหตุร้าย	беда	disaster
+จุดจบ	конец	end
+คลื่น	волна	wave
+พายุ	буря	storm
+หายนะ	катаклизм	cataclysm
+ที่หลบภัย	убежище,пристанище	shelter,refuge
+การระเบิด	взрыв	
+ดวงอาทิตย์	светило	sun
+ความเงียบ	тишина	silence
+ข้อมูล	данные	data
+ความเห็น	мнение	opinion
+สภา	совет	council
+หลักการ	принцип	principle
+การทดลอง	эксперимент	experiment
+การกลายพันธุ์	мутация	mutation
+การหมุน	оборот	revolution
+การประชุม	собрание	assembly
+อาณานิคม	колония	colony
+การควบคุม	контроль	control
+อันตราย	опасность	danger
+ความปลอดภัย	безопасность	safety
+การโจมตี		attack
+วิวัฒนาการ	эволюция	evolution
+สัญญาณ	сигнал	signal
+ห้อง	помещение	room
+คริสตัล	кристалл	crystal
+อายุ	возраст	age
+ฝุ่น	пыль	dust
+อุปกรณ์	устройство,оборудование	device,equipment
+นักเขียน	писатель	writer
+อารยธรรม	цивилизация	civilisation
+โปรตีน	белков	protein
+ผู้นำทาง	экскурсовод	guide
+ผู้มาเยือน		visitor
+ขอบ		edge
+วงโคจร	орбита	orbit
+นักข่าว	журналист	journalist
+ความรู้สึก	сенсация	sensation
+ศตวรรษ	век	century
+ประเทศรัสเซีย	россия	
+สถาบัน	нии	institute
+วิทยาศาสตร์		science
+ชื่อ		name
+องค์ประกอบ	состав	composition
+ต้นกำเนิด	происхождение	origin
+การค้นพบ	обнаружение	discovery
+สี	цвет	
+ปืนใหญ่	пушка	cannon
+เสียง	шум	uproar
+จุด	пятно	spot
+มุม		angle
+โลก	земля	earth
+ทางเข้า	порог	doorway
+นาที	минута	minute
+ชั่วโมง		hour
+# --- verbs
+พูด	говорить,сказать,заявить,высказывать	say,declare,exclaim,yell
+บอก		tell
+เริ่ม	начать,начаться,заговорить	begin,start
+กลายเป็น	стать	become
+สามารถ	мочь,смочь,уметь	can,may
+รู้	знать,узнать,понимать	know
+ทำ	делать,сделать	make,do
+สร้าง	создать,построить,разработать	create,build
+ถาม	спросить,поинтересоваться	ask
+ตอบ	ответить,отвечать	reply,answer
+ลุกขึ้น	подняться,встать,привстать	rise
+หัน	повернуться,обернуться	turn
+รวมตัว	собраться,созвать	gather,assemble
+มอง	оглядеть,оглядеться,оглянуться	look,glance
+เห็น	видеть	see,saw
+แสดง	показывать,показать	show
+เอา	взять	take
+ให้	дать,давать	
+คิด	думать,подумать,догадываться	think
+เข้าใจ	понимать	understand
+อยู่	жить	live
+มีอยู่	существовать	exist
+เลือก	выбрать	choose,pick
+เสนอ	предлагать	propose
+ตัดสินใจ	решить	
+ค้นพบ	обнаружить,выяснить	discover,find
+ส่ง	отправить,послать	send
+บิน	лететь,вылететь,влететь	fly
+ลงจอด	приземлиться	land
+ตก	упасть	fall
+หมุน	вращаться,обернуться	spin
+ส่องแสง	сиять,светить	shine
+ลอย	висеть,повиснуть	hang
+ยืน	стоять	stand
+รอ	ждать,выждать	wait
+พูดซ้ำ	повторять	repeat
+อธิบาย	объяснить,пояснить	explain
+เปิด	включить,открыть	switch,open
+ทำลาย	уничтожить,уничтожать	destroy,wipe
+โจมตี	атаковать	attack
+ศึกษา	изучить	study
+เรียน	научиться	learn
+นับ	сосчитать,считать	count
+ขยายพันธุ์	размножиться,размножаться,множиться	multiply,reproduce
+กลายพันธุ์	мутировать	mutate
+พัฒนา	развиваться	develop
+เติบโต		grow
+เคลื่อนที่	двигаться,передвигаться	move
+เร่ง	ускоряться	accelerate
+เปลี่ยน	изменять	change
+กลับ	вернуться	return
+ออกไป	уйти,выйти	leave
+มา	прийти	come
+เข้าใกล้	приблизиться,приближаться	approach
+ได้ยิน		hear
+หวัง	надеяться	hope
+กิน	употреблять	eat
+ต้องการ	необходимый	need
+ลืม	забыть	forget
+จำ	вспомнить	remember,recall
+อ่าน		read
+เขียน		write
+หยุด	хватить	
+ปล่อย		release
+ฟื้นตัว		
+ซ่อน	прятаться	
+ขุด	вырыть	dig
+หายใจ	вздохнуть	sigh
+ตะโกน	заорать,завопить,кричать	cry,roar
+รับ		receive
+ทำให้	заставлять	
+ปกป้อง		protect
+ล้อมรอบ		
+ปกคลุม	покрыть	cover
+แผ่รังสี	излучать	radiate,emit
+ดูดซับ	впитывать,поглощать	absorb,soak
+ผลิต	вырабатывать	produce
+วางแผน	планировать	plan
+หว่าน	засеять	
+ทิ้ง	бросить	
+ระเบิด	взорваться	explode,burst
+ล่มสลาย		collapse
+โผล่		
+ทดลอง		
+ปรากฏ	появиться	appear
+เกิดขึ้น	происходить	happen
+ใช้		use
+ต้อง	должный	must
+ควร		should
+อยาก	хотеть	
+ชอบ		like
+จะ		will
+# --- adjectives, numerals, adverbs
+ใหญ่	большой,гигантский	big,giant,grand
+เล็ก	маленький,небольшой,мизерный,крошечный,крохотный	small,little,tiny,minuscule
+ดี	хороший	good
+ใหม่	новорождённый	new,newborn
+เก่า	старый	old
+อ่อนวัย	молодой	young
+สูง	высокий	tall,high
+เร็ว	быстрый	fast
+ช้า		slow
+สำคัญ	важный	vital,important
+ซับซ้อน	сложный	complex
+แปลก	странный	strange
+จริงจัง	серьёзный	serious
+สุดท้าย	последний	last
+แรก	первый	first
+ที่สอง	второй	
+ที่สาม	третий	third
+ที่สี่	четвёртый	fourth
+ถัดไป	следующий	next
+พร้อม	готовый	ready
+เหมาะสม	подходящий,пригодный	suitable
+สงบ	спокойный	calm,quiet
+เงียบ	тихий	silent
+มีชีวิต	живой	
+ชัดเจน	ясно	clear
+เทียม	искусственный	artificial
+แท้	настоящий	genuine
+ว่างเปล่า	пустой	empty
+ฉลาด	разумный	intelligent
+ไม่น่าเชื่อ	немыслимый	unthinkable
+บริสุทธิ์	чистый	clean
+เต็ม		full
+หนึ่ง	один	one
+สอง	два	two
+สาม		three
+สี่		four
+หก		six
+แปด	восемь	eight
+สิบ	десять	ten
+ร้อย	сотня	hundred
+เป็นหมื่น		
+ล้านล้าน		
+ครึ่ง		half
+หลาย	несколько	several
+ทุกคน		everyone
+ไม่มีอะไร	ничто	nothing
+บางอย่าง	что-то	something
+อย่างอื่น		
+เท่านั้น		
+สั้น	короткий	short
+ยาว		long
+ใกล้เคียง		
+จริง		real
+ปกติ		
+อย่างชัดเจน	заметно	
+อย่างกะทันหัน	вдруг	suddenly
+ทันที		
+อย่างเงียบๆ		
+อย่างเข้มงวด	сурово,жёстко	sternly,harshly
+ด้วยความกังวล	испуганно	
+อย่างจริงจัง	серьёзно	seriously
+อย่างใจเย็น	сухо	drily
+อย่างตื่นเต้น	взволнованно	excitedly
+อย่างหงุดหงิด	угрюмо	grimly
+อย่างไม่มั่นใจ	неуверенно	uncertainly
+อย่างกระตือรือร้น	активно	actively
+ตลอดไป	бесконечно	endlessly
+อย่างสมบูรณ์	вполне	perfectly
+รวม		together
+ที่เหลือ	остальной	rest
+ครั้งหนึ่ง		
+ตอนแรก	поначалу	
+อีก	ещё	more
+นานๆ	долго	long
+ในที่สุด		
+อันตราย		dangerous
+# --- more nouns
+ทัวร์	экскурсия	
+ย่าน	район	
+หุบเขาลึก	каньон	canyon
+ลูกศิษย์	ученик	student
+หิน	камушек	pebble
+คราบ	накипь	scum
+ชั้น	слой	layer
+พลังงาน	энергия	
+นักดาราศาสตร์	астроном	astronomer
+ภาพถ่าย	снимок	
+เมล็ด	семя	seed
+ดิน	грунт	
+รังสี	излучение	radiation
+รุ่น	модификация	variant
+คุณสมบัติ	свойство	property
+สสาร	материя	
+คำถาม	вопрос	question
+ใจ	ум	
+จังหวะ	темп	pace
+การสังเกต	наблюдение	observation
+สิ่งก่อสร้าง	сооружение	construction
+กิจกรรม	деятельность	activity
+รายงาน	сводка	report
+ช่วง	диапазон	band
+คลื่นวิทยุ	радиоизлучение	radio
+ความเป็นไปได้	возможность	
+การเกิด	рождение	birth
+ความตาย	смерть	death
+ประโยชน์	толк	
+ความแตกต่าง	разница	difference
+กระแส	поток	flow
+ความเมตตา	милосердие	mercy
+สิ่งมีชีวิต	существо	being
+ความเสียหาย	вред	harm
+การยิง	залп	salvo
+จุดสว่าง	пятно	
+สุนัข	пёс	
+หนังสือ		
+เหรียญ		
+ขนม		
+ห้องโถง		
+พื้น		
+ผนัง		
+ประตู		door
+หน้าต่าง		window
+มือ		hand
+ตา		eye
+หน้า		face
+เสียงดัง	громкий	loud
+ความลับ		secret
+ความจริง		truth
+ความรัก		love
+อารมณ์		
+สิ่งของ		
+สัตว์		
+คน	обитатель	
+ผู้ชาย		man
+ผู้หญิง		woman
+เด็ก		child
+เพื่อน		friend
+บ้าน		house
+เมือง		city
+น้ำ		water
+ไฟ		fire
+ลม		wind
+ทะเล		sea
+ภูเขา		mountain
+ท้องฟ้า		sky
+ดวงจันทร์		moon
+แสง	свет	light
+เงา		shadow
+สนาม		field
+เครื่อง	механизм	machine
+กลไก	механика	mechanic
+ชิ้นส่วน	деталь	part
+ชั้นบรรยากาศ		
+ก๊าซ	газ	
+ขยะ	мусор	debris
+สภาพอากาศ	климат	climate
+ศูนย์กลาง	центр	centre
+ความโน้มถ่วง	гравитация	gravity
+อุณหภูมิ	температура	temperature
+เครื่องมือ	прибор	instrument
+เปอร์เซ็นต์	процент	
+การลงจอด	высадка	
+การวิเคราะห์		
+ความจริงจัง		
+โอกาส		
+ระเบียบ		
+ผู้นำ	чин	
+เจ้าหน้าที่		officer
+สถานการณ์	ситуация	situation
+นักเรียน		
+นักวิจัย		

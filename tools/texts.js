@@ -41,4 +41,9 @@ for (const [q] of ui.matchAll(/'(?:[^'\\\n]|\\.)*'/g))
   if (/[a-zA-Zа-яА-ЯёЁ]/.test(q)) (q.match(/[\u0E00-\u0E7F]+(?: [\u0E00-\u0E7F]+)*/g) || []).forEach(x => { out.m.includes(x) || out.m.push(x); out.f.includes(x) || out.f.push(x) });
 // example words of the keyboard block
 new Function('return ' + src.match(/const KB_EX = (\[.*\]);/)[1])().forEach(x => { out.m.includes(x) || out.m.push(x); out.f.includes(x) || out.f.push(x) });
+// the story trainer: every Thai word and moved phrase of story-data.js (built by tools/story/build.py)
+try {
+  const sd = new Function(require('fs').readFileSync(__dirname + '/../story-data.js', 'utf8') + ';return STORY_DATA')();
+  [...sd.lex.map(x => x[0]), ...sd.ev.map(x => x.th)].forEach(x => { out.m.includes(x) || out.m.push(x); out.f.includes(x) || out.f.push(x) });
+} catch (e) { /* no story data yet */ }
 console.log(JSON.stringify(out));

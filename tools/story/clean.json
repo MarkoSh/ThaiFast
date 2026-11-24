@@ -1,0 +1,707 @@
+{
+ "meta": {
+  "id": "na-mesto",
+  "year": 2004,
+  "author": {
+   "ru": "Леонид Каганов",
+   "en": "Leonid Kaganov"
+  },
+  "title": {
+   "ru": "На место",
+   "en": "Back in Place",
+   "th": "กลับเข้าที่"
+  }
+ },
+ "paras": [
+  {
+   "ru": "— Ничто не предвещало беды. Конец Вселенной подкрался незаметно, — начал Капитан, оглядев соплеменников-кремнозоев. — Ученые первыми зафиксировали бурное изменение спектра, а вскоре каждому стало ясно, что Светило стремительно угасает. По всей нашей планете прокатились волны небывалых бурь и катаклизмов, уничтожая все живое и заставляя разумных обитателей прятаться в наспех вырытых подземных убежищах. То же самое происходило и с другими звездами. Галактика стремительно сжималась, чтобы вновь взорваться миллионами светил. И тогда в рекордно короткие сроки был построен Корабль — временное пристанище последних обитателей. Корабль стремительно вышел за пределы Галактики. Мы надеялись вернуться после Большого взрыва и поселиться на подходящей планете...",
+   "en": "“Nothing foretold disaster. The end of the Universe crept up unnoticed,” the Captain began, looking round at his fellow Silicozoans. “The scientists were the first to register a violent shift in the spectrum, and soon it was clear to everyone that our Star was rapidly going out. Waves of unheard-of storms and cataclysms swept across our whole planet, wiping out every living thing and driving the intelligent inhabitants into hastily dug underground shelters. The same was happening to the other stars. The Galaxy was rapidly collapsing, only to explode again into millions of suns. And so, in record time, the Ship was built — a temporary refuge for the last inhabitants. The Ship swiftly left the Galaxy behind. We hoped to return after the Big Bang and settle on a suitable planet…”",
+   "ins_ru": [
+    [
+     "Вселенной",
+     "จักรวาล",
+     "jàk-grà-waan"
+    ],
+    [
+     "Капитан",
+     "กัปตัน",
+     "gàp-dtan"
+    ],
+    [
+     "Светило",
+     "ดวงอาทิตย์",
+     "duang-aa-thít"
+    ],
+    [
+     "Корабль",
+     "ยาน",
+     "yaan"
+    ]
+   ],
+   "ins_en": [
+    [
+     "Universe",
+     "จักรวาล",
+     "jàk-grà-waan"
+    ],
+    [
+     "Captain",
+     "กัปตัน",
+     "gàp-dtan"
+    ],
+    [
+     "Star",
+     "ดวงอาทิตย์",
+     "duang-aa-thít"
+    ],
+    [
+     "Ship",
+     "ยาน",
+     "yaan"
+    ]
+   ]
+  },
+  {
+   "ru": "Капитан умолк и вновь оглядел собравшихся в рубке: кремнозои задумчиво кивали выпуклыми головами. Мы все равно никогда не узнаем, что именно говорил Капитан и как все было на самом деле, так что простим ему этот пафосный всплеск красноречия, который помог нам, читателям, слегка войти в курс дела без лишних предисловий.",
+   "en": "The Captain fell silent and again looked round at those gathered on the bridge: the Silicozoans nodded their bulging heads thoughtfully. We will never know exactly what the Captain said or how it all really was, so let us forgive him this burst of grandiloquence, which helped us readers get the picture without lengthy introductions.",
+   "ins_ru": [
+    [
+     "читателям",
+     "ผู้อ่าน",
+     "phûu-àan"
+    ]
+   ],
+   "ins_en": [
+    [
+     "readers",
+     "ผู้อ่าน",
+     "phûu-àan"
+    ]
+   ]
+  },
+  {
+   "ru": "— Напомню... — поднялся корабельный Врач, тоже ни к кому конкретно не обращаясь, кроме читателя. — Мы, кремнозои — единственная в мире разумная раса. Для существования нам необходима спокойная планета, где присутствует углекислота и активированный кремний, который мы употребляем в пищу.",
+   "en": "“Let me remind you…” the ship’s Doctor rose, likewise addressing no one in particular except the reader. “We Silicozoans are the only intelligent race in the world. To exist, we need a quiet planet with carbon dioxide and activated silicon, which we eat.”",
+   "ins_ru": [
+    [
+     "Врач",
+     "หมอ",
+     "mǒr"
+    ],
+    [
+     "употребляем в пищу",
+     "กิน",
+     "gin"
+    ]
+   ],
+   "ins_en": [
+    [
+     "Doctor",
+     "หมอ",
+     "mǒr"
+    ],
+    [
+     "eat",
+     "กิน",
+     "gin"
+    ]
+   ]
+  },
+  {
+   "ru": "— Можно я тоже скажу? — поднялась молодая потомственная Нанотехнолог. — Формировать пригодную планету нам пришлось самим. Для этого в лаборатории Корабля под руководством моего отца были созданы наноботы — крошечные молекулярные механизмы, собранные из экологически чистых углеродных деталей. Это не просто механика, это, господа кремнозои, — невиданная молекулярная механика! Наноботы умели поглощать свет, вырабатывать углекислый газ и бесконечно воспроизводить самих себя. Две капсулы с культурой наноботов были отправлены вперед нас со сверхсветовой скоростью — они должны были выбрать среди мусора новорожденной галактики две планеты с подходящим климатом и рассеять там культуру роботов, чтобы к нашему приближению была готова подходящая атмосфера.",
+   "en": "“May I say something too?” rose the young Nanotechnologist, the latest of a family of nanotechnologists. “We had to shape a suitable planet ourselves. For that, the Ship’s laboratory, under my father’s direction, created nanobots — tiny molecular machines assembled from environmentally clean carbon parts. This is not mere mechanics, gentlemen Silicozoans — this is molecular mechanics such as the world has never seen! The nanobots could absorb light, produce carbon dioxide and reproduce themselves endlessly. Two capsules of nanobot culture were sent ahead of us at faster-than-light speed: they were to pick two planets with a suitable climate among the debris of the newborn galaxy and scatter the robot culture there, so that a suitable atmosphere would be ready by the time we arrived.”",
+   "ins_ru": [
+    [
+     "Можно я тоже скажу?",
+     "ขอพูดบ้างได้ไหม",
+     "khǒr phûut bâang dâai mǎi"
+    ],
+    [
+     "отца",
+     "พ่อ",
+     "phôr"
+    ],
+    [
+     "свет",
+     "แสง",
+     "sǎeng"
+    ]
+   ],
+   "ins_en": [
+    [
+     "May I say something too?",
+     "ขอพูดบ้างได้ไหม",
+     "khǒr phûut bâang dâai mǎi"
+    ],
+    [
+     "father’s",
+     "พ่อ",
+     "phôr"
+    ],
+    [
+     "light",
+     "แสง",
+     "sǎeng"
+    ]
+   ]
+  },
+  {
+   "ru": "Нанотехнолог испуганно смолкла и оглянулась на читателя — не начал ли тот раньше времени догадываться, в чем дело? Догадки читателя прервал Капитан.",
+   "en": "The Nanotechnologist fell silent in alarm and glanced at the reader: had he started guessing what was going on too early? The Captain cut the reader’s guesses short.",
+   "ins_ru": [
+    [
+     "Догадки",
+     "เดา",
+     "dao"
+    ]
+   ],
+   "ins_en": [
+    [
+     "guesses",
+     "เดา",
+     "dao"
+    ]
+   ]
+  },
+  {
+   "ru": "— Хватит предисловий! — сурово заявил он. — Давайте вспомним, для чего собрались в рубке мы, высшие чины Корабля. Нанотехнолог, изложите ситуацию!",
+   "en": "“Enough introductions!” he declared sternly. “Let us recall why we, the senior officers of the Ship, have gathered on the bridge. Nanotechnologist, report the situation!”",
+   "ins_ru": [
+    [
+     "Хватит",
+     "พอแล้ว",
+     "phor láew"
+    ]
+   ],
+   "ins_en": [
+    [
+     "Enough",
+     "พอแล้ว",
+     "phor láew"
+    ]
+   ]
+  },
+  {
+   "ru": "Капитан повернулся и включил большой проекционный экран — в центре сияла небольшая звезда, а вокруг нее быстро вращались планеты. Нанотехнолог снова встала и огляделась.",
+   "en": "The Captain turned and switched on the big projection screen: a small star shone in the centre, with planets spinning quickly around it. The Nanotechnologist stood up again and looked around.",
+   "ins_ru": [
+    [
+     "звезда",
+     "ดาว",
+     "daao"
+    ]
+   ],
+   "ins_en": [
+    [
+     "star",
+     "ดาว",
+     "daao"
+    ]
+   ]
+  },
+  {
+   "ru": "— Первая из капсул выбрала третью планету этой звезды — у планеты была подходящая гравитация и температура. Кремния на ней также хватало в избытке. Не было лишь углекислой атмосферы для жизненно важных процессов. И к нашему приближению наноботы сделали свое дело — приборы показывают вполне подходящий процент углекислоты в атмосфере. Сейчас мы висим около звездной системы и готовы к высадке...",
+   "en": "“The first capsule chose the third planet of this star: it had suitable gravity and temperature. There was plenty of silicon on it, too. The only thing missing was a carbon-dioxide atmosphere for our vital processes. And by the time we approached, the nanobots had done their job — the instruments show a perfectly suitable share of carbon dioxide in the atmosphere. Now we are hanging near the star system, ready to land…”",
+   "ins_ru": [
+    [
+     "температура",
+     "อุณหภูมิ",
+     "un-hà-phuum"
+    ],
+    [
+     "готовы",
+     "พร้อม",
+     "phrɔ́ɔm"
+    ]
+   ],
+   "ins_en": [
+    [
+     "temperature",
+     "อุณหภูมิ",
+     "un-hà-phuum"
+    ],
+    [
+     "ready",
+     "พร้อม",
+     "phrɔ́ɔm"
+    ]
+   ]
+  },
+  {
+   "ru": "— В чем же проблема? — поинтересовался Штурман.",
+   "en": "“So what is the problem?” asked the Navigator.",
+   "ins_ru": [
+    [
+     "В чем же проблема?",
+     "มีปัญหาอะไร",
+     "mii bpan-hǎa à-rai"
+    ]
+   ],
+   "ins_en": [
+    [
+     "So what is the problem?",
+     "มีปัญหาอะไร",
+     "mii bpan-hǎa à-rai"
+    ]
+   ]
+  },
+  {
+   "ru": "— Проблема... — Нанотехнолог вздохнула. — Пусть лучше начнет Физик!",
+   "en": "“The problem…” The Nanotechnologist sighed. “Better let the Physicist begin!”",
+   "ins_ru": [],
+   "ins_en": []
+  },
+  {
+   "ru": "— Проблема в том, — заговорил невысокий плотный Физик, — что когда мы приблизились, стало заметно: поверхность планеты неоднородна. Она покрыта не кремнием, а странной углеродной накипью. Судя по спектру, это слой размножившихся наноботов. Как выразился один мой ученик, камушек зацвел...",
+   "en": "“The problem is,” began the short, stocky Physicist, “that as we came closer it became clear the planet’s surface is not uniform. It is covered not with silicon but with a strange carbon scum. Judging by the spectrum, it is a layer of nanobots that have multiplied. As one of my students put it, the pebble has gone into bloom…”",
+   "ins_ru": [
+    [
+     "камушек",
+     "หิน",
+     "hǐn"
+    ]
+   ],
+   "ins_en": [
+    [
+     "pebble",
+     "หิน",
+     "hǐn"
+    ]
+   ]
+  },
+  {
+   "ru": "— Они активно излучают тепловую энергию! — взволнованно перебил Астроном. — Мы сделали снимки: эта планета заселена роботами гигантского размера! Некоторые торчат по всей планете и впитывают свет, остальные — видимо это их семена — носятся повсюду с немыслимыми скоростями и бороздят грунт!",
+   "en": "“They are actively radiating heat!” the Astronomer broke in excitedly. “We took pictures: this planet is populated by giant robots! Some stick up all over the planet soaking up light, and the rest — apparently their seeds — rush about everywhere at unthinkable speeds, ploughing the ground!”",
+   "ins_ru": [
+    [
+     "тепловую энергию",
+     "ความร้อน",
+     "khwaam-rɔ́ɔn"
+    ],
+    [
+     "гигантского",
+     "ยักษ์",
+     "yák"
+    ],
+    [
+     "семена",
+     "เมล็ด",
+     "má-lét"
+    ]
+   ],
+   "ins_en": [
+    [
+     "heat",
+     "ความร้อน",
+     "khwaam-rɔ́ɔn"
+    ],
+    [
+     "giant",
+     "ยักษ์",
+     "yák"
+    ],
+    [
+     "seeds",
+     "เมล็ด",
+     "má-lét"
+    ]
+   ]
+  },
+  {
+   "ru": "— В чем же проблема? — спросил Старейшина. — Мы же и планировали засеять планету наноботами?",
+   "en": "“So what is the problem?” asked the Elder. “Didn’t we plan to seed the planet with nanobots in the first place?”",
+   "ins_ru": [],
+   "ins_en": []
+  },
+  {
+   "ru": "— Роботы не просто размножились, — вздохнула Нанотехнолог. — Они злокачественно мутировали, видимо под действием звездного излучения, которое мы не учли. Наши зонды показывают: сейчас на планете миллионы модификаций наноботов. Безусловно, все они сохранили свои изначальные свойства: у них мизерные размеры, крохотный срок жизни и размножаются они тем же самым дублированием, которое разработал мой отец. Но мутировавшие боты научились слипаться! И сейчас вся планета, — она указала на обзорный экран, — кишит углеродными глыбами из миллиардов сцепленных наноботов! Эти глыбы ростом с нас и даже больше! И хотя они существуют всего лишь по несколько десятков секунд, но передвигаются с немыслимыми скоростями и активно деформируют любую материю! Высаживаться туда сейчас — безумие.",
+   "en": "“The robots have not just multiplied,” sighed the Nanotechnologist. “They have mutated malignantly, apparently under the star’s radiation, which we did not take into account. Our probes show millions of nanobot variants on the planet now. Of course, they have all kept their original properties: they are minuscule, they live for a tiny span, and they reproduce by the same duplication my father designed. But the mutated bots have learned to stick together! And now the whole planet,” she pointed at the viewscreen, “is swarming with carbon lumps made of billions of linked nanobots! These lumps are as tall as we are, even taller! And although each one exists for only a few dozen seconds, they move at unthinkable speeds and actively deform any matter! Landing there now would be madness.”",
+   "ins_ru": [
+    [
+     "Роботы",
+     "หุ่นยนต์",
+     "hùn-yon"
+    ],
+    [
+     "безумие",
+     "บ้า",
+     "bâa"
+    ]
+   ],
+   "ins_en": [
+    [
+     "robots",
+     "หุ่นยนต์",
+     "hùn-yon"
+    ],
+    [
+     "madness",
+     "บ้า",
+     "bâa"
+    ]
+   ]
+  },
+  {
+   "ru": "— Как обстоит дело со второй планетой? — сухо спросил Старейшина.",
+   "en": "“And how do things stand with the second planet?” the Elder asked drily.",
+   "ins_ru": [],
+   "ins_en": []
+  },
+  {
+   "ru": "— Пока нет точных данных, — пояснил Капитан. — Вторая планета в другой звездной системе, вне досягаемости зондов Корабля. Вопрос в том, что нам делать с этой? Мнения разделились. Я для того и созвал Совет, чтобы нам решить проблему. В принципе, атмосфера готова, и я предлагаю просто...",
+   "en": "“No exact data yet,” the Captain explained. “The second planet is in another star system, out of reach of the Ship’s probes. The question is what to do with this one. Opinions are divided. That is why I called the Council — to settle the problem. In principle, the atmosphere is ready, and I propose we simply…”",
+   "ins_ru": [
+    [
+     "Мнения",
+     "ความเห็น",
+     "khwaam-hěn"
+    ]
+   ],
+   "ins_en": [
+    [
+     "Opinions",
+     "ความเห็น",
+     "khwaam-hěn"
+    ]
+   ]
+  },
+  {
+   "ru": "— Нет! — вскинулась Нанотехнолог. — Это уникальный эксперимент! Мы обязаны сперва изучить мутацию наноботов! Капитан ничего не понимает!",
+   "en": "“No!” the Nanotechnologist flared up. “This is a unique experiment! We must study the nanobots’ mutation first! The Captain understands nothing!”",
+   "ins_ru": [
+    [
+     "Нет!",
+     "ไม่",
+     "mâi"
+    ]
+   ],
+   "ins_en": [
+    [
+     "No!",
+     "ไม่",
+     "mâi"
+    ]
+   ]
+  },
+  {
+   "ru": "Капитан разъярился, повернулся к обзорному экрану и выждал несколько секунд, сосчитав в уме, пока третья планета сделает ровно десять оборотов вокруг звезды. Затем он повернулся к собранию, уже немного успокоившись.",
+   "en": "The Captain flew into a rage, turned to the viewscreen and waited a few seconds, counting in his head while the third planet made exactly ten revolutions around its star. Then he turned back to the assembly, a little calmer.",
+   "ins_ru": [
+    [
+     "разъярился",
+     "โกรธ",
+     "gròht"
+    ]
+   ],
+   "ins_en": [
+    [
+     "flew into a rage",
+     "โกรธ",
+     "gròht"
+    ]
+   ]
+  },
+  {
+   "ru": "— Повторяю, — сказал он угрюмо, — колония наноботов вышла из-под контроля и представляет серьезную опасность. Я предлагаю для начала стерилизовать поверхность планеты и направиться к запасной. Если и там...",
+   "en": "“I repeat,” he said grimly, “the nanobot colony is out of control and poses a serious danger. I propose that we first sterilise the planet’s surface and then head for the reserve one. If there, too…”",
+   "ins_ru": [
+    [
+     "опасность",
+     "อันตราย",
+     "an-dtà-raai"
+    ]
+   ],
+   "ins_en": [
+    [
+     "danger",
+     "อันตราย",
+     "an-dtà-raai"
+    ]
+   ]
+  },
+  {
+   "ru": "— Капитан! — перебила Нанотехнолог. — За последние часы структура поверхности усложнилась в нарастающем темпе! Самые последние наблюдения говорят о появлении сложных сооружений, которые можно объяснить лишь направленной деятельностью наноботов! А по самым последним сводкам, от планеты начало исходить радиоизлучение во всех диапазонах, оно с каждой секундой множится. Это похоже на стремительно нарастающую эволюцию разума...",
+   "en": "“Captain!” the Nanotechnologist interrupted. “Over the last few hours the structure of the surface has grown more complex at an accelerating pace! The latest observations show complex constructions that can only be explained by purposeful activity of the nanobots! And according to the very latest reports, the planet has begun emitting radio waves across every band, and they multiply by the second. It looks like a rapidly accelerating evolution of intelligence…”",
+   "ins_ru": [
+    [
+     "радиоизлучение",
+     "คลื่นวิทยุ",
+     "khlûuen wít-thá-yú"
+    ]
+   ],
+   "ins_en": [
+    [
+     "radio waves",
+     "คลื่นวิทยุ",
+     "khlûuen wít-thá-yú"
+    ]
+   ]
+  },
+  {
+   "ru": "— Разум? — резко обернулся Капитан. — Микроскопический нанобот может обладать разумом?",
+   "en": "“Intelligence?” The Captain spun round. “A microscopic nanobot can be intelligent?”",
+   "ins_ru": [
+    [
+     "Разум",
+     "ปัญญา",
+     "bpan-yaa"
+    ]
+   ],
+   "ins_en": [
+    [
+     "Intelligence",
+     "ปัญญา",
+     "bpan-yaa"
+    ]
+   ]
+  },
+  {
+   "ru": "— Один — нет, — серьезно ответила Нанотехнолог. — Но я не исключаю возможности, что разумным может стать их миллионный конгломерат. И если это разум... то мы, кремнозои, отныне не одиноки во Вселенной! Мы можем вступить в контакт и...",
+   "en": "“One cannot,” the Nanotechnologist replied seriously. “But I do not rule out that a conglomerate of a million of them could become intelligent. And if it is intelligence… then we Silicozoans are no longer alone in the Universe! We could make contact and…”",
+   "ins_ru": [
+    [
+     "не одиноки",
+     "ไม่โดดเดี่ยว",
+     "mâi dòot-dìao"
+    ]
+   ],
+   "ins_en": [
+    [
+     "alone",
+     "ไม่โดดเดี่ยว",
+     "mâi dòot-dìao"
+    ]
+   ]
+  },
+  {
+   "ru": "— Как вы себе представляете контакт? — возмутился Капитан. — Ведь жизнь углеродных наноботов от рождения до смерти исчисляется десятками секунд, ведь так? О чем успеет подумать разум за секунду?",
+   "en": "“And how do you picture contact?” the Captain exclaimed. “The life of a carbon nanobot from birth to death lasts a few dozen seconds, doesn’t it? What can a mind manage to think in a second?”",
+   "ins_ru": [
+    [
+     "секунду",
+     "วินาที",
+     "wí-naa-thii"
+    ]
+   ],
+   "ins_en": [
+    [
+     "second",
+     "วินาที",
+     "wí-naa-thii"
+    ]
+   ]
+  },
+  {
+   "ru": "— Что мы знаем о них? — возразила Нанотехнолог. — Быть может, у них свои секунды?",
+   "en": "“What do we know about them?” the Nanotechnologist objected. “Perhaps they have seconds of their own?”",
+   "ins_ru": [],
+   "ins_en": []
+  },
+  {
+   "ru": "— Уничтожить и только уничтожить! — заявил Капитан. — Какой толк от разума, живущего секунды? Секундой больше, секундой меньше — не вижу принципиальной разницы! Оборвать поток несчастных наножизней — это просто акт милосердия.",
+   "en": "“Destroy them, and only destroy!” the Captain declared. “What use is a mind that lives for seconds? A second more, a second less — I see no fundamental difference! Cutting short the flow of these wretched nano-lives is simply an act of mercy.”",
+   "ins_ru": [
+    [
+     "милосердия",
+     "ความเมตตา",
+     "khwaam-mêt-dtaa"
+    ]
+   ],
+   "ins_en": [
+    [
+     "mercy",
+     "ความเมตตา",
+     "khwaam-mêt-dtaa"
+    ]
+   ]
+  },
+  {
+   "ru": "— Капитан! — вскинулась Нанотехнолог.",
+   "en": "“Captain!” the Nanotechnologist cried out.",
+   "ins_ru": [],
+   "ins_en": []
+  },
+  {
+   "ru": "— И акт безопасности! — жестко сказал Капитан. — Если это разум, и если он развивается с такой немыслимой быстротой, что вы будете делать, если они атакуют нас уже в космосе?",
+   "en": "“And an act of safety!” the Captain said harshly. “If this is intelligence, and if it develops at such unthinkable speed, what will you do when they attack us right here in space?”",
+   "ins_ru": [
+    [
+     "безопасности",
+     "ความปลอดภัย",
+     "khwaam-bplɔ̀ɔt-phai"
+    ]
+   ],
+   "ins_en": [
+    [
+     "safety",
+     "ความปลอดภัย",
+     "khwaam-bplɔ̀ɔt-phai"
+    ]
+   ]
+  },
+  {
+   "ru": "— Разумное существо никогда не причинит вреда другому разумному... — неуверенно парировала Нанотехнолог.",
+   "en": "“An intelligent being will never harm another intelligent being…” the Nanotechnologist countered uncertainly.",
+   "ins_ru": [],
+   "ins_en": []
+  },
+  {
+   "ru": "Повисла зловещая тишина. Старейшина привстал и хотел было что-то сказать, но тут в рубку влетел запыхавшийся Стрелок и завопил с порога:",
+   "en": "An ominous silence fell. The Elder half rose, about to say something, but just then the Gunner burst onto the bridge, out of breath, and yelled from the doorway:",
+   "ins_ru": [
+    [
+     "тишина",
+     "ความเงียบ",
+     "khwaam-ngîap"
+    ]
+   ],
+   "ins_en": [
+    [
+     "silence",
+     "ความเงียบ",
+     "khwaam-ngîap"
+    ]
+   ]
+  },
+  {
+   "ru": "— Пару! Пару минут назад с третьей планеты вылетел искусственный объект! Он приземлился на четвертую и носится по ней с дикой скоростью!",
+   "en": "“A couple! A couple of minutes ago an artificial object took off from the third planet! It has landed on the fourth and is racing around it at a wild speed!”",
+   "ins_ru": [
+    [
+     "Пару минут",
+     "สองนาที",
+     "sɔ̌ɔng naa-thii"
+    ]
+   ],
+   "ins_en": [
+    [
+     "A couple of minutes",
+     "สองนาที",
+     "sɔ̌ɔng naa-thii"
+    ]
+   ]
+  },
+  {
+   "ru": "Поднялся шум, но капитан среагировал первым.",
+   "en": "An uproar broke out, but the Captain reacted first.",
+   "ins_ru": [],
+   "ins_en": []
+  },
+  {
+   "ru": "— Всем приготовиться! — заорал он. — Стрелок, Штурман — на место! Залп по третьей планете из всех метеоритных пушек! Затем включить форсаж, и уводим Кораб...",
+   "en": "“Everyone stand by!” he roared. “Gunner, Navigator — to your places! A salvo at the third planet from every meteor cannon! Then full thrust, and we take the Shi…”",
+   "ins_ru": [
+    [
+     "Всем приготовиться!",
+     "ทุกคนเตรียมพร้อม",
+     "thúk khon dtriam phrɔ́ɔm"
+    ]
+   ],
+   "ins_en": [
+    [
+     "Everyone stand by!",
+     "ทุกคนเตรียมพร้อม",
+     "thúk khon dtriam phrɔ́ɔm"
+    ]
+   ]
+  },
+  {
+   "ru": "Закончить он не успел: рубка перевернулась, пространство вдруг бросилось кувырком и налетел калейдоскоп мельтешащих пятен. А в следующую секунду Капитану уже отпиливали голову «болгаркой» в Зеленоградской лаборатории НИИ Космоса при АН России.",
+   "en": "He did not get to finish: the bridge turned over, space suddenly went head over heels, and a kaleidoscope of flickering spots came rushing in. And the very next second, the Captain’s head was already being sawn off with an angle grinder in the Zelenograd laboratory of the Space Research Institute of the Russian Academy of Sciences.",
+   "ins_ru": [
+    [
+     "голову",
+     "หัว",
+     "hǔa"
+    ]
+   ],
+   "ins_en": [
+    [
+     "head",
+     "หัว",
+     "hǔa"
+    ]
+   ]
+  },
+  {
+   "ru": "Когда экипаж американского «Дискавери-108\" обнаружил за орбитой Плутона неопознанный объект искусственного происхождения, это поначалу стало самой громкой сенсацией XXI века. Но поднятая журналистами шумиха не оправдалась: инопланетного разума так и не нашли. Удивительный корабль янтарного цвета не отвечал на сигналы, а внутри оказался пуст. В его помещениях лишь стояли разбросанные окаменевшие глыбы из кристаллов оксида кремния. Всего таких тумбочек насчитали более восьми сотен. Их назвали Странниками — за странную форму и состав.",
+   "en": "When the crew of the American Discovery-108 found an unidentified object of artificial origin beyond the orbit of Pluto, it was at first the loudest sensation of the twenty-first century. But the hype stirred up by journalists did not pay off: no alien intelligence was ever found. The astonishing amber-coloured ship did not answer signals and turned out to be empty inside. Its rooms held only scattered, petrified lumps of silicon-oxide crystals. More than eight hundred of these nightstand-like blocks were counted in all. They were named the Strangers, for their strange shape and composition.",
+   "ins_ru": [
+    [
+     "янтарного",
+     "อำพัน",
+     "am-phan"
+    ],
+    [
+     "пуст",
+     "ว่างเปล่า",
+     "wâang-bplàao"
+    ]
+   ],
+   "ins_en": [
+    [
+     "amber",
+     "อำพัน",
+     "am-phan"
+    ],
+    [
+     "empty",
+     "ว่างเปล่า",
+     "wâang-bplàao"
+    ]
+   ]
+  },
+  {
+   "ru": "Возраст корабля ученые оценили в десятки миллиардов лет, но так и не смогли выяснить, кто его создал, как он управлялся и из какой галактики летел все это время. Корабль отбуксировали на Землю — сейчас он стоит в районе Большого Каньона и открыт для экскурсий по четным дням. Странников и прочее оборудование корабля распределили по музеям и лабораториям мира. Поначалу считалось, что Странники — это слипшаяся в глыбы вековая корабельная пыль. Затем выяснилось, что внутри они имеют сложную кристаллическую структуру, в которой год за годом теплятся вялые окислительные процессы. Ученые еще долго спорили о предназначении этих устройств на корабле без экипажа, а писатели высказывали самые фантастические догадки. Но когда на одной из планет сектора Гончих Псов обнаружилась самая настоящая братская цивилизация разумных белковых — про корабль и Странников мигом забыли.",
+   "en": "Scientists put the ship’s age at tens of billions of years, but never found out who had built it, how it was steered or from which galaxy it had been flying all this time. The ship was towed to Earth; it now stands near the Grand Canyon and is open to visitors on even-numbered days. The Strangers and the rest of the ship’s equipment were distributed among the world’s museums and laboratories. At first the Strangers were thought to be age-old ship’s dust caked into lumps. Then it turned out that inside they had a complex crystalline structure in which sluggish oxidation processes smouldered year after year. Scientists argued for a long time about the purpose of these devices on a ship without a crew, and writers put forward the most fantastic guesses. But when a genuine sister civilisation of intelligent protein beings was discovered on a planet in the Canes Venatici sector, the ship and the Strangers were forgotten in an instant.",
+   "ins_ru": [
+    [
+     "забыли",
+     "ลืม",
+     "luem"
+    ]
+   ],
+   "ins_en": [
+    [
+     "forgotten",
+     "ลืม",
+     "luem"
+    ]
+   ]
+  },
+  {
+   "ru": "Лишь старые экскурсоводы Эстонского национального музея рассказывают, будто загадочная кремниевая тумбочка месяц за месяцем чуть меняет свою форму и по миллиметру двигается к краю стенда. Каждые полгода приходится ставить ее на место.",
+   "en": "Only the old guides of the Estonian National Museum say that the mysterious silicon nightstand changes its shape a little, month after month, and creeps a millimetre at a time towards the edge of its stand. Every six months they have to put it back in place.",
+   "ins_ru": [
+    [
+     "музея",
+     "พิพิธภัณฑ์",
+     "phí-phít-thá-phan"
+    ],
+    [
+     "на место",
+     "กลับเข้าที่",
+     "glàp khâo thîi"
+    ]
+   ],
+   "ins_en": [
+    [
+     "Museum",
+     "พิพิธภัณฑ์",
+     "phí-phít-thá-phan"
+    ],
+    [
+     "back in place",
+     "กลับเข้าที่",
+     "glàp khâo thîi"
+    ]
+   ]
+  },
+  {
+   "ru": "апрель 2004, Москва",
+   "en": "April 2004, Moscow",
+   "ins_ru": [],
+   "ins_en": []
+  }
+ ]
+}

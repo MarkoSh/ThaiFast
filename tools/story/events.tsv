@@ -1,0 +1,91 @@
+# Mode 3 (correct Thai order): para, ru span, en span, Thai, literal order (ru), literal order (en), why (key from WHY in build.py), roman override
+0	всей нашей планете	our whole planet	ทั้งดาวเคราะห์ของเรา	весь планета наш	whole planet our	POSS
+0	небывалых бурь	unheard-of storms	พายุที่ไม่เคยมีมาก่อน	бури небывалые	storms unheard-of	ADJ
+0	разумных обитателей	intelligent inhabitants	ผู้อยู่อาศัยที่ฉลาด	обитатели разумные	inhabitants intelligent	ADJ
+0	подземных убежищах	underground shelters	ที่หลบภัยใต้ดิน	убежищах подземных	shelters underground	ADJ
+0	временное пристанище	temporary refuge	ที่พักพิงชั่วคราว	пристанище временное	refuge temporary	ADJ
+0	последних обитателей	last inhabitants	ผู้อยู่อาศัยคนสุดท้าย	обитателей последних	inhabitants last	ADJ
+0	подходящей планете	suitable planet	ดาวเคราะห์ที่เหมาะสม	планете подходящей	planet suitable	ADJ
+1	выпуклыми головами	bulging heads	หัวนูน	головами выпуклыми	heads bulging	ADJ
+1	лишних предисловий	lengthy introductions	คำนำที่ยืดยาว	предисловий лишних	introductions lengthy	ADJ
+2	корабельный Врач	ship’s Doctor	หมอประจำยาน	Врач корабельный	Doctor ship’s	ADJ
+2	разумная раса	intelligent race	เผ่าพันธุ์ที่ฉลาด	раса разумная	race intelligent	ADJ
+2	спокойная планета	quiet planet	ดาวเคราะห์ที่สงบ	планета спокойная	planet quiet	ADJ
+2	активированный кремний	activated silicon	ซิลิกอนที่ถูกกระตุ้น	кремний активированный	silicon activated	ADJ
+3	пригодную планету	suitable planet	ดาวเคราะห์ที่เหมาะสม	планету пригодную	planet suitable	ADJ
+3	моего отца	my father	พ่อของฉัน	отца мой	father my	POSS
+3	крошечные молекулярные механизмы	tiny molecular machines	เครื่องจักรโมเลกุลขนาดเล็ก	механизмы молекулярные крошечные	machines molecular tiny	ADJ
+3	экологически чистых углеродных деталей	environmentally clean carbon parts	ชิ้นส่วนคาร์บอนที่ไม่ทำลายสิ่งแวดล้อม	деталей углеродных экологически чистых	parts carbon environmentally clean	ADJ
+3	молекулярная механика	molecular mechanics	กลศาสตร์โมเลกุล	механика молекулярная	mechanics molecular	ADJ
+3	углекислый газ	carbon dioxide	ก๊าซคาร์บอนไดออกไซด์	газ углекислый	gas carbon-dioxide	ADJ
+3	Две капсулы	Two capsules	แคปซูลสองอัน	капсулы две штуки	capsules two pieces	NUM
+3	сверхсветовой скоростью	faster-than-light speed	ด้วยความเร็วเหนือแสง	скоростью сверхсветовой	speed faster-than-light	ADJ
+3	новорожденной галактики	newborn galaxy	กาแล็กซีที่เพิ่งเกิดใหม่	галактики новорожденной	galaxy newborn	ADJ
+3	две планеты	two planets	ดาวเคราะห์สองดวง	планеты две штуки	planets two bodies	NUM
+3	подходящим климатом	suitable climate	สภาพอากาศที่เหมาะสม	климатом подходящим	climate suitable	ADJ
+3	подходящая атмосфера	suitable atmosphere	บรรยากาศที่เหมาะสม	атмосфера подходящая	atmosphere suitable	ADJ
+5	высшие чины	senior officers	เจ้าหน้าที่ระดับสูง	чины высшие	officers senior	ADJ
+6	большой проекционный экран	big projection screen	จอฉายภาพขนาดใหญ่	экран проекционный большой	screen projection big	ADJ
+6	небольшая звезда	small star	ดาวดวงเล็ก	звезда маленькая	star small	ADJ
+7	третью планету этой звезды	third planet of this star	ดาวเคราะห์ดวงที่สามของดาวดวงนี้	планету штука третья звезды штука эта	planet body third of-star body this	NUMDEM
+7	подходящая гравитация и температура	suitable gravity and temperature	แรงโน้มถ่วงและอุณหภูมิที่เหมาะสม	гравитация и температура подходящие	gravity and temperature suitable	ADJ
+7	углекислой атмосферы	carbon-dioxide atmosphere	บรรยากาศที่มีคาร์บอนไดออกไซด์	атмосферы углекислой	atmosphere carbon-dioxide	ADJ
+7	жизненно важных процессов	vital processes	กระบวนการที่สำคัญต่อชีวิต	процессов важных для жизни	processes vital	ADJ
+7	звездной системы	star system	ระบบดาว	системы звёздной	system star	ADJ
+10	невысокий плотный Физик	short, stocky Physicist	นักฟิสิกส์ตัวเตี้ยล่ำ	Физик невысокий плотный	Physicist short stocky	ADJ
+10	странной углеродной накипью	strange carbon scum	คราบคาร์บอนที่แปลกประหลาด	накипью углеродной странной	scum carbon strange	ADJ
+10	размножившихся наноботов	nanobots that have multiplied	นาโนบอทที่ขยายพันธุ์แล้ว	наноботов размножившихся	nanobots multiplied	ADJ
+10	мой ученик	my students	ลูกศิษย์ของฉัน	ученик мой	student my	POSS
+11	тепловую энергию	heat	พลังงานความร้อน	энергию тепловую	energy of-heat	ADJ
+11	эта планета	this planet	ดาวเคราะห์ดวงนี้	планета эта	planet this	DEM
+11	гигантского размера	giant robots	ขนาดยักษ์	размера гигантского	size giant	ADJ
+11	немыслимыми скоростями	unthinkable speeds	ด้วยความเร็วที่เหลือเชื่อ	скоростями немыслимыми	speeds unthinkable	ADJ
+13	звездного излучения	star’s radiation	รังสีของดวงดาว	излучения звёздного	radiation star’s	ADJ
+13	Наши зонды	Our probes	ยานสำรวจของเรา	зонды наши	probes our	POSS
+13	миллионы модификаций наноботов	millions of nanobot variants	นาโนบอทหลายล้านรุ่น	миллионы модификаций наноботов	millions variants nanobots	NUM
+13	изначальные свойства	original properties	คุณสมบัติดั้งเดิม	свойства изначальные	properties original	ADJ
+13	мизерные размеры	minuscule	ขนาดเล็กจิ๋ว	размеры мизерные	size minuscule	ADJ
+13	крохотный срок жизни	tiny span	อายุสั้นนิดเดียว	срок жизни крохотный	span tiny	ADJ
+13	мой отец	my father	พ่อของฉัน	отец мой	father my	POSS
+13	мутировавшие боты	mutated bots	บอทที่กลายพันธุ์	боты мутировавшие	bots mutated	ADJ
+13	обзорный экран	viewscreen	จอสังเกตการณ์	экран обзорный	screen viewing	ADJ
+13	углеродными глыбами	carbon lumps	ก้อนคาร์บอน	глыбами углеродными	lumps carbon	ADJ
+13	сцепленных наноботов	linked nanobots	นาโนบอทที่เชื่อมติดกัน	наноботов сцепленных	nanobots linked	ADJ
+13	Эти глыбы	These lumps	ก้อนเหล่านี้	глыбы эти	lumps these	DEM
+13	немыслимыми скоростями	unthinkable speeds	ด้วยความเร็วที่เหลือเชื่อ	скоростями немыслимыми	speeds unthinkable	ADJ
+14	второй планетой	second planet	ดาวเคราะห์ดวงที่สอง	планетой штука вторая	planet body second	ORD
+15	точных данных	exact data	ข้อมูลที่แน่นอน	данных точных	data exact	ADJ
+15	Вторая планета	The second planet	ดาวเคราะห์ดวงที่สอง	планета штука вторая	planet body second	ORD
+15	другой звездной системе	another star system	ระบบดาวอื่น	системе звёздной другой	system star other	ADJ
+16	уникальный эксперимент	unique experiment	การทดลองที่ไม่เหมือนใคร	эксперимент уникальный	experiment unique	ADJ
+17	обзорному экрану	viewscreen	จอสังเกตการณ์	экрану обзорному	screen viewing	ADJ
+17	третья планета	third planet	ดาวเคราะห์ดวงที่สาม	планета штука третья	planet body third	ORD
+18	серьезную опасность	serious danger	อันตรายร้ายแรง	опасность серьёзную	danger serious	ADJ
+19	последние часы	last few hours	ชั่วโมงที่ผ่านมา	часы последние	hours last	ADJ
+19	сложных сооружений	complex constructions	สิ่งก่อสร้างที่ซับซ้อน	сооружений сложных	constructions complex	ADJ
+19	нарастающую эволюцию	accelerating evolution	วิวัฒนาการที่เร่งตัวขึ้น	эволюцию нарастающую	evolution accelerating	ADJ
+20	Микроскопический нанобот	A microscopic nanobot	นาโนบอทขนาดจิ๋ว	нанобот микроскопический	nanobot microscopic	ADJ
+21	миллионный конгломерат	conglomerate of a million	กลุ่มก้อนนับล้าน	конгломерат миллионный	conglomerate million	ADJ
+22	углеродных наноботов	carbon nanobot	นาโนบอทคาร์บอน	наноботов углеродных	nanobots carbon	ADJ
+24	несчастных наножизней	wretched nano-lives	ชีวิตจิ๋วที่น่าสงสาร	наножизней несчастных	nano-lives wretched	ADJ
+27	Разумное существо	An intelligent being	สิ่งมีชีวิตที่ฉลาด	существо разумное	being intelligent	ADJ
+28	зловещая тишина	ominous silence	ความเงียบที่น่ากลัว	тишина зловещая	silence ominous	ADJ
+29	искусственный объект	artificial object	วัตถุเทียม	объект искусственный	object artificial	ADJ
+29	дикой скоростью	wild speed	ด้วยความเร็วที่บ้าคลั่ง	скоростью дикой	speed wild	ADJ
+31	третьей планете	third planet	ดาวเคราะห์ดวงที่สาม	планете штука третьей	planet body third	ORD
+31	метеоритных пушек	meteor cannon	ปืนใหญ่อุกกาบาต	пушек метеоритных	cannons meteor	ADJ
+32	мельтешащих пятен	flickering spots	จุดที่กะพริบไปมา	пятен мельтешащих	spots flickering	ADJ
+32	следующую секунду	next second	วินาทีถัดไป	секунду следующую	second next	ADJ
+33	неопознанный объект	unidentified object	วัตถุที่ไม่ทราบชนิด	объект неопознанный	object unidentified	ADJ
+33	Удивительный корабль янтарного цвета	astonishing amber-coloured ship	ยานสีอำพันที่น่าทึ่ง	корабль цвета янтарного удивительный	ship amber-coloured astonishing	ADJ
+33	странную форму	strange shape	รูปร่างแปลกๆ	форму странную	shape strange	ADJ
+34	четным дням	even-numbered days	วันที่เป็นเลขคู่	дням чётным	days even-numbered	ADJ
+34	корабельная пыль	ship’s dust	ฝุ่นของยาน	пыль корабельная	dust ship’s	ADJ
+34	кристаллическую структуру	crystalline structure	โครงสร้างผลึก	структуру кристаллическую	structure crystalline	ADJ
+34	вялые окислительные процессы	sluggish oxidation processes	กระบวนการออกซิเดชันที่เฉื่อยชา	процессы окислительные вялые	processes oxidation sluggish	ADJ
+34	этих устройств	these devices	อุปกรณ์เหล่านี้	устройств этих	devices these	DEM
+34	фантастические догадки	fantastic guesses	การคาดเดาที่เหลือเชื่อ	догадки фантастические	guesses fantastic	ADJ
+34	братская цивилизация	sister civilisation	อารยธรรมพี่น้อง	цивилизация братская	civilisation sister	ADJ
+35	старые экскурсоводы	old guides	ผู้นำชมรุ่นเก่า	экскурсоводы старые	guides old	ADJ
+35	кремниевая тумбочка	silicon nightstand	ตู้ข้างเตียงซิลิกอน	тумбочка кремниевая	nightstand silicon	ADJ
+35	свою форму	its shape	รูปร่างของมัน	форму свою	shape its	POSS
