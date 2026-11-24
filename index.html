@@ -2579,9 +2579,7 @@ let storyOpen = false;
    2  mix of 0 and 1
    3  order: Thai words in correct Thai order; moved phrases are marked, a balloon says what moved and why
    "growth": the share of swaps rises along a parabola from 8 % to 60 % (never more), letters and words alike */
-const ST_KEY = 'tf-story';
-const stS = Object.assign({ mode: '1', grow: false, seed: 1 }, (() => { try { return JSON.parse(store.get(ST_KEY, '{}')) } catch (e) { return {} } })());
-const stSave = () => store.set(ST_KEY, JSON.stringify(stS));
+/*@@ST-A*/
 const stGrowShare = p => Math.min(.6, .08 + .52 * p * p);
 const ST_WORD = /[A-Za-zА-Яа-яЁё]+(?:[-’'][A-Za-zА-Яа-яЁё]+)*/g;
 const ST_RU = { к: 'ก', г: 'ก', х: 'ห', б: 'บ', п: 'ป', в: 'ว', ф: 'ฟ', д: 'ด', т: 'ต', з: 'ซ', с: 'ส', ж: 'ซ', ш: 'ช', щ: 'ช', ч: 'จ', л: 'ล', м: 'ม', н: 'น', р: 'ร', й: 'ย' };
@@ -2595,7 +2593,7 @@ function stThaiFor(ch, i, word, key) {
   return (i === 0 && ST_ASP[c]) || ST_EN[c];
 }
 const stWords = s => (String(s).match(ST_WORD) || []).length;
-let stData = null, stCache = null;
+let stCache = null;
 function stPrepare() {
   const D = stData, key = lang === 'ru' ? 'ru' : 'en';
   if (stCache && stCache.key === key) return stCache;
@@ -2668,6 +2666,11 @@ function stModeBar() {
     </div>`;
 }
 
+/*@@ST-A-END*/
+const ST_KEY = 'tf-story';
+const stS = Object.assign({ mode: '1', grow: false, seed: 1 }, (() => { try { return JSON.parse(store.get(ST_KEY, '{}')) } catch (e) { return {} } })());
+const stSave = () => store.set(ST_KEY, JSON.stringify(stS));
+let stData = null;
 function renderStories() {
   const st = STORIES[0], paras = storyOpen ? st.paras : st.paras.slice(0, 4), trainer = stData && lang in { ru: 1, en: 1 } && T[lang].stM0;
   $('#storyBox').innerHTML = `<article class="rounded-3xl border border-white/10 bg-ink-900 p-6 md:p-10">
@@ -2696,6 +2699,7 @@ if (SITE === 'thai') {
   document.head.append(sc);
 }
 
+/*@@ST-C*/
 /* balloons over swapped letters, words and moved phrases: hover with a mouse, tap on a phone */
 const stTip = document.createElement('div');
 stTip.className = 'fixed z-50 hidden w-72 max-w-[calc(100vw-1.5rem)] rounded-2xl border border-white/15 bg-ink-800 p-4 text-sm text-zinc-300 shadow-2xl shadow-black/60 leading-relaxed';
@@ -2730,6 +2734,7 @@ document.addEventListener('pointerout', e => { if (e.pointerType === 'mouse' && 
 document.addEventListener('click', e => { const el = stTarget(e); if (el) { if (el === stTipFor && e.detail === 0) stTipHide(); else stTipShow(el) } else if (!e.target.closest('#stTip')) stTipHide() }, true);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') stTipHide() });
 addEventListener('scroll', stTipHide, { passive: true });
+/*@@ST-C-END*/
 function renderLearn() {
   $('#lnGrid').innerHTML = LEARN.map(x => `<div class="rounded-2xl border border-white/10 bg-ink-900 p-5">
     <div class="flex items-start justify-between gap-3">
