@@ -2583,20 +2583,40 @@ let storyOpen = false;
    3  order: Thai words in correct Thai order; moved phrases are marked, a balloon says what moved and why
    "growth": the share of swaps rises along a parabola from 8 % to 60 % (never more), letters and words alike */
 /*@@ST-A*/
-const stGrowShare = p => Math.min(.6, .08 + .52 * p * p);
-const ST_WORD = /[A-Za-zА-Яа-яЁё]+(?:[-’'][A-Za-zА-Яа-яЁё]+)*/g;
+/*@@ST-T*/
+/* the target language of the swaps (this block is replaced in EngFast): which letter sounds like a Russian/English letter,
+   what is spoken when it is tapped, and the balloon for it */
 const ST_RU = { к: 'ก', г: 'ก', х: 'ห', б: 'บ', п: 'ป', в: 'ว', ф: 'ฟ', д: 'ด', т: 'ต', з: 'ซ', с: 'ส', ж: 'ซ', ш: 'ช', щ: 'ช', ч: 'จ', л: 'ล', м: 'ม', н: 'น', р: 'ร', й: 'ย' };
 const ST_EN = { b: 'บ', c: 'ก', d: 'ด', f: 'ฟ', g: 'ก', h: 'ห', j: 'จ', k: 'ก', l: 'ล', m: 'ม', n: 'น', p: 'ป', q: 'ก', r: 'ร', s: 'ส', t: 'ต', v: 'ว', w: 'ว', y: 'ย', z: 'ซ' };
 const ST_RUV = { а: 'อา', о: 'โอ', у: 'อู', э: 'เอ', е: 'เอ', и: 'อี', ы: 'อือ' };   // vowels: the independent forms the school names (สระอา ...)
 const ST_ENV = { a: 'อา', e: 'เอ', i: 'อิ', o: 'โอ', u: 'อู' };
 const ST_ASP = { p: 'พ', t: 'ท', k: 'ค', c: 'ค' };   // an English p, t, k at the start of a word carries a puff of air: the aspirated Thai letters
-const stRng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let x = Math.imul(seed ^ seed >>> 15, 1 | seed); x = x + Math.imul(x ^ x >>> 7, 61 | x) ^ x; return ((x ^ x >>> 14) >>> 0) / 4294967296 };
-function stThaiFor(ch, i, word, key) {
+function stLetterFor(ch, i, word, key) {
   const c = ch.toLowerCase();
   if (key === 'ru') return ST_RU[c] || ST_RUV[c];
   if (c === 'c' && /[eiy]/.test(word[i + 1] || '')) return 'ส';
   return (i === 0 && ST_ASP[c]) || ST_EN[c] || ST_ENV[c];
 }
+const stClsName = { m: ['средний класс', 'mid class'], h: ['высокий класс', 'high class'], l: ['низкий класс', 'low class'] };
+const ST_FONT = 'font-thai';
+const stLetterSay = tc => { const cc = CONS.find(c => c.ch === tc); return cc ? tc + ' ' + cc.word : tc };
+function stLetterTip(el, ru, row) {
+    const c = CONS.find(x => x.ch === el.dataset.ch);
+    if (!c) {                                            // a vowel: its school name and sound
+      const v = VOWELS.find(x => x[0] === el.dataset.ch);
+      return `<p class="font-thai text-4xl text-white leading-none">${v[0]}</p><p class="mt-1 font-mono text-accent">sà-rà ${v[1]}</p>
+        <p class="text-xs text-zinc-400">${v[ru ? 2 : 3]}</p>${row('stTipVow', t('stTipVowD'))}${row('stTipRep', `«${stEsc(el.dataset.o)}» → ${v[0]}`)}`;
+    }
+    return `<p class="font-thai text-4xl text-white leading-none">${c.ch} <span class="text-lg text-zinc-300">${c.word}</span></p>
+      <p class="mt-1 font-mono text-accent">${c.name}</p><p class="text-xs text-zinc-400">${ru ? c.ru : c.en}</p>
+      ${row('stTipIni', `${INI[c.ini]?.[ru ? 0 : 1] || '—'}`)}${row('stTipFin', `${FIN[c.fin]?.[ru ? 0 : 1] || '—'}`)}
+      ${row('stTipCls', (stClsName[c.cls] || ['', ''])[ru ? 0 : 1])}${row('stTipRep', `«${stEsc(el.dataset.o)}» → ${c.ch}`)}`;
+}
+/*@@ST-T-END*/
+const stEsc = v => String(v).replace(/[&<>"]/g, c => `&#${c.charCodeAt(0)};`);   // own copy: EngFast's page does not carry the helper of the same name
+const stGrowShare = p => Math.min(.6, .08 + .52 * p * p);
+const ST_WORD = /[A-Za-zА-Яа-яЁё]+(?:[-’'][A-Za-zА-Яа-яЁё]+)*/g;
+const stRng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let x = Math.imul(seed ^ seed >>> 15, 1 | seed); x = x + Math.imul(x ^ x >>> 7, 61 | x) ^ x; return ((x ^ x >>> 14) >>> 0) / 4294967296 };
 const stWords = s => (String(s).match(ST_WORD) || []).length;
 let stCache = null;
 function stPrepare() {
@@ -2608,7 +2628,6 @@ function stPrepare() {
   D.p.forEach(p => p[key].forEach(s => { if (typeof s !== 'string') repl += stWords(s[0]) }));
   return stCache = { key, total, start, cov: repl / total };
 }
-const stClsName = { m: ['средний класс', 'mid class'], h: ['высокий класс', 'high class'], l: ['низкий класс', 'low class'] };
 
 // one paragraph as HTML for the current mode
 function stPara(pi) {
@@ -2617,14 +2636,14 @@ function stPara(pi) {
   let wi = C.start[pi], html = '';
   const share = () => stGrowShare(wi / C.total);
   const letters = m === '0' || m === '2';
-  const wordHTML = (th, ro, orig) => `<span class="st-w font-thai" data-say="${esc(th)}" data-th="${esc(th)}" data-ro="${esc(ro)}" data-o="${esc(orig)}" tabindex="0">${esc(th)}</span>`;
+  const wordHTML = (th, ro, orig) => `<span class="st-w font-thai" data-say="${stEsc(th)}" data-th="${stEsc(th)}" data-ro="${stEsc(ro)}" data-o="${stEsc(orig)}" tabindex="0">${stEsc(th)}</span>`;
   // plain text; in the letter modes some letters of some words become Thai letters
   const plain = txt => {
-    if (!letters) { wi += stWords(txt); return esc(txt) }
+    if (!letters) { wi += stWords(txt); return stEsc(txt) }
     let out = '', last = 0;
     txt.replace(ST_WORD, (w, at) => {
-      out += esc(txt.slice(last, at)); last = at + w.length;
-      const ok = [...w].map((ch, i) => stThaiFor(ch, i, w.toLowerCase(), key) ? i : -1).filter(i => i >= 0);
+      out += stEsc(txt.slice(last, at)); last = at + w.length;
+      const ok = [...w].map((ch, i) => stLetterFor(ch, i, w.toLowerCase(), key) ? i : -1).filter(i => i >= 0);
       let k = 0;
       if (ok.length >= 2) {
         if (grow) { const e = (m === '2' ? .5 : 1) * share() * ok.length; k = Math.floor(e) + (r() < e - Math.floor(e) ? 1 : 0) }
@@ -2632,27 +2651,27 @@ function stPara(pi) {
       }
       const pick = new Set(); while (pick.size < Math.min(k, ok.length)) pick.add(ok[Math.floor(r() * ok.length)]);
       [...w].forEach((ch, i) => {
-        if (!pick.has(i)) { out += esc(ch); return }
-        const th = stThaiFor(ch, i, w.toLowerCase(), key), cc = CONS.find(c => c.ch === th);
-        out += `<span class="st-l font-thai" data-ch="${th}" data-o="${esc(ch)}" data-say="${cc ? th + ' ' + cc.word : th}" tabindex="0">${th}</span>`;
+        if (!pick.has(i)) { out += stEsc(ch); return }
+        const th = stLetterFor(ch, i, w.toLowerCase(), key);
+        out += `<span class="st-l ${ST_FONT}" data-ch="${th}" data-o="${stEsc(ch)}" data-say="${stEsc(stLetterSay(th))}" tabindex="0">${th}</span>`;
       });
       wi++;
     });
-    return out + esc(txt.slice(last));
+    return out + stEsc(txt.slice(last));
   };
   for (const s of segs) {
     if (typeof s === 'string') { html += plain(s); continue; }
     const [surface, id, kind] = s;
     if (kind === 2) {                                    // a moved phrase (mode 3)
       const e = D.ev[id];
-      html += `<span class="st-sw font-thai" data-ev="${id}" data-say="${esc(e.th)}" tabindex="0">${esc(e.th)}</span>`; wi += stWords(surface); continue;
+      html += `<span class="st-sw font-thai" data-ev="${id}" data-say="${stEsc(e.th)}" tabindex="0">${stEsc(e.th)}</span>`; wi += stWords(surface); continue;
     }
     const [th, ro] = D.lex[id];
     const use = m === 't' || m === '0' ? false
       : m === '3' ? kind === 1 || r() < .45
       : grow ? r() < Math.min(1, share() / C.cov) : kind === 1;
     if (!use) html += plain(surface);
-    else if (!grow && kind === 1 && m !== '3') { html += `<span class="st-th font-thai" data-say="${esc(th)}">${esc(th)}</span> <span class="text-zinc-500">(${esc(ro)}, ${esc(surface)})</span>`; wi += stWords(surface) }
+    else if (!grow && kind === 1 && m !== '3') { html += `<span class="st-th font-thai" data-say="${stEsc(th)}">${stEsc(th)}</span> <span class="text-zinc-500">(${stEsc(ro)}, ${stEsc(surface)})</span>`; wi += stWords(surface) }
     else { html += wordHTML(th, ro, surface); wi += stWords(surface) }
   }
   return html;
@@ -2699,8 +2718,8 @@ $('#storyBox').addEventListener('click', e => {
   else if (e.target.closest('#stPlain')) set('plain', !stS.plain);
   else if (e.target.closest('#stSeed')) set('seed', stS.seed + 1);
 });
-// the Thai data of the trainer is loaded after the first paint (200 KB); the Thai site only
-if (SITE === 'thai') {
+// the data of the trainer is loaded after the first paint (200 KB); ThaiFast and EngFast only, each with its own story-data.js
+if (SITE === 'thai' || SITE === 'eng') {
   const sc = document.createElement('script'); sc.src = 'story-data.js';
   sc.onload = () => { stData = STORY_DATA; renderStories(); icons() };
   document.head.append(sc);
@@ -2715,23 +2734,14 @@ let stTipFor = null, stTipTimer;
 function stTipHTML(el) {
   const D = stData, ru = lang === 'ru', row = (k, v) => `<p class="mt-2"><span class="text-xs uppercase tracking-wider text-zinc-500">${t(k)}</span><br>${v}</p>`;
   if (el.classList.contains('st-l')) {
-    const c = CONS.find(x => x.ch === el.dataset.ch);
-    if (!c) {                                            // a vowel: its school name and sound
-      const v = VOWELS.find(x => x[0] === el.dataset.ch);
-      return `<p class="font-thai text-4xl text-white leading-none">${v[0]}</p><p class="mt-1 font-mono text-accent">sà-rà ${v[1]}</p>
-        <p class="text-xs text-zinc-400">${v[ru ? 2 : 3]}</p>${row('stTipVow', t('stTipVowD'))}${row('stTipRep', `«${esc(el.dataset.o)}» → ${v[0]}`)}`;
-    }
-    return `<p class="font-thai text-4xl text-white leading-none">${c.ch} <span class="text-lg text-zinc-300">${c.word}</span></p>
-      <p class="mt-1 font-mono text-accent">${c.name}</p><p class="text-xs text-zinc-400">${ru ? c.ru : c.en}</p>
-      ${row('stTipIni', `${INI[c.ini]?.[ru ? 0 : 1] || '—'}`)}${row('stTipFin', `${FIN[c.fin]?.[ru ? 0 : 1] || '—'}`)}
-      ${row('stTipCls', (stClsName[c.cls] || ['', ''])[ru ? 0 : 1])}${row('stTipRep', `«${esc(el.dataset.o)}» → ${c.ch}`)}`;
+    return stLetterTip(el, ru, row);
   }
   if (el.classList.contains('st-sw')) {
     const e = D.ev[el.dataset.ev];
-    return `<p class="font-thai text-2xl text-white">${esc(e.th)}</p><p class="mt-1 font-mono text-accent">${esc(e.rom)}</p>
-      ${row('stTipOrig', `«${esc(e.sp)}»`)}${row('stTipLit', esc(e.lit[ru ? 0 : 1]))}${row('stTipWhy', esc(e.why[ru ? 0 : 1]))}`;
+    return `<p class="font-thai text-2xl text-white">${stEsc(e.th)}</p><p class="mt-1 font-mono text-accent">${stEsc(e.rom)}</p>
+      ${row('stTipOrig', `«${stEsc(e.sp)}»`)}${row('stTipLit', stEsc(e.lit[ru ? 0 : 1]))}${row('stTipWhy', stEsc(e.why[ru ? 0 : 1]))}`;
   }
-  return `<p class="font-thai text-2xl text-white">${esc(el.dataset.th)}</p><p class="mt-1 font-mono text-accent">${esc(el.dataset.ro)}</p>${row('stTipFrom', `«${esc(el.dataset.o)}»`)}`;
+  return `<p class="font-thai text-2xl text-white">${stEsc(el.dataset.th)}</p><p class="mt-1 font-mono text-accent">${stEsc(el.dataset.ro)}</p>${row('stTipFrom', `«${stEsc(el.dataset.o)}»`)}`;
 }
 function stTipShow(el) {
   clearTimeout(stTipTimer); stTipFor = el; stTip.innerHTML = stTipHTML(el); stTip.classList.remove('hidden');

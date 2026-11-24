@@ -53,7 +53,7 @@ tools/
 Пересборка данных (после правки `lexicon.tsv` / `events.tsv` / текста рассказа в index.html):
 `python3 tools/story/extract.py` и затем `tools/story/build.py` (команда — в его докстринге; нужны tltk, pymorphy3, lemminflect), потом озвучка новых слов (шаг 2 выше).
 Транскрипция с тонами считается из тайского (`roman.py`, по tltk), руками её писать не нужно; слово можно переопределить 4-м столбцом lexicon.tsv.
-EngFast/SumerFast загружают страницу без `story-data.js` и показывают рассказ как раньше.
+Движок общий: целевой язык (какие буквы, баллун буквы) лежит в блоке `/*@@ST-T*/`, который EngFast подменяет английским (`EngFast/tools/story/target.js`); у EngFast свои `lexicon.tsv`, `events.tsv`, `story-data.js` (русский текст → английские слова). SumerFast рассказ не использует.
 
 ## Контент
 
